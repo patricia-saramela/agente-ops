@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Design System — base de conhecimento</title>
+<meta name="description" content="Índice da base de conhecimento do Design System: componentes e props, Figma × código e dúvidas do suporte.">
+</head>
+<body>
+<h1>Design System — base de conhecimento</h1>
+<p>Base de conhecimento do Design System da empresa, organizada em três páginas.</p>
+<ul>
+<li><a href="ds-componentes-props.html">Design System — componentes e props</a>: Props, tipos, valores padrão, comportamento e exemplos de cada componente.</li>
+<li><a href="ds-figma-x-codigo.html">Design System — Figma × código</a>: Comparação entre as bibliotecas Desktop e Mobile do Figma e o código, com pontos de atenção no handoff.</li>
+<li><a href="ds-duvidas-suporte.html">Design System — dúvidas do suporte</a>: Guias, processos e dúvidas de uso respondidas pelo time de System Ops.</li>
+</ul>
+<h2><a href="ds-componentes-props.html">Design System — componentes e props</a></h2>
+<ul>
+<li><a href="ds-componentes-props.html#como-usar-esta-base-instruções-para-o-agente">Como usar esta base (instruções para o agente)</a>
+</li>
+<li><a href="ds-componentes-props.html#legenda-das-propriedades">Legenda das propriedades</a>
+</li>
+<li><a href="ds-componentes-props.html#legenda-de-origem">Legenda de origem</a>
+</li>
+<li><a href="ds-componentes-props.html#tamanhos-de-tela">Tamanhos de tela</a>
+</li>
+<li><a href="ds-componentes-props.html#índice-de-famílias-e-componentes">Índice de famílias e componentes</a>
+</li>
+<li><a href="ds-componentes-props.html#componentes_1">Componentes</a>
+<ul>
+<li><a href="ds-componentes-props.html#accordionitem-boxedaccordionitem">AccordionItem / BoxedAccordionItem</a>
+</li>
+<li><a href="ds-componentes-props.html#accordion-boxedaccordion">Accordion / BoxedAccordion</a>
+</li>
+<li><a href="ds-componentes-props.html#avatar">Avatar</a>
+</li>
+<li><a href="ds-componentes-props.html#badge">Badge</a>
+</li>
+<li><a href="ds-componentes-props.html#navigationbreadcrumbs">NavigationBreadcrumbs</a>
+</li>
+<li><a href="ds-componentes-props.html#buttonlink">ButtonLink</a>
+</li>
+<li><a href="ds-componentes-props.html#buttonprimary-buttonsecondary-buttondanger">ButtonPrimary / ButtonSecondary / ButtonDanger</a>
+</li>
+<li><a href="ds-componentes-props.html#iconbutton">IconButton</a>
+</li>
+<li><a href="ds-componentes-props.html#toggleiconbutton">ToggleIconButton</a>
+</li>
+<li><a href="ds-componentes-props.html#buttonfixedfooterlayout">ButtonFixedFooterLayout</a>
+</li>
+<li><a href="ds-componentes-props.html#buttongroup">ButtonGroup</a>
+</li>
+<li><a href="ds-componentes-props.html#buttonlayout">ButtonLayout</a>
+</li>
+<li><a href="ds-componentes-props.html#fixedfooterlayout">FixedFooterLayout</a>
+</li>
+<li><a href="ds-componentes-props.html#callout">Callout</a>
+</li>
+<li><a href="ds-componentes-props.html#card-actions">Card actions</a>
+</li>
+<li><a href="ds-componentes-props.html#card-covercard-datacard-mediacard-nakedcard">Card (CoverCard / DataCard / MediaCard / NakedCard)</a>
+</li>
+<li><a href="ds-componentes-props.html#covercard">CoverCard</a>
+</li>
+<li><a href="ds-componentes-props.html#datacard">DataCard</a>
+</li>
+<li><a href="ds-componentes-props.html#mediacard">MediaCard</a>
+</li>
+<li><a href="ds-componentes-props.html#nakedcard">NakedCard</a>
+</li>
+<li><a href="ds-componentes-props.html#controles-do-carousel-pagebullets-carouselpagecontrols-carouselautoplaycontrol-carouselcontextprovider">Controles do Carousel (PageBullets / CarouselPageControls / CarouselAutoplayControl / CarouselContextProvider)</a>
+</li>
+<li><a href="ds-componentes-props.html#carousel">Carousel</a>
+</li>
+<li><a href="ds-componentes-props.html#centeredcarousel">CenteredCarousel</a>
+</li>
+<li><a href="ds-componentes-props.html#slideshow">Slideshow</a>
+</li>
+<li><a href="ds-componentes-props.html#checkbox">Checkbox</a>
+</li>
+<li><a href="ds-componentes-props.html#chip">Chip</a>
+</li>
+<li><a href="ds-componentes-props.html#counter">Counter</a>
+</li>
+<li><a href="ds-componentes-props.html#divider">Divider</a>
+</li>
+<li><a href="ds-componentes-props.html#drawer">Drawer</a>
+</li>
+<li><a href="ds-componentes-props.html#header-headerlayout">Header / HeaderLayout</a>
+</li>
+<li><a href="ds-componentes-props.html#mainsectionheader-mainsectionheaderlayout">MainSectionHeader / MainSectionHeaderLayout</a>
+</li>
+<li><a href="ds-componentes-props.html#coverhero">CoverHero</a>
+</li>
+<li><a href="ds-componentes-props.html#hero">Hero</a>
+</li>
+<li><a href="ds-componentes-props.html#rowlist-boxedrowlist">RowList / BoxedRowList</a>
+</li>
+<li><a href="ds-componentes-props.html#row-boxedrow">Row / BoxedRow</a>
+</li>
+<li><a href="ds-componentes-props.html#unorderedlist-orderedlist-listitem">UnorderedList / OrderedList / ListItem</a>
+</li>
+<li><a href="ds-componentes-props.html#loadingbar">LoadingBar</a>
+</li>
+<li><a href="ds-componentes-props.html#logo-logos-por-marca">Logo / logos por marca</a>
+</li>
+<li><a href="ds-componentes-props.html#menu-menuitem-menusection">Menu / MenuItem / MenuSection</a>
+</li>
+<li><a href="ds-componentes-props.html#data-visualizations-meter">Data Visualizations (Meter)</a>
+</li>
+<li><a href="ds-componentes-props.html#alert">Alert</a>
+</li>
+<li><a href="ds-componentes-props.html#confirm">Confirm</a>
+</li>
+<li><a href="ds-componentes-props.html#dialog">Dialog</a>
+</li>
+<li><a href="ds-componentes-props.html#horizontalmosaic">HorizontalMosaic</a>
+</li>
+<li><a href="ds-componentes-props.html#verticalmosaic">VerticalMosaic</a>
+</li>
+<li><a href="ds-componentes-props.html#funnelnavigationbar">FunnelNavigationBar</a>
+</li>
+<li><a href="ds-componentes-props.html#mainnavigationbar">MainNavigationBar</a>
+</li>
+<li><a href="ds-componentes-props.html#navigationbar">NavigationBar</a>
+</li>
+<li><a href="ds-componentes-props.html#pagination">Pagination</a>
+</li>
+<li><a href="ds-componentes-props.html#popover">Popover</a>
+</li>
+<li><a href="ds-componentes-props.html#progressbarstepped">ProgressBarStepped</a>
+</li>
+<li><a href="ds-componentes-props.html#progressbar">ProgressBar</a>
+</li>
+<li><a href="ds-componentes-props.html#radiobutton-radiogroup">RadioButton / RadioGroup</a>
+</li>
+<li><a href="ds-componentes-props.html#inforating">InfoRating</a>
+</li>
+<li><a href="ds-componentes-props.html#rating">Rating</a>
+</li>
+<li><a href="ds-componentes-props.html#select">Select</a>
+</li>
+<li><a href="ds-componentes-props.html#sheet-action-list-actions_list">Sheet: Action list (ACTIONS_LIST)</a>
+</li>
+<li><a href="ds-componentes-props.html#sheet-actions-actions">Sheet: Actions (ACTIONS)</a>
+</li>
+<li><a href="ds-componentes-props.html#sheet-informative-info">Sheet: Informative (INFO)</a>
+</li>
+<li><a href="ds-componentes-props.html#sheet-single-selection-radio_list">Sheet: Single selection (RADIO_LIST)</a>
+</li>
+<li><a href="ds-componentes-props.html#sheet-sheetbody-sheetroot-slot-only-web">Sheet / SheetBody / SheetRoot: Slot (Only web)</a>
+</li>
+<li><a href="ds-componentes-props.html#sidenavbar">SidenavBar</a>
+</li>
+<li><a href="ds-componentes-props.html#sidenavlayout">SidenavLayout</a>
+</li>
+<li><a href="ds-componentes-props.html#skeletonline-skeletontext-skeletoncircle-skeletonrow-skeletonrectangle">SkeletonLine / SkeletonText / SkeletonCircle / SkeletonRow / SkeletonRectangle</a>
+</li>
+<li><a href="ds-componentes-props.html#skiplink-skiplinknav">SkipLink / SkipLinkNav</a>
+</li>
+<li><a href="ds-componentes-props.html#slider">Slider</a>
+</li>
+<li><a href="ds-componentes-props.html#snackbar-usesnackbar">Snackbar / useSnackbar</a>
+</li>
+<li><a href="ds-componentes-props.html#spinner">Spinner</a>
+</li>
+<li><a href="ds-componentes-props.html#stackinggroup">StackingGroup</a>
+</li>
+<li><a href="ds-componentes-props.html#stepper">Stepper</a>
+</li>
+<li><a href="ds-componentes-props.html#switch">Switch</a>
+</li>
+<li><a href="ds-componentes-props.html#table">Table</a>
+</li>
+<li><a href="ds-componentes-props.html#tabs">Tabs</a>
+</li>
+<li><a href="ds-componentes-props.html#tag">Tag</a>
+</li>
+<li><a href="ds-componentes-props.html#text1-text2-text3-text4-text5-text6-text7-text8-text9-text10">Text1 / Text2 / Text3 / Text4 / Text5 / Text6 / Text7 / Text8 / Text9 / Text10</a>
+</li>
+<li><a href="ds-componentes-props.html#text">Text</a>
+</li>
+<li><a href="ds-componentes-props.html#textlink">TextLink</a>
+</li>
+<li><a href="ds-componentes-props.html#timelineitem">TimelineItem</a>
+</li>
+<li><a href="ds-componentes-props.html#timeline">Timeline</a>
+</li>
+<li><a href="ds-componentes-props.html#texttimer">TextTimer</a>
+</li>
+<li><a href="ds-componentes-props.html#timer">Timer</a>
+</li>
+<li><a href="ds-componentes-props.html#title1-title2-title3-title4">Title1 / Title2 / Title3 / Title4</a>
+</li>
+<li><a href="ds-componentes-props.html#tooltip">Tooltip</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-componentes-props.html#campos-de-formulário_1">Campos de formulário</a>
+<ul>
+<li><a href="ds-componentes-props.html#autocomplete">Autocomplete</a>
+</li>
+<li><a href="ds-componentes-props.html#creditcardexpirationfield">CreditCardExpirationField</a>
+</li>
+<li><a href="ds-componentes-props.html#creditcardfields">CreditCardFields</a>
+</li>
+<li><a href="ds-componentes-props.html#creditcardnumberfield">CreditCardNumberField</a>
+</li>
+<li><a href="ds-componentes-props.html#cvvfield">CvvField</a>
+</li>
+<li><a href="ds-componentes-props.html#datefield">DateField</a>
+</li>
+<li><a href="ds-componentes-props.html#datetimefield">DateTimeField</a>
+</li>
+<li><a href="ds-componentes-props.html#monthfield">MonthField</a>
+</li>
+<li><a href="ds-componentes-props.html#timefield">TimeField</a>
+</li>
+<li><a href="ds-componentes-props.html#decimalfield">DecimalField</a>
+</li>
+<li><a href="ds-componentes-props.html#emailfield">EmailField</a>
+</li>
+<li><a href="ds-componentes-props.html#fileitem">FileItem</a>
+</li>
+<li><a href="ds-componentes-props.html#fileupload">FileUpload</a>
+</li>
+<li><a href="ds-componentes-props.html#ibanfield">IbanField</a>
+</li>
+<li><a href="ds-componentes-props.html#integerfield">IntegerField</a>
+</li>
+<li><a href="ds-componentes-props.html#passwordfield">PasswordField</a>
+</li>
+<li><a href="ds-componentes-props.html#phonenumberfieldlite-formatphonelite">PhoneNumberFieldLite / formatPhoneLite</a>
+</li>
+<li><a href="ds-componentes-props.html#phonenumberfield">PhoneNumberField</a>
+</li>
+<li><a href="ds-componentes-props.html#pinfield">PinField</a>
+</li>
+<li><a href="ds-componentes-props.html#searchfield">SearchField</a>
+</li>
+<li><a href="ds-componentes-props.html#textfieldbase">TextFieldBase</a>
+</li>
+<li><a href="ds-componentes-props.html#textfield">TextField</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-componentes-props.html#primitivos_1">Primitivos</a>
+<ul>
+<li><a href="ds-componentes-props.html#circle">Circle</a>
+</li>
+<li><a href="ds-componentes-props.html#image">Image</a>
+</li>
+<li><a href="ds-componentes-props.html#placeholder">Placeholder</a>
+</li>
+<li><a href="ds-componentes-props.html#square">Square</a>
+</li>
+<li><a href="ds-componentes-props.html#touchable">Touchable</a>
+</li>
+<li><a href="ds-componentes-props.html#video">Video</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-componentes-props.html#layout_1">Layout</a>
+<ul>
+<li><a href="ds-componentes-props.html#align">Align</a>
+</li>
+<li><a href="ds-componentes-props.html#doublefield">DoubleField</a>
+</li>
+<li><a href="ds-componentes-props.html#gridlayout">GridLayout</a>
+</li>
+<li><a href="ds-componentes-props.html#grid-griditem">Grid / GridItem</a>
+</li>
+<li><a href="ds-componentes-props.html#horizontalscroll">HorizontalScroll</a>
+</li>
+<li><a href="ds-componentes-props.html#inline">Inline</a>
+</li>
+<li><a href="ds-componentes-props.html#masterdetaillayout">MasterDetailLayout</a>
+</li>
+<li><a href="ds-componentes-props.html#negativebox">NegativeBox</a>
+</li>
+<li><a href="ds-componentes-props.html#responsivelayout">ResponsiveLayout</a>
+</li>
+<li><a href="ds-componentes-props.html#stack">Stack</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-componentes-props.html#customização_1">Customização</a>
+<ul>
+<li><a href="ds-componentes-props.html#box">Box</a>
+</li>
+<li><a href="ds-componentes-props.html#boxed">Boxed</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-componentes-props.html#padrões_1">Padrões</a>
+<ul>
+<li><a href="ds-componentes-props.html#emptystate">EmptyState</a>
+</li>
+<li><a href="ds-componentes-props.html#emptystatecard">EmptyStateCard</a>
+</li>
+<li><a href="ds-componentes-props.html#feedback-feedbackscreen-successfeedbackscreen-errorfeedbackscreen-infofeedbackscreen-successfeedback">Feedback (FeedbackScreen / SuccessFeedbackScreen / ErrorFeedbackScreen / InfoFeedbackScreen / SuccessFeedback)</a>
+</li>
+<li><a href="ds-componentes-props.html#useform-usefieldprops">useForm / useFieldProps</a>
+</li>
+<li><a href="ds-componentes-props.html#form">Form</a>
+</li>
+<li><a href="ds-componentes-props.html#brandloadingscreen">BrandLoadingScreen</a>
+</li>
+<li><a href="ds-componentes-props.html#loadingscreen">LoadingScreen</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-componentes-props.html#utilitários_1">Utilitários</a>
+<ul>
+<li><a href="ds-componentes-props.html#fadein">FadeIn</a>
+</li>
+<li><a href="ds-componentes-props.html#fadeout">FadeOut</a>
+</li>
+<li><a href="ds-componentes-props.html#fixedtotop-topdistancecontext">FixedToTop / TopDistanceContext</a>
+</li>
+<li><a href="ds-componentes-props.html#focustrap">FocusTrap</a>
+</li>
+<li><a href="ds-componentes-props.html#overlay">Overlay</a>
+</li>
+<li><a href="ds-componentes-props.html#overscrollcolorprovider-usesetoverscrollcolor">OverscrollColorProvider / useSetOverscrollColor</a>
+</li>
+<li><a href="ds-componentes-props.html#portal">Portal</a>
+</li>
+<li><a href="ds-componentes-props.html#screenreaderonly">ScreenReaderOnly</a>
+</li>
+<li><a href="ds-componentes-props.html#themecontextprovider">ThemeContextProvider</a>
+</li>
+<li><a href="ds-componentes-props.html#themevariant-usethemevariant">ThemeVariant / useThemeVariant</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-componentes-props.html#comunidade-community">Comunidade (Community)</a>
+<ul>
+<li><a href="ds-componentes-props.html#communityadvanceddatacard">CommunityAdvancedDataCard</a>
+</li>
+<li><a href="ds-componentes-props.html#communityaicard">CommunityAiCard</a>
+</li>
+<li><a href="ds-componentes-props.html#communityblocks">CommunityBlocks</a>
+</li>
+</ul>
+</li>
+</ul>
+<h2><a href="ds-figma-x-codigo.html">Design System — Figma × código</a></h2>
+<ul>
+<li><a href="ds-figma-x-codigo.html#como-usar-esta-base-instruções-para-o-agente">Como usar esta base (instruções para o agente)</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#como-o-score-é-calculado">Como o score é calculado</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#code-connect">Code Connect</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#resumo-de-todos-os-componentes">Resumo de todos os componentes</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#componentes">Componentes</a>
+<ul>
+<li><a href="ds-figma-x-codigo.html#accordion-figma-código">Accordion: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#avatar-figma-código">Avatar: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#badge-figma-código">Badge: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#breadcrumbs-figma-código">Breadcrumbs: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#buttonlink-figma-código">ButtonLink: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#button-figma-código">Button: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#iconbutton-figma-código">IconButton: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#toggleiconbutton-figma-código">ToggleIconButton: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#buttonfixedfooterlayout-figma-código">ButtonFixedFooterLayout: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#buttongroup-figma-código">ButtonGroup: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#buttonlayout-figma-código">ButtonLayout: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#fixedfooterlayout-figma-código">FixedFooterLayout: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#callout-figma-código">Callout: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#covercard-figma-código">CoverCard: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#datacard-figma-código">DataCard: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#mediacard-figma-código">MediaCard: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#nakedcard-figma-código">NakedCard: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#carousel-figma-código">Carousel: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#centeredcarousel-figma-código">CenteredCarousel: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#slideshow-figma-código">Slideshow: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#checkbox-figma-código">Checkbox: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#chip-figma-código">Chip: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#counter-figma-código">Counter: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#divider-figma-código">Divider: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#drawer-figma-código">Drawer: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#header-figma-código">Header: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#mainsectionheader-figma-código">MainSectionHeader: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#coverhero-figma-código">CoverHero: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#hero-figma-código">Hero: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#row-figma-código">Row: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#unorderedlist-orderedlist-figma-código">UnorderedList / OrderedList: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#loadingbar-figma-código">LoadingBar: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#logo-figma-código">Logo: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#menu-figma-código">Menu: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#data-visualizations-meter-figma-código">Data Visualizations (Meter): Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#alert-figma-código">Alert: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#confirm-figma-código">Confirm: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#dialog-figma-código">Dialog: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#mosaic-figma-código">Mosaic: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#funnelnavigationbar-figma-código">FunnelNavigationBar: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#mainnavigationbar-figma-código">MainNavigationBar: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#navigationbar-figma-código">NavigationBar: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#pagination-figma-código">Pagination: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#popover-figma-código">Popover: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#progressbarstepped-figma-código">ProgressBarStepped: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#progressbar-figma-código">ProgressBar: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#radiobutton-figma-código">RadioButton: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#inforating-figma-código">InfoRating: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#rating-figma-código">Rating: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#select-figma-código">Select: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#sheet-figma-código">Sheet: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#sidenavbar-figma-código">SidenavBar: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#skeletons-figma-código">Skeletons: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#skiplink-figma-código">SkipLink: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#slider-figma-código">Slider: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#snackbar-figma-código">Snackbar: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#spinner-figma-código">Spinner: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#stackinggroup-figma-código">StackingGroup: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#stepper-figma-código">Stepper: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#switch-figma-código">Switch: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#table-figma-código">Table: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#tabs-figma-código">Tabs: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#tag-figma-código">Tag: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#text-figma-código">Text: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#textlink-figma-código">TextLink: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#timeline-figma-código">Timeline: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#texttimer-figma-código">TextTimer: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#timer-figma-código">Timer: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#title-figma-código">Title: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#tooltip-figma-código">Tooltip: Figma × código</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-figma-x-codigo.html#campos-de-formulário">Campos de formulário</a>
+<ul>
+<li><a href="ds-figma-x-codigo.html#autocomplete-figma-código">Autocomplete: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#creditcardexpirationfield-figma-código">CreditCardExpirationField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#creditcardfields-figma-código">CreditCardFields: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#creditcardnumberfield-figma-código">CreditCardNumberField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#cvvfield-figma-código">CvvField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#datefield-figma-código">DateField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#datetimefield-figma-código">DateTimeField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#monthfield-figma-código">MonthField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#timefield-figma-código">TimeField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#decimalfield-figma-código">DecimalField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#emailfield-figma-código">EmailField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#fileitem-figma-código">FileItem: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#fileupload-figma-código">FileUpload: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#ibanfield-figma-código">IbanField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#integerfield-figma-código">IntegerField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#passwordfield-figma-código">PasswordField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#phonenumberfield-figma-código">PhoneNumberField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#pinfield-figma-código">PinField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#searchfield-figma-código">SearchField: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#textfield-figma-código">TextField: Figma × código</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-figma-x-codigo.html#primitivos">Primitivos</a>
+<ul>
+<li><a href="ds-figma-x-codigo.html#circle-figma-código">Circle: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#image-figma-código">Image: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#square-figma-código">Square: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#video-figma-código">Video: Figma × código</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-figma-x-codigo.html#layout">Layout</a>
+<ul>
+<li><a href="ds-figma-x-codigo.html#doublefield-figma-código">DoubleField: Figma × código</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-figma-x-codigo.html#customização">Customização</a>
+<ul>
+<li><a href="ds-figma-x-codigo.html#boxed-figma-código">Boxed: Figma × código</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-figma-x-codigo.html#padrões">Padrões</a>
+<ul>
+<li><a href="ds-figma-x-codigo.html#emptystate-figma-código">EmptyState: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#emptystatecard-figma-código">EmptyStateCard: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#feedback-figma-código">Feedback: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#brandloadingscreen-figma-código">BrandLoadingScreen: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#loadingscreen-figma-código">LoadingScreen: Figma × código</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-figma-x-codigo.html#comunidade-community">Comunidade (Community)</a>
+<ul>
+<li><a href="ds-figma-x-codigo.html#communityadvanceddatacard-figma-código">CommunityAdvancedDataCard: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#communityaicard-figma-código">CommunityAiCard: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#communityhighlightedvalueblock-figma-código">CommunityHighlightedValueBlock: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#communityinformationblock-figma-código">CommunityInformationBlock: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#communityprogressblock-figma-código">CommunityProgressBlock: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#communityrowblock-figma-código">CommunityRowBlock: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#communitysimpleblock-figma-código">CommunitySimpleBlock: Figma × código</a>
+</li>
+<li><a href="ds-figma-x-codigo.html#communityvalueblock-figma-código">CommunityValueBlock: Figma × código</a>
+</li>
+</ul>
+</li>
+</ul>
+<h2><a href="ds-duvidas-suporte.html">Design System — dúvidas do suporte</a></h2>
+<ul>
+<li><a href="ds-duvidas-suporte.html#como-usar-esta-base-instruções-para-o-agente">Como usar esta base (instruções para o agente)</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#princípios-que-se-repetem-nas-respostas">Princípios que se repetem nas respostas</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#guias-e-processos">Guias e processos</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#dúvidas-por-tema">Dúvidas por tema</a>
+<ul>
+<li><a href="ds-duvidas-suporte.html#regras-gerais-de-uso">Regras gerais de uso</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#processo-de-evolução-de-componentes">Processo de evolução de componentes</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#validação-de-jornadas">Validação de jornadas</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#canal-de-suporte">Canal de suporte</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#bibliotecas-e-arquivos">Bibliotecas e arquivos</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#layout-e-grid">Layout e grid</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#tipografia">Tipografia</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#tokens-e-cores">Tokens e cores</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#ícones-e-ilustrações">Ícones e ilustrações</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#acessibilidade">Acessibilidade</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#componentes">Componentes</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#input-fields">Input fields</a>
+</li>
+<li><a href="ds-duvidas-suporte.html#patterns">Patterns</a>
+</li>
+</ul>
+</li>
+<li><a href="ds-duvidas-suporte.html#bugs-e-pendências-registrados-sem-conclusão">Bugs e pendências registrados (sem conclusão)</a>
+</li>
+</ul>
+</body>
+</html>
