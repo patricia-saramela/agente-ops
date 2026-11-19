@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Design System — dúvidas do suporte</title>
+</head>
+<body>
+<h1>Design System — dúvidas do suporte</h1>
+<p>Resumo das dúvidas respondidas pelo time de System Ops no canal de suporte do Design System da empresa (discussions de 04/2024 a 11/2026, categoria <strong>Design System</strong>). Cada dúvida foi reescrita de forma genérica e anônima, com a orientação dada pelo time.</p>
+<p>Complementa os arquivos <strong><code>ds-componentes-props</code></strong> (props de cada componente) e <strong><code>ds-figma-x-codigo</code></strong> (Figma × código).</p>
+<h2>Como usar esta base (instruções para o agente)</h2>
+<ul>
+<li>Responda <strong>em português</strong>. O público principal são <strong>designers</strong>.</li>
+<li>Esta base registra <strong>orientações práticas</strong> dadas em casos reais. Quando houver conflito com a documentação de props, a documentação do componente vale para o <em>que existe</em>; esta base vale para <em>como usar</em> e <em>o que é permitido</em>.</li>
+<li>Itens marcados <strong>⚠️ limitação atual</strong> descrevem algo que o componente <strong>não faz</strong> na data da resposta e pode ter mudado depois. Cite a data (<code>Ref. #n · mês/ano</code>) ao responder.</li>
+<li>Respostas mais recentes prevalecem sobre as mais antigas no mesmo assunto.</li>
+<li>Quando a resposta for "valide com Pesquisa e Evolução" ou "com a liderança", é porque a decisão é de <strong>produto/conceito</strong>, não do Design System. Diga isso ao usuário.</li>
+<li><strong>Skins:</strong> a skin padrão é a <strong>Skin</strong>; a <strong>Skin Evolution</strong> é a versão nova. "Nova versão do app (5.0)" é a nova geração do app, com componentes em Flutter.</li>
+<li>Não invente regras: se a dúvida não estiver aqui nem nos outros arquivos, diga que não há orientação registrada e sugira abrir uma discussão no canal de suporte.</li>
+</ul>
+<h2>Princípios que se repetem nas respostas</h2>
+<ul>
+<li><strong>Componentes são controlados só pelas propriedades.</strong> Não dê detach, não mude paddings, gaps, resizing, tokens de cor ou presets manualmente. Isso quebra o vínculo com o código e impede atualizações. Se a variação não existe, abra uma <strong>solicitação de melhoria</strong>.</li>
+<li><strong>Mantenha as bibliotecas atualizadas</strong> e, se algo estiver estranho, use <strong>Reset instance</strong> antes de reportar.</li>
+<li><strong>Use a biblioteca da plataforma certa:</strong> Desktop no desktop e Mobile no mobile/tablet. Não misture bibliotecas, nem nos slots.</li>
+<li><strong>Slots só aceitam componentes</strong>, e alguns slots funcionam <strong>só na web</strong> (ex.: Sheet). No app, sheets e navegação são <strong>nativos</strong> e têm limitações.</li>
+<li><strong>Construção atômica:</strong> quando não existe componente, monte com componentes do Design System (ex.: Box + Rows, Circle + Text Timer, Meter no slot de um card) em vez de criar algo novo do zero.</li>
+<li><strong>Novos padrões de tela ou de uso</strong> precisam ser validados com a <strong>liderança</strong> e com <strong>Pesquisa e Evolução</strong>; System Ops orienta sobre os componentes.</li>
+<li><strong>Dúvidas de implementação (código)</strong> devem ir para o <strong>canal de suporte de desenvolvimento</strong> do Design System; o suporte de Ops cobre a camada de design.</li>
+<li><strong>Bugs de componente:</strong> abra pelo <strong>formulário de bug</strong> do repositório de suporte.</li>
+<li><strong>Reticências (truncamento) devem ser evitadas</strong>: prejudicam a acessibilidade e a compreensão.</li>
+<li><strong>Arquivos de conceito não são referência de documentação</strong>: use os guias oficiais (guia de fundamentos, Guia de Padrões da nova versão do app, Master).</li>
+</ul>
+<hr />
+<h1>Guias e processos</h1>
+<h3>Como abrir uma discussão de suporte</h3>
+<blockquote>
+<p>Tema: Canal de suporte</p>
+</blockquote>
+<p>No repositório de suporte, clique em <strong>New Discussion</strong>, escolha a frente (Design System, ContentOps, Acessibilidade etc.) e clique em <strong>Get Started</strong>. Dê um título claro, descreva a dúvida com o máximo de detalhes e anexe prints ou o link do arquivo no Figma. Em <strong>Labels</strong>, marque a equipe responsável (Design System, ContentOps ou Acessibilidade) e a BU (B2C, B2B, E-comm e Portais, DesignOps, Pesquisa e Evolução, Design Horizontal ou Outros); pode marcar mais de uma. Ao publicar, a discussão ganha um número para acompanhamento.</p>
+<p><sub>Ref. #1 · 09/2024</sub></p>
+<h3>Como acompanhar uma discussão</h3>
+<blockquote>
+<p>Tema: Canal de suporte</p>
+</blockquote>
+<p>Abra a discussão e, na lateral direita, em <strong>Notifications</strong>, clique em <strong>Subscribe</strong>. Você passa a ser notificado a cada nova interação. Dá para seguir quantas discussões quiser.</p>
+<p><sub>Ref. #2 · 09/2024</sub></p>
+<h3>Como buscar uma discussão</h3>
+<blockquote>
+<p>Tema: Canal de suporte</p>
+</blockquote>
+<p>No campo de busca (à esquerda de <strong>Sort by</strong>), apague o filtro <code>is:open</code> e digite o tema ou o nome do componente (ex.: <code>button</code>). <strong>Sempre busque antes de abrir uma nova discussão.</strong> Se já existir uma sobre o tema que não respondeu tudo, comente nela com a sua nova dúvida.</p>
+<p><sub>Ref. #3 · 09/2024</sub></p>
+<h3>Como solicitar a validação de jornada para System Ops</h3>
+<blockquote>
+<p>Tema: Validação de jornadas</p>
+</blockquote>
+<ul>
+<li>A validação é <strong>obrigatória</strong> e acontece <strong>antes do handoff para desenvolvimento</strong>: é a etapa final do projeto. As telas devem estar na página de <strong>Handoff</strong> do arquivo.</li>
+<li>Antes de enviar, é <strong>obrigatório</strong> rodar o plugin de validação de System em todas as jornadas que usam o Design System (ver o guia do plugin).</li>
+<li>Passos: (1) preencha o formulário oficial de validação de jornada no repositório; (2) informe o link da página/frame a validar (preenchido na 1ª validação, atualizado a cada rodada e mantido no arquivo como histórico); (3) use o componente <strong>Notas</strong> da biblioteca Helper (Handoff &amp; Acessibilidade) para registrar feedbacks; (4) consulte o guia "Erros comuns na validação de jornadas" antes de abrir o chamado; (5) <strong>qualquer alteração depois da aprovação exige revalidação</strong> (no mesmo ticket ou como subtarefa).</li>
+<li>O time de Ops deixa notas no arquivo com os ajustes. Elas só podem ser removidas <strong>depois da aprovação</strong>. Durante a validação, o designer não deve alterar a estrutura do arquivo.</li>
+<li>Status registrados no histórico do Figma: 🔵 início da validação · 🟠 validação com pendências (o designer corrige e disponibiliza de novo) · 🟢 aprovada · 🔴 reprovada.</li>
+<li>⚠️ Se os ajustes não forem feitos em <strong>30 dias</strong>, a validação é reprovada e o ticket é fechado. Para recomeçar, é preciso abrir nova solicitação.</li>
+</ul>
+<p><sub>Ref. #38 · 10/2024</sub></p>
+<h3>Como o time de System Ops valida uma jornada</h3>
+<blockquote>
+<p>Tema: Validação de jornadas</p>
+</blockquote>
+<p>O time confere se a jornada está pronta para handoff, estruturada na página de <strong>Handoff</strong> do Figma, com histórico claro de validações e com uso adequado do Design System (ou da biblioteca legada). O time localiza a solicitação de validação aberta; se faltar informação essencial, pede ajuste no próprio ticket antes de começar. Usa o componente <strong>Notas</strong> (biblioteca Helper) e um checklist padrão de System Ops. A partir do início da validação, o designer <strong>não deve alterar a estrutura do arquivo</strong>: os ajustes pedidos são feitos depois. Status: 🔵 início · 🟠 aguardando correções · 🟢 aprovada · 🔴 reprovada. Ajustes não feitos em 30 dias reprovam a validação. Ao concluir, o time comenta no ticket o status da jornada.</p>
+<p><sub>Ref. #790 · 01/2026</sub></p>
+<h3>Erros mais comuns na validação de jornadas no Figma</h3>
+<blockquote>
+<p>Tema: Validação de jornadas</p>
+</blockquote>
+<p>(corrija antes de pedir a validação):
+1. <strong>Color styles de bibliotecas descontinuadas</strong> (ex.: a biblioteca antiga da marca, marcada como <em>deprecated</em>). Acontece ao copiar telas de arquivos antigos, usar componentes de fora das bibliotecas oficiais, não atualizar componentes ou colar textos sem <em>Paste and match style</em>. <strong>Correto:</strong> cores como <em>variables</em> (ícone quadrado no painel) vindas da biblioteca <strong>Skins</strong> do Design System. Se a cor continuar errada após atualizar, use <strong>Reset instance</strong> ou puxe uma nova instância da aba <strong>Assets</strong>. Exceções: gradientes (o Figma não suporta gradiente em variable, então ficam como color style) e elementos externos com cores próprias (ex.: logo de bandeira de cartão, em hexadecimal).
+2. <strong>Cor errada no fundo da tela</strong> (hexadecimal <code>#FFFFFF</code> direto, ou color styles antigos). <strong>Correto:</strong> variables <strong><code>background</code></strong> (fundo branco) ou <strong><code>backgroundAlternative</code></strong> (cinza claro), da biblioteca Skins. Exceção: os componentes de sucesso de fim de fluxo (<strong>Success Feedback</strong> e <strong>Success Feedback Screen</strong>) usam a cor <strong><code>brand</code></strong> de fundo.
+3. <strong>Text styles de bibliotecas descontinuadas.</strong> <strong>Correto:</strong> text styles da biblioteca <strong>Skins</strong>, atualizados. Se continuar errado, <strong>Reset instance</strong>. Ao colar textos, use <strong>Paste and match style</strong> (Cmd+Shift+V). Exceção: alguns componentes não usam text style e sim <em>variables</em> separadas (font size, line height, font weight); confira se a instância mantém as mesmas variables do original.
+4. <strong>Telas sem Layout guide do Design System.</strong> Aplique o Layout guide adequado à largura: até 767px → <strong>Mobile</strong>; 768–1023px → <strong>Tablet</strong>; 1024–1511px → <strong>Desktop</strong>; 1512px ou mais → <strong>Large Desktop</strong>. E ao layout: templates 8+4, 6+6, 5+4, 4+6, 3+9 ou <strong>12</strong> (sem template).
+5. <strong>Alterar manualmente propriedades de componentes.</strong> Ex.: para um Button Primary menor, use a propriedade booleana <strong>Small</strong>, nunca mude font size, line height ou padding na mão. Se a variação não existe como propriedade, não altere o componente. Sempre confira as propriedades disponíveis e não mexa em gap, padding, texto ou cor pelo painel.
+- <strong>Componentes da biblioteca Extended</strong> liberados para uso têm o sufixo <strong>(ext)</strong> (ex.: Data Progress (ext), Detailed Card (ext), Input Large (ext), Toggle Icon (ext)). <strong>Não use text styles da Extended</strong>: todos já existem na biblioteca Skins.
+- <strong>Outros erros frequentes:</strong> não nomear os frames; usar divider na <strong>última Row</strong> de uma lista; usar só <strong>Text Field</strong> num formulário que pede dados diferentes (telefone, CPF, data → use os campos específicos); usar <strong>mais de um Callout na mesma tela</strong>; usar a tela de feedback errada (ex.: Info Feedback Screen num erro de fim de fluxo, em vez de <strong>Error Feedback Screen</strong>); posicionar a <strong>Snackbar</strong> no lugar errado; usar ícone que não existe na biblioteca de ícones; usar cores incorretas em ícones; usar Nav Bar da biblioteca Extended em vez da biblioteca <strong>Modules</strong> ou da biblioteca <strong>Mobile</strong>.</p>
+<p><sub>Ref. #764 · 01/2026</sub></p>
+<h3>Plugin de validação de System (Figma)</h3>
+<blockquote>
+<p>Tema: Ferramentas &gt; Plugin de validação</p>
+</blockquote>
+<p>Apoia a validação de jornadas que usam o Design System, apontando erros básicos antes da revisão. É obrigatório rodá-lo antes de pedir validação. Como usar: no Figma, <strong>Resources (Shift+I) → Plugins &amp; Widgets</strong>, busque o plugin e clique em <strong>Run</strong>. Na interface: escolha a plataforma (<strong>Mobile</strong> ou <strong>Desktop</strong>) conforme a tela; <strong>Scan</strong> verifica frame, seleção ou página; setas navegam pelos erros e um contador mostra o total; <strong>Marcar todos</strong> / <strong>Desmarcar</strong> marcam os erros; <strong>Restaurar instâncias com erro</strong> corrige componentes (só funciona dentro de frames). No modo expandido há as abas de visão geral, Pro Mode, Marcados e Detach, filtros por <strong>tipografia</strong> e <strong>tokens de cor</strong> e marcação por categoria. Boas práticas: selecione a plataforma certa antes do scan e combine o plugin com revisão manual.</p>
+<p><sub>Ref. #928 · 03/2026</sub></p>
+<h3>Playroom</h3>
+<blockquote>
+<p>Tema: Ferramentas &gt; Playroom</p>
+</blockquote>
+<p>Ambiente de código voltado ao design para criar mockups e protótipos com os componentes reais do Design System, testar e compartilhar. Tem trechos (snippets) prontos de quase todos os componentes e permite ver vários temas e tamanhos de tela ao mesmo tempo. <code>&lt;PreviewTools/&gt;</code> no início adiciona uma barra para trocar a marca e o modo claro/escuro (opções como flutuante e <code>showPlatformSelector</code>).
+- <strong>Atalhos:</strong> ⌘+S formata o código; ⌘+K abre snippets; ⌥+↑/↓ move a linha; ⇧+⌥+↑/↓ duplica a linha; ⌘+⌥+↑/↓ adiciona cursor; ⌘+D seleciona a próxima ocorrência; ⌘+Z desfaz.
+- <strong>Básico de JSX:</strong> componentes começam com maiúscula (camelCase); tudo entre a tag de abertura e a de fechamento é <code>children</code>; elementos sem filhos podem fechar sozinhos (<code>&lt;Componente/&gt;</code>).
+- <strong>Props:</strong> formato <code>nome={valor}</code>. Texto entre aspas (<code>title="Título"</code>, sem chaves); número entre chaves (<code>space={16}</code>); booleano (<code>isInverse={true}</code>, ou só <code>isInverse</code>, que equivale a <code>true</code>). Apertar <strong>Espaço</strong> dentro da tag mostra as props disponíveis.
+- <strong>Estilos:</strong> dá para usar <code>&lt;style&gt;</code> com classes e <code>className</code>, ou <code>style={{...}}</code> com propriedades CSS em camelCase (<code>gridTemplateColumns</code>).
+- O guia também cobre lógica por tamanho de tela, marca e modo claro/escuro, layouts (Responsive Layout, Grid Layout, Box, Stack, Inline, Carousel), estados e listas.</p>
+<p><sub>Ref. #49 · 10/2024</sub></p>
+<h3>Como criar layouts de acordo com o Design System</h3>
+<blockquote>
+<p>Tema: Layout e grid</p>
+</blockquote>
+<ul>
+<li><strong>Responsive Layout</strong> controla os <em>breakpoint ranges</em> e as margens laterais. São 4: <strong>Small</strong>, <strong>Medium</strong> (768–1023px), <strong>Large</strong> (1024–1511px) e <strong>Extra Large</strong>. Em Small, Medium e Large as margens são fixas e a área útil varia; em Extra Large a área útil é fixa e as margens crescem com a tela.</li>
+<li><strong>Grid Layout</strong> distribui o conteúdo em colunas; quantidade, largura das colunas e <em>gutter</em> mudam por breakpoint. Templates (úteis em Large e Extra Large): <strong>6+6</strong>; <strong>8+4</strong>; <strong>4+6</strong> (esquerda nas colunas 1–4, direita 6–11); <strong>5+4</strong> (esquerda 2–6, direita 8–11); <strong>3+9</strong>. Os templates <strong>não são obrigatórios</strong>, mas são recomendados.</li>
+<li><strong>No Figma</strong> não existem componentes Responsive Layout nem Grid Layout: a biblioteca <strong>Desktop</strong> do Design System tem <strong>Layout guides</strong> equivalentes. Para aplicar: adicione a biblioteca Desktop → selecione o frame → no painel direito, <strong>Layout guides</strong> → <strong>Apply styles</strong> (ícone de 4 bolinhas) → escolha a opção. <strong>Shift+G</strong> mostra/esconde o guia. Mesmo sem template, aplique um Layout guide da categoria <strong>12</strong>. Larguras: Mobile 320–767px; Tablet 768–1023px; Desktop 1024–1511px; Large Desktop 1512px ou mais. Os elementos devem <strong>respeitar as colunas</strong> do guia.</li>
+<li><strong>No código:</strong> a tela começa com <strong>Responsive Layout</strong> e, dentro dele, <strong>Grid Layout</strong>. No Dev Mode, quem desenvolve usa Shift+G para contar as colunas (azuis à esquerda, vermelhas à direita) e escolher o template. Por isso é essencial aplicar o Layout guide certo.</li>
+</ul>
+<p><sub>Ref. #523 · 09/2025</sub></p>
+<h3>Bibliotecas do Figma para jornadas B2B (portal de empresas)</h3>
+<blockquote>
+<p>Tema: Bibliotecas e arquivos</p>
+</blockquote>
+<ul>
+<li><strong>Jornadas que ainda NÃO migraram para o Design System:</strong> usar as bibliotecas do DS B2B antigo: <em>Foundations</em> (styles e variables), <em>Global Components</em> (componentes espelhados com o código e o Storybook do B2B), <em>Templates</em> (estruturas componentizadas só no Figma, ex.: "Slider/Error Page"), a pasta de <em>Component Specs</em> do B2B e os arquivos <strong>B2B Master | Guias e Referências de Uso (AS IS)</strong> e <strong>B2B Master | Jornadas (AS IS)</strong>, com os caminhos felizes em produção.</li>
+<li><strong>Jornadas que JÁ migram para o Design System / Web Components:</strong> bibliotecas <strong>Desktop</strong> (telas ≥1024px) e <strong>Mobile</strong> (≤1023px) do Design System; biblioteca <strong>Skins</strong> (para aplicar a marca nos componentes); pasta de <strong>Component Specs</strong>; arquivo <strong>B2B Master | Jornadas (TO BE)</strong>; e o <strong>UI &amp; Template Kit</strong> (referências visuais; use junto com o Master, porque pode haver padrões da marca que conflitam com o kit: não é fonte única da verdade).</li>
+<li>⚠️ A biblioteca <strong>Extended</strong> (componentes e templates específicos da marca) <strong>ainda não</strong> deve ser usada no B2B, porque o B2B usa Web Components no código e eles ainda não têm os componentes da Extended.</li>
+<li><strong>Apoio (para qualquer jornada):</strong> biblioteca de <strong>ícones</strong> do Design System, <strong>Biblioteca de Ilustrações</strong>, biblioteca <strong>Assets</strong> (logos, ícones de redes sociais e outros recursos) e biblioteca <strong>Helper</strong> (Handoff &amp; Acessibilidade).</li>
+</ul>
+<p><sub>Ref. #103 · 01/2025</sub></p>
+<h3>Bibliotecas do Figma para E-comm e Portais</h3>
+<blockquote>
+<p>Tema: Bibliotecas e arquivos</p>
+</blockquote>
+<ul>
+<li><strong>Legadas</strong> (jornadas que ainda não migraram): componentes do Portal (e pasta de specs), da Loja de CE, do Ongoing do Portal com base Hybris e do Ongoing Sustentação, além de uma biblioteca de fundamentos (tokens, grids, text styles, shadows) das bibliotecas que não usam o Design System.</li>
+<li><strong>Design System</strong> (jornadas que já migram): bibliotecas <strong>Desktop</strong> ([D], telas ≥1024px) e <strong>Mobile</strong> (≤1023px), <strong>Skins</strong> (aplica a marca), pasta de specs, UI &amp; Template Kit, biblioteca de ícones, biblioteca <strong>Extended</strong> e sua pasta de specs (⚠️ a Extended tem <strong>repositório de código próprio</strong>, diferente do global, com Storybook próprio), biblioteca <strong>Helper</strong> (handoff), biblioteca <strong>Assets</strong> e uma biblioteca de modelos ajustados para celular e tablet.</li>
+<li>A Biblioteca de Ilustrações estava indisponível para uso no momento da publicação.</li>
+</ul>
+<p><sub>Ref. #532 · 09/2025</sub></p>
+<h3>Bibliotecas legadas no Figma</h3>
+<blockquote>
+<p>Tema: Bibliotecas e arquivos</p>
+</blockquote>
+<p>São bibliotecas que não seguem o padrão oficial do Design System e atendem E-comm, Portais e Ongoing (Loja de CE, Portal, Agile e Hybris). <strong>Serão descontinuadas</strong>, com plano de migração: o objetivo é que todas as squads usem só o Design System.
+- <strong>Qual ativar:</strong> use <strong>somente uma biblioteca de componentes</strong>, conforme o projeto: Portal → <em>Portal Components</em>; Loja de CE → <em>Store Components</em>; Ongoing Portal (Hybris) → <em>Hybris Components</em>; Ongoing Sustentação → <em>Agile Components</em>; mais a biblioteca de <em>Foundations</em> (tokens, grids, text styles e shadows, sem componentes). 👉 <strong>Nunca misture bibliotecas diferentes na mesma jornada.</strong>
+- <strong>Por que não usar o Design System nesses projetos:</strong> o código ainda não foi atualizado para o padrão e os projetos fazem parte do Ongoing.
+- <strong>Precisa de componente novo?</strong> Verifique antes se já existe nas bibliotecas legadas e evite criar sem necessidade (atrasa a descontinuação). Para melhorias ou componentes novos, fale com System Ops e abra um suporte.</p>
+<p><sub>Ref. #791 · 01/2026</sub></p>
+<h3>Principais fontes de informação de Design e Content Ops</h3>
+<blockquote>
+<p>Tema: Bibliotecas e arquivos</p>
+</blockquote>
+<ul>
+<li><strong>Design System:</strong> portal de documentação (regras de uso dos componentes); canal oficial no Teams (atualizações e suporte); repositório no GitHub (discussions e issues do time global); Jira (tickets com o time global); bibliotecas <strong>Desktop</strong> e <strong>Mobile</strong> no Figma; <strong>Playroom</strong> (testar componentes); <strong>Storybook</strong> (componentes em produção); changelog (histórico de mudanças); newsletter de novidades.</li>
+<li><strong>Da marca:</strong> guia de fundamentos (como aplicar tokens); Biblioteca de Ilustrações; biblioteca <strong>Extended</strong> com documentação e Storybook próprios; portal de conteúdos do time de Ops; <strong>Master B2B</strong> e <strong>Master B2C</strong> (guias e referências de uso); Portal Components; Storybook de Web Components; biblioteca <strong>Modules</strong> (templates); biblioteca <strong>Assets</strong> (logos); biblioteca <strong>Helper</strong> (recursos para specs, acessibilidade, POCs e arquivos).</li>
+<li><strong>Acessibilidade:</strong> framework de acessibilidade (guia e diretrizes); guia e template de criação de ícones; guia de padronização de banners do app.</li>
+<li><strong>Conteúdo:</strong> guia do Content Design System (diretrizes de UX writing) e um assistente de IA do Content Design System.</li>
+</ul>
+<p><sub>Ref. #128 · 01/2025</sub></p>
+<h3>Como contribuir com o Design System</h3>
+<blockquote>
+<p>Tema: Canal de suporte</p>
+</blockquote>
+<p>Ao sugerir algo ou relatar um problema: diga claramente a ideia ou o problema; dê contexto (por que a mudança importa e como impacta o design); e inclua exemplos visuais, de preferência o link do arquivo no Figma.</p>
+<p><sub>Ref. #217 · 03/2025</sub></p>
+<h3>Slots</h3>
+<blockquote>
+<p>Tema: Componentes &gt; Slots</p>
+</blockquote>
+<p>Existe um conteúdo gravado da série "Pílulas de System" explicando o que são os Slots dos componentes e como aplicá-los.</p>
+<p><sub>Ref. #538 · 09/2025</sub></p>
+<h3>Primeiros passos no GitHub</h3>
+<blockquote>
+<p>Tema: Canal de suporte</p>
+</blockquote>
+<p>O GitHub é usado para <strong>Projects</strong> (organização das sprints de algumas equipes) e <strong>Discussions</strong> (canal de suporte do DesignOps para dúvidas sobre o Design System e componentes). Crie a conta com o <strong>e-mail corporativo</strong> (Sign up → usuário, e-mail e senha → código de verificação) e ative a <strong>autenticação em dois fatores</strong> (Settings → Password and authentication → Enable two-factor authentication, com o app Microsoft Authenticator). No login, escolha <strong>Use your authenticator app</strong> e digite o código do app.</p>
+<p><sub>Ref. #798 · 01/2026</sub></p>
+<hr />
+<h1>Dúvidas por tema</h1>
+<h2>Regras gerais de uso</h2>
+<p><strong>Dúvida:</strong> Posso fazer ajustes manuais no mini cart (apagar camadas, mudar resizing para Hug, mudar alinhamento) para corrigir espaçamentos?
+<strong>Resposta:</strong> <strong>Não.</strong> Os componentes são controlados <strong>exclusivamente pelas propriedades</strong>. Eles têm regras próprias de resizing e de espaçamentos fixos ou variáveis, e mudar isso afeta como o componente é refletido no código. Não dê detach nem altere manualmente: isso impede o componente de receber correções. Os pontos relatados eram bugs, corrigidos depois (com novas propriedades, como controle da imagem).</p>
+<p><sub>Ref. #170 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> Em telas de template do Design System, devo usar 16px ou 24px de margem lateral?
+<strong>Resposta:</strong> Mantenha os espaçamentos como vêm nos templates e componentes. <strong>Não altere à mão</strong>: as atualizações serão aplicadas automaticamente pela biblioteca.</p>
+<p><sub>Ref. #1141 · 07/2026</sub></p>
+<h2>Processo de evolução de componentes</h2>
+<p><strong>Dúvida:</strong> Como fica o desenvolvimento de um componente novo (ex.: Timeline) que foi explorado pelo time global?
+<strong>Resposta:</strong> Componentes <strong>globais</strong> são desenvolvidos pelo time global, não pelas squads locais. Não havia previsão de data; atualizações são informadas na discussão.</p>
+<p><sub>Ref. #85 · 12/2024</sub></p>
+<p><strong>Dúvida:</strong> Posso combinar Input + Button Secondary (ex.: consultar frete por CEP)?
+<strong>Resposta:</strong> Padrões de aplicação devem ser validados com a liderança e depois com Pesquisa e Evolução. Consulte o arquivo <strong>Master</strong> com as principais jornadas.</p>
+<p><sub>Ref. #152 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso fazer um carousel com Boxed Rows + Snap Cards?
+<strong>Resposta:</strong> É uma composição nova: alinhe com o time de Pesquisa e Evolução (que estudava essas aplicações de Snap Card) para manter consistência com as outras jornadas.</p>
+<p><sub>Ref. #193 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso acrescentar um Button Link abaixo do e-mail do usuário, como no app?
+<strong>Resposta:</strong> É um padrão de tela: valide com a liderança e com Pesquisa e Evolução.</p>
+<p><sub>Ref. #205 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> Fizemos alterações no Carousel e no Main Navigation para o conceito. Como encaminhar?
+<strong>Resposta:</strong> Separe as solicitações <strong>por componente e por funcionalidade</strong>, explicando meta, objetivo e impacto, e abra-as pelo <strong>formulário de melhorias/novos componentes</strong>.</p>
+<p><sub>Ref. #509 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> Há componente para um banner de imagem colapsado que expande ("mais informações") na página?
+<strong>Resposta:</strong> Não há. O Accordion só mostra o slot aberto. Se for só levar às informações, um <strong>Cover Card com botão</strong> resolve. Um componente novo de expandir/colapsar imagens exige priorização com o time Core e Pesquisa e Evolução.</p>
+<p><sub>Ref. #946 · 04/2026 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> Ao migrar uma jornada web para o app, sigo o padrão de conclusão do app ou o da web?
+<strong>Resposta:</strong> É definição de produto (Pesquisa e Evolução). No caso, a definição foi <strong>seguir o formato do app</strong> e adaptar as informações a ele.</p>
+<p><sub>Ref. #1197 · 08/2026</sub></p>
+<h2>Validação de jornadas</h2>
+<p><strong>Dúvida:</strong> Preciso validar telas novas ou ajustes numa jornada já aprovada. Abro nova revisão?
+<strong>Resposta:</strong> <strong>Sim</strong>: para itens novos numa jornada já aprovada, abra uma <strong>nova solicitação de revisão</strong>.</p>
+<p><sub>Ref. #577 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> Vocês podem revisar fluxos novos com o Design System aplicado?
+<strong>Resposta:</strong> System Ops <strong>só valida jornadas na etapa de handoff</strong>, porque em conceito as telas ainda mudam. Com as telas finais, abra a solicitação pelo formulário de validação.</p>
+<p><sub>Ref. #1105 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> Como fazer handoff já pensando na nova versão do app?
+<strong>Resposta:</strong> Siga o <strong>guia da nova versão do app</strong>. O que não está no guia <strong>não deve ser alterado manualmente</strong>: espere as atualizações automáticas dos componentes.</p>
+<p><sub>Ref. #1322 · 10/2026</sub></p>
+<h2>Canal de suporte</h2>
+<p><strong>Dúvida:</strong> Row com detail e ícone no final fica sobreposta (bug).
+<strong>Resposta:</strong> Bugs de componente devem ser abertos pelo <strong>formulário de bug</strong> (issue) do repositório.</p>
+<p><sub>Ref. #767 · 01/2026</sub></p>
+<h2>Bibliotecas e arquivos</h2>
+<p><strong>Dúvida:</strong> No B2B, preciso de um Input Text com autocomplete que não existe no DS B2B antigo. Crio um componente novo?
+<strong>Resposta:</strong> Desde 08/2024 <strong>não se deve atualizar componentes do DS B2B antigo</strong>, porque o B2B está migrando para o Design System (Web Components). Use o componente nas possibilidades atuais. Muitas vezes o código já faz o que se precisa e só falta a variante no Figma: converse com o dev. Se necessário, System Ops cria a variante.</p>
+<p><sub>Ref. #53 · 11/2024</sub></p>
+<p><strong>Dúvida:</strong> A página de Cards da biblioteca de Portal está vazia. Podem incluir os cards?
+<strong>Resposta:</strong> A biblioteca de Portal foi feita para elementos básicos e <strong>não recebe mais manutenção</strong> por causa da migração para o Design System. Os cards existentes do Portal podem ser consultados nos arquivos do Portal, mas não estão centralizados na biblioteca.</p>
+<p><sub>Ref. #77 · 12/2024</sub></p>
+<p><strong>Dúvida:</strong> Todos os componentes do Design System existem em Web Components e estão atualizados?
+<strong>Resposta:</strong> <strong>Não todos</strong>, e nem todos estão 100% atualizados. A squad responsável atualiza sob demanda.</p>
+<p><sub>Ref. #941 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Duas jornadas ligadas usam versões diferentes da biblioteca de código (ex.: 16.32 e 16.67), com divergências. Qual caminho seguir?
+<strong>Resposta:</strong> O mais indicado é <strong>atualizar as duas para a versão mais recente</strong>. Avalie com o dev o esforço para não atrapalhar entregas em andamento.</p>
+<p><sub>Ref. #1090 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> Há documentação dos componentes do CMS do app (limites de caracteres etc.)?
+<strong>Resposta:</strong> System Ops não tem essa documentação; procure o grupo de suporte a jornadas, onde PDs e líderes podem ter o material.</p>
+<p><sub>Ref. #1198 · 08/2026 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> O front usa uma versão antiga da biblioteca de código e o Chip ativo difere do Figma. Está certo?
+<strong>Resposta:</strong> Não é simples verificar versão por versão. A orientação foi seguir o comportamento do código daquela versão até a atualização. A recomendação geral é atualizar para a versão mais recente.</p>
+<p><sub>Ref. #1274 · 09/2026</sub></p>
+<h2>Layout e grid</h2>
+<p><strong>Dúvida:</strong> Um tablet de 768×1024 na horizontal (1024px de largura) deve usar o layout de tablet ou de desktop?
+<strong>Resposta:</strong> Na horizontal, o tablet assume a largura de 1024px e passa a se comportar como <strong>desktop</strong>: grid de desktop e componentes de desktop. Os Web Components seguem os mesmos grids do Design System.</p>
+<p><sub>Ref. #12 · 05/2024</sub></p>
+<p><strong>Dúvida:</strong> No desktop (1368px, margens laterais de 72px), quando a tela fica mais larga, o conteúdo fica fixo em 1224px e as margens crescem?
+<strong>Resposta:</strong> Sim: o conteúdo tem grid fixo ao centro e as margens aumentam. Botões flutuantes (FAB) ficam fixos no canto; como não existem na biblioteca, o time pode definir o padding deles.</p>
+<p><sub>Ref. #27 · 07/2024</sub></p>
+<p><strong>Dúvida:</strong> Um tablet com resolução 1600×2560 deve usar o grid de tablet ou de desktop? O que define o breakpoint?
+<strong>Resposta:</strong> O que define o breakpoint é a <strong>largura da viewport (pixel lógico)</strong>, não a resolução do aparelho (pixel físico). A resolução física é 2×, 3× ou 4× maior conforme o <strong>DPR</strong> (Device Pixel Ratio). Ex.: esse tablet tem DPR 2, então a viewport tem 800px de largura (breakpoint tablet). Dados de analytics costumam mostrar a resolução física, o que confunde. Não se desenha para aparelhos específicos: os breakpoints mobile, tablet e desktop referem-se sempre à viewport.</p>
+<p><sub>Ref. #37 · 10/2024</sub></p>
+<p><strong>Dúvida:</strong> Um tablet com altura de viewport acima de 1024px, usado na horizontal, mostra o layout de desktop?
+<strong>Resposta:</strong> Sim. Na horizontal, vale o breakpoint da nova largura.</p>
+<p><sub>Ref. #69 · 11/2024</sub></p>
+<p><strong>Dúvida:</strong> No desktop do e-commerce, só o header e o mini cart ficam fixos durante a rolagem?
+<strong>Resposta:</strong> Sim. O resto do conteúdo e o footer acompanham a rolagem; o footer só aparece no fim. O scroll da página é o <strong>nativo do navegador</strong>.</p>
+<p><sub>Ref. #179 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> Em monitores muito grandes, o conteúdo vai para o centro com margens grandes. É bug?
+<strong>Resposta:</strong> <strong>Não, é o comportamento esperado.</strong> A partir de certa largura, as margens crescem para manter o conteúdo centralizado e organizado. Mas todos os elementos devem respeitar as margens: no caso relatado, uma imagem cortada na borda estava errada.</p>
+<p><sub>Ref. #238 · 04/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso deixar só a lista rolando, com título e busca fixos no topo?
+<strong>Resposta:</strong> O Design System não define rolagem de interface. Valide com Pesquisa e Evolução e com a liderança. Para o app, o guia de fundamentos tem uma seção de navegação e comportamentos.</p>
+<p><sub>Ref. #253 · 04/2025</sub></p>
+<p><strong>Dúvida:</strong> Os Layout guides do Figma (margem de 40px no Desktop, coluna de 96px no Large Desktop) não batem com a documentação (48px e 80px).
+<strong>Resposta:</strong> As specs de Layout e o Figma estavam iguais: <strong>a documentação é que estava errada</strong>, e foi corrigida (08/2025). Siga os Layout guides do Figma.</p>
+<p><sub>Ref. #441 · 08/2025</sub></p>
+<p><strong>Dúvida:</strong> Na tela de login desktop com imagem de fundo, o formulário maior faz a imagem distorcer ou sobrar espaço.
+<strong>Resposta:</strong> É questão de layout, não de System: alinhe com o dev (reduzir a área ou a ilustração) ou proponha um novo fundo junto ao time do app.</p>
+<p><sub>Ref. #967 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Inputs têm largura máxima? Posso usar grid 8+4 no pós-carrinho com mini cart? Quais breakpoints usar?
+<strong>Resposta:</strong> Componentes como o Input têm <strong>largura mínima</strong>, mas <strong>não têm máxima fixa</strong>: escalam conforme as colunas do grid. Faz sentido usar <strong>8+4</strong> no pós-carrinho, com o mini cart como resumo. Os breakpoints são os do Design System (mobile, tablet, desktop), conforme o guia de fundamentos.</p>
+<p><sub>Ref. #983 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> No guide 8+4, um gutter tem 28px em vez de 24px. É erro?
+<strong>Resposta:</strong> Não. No 8+4, as <strong>8 colunas são fixas</strong> e as 4 são <strong>"móveis"</strong>, por isso o espaço entre a 8ª coluna e a 1ª da direita varia com a largura da tela. As duas zonas (A e B) são independentes, com alturas determinadas pelo próprio conteúdo.</p>
+<p><sub>Ref. #1013 · 05/2026</sub></p>
+<p><strong>Dúvida:</strong> No desktop, até onde a List (Row/Boxed Row) estica?
+<strong>Resposta:</strong> No desktop, Row e Boxed Row ocupam <strong>8 colunas</strong> do grid de 12. Use o template de 12 colunas ou o de 8+4.</p>
+<p><sub>Ref. #1052 · 05/2026</sub></p>
+<p><strong>Dúvida:</strong> Na nova versão do app, em que margem alinho o Checkbox + text num formulário?
+<strong>Resposta:</strong> Use <strong>24px</strong> (documentado no guia).</p>
+<p><sub>Ref. #1179 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> No grid 8+4 sem mini cart, posso usar inputs em 8 colunas? Há largura máxima de input?
+<strong>Resposta:</strong> O Input pode ocupar <strong>6 ou 8 colunas</strong>: é responsivo e <strong>não tem largura máxima fixa</strong>. Mudar a largura do conteúdo conforme a presença do mini cart é decisão de produto: alinhe e documente com Pesquisa e Evolução.</p>
+<p><sub>Ref. #1201 · 08/2026</sub></p>
+<h2>Tipografia</h2>
+<p><strong>Dúvida:</strong> A fonte do card no código parece diferente do Figma, e o peso "Regular 500" do Figma sai como 400 no código.
+<strong>Resposta:</strong> No Playroom a tipografia sai correta. Provavelmente o código <strong>não estava carregando a fonte da marca</strong>. Dúvidas de implementação: o dev deve usar o canal de suporte de desenvolvimento do Design System.</p>
+<p><sub>Ref. #175 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> O Title aparece em bold no código, embora o Figma e o inspect estejam corretos (também no mini cart e no mobile).
+<strong>Resposta:</strong> Foi aberto chamado com o time global, que não conseguiu reproduzir. Suspeita de problema na renderização da fonte; seguia em investigação.</p>
+<p><sub>Ref. #219 · 03/2025 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> Qual guia seguir para tipografia: o conceito ou o Master B2C? (ex.: título "Acessos rápidos")
+<strong>Resposta:</strong> A referência para <strong>tipografia, espaçamentos e grid</strong> é o <strong>guia de fundamentos</strong>. Nesse caso, o título usa <strong>Title2 (16px)</strong>. O Master B2C continua válido para todo o resto que não está no guia de fundamentos.</p>
+<p><sub>Ref. #448 · 08/2025</sub></p>
+<p><strong>Dúvida:</strong> O Title1 inverse do Figma não funciona no código, e o tamanho mobile diverge (16px × 18px).
+<strong>Resposta:</strong> O inverse funciona no código (há exemplo no Playroom). A diferença de tamanho era mistura de <strong>presets de mobile e de desktop</strong> no arquivo. Ex.: o text-preset 3 tem 18px no desktop e 16px no mobile. Atualize os componentes e use o preset da plataforma certa.</p>
+<p><sub>Ref. #603 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> Os textos da Success Feedback vêm com peso 500 no código, mas 400 no Figma.
+<strong>Resposta:</strong> Em produção está igual ao Figma. Provavelmente a fonte da marca não está carregando, ou é a renderização. <strong>Use o preset indicado no Figma</strong>, em vez de definir tamanho e peso manualmente, para puxar o peso e a fonte corretos.</p>
+<p><sub>Ref. #878 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso mudar a cor do Title 2 para textSecondary?
+<strong>Resposta:</strong> Se não é de fato um título, <strong>não use Title</strong>: use um <strong>bloco de texto comum</strong> com o preset e a cor desejados.</p>
+<p><sub>Ref. #1148 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Os tamanhos de texto do editor de texto do CMS (termos, FAQ) estão muito grandes. Posso aplicar um "de/para" novo?
+<strong>Resposta:</strong> Mudar as definições de texto do editor do CMS tem impacto global e precisa ser alinhado entre <strong>Ops, Pesquisa e Evolução e as squads que usam o editor</strong>. As referências usadas eram estudos ainda não aprovados. As atualizações de texto em andamento eram só dos componentes Title.</p>
+<p><sub>Ref. #1248 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Como evitar palavras viúvas em breakpoints intermediários?
+<strong>Resposta:</strong> O Design System <strong>não tem recurso</strong> para isso. É solução de código (tags HTML ou CSS): o dev deve buscar no canal de suporte de desenvolvimento.</p>
+<p><sub>Ref. #1343 · 10/2026</sub></p>
+<h2>Tokens e cores</h2>
+<p><strong>Dúvida:</strong> Não consigo usar o plugin de conversão para variables; os estilos ficam em looping.
+<strong>Resposta:</strong> Resolvido adicionando a biblioteca <strong>Skins</strong> ao arquivo e trocando a marca de outra marca do grupo para a <strong>marca da empresa</strong>.</p>
+<p><sub>Ref. #44 · 10/2024</sub></p>
+<p><strong>Dúvida:</strong> É possível aplicar o token <code>background</code> com 3% de opacidade num elemento Boxed?
+<strong>Resposta:</strong> <strong>Não existe</strong> token com opacidade, e o Boxed não tem propriedade para receber cor. Seria uma solução customizada do projeto. Os tokens de cor da biblioteca Extended (ex.: <code>backgroundContainerBrandAlternative</code>) são acessados pelos devs no repositório da Extended.</p>
+<p><sub>Ref. #101 · 01/2025 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> Posso trocar a cor do Text Link para textPrimary (preto), por exemplo num footer?
+<strong>Resposta:</strong> <strong>Não.</strong> A cor está vinculada ao componente e segue a lógica de cores do Design System: o Text Link usa uma cor associada à marca, não textPrimary. Para links de footer com outra aparência, faça uma proposta de Footer pelo formulário de melhorias.</p>
+<p><sub>Ref. #560 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso usar o token <code>inputBorder</code> no stroke de um agrupamento (Row + input + link)?
+<strong>Resposta:</strong> <strong>Não.</strong> <code>inputBorder</code> é <strong>só para input fields</strong>. Para outros elementos, use <code>border</code>.</p>
+<p><sub>Ref. #788 · 01/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso mudar a cor da borda de um card para destacar uma oferta?
+<strong>Resposta:</strong> A princípio <strong>não</strong>. Procure casos aprovados em outras jornadas; se não houver, a mudança precisa passar por Pesquisa e Evolução e pelo time Core de System.</p>
+<p><sub>Ref. #929 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> O plugin de validação acusa erro num token de cor de ícone. Posso manter?
+<strong>Resposta:</strong> No caso validado, o token pôde ser mantido mesmo com o alerta do plugin: System Ops estava de acordo.</p>
+<p><sub>Ref. #1316 · 09/2026</sub></p>
+<h2>Ícones e ilustrações</h2>
+<p><strong>Dúvida:</strong> O Error Feedback Screen vem com o ícone de alerta no peso <strong>light</strong>, enquanto os outros ícones usam <strong>regular</strong>. Pode trocar?
+<strong>Resposta:</strong> Mantenha o <strong>light</strong>, como está no Design System (na época, só outra marca do grupo usava regular).</p>
+<p><sub>Ref. #19 · 06/2024</sub></p>
+<p><strong>Dúvida:</strong> Como mostrar bandeiras de países (Flag) sem "gambiarra" no código?
+<strong>Resposta:</strong> Flag não é componente, é um elemento customizado, então o dev precisa fazer manualmente. A sugestão é usar o formato <strong>circular</strong> (como o Circle com ícone), que é mais simples.</p>
+<p><sub>Ref. #47 · 10/2024</sub></p>
+<p><strong>Dúvida:</strong> O ícone "Edit-pencil" às vezes aparece com uma linha embaixo do lápis e às vezes sem.
+<strong>Resposta:</strong> A versão com o "tracinho" é de <strong>outra marca do grupo</strong>. A versão sem linha é a da marca da empresa, que deve ser usada. Os ícones mudam conforme a marca selecionada.</p>
+<p><sub>Ref. #130 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso usar um ícone da biblioteca que nenhum projeto usa ainda?
+<strong>Resposta:</strong> Da parte de System Ops não há impedimento, desde que exista na biblioteca de ícones. Valide com o lead e com Pesquisa e Evolução.</p>
+<p><sub>Ref. #150 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> Faltam logos de alguns bancos na biblioteca Assets. Uso localmente ou peço inclusão?
+<strong>Resposta:</strong> Peça a inclusão a System Ops; os logos são adicionados à biblioteca Assets (nesse caso foram incluídos).</p>
+<p><sub>Ref. #186 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> Não há ícone do WhatsApp na biblioteca de ícones. O que usar?
+<strong>Resposta:</strong> Logos de redes sociais ficam na biblioteca <strong>Assets</strong> (página Social Media), onde o WhatsApp foi incluído. Se faltar algum, peça a System Ops. O estilo (default ou footer) deve ser validado com Pesquisa e Evolução.</p>
+<p><sub>Ref. #277 · 05/2025</sub></p>
+<p><strong>Dúvida:</strong> O ícone do app na notificação do celular aparece preto. Como orientar?
+<strong>Resposta:</strong> O Design System não controla o ícone das notificações do sistema; isso não é configurado pelo time.</p>
+<p><sub>Ref. #312 · 05/2025 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> Existe banco de imagens de bandeiras de cartão de crédito?
+<strong>Resposta:</strong> Sim, na biblioteca <strong>Assets</strong>. Se faltar alguma, peça inclusão. Se não puder usar a imagem, pode usar o ícone de cartão da biblioteca de ícones. O formato padrão das bandeiras no app é o "quadradinho"; o tamanho deve ser validado com Pesquisa e Evolução.</p>
+<p><sub>Ref. #401 · 07/2025</sub></p>
+<p><strong>Dúvida:</strong> Os logos da biblioteca Assets têm 40×40px, mas antes eu usava ícones de 24×24px. O que manter?
+<strong>Resposta:</strong> O que for do Design System deve ser mantido; System Ops ia estudar uma variação de 24px dos logos.</p>
+<p><sub>Ref. #437 · 08/2025</sub></p>
+<p><strong>Dúvida:</strong> Logos de parceiros devem ser quadrados ou circulares?
+<strong>Resposta:</strong> Depende do <strong>conceito do produto</strong>, não é decisão de System Ops. Alinhe com Pesquisa e Evolução.</p>
+<p><sub>Ref. #521 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> Logos de YouTube e X distorcem dentro do Icon Button, e falta o logo do Discord.
+<strong>Resposta:</strong> Os itens foram incluídos e atualizados na biblioteca Assets. Peça a System Ops sempre que faltar um logo.</p>
+<p><sub>Ref. #561 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> Não acho o ícone "Share" (com círculo) que vinha da Extended.
+<strong>Resposta:</strong> O ícone está na biblioteca de ícones com o mesmo nome. Com o estilo da marca da empresa aplicado, ele fica <strong>sem o círculo</strong> em volta.</p>
+<p><sub>Ref. #587 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> Onde está o logo do Discord para o Footer (ext)?
+<strong>Resposta:</strong> Logos de redes sociais ficam na biblioteca <strong>Assets</strong>; o do Discord foi publicado. Alterações no <strong>Footer (ext)</strong> são feitas pelo time Core.</p>
+<p><sub>Ref. #963 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Criei um ícone novo. Como incluir na biblioteca de ícones?
+<strong>Resposta:</strong> O ícone precisa vir nos <strong>3 pesos: regular, light e filled</strong>, seguindo o grid atual. Siga o padrão de nomes (ex.: família <strong>care-</strong>: <code>care-money</code> em vez de <code>loan</code>, se o significado for mais amplo). System Ops revisa e envia ao time global, que publica.</p>
+<p><sub>Ref. #1020 · 05/2026</sub></p>
+<p><strong>Dúvida:</strong> De onde o dev pega o Brand Asset usado no footer slot do Cover Card?
+<strong>Resposta:</strong> O Brand Asset é da biblioteca <strong>Assets</strong>, não do Design System: não tem Storybook. O dev <strong>exporta direto do Figma</strong>, de preferência em <strong>SVG</strong>.</p>
+<p><sub>Ref. #1202 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Os devs exportam ícones de apps da biblioteca Assets em baixa resolução, e faltam alguns logos.
+<strong>Resposta:</strong> Existe um repositório de <strong>assets para uso em produção</strong>: confira se os devs estão usando esse. Logos novos podem ser pedidos a System Ops, que os publica no Figma (a inclusão no código demora mais). Envie referências dos logos.</p>
+<p><sub>Ref. #1238 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> O ícone "Data network" abre diferente do preview na biblioteca de ícones.
+<strong>Resposta:</strong> O preview da busca mostra o estilo de <strong>outra marca do grupo</strong>; o da marca da empresa é o que aparece em "Details". Está normal.</p>
+<p><sub>Ref. #1250 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso sugerir a troca de ícones na nova versão do app (ex.: usar o de outra marca)?
+<strong>Resposta:</strong> Os ícones são usados em todo o ecossistema da empresa: trocas exigem <strong>análise prévia e aprovação de Pesquisa e Evolução</strong>.</p>
+<p><sub>Ref. #1264 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Criamos um asset combinando duas marcas de streaming. Como incluir na biblioteca Assets?
+<strong>Resposta:</strong> System Ops adiciona: <strong>exporte a composição</strong> e envie. Dúvidas sobre o texto da imagem (ex.: o termo "Combo") vão para o time de conteúdo.</p>
+<p><sub>Ref. #1298 · 09/2026</sub></p>
+<p><strong>Dúvida:</strong> Precisamos de um ícone novo e específico. Como pedir?
+<strong>Resposta:</strong> Os ícones da nova versão do app são construídos com os responsáveis de ícones de <strong>Pesquisa e Evolução</strong>, no padrão novo. Depois, System Ops segue com a publicação na biblioteca do time global. Tudo pode correr no mesmo ticket.</p>
+<p><sub>Ref. #1391 · 11/2026</sub></p>
+<h2>Acessibilidade</h2>
+<p><strong>Dúvida:</strong> No iOS, o leitor de tela não respeita o foco visual das Rows de uma lista.
+<strong>Resposta:</strong> Bugs de acessibilidade devem ser abertos no board do time de <strong>Acessibilidade</strong> para análise.</p>
+<p><sub>Ref. #751 · 12/2025</sub></p>
+<p><strong>Dúvida:</strong> Com zoom de 400% no navegador, o mini cart fixo impede de seguir. O componente resolve?
+<strong>Resposta:</strong> O dev deve verificar se vem do componente e testar a solução sugerida: abaixo de certa largura de viewport, o mini cart deixa de ser fixo e vai para o fim do conteúdo.</p>
+<p><sub>Ref. #926 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Textos longos vindos de API nos Chips exigem truncamento, reprovado em acessibilidade.
+<strong>Resposta:</strong> Abra o suporte diretamente com o time de <strong>Acessibilidade</strong>.</p>
+<p><sub>Ref. #1214 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Qual a duração máxima de vídeo ou animação num hero com mídia?
+<strong>Resposta:</strong> O limite de <strong>5 segundos</strong> vale <strong>só para animações ou vídeos sem controles</strong> de pausar, parar ou ocultar. <strong>Com controles, não há limite</strong> de duração. Sugestão (não oficial) para conteúdo de CMS: 5 a 15 segundos, em loop, sem áudio, pausando ao sair da tela.</p>
+<p><sub>Ref. #1259 · 08/2026</sub></p>
+<h2>Componentes</h2>
+<h3>Accordion</h3>
+<p><strong>Dúvida:</strong> Rows dentro do slot do Accordion levam padding lateral ou se alinham com Negative Box?
+<strong>Resposta:</strong> Alinhe com <strong>Negative Box</strong>. Dentro de um Drawer, pode haver dois Negative Box: o externo remove o espaçamento lateral do Drawer e o interno remove o padding do conteúdo do Accordion. Cada um deve compensar só o padding do <strong>seu container imediato</strong>.</p>
+<p><sub>Ref. #1205 · 08/2026</sub></p>
+<h3>Badge</h3>
+<p><strong>Dúvida:</strong> O Badge com número fica esticado no Snap Card. É bug?
+<strong>Resposta:</strong> Usar Badge no Snap Card não está previsto na documentação nem no Master: seria um <strong>novo padrão de uso</strong>. Valide com o lead e com Pesquisa e Evolução.</p>
+<p><sub>Ref. #166 · 02/2025</sub></p>
+<h3>Blocks</h3>
+<p><strong>Dúvida:</strong> O Information Block aceita duas descriptions?
+<strong>Resposta:</strong> Há um exemplo de aplicação no Playroom mostrando como fazer.</p>
+<p><sub>Ref. #129 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> No Highlighted Value Block [D] dentro do Advanced Data Card, o valor (Text Preset 8) quebra em telas de 1024–1366px. Posso usar Preset 7?
+<strong>Resposta:</strong> Faz sentido como melhoria, mas não altere o preset por conta própria: o tema foi encaminhado a Pesquisa e Evolução para avaliação.</p>
+<p><sub>Ref. #503 · 09/2025 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> Posso usar os Blocks (de Community) para montar listas menores e mais compactas?
+<strong>Resposta:</strong> <strong>Não.</strong> Os Blocks foram feitos para uso quase exclusivo no <strong>Advanced Data Card</strong>. Para listas, use <strong>Row</strong> ou <strong>Boxed Row</strong> com os espaçamentos do Design System.</p>
+<p><sub>Ref. #1071 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> Ao usar o tamanho Snap no Cover Card, o Highlighted Value Block do slot não ajusta os textos.
+<strong>Resposta:</strong> A variação <strong>snap</strong> não muda o conteúdo de um slot. Monte o bloco de forma <strong>atômica</strong> (ou com base no Highlighted Value Block) e coloque no slot. Na nova versão do app, os blocks serão atômicos. Mudanças muito fora do comum devem ser apresentadas a Pesquisa e Evolução.</p>
+<p><sub>Ref. #1194 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> O texto do Progress Block é grande demais. Posso diminuir?
+<strong>Resposta:</strong> O Progress Block é uma <strong>construção atômica</strong>, então dá para reduzir. Mas mantenha <strong>coerência</strong>: se outros cards do mesmo contexto (ex.: assinaturas) usam Progress Bar ou outro tamanho, siga o mesmo padrão em todos os lugares, para não criar vários padrões para o mesmo fluxo.</p>
+<p><sub>Ref. #1258 · 08/2026</sub></p>
+<h3>Bubble</h3>
+<p><strong>Dúvida:</strong> O Bubble (ext) tem largura fixa de 375px no Figma, mas no código se adapta ao conteúdo. Qual está certo?
+<strong>Resposta:</strong> O código. Largura e altura do <strong>Bubble</strong> (e do File relacionado) se ajustam ao conteúdo, como num app de mensagens. Os 375px são só a largura total ao puxar da biblioteca Extended.</p>
+<p><sub>Ref. #385 · 06/2025</sub></p>
+<h3>Button</h3>
+<p><strong>Dúvida:</strong> Quando usar a opção de navegação (chevron) no Button Link?
+<strong>Resposta:</strong> O chevron do Button Link é <strong>só para navegação</strong>. Em ações (ex.: "Cancelar", "Limpar filtros"), não use chevron. Vale em qualquer contexto: button fixed, sheet ou modal.</p>
+<p><sub>Ref. #16 · 05/2024</sub></p>
+<p><strong>Dúvida:</strong> No botão com loading, é preciso usar reticências ("Enviando...")?
+<strong>Resposta:</strong> <strong>Não são obrigatórias.</strong> Pode usar só spinner + texto (o guia de conteúdo recomenda evitar reticências).</p>
+<p><sub>Ref. #26 · 07/2024</sub></p>
+<p><strong>Dúvida:</strong> Como fazer o Button Link com o chevron pequeno certo?
+<strong>Resposta:</strong> Nas propriedades do Button Link, ative <strong>navigation</strong>: ela puxa o chevron correto do componente. Não use um chevron avulso da biblioteca de ícones.</p>
+<p><sub>Ref. #36 · 10/2024</sub></p>
+<p><strong>Dúvida:</strong> No hover, o Button Link parece desalinhar do grid. Está certo?
+<strong>Resposta:</strong> Sim. O hover aparece muito rápido (no mobile mais ainda); na maior parte do tempo o botão fica no estado inicial, que é o alinhado. Não precisa alinhar o hover ao texto.</p>
+<p><sub>Ref. #143 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> O loading do Button Link desalinha o botão. Dá para alinhar à esquerda ou pôr o loading à direita?
+<strong>Resposta:</strong> Use a propriedade <strong>bleedLeft</strong> (existe no Figma e no código) para alinhar o Button Link ao conteúdo. A <strong>posição do loading é padrão</strong> (centralizada na área do botão) e não pode ser mudada. Dúvidas de implementação: o dev deve usar o canal de suporte de desenvolvimento do Design System.</p>
+<p><sub>Ref. #156 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> Para editar informação, uso Icon Button de editar ou Button Link "Editar xxx"?
+<strong>Resposta:</strong> Para editar <strong>um único campo</strong>, use o <strong>botão com ícone de editar</strong>. Para editar um <strong>bloco de informações</strong>, use o <strong>Button Link</strong> "Editar xxx".</p>
+<p><sub>Ref. #902 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Há botão flutuante com notificação (ex.: chat minimizado)?
+<strong>Resposta:</strong> Não há componente exato. Havia uma iniciativa semelhante (botão flutuante de IA) na nova versão do app: envolva Pesquisa e Evolução para convergir as soluções. A solução adotada foi <strong>IconButton + Badge</strong>, construída de forma <strong>atômica</strong> no Figma (o Icon Button não aceita Badge nativamente).</p>
+<p><sub>Ref. #1211 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Que hierarquia de botão usar em listagens extensas (ex.: "Pagar fatura" e "Mostrar assinatura")?
+<strong>Resposta:</strong> Escolha pela <strong>importância da ação</strong>, não pela aparência. <strong>Primário</strong> para a ação principal e transacional (ex.: pagar); <strong>secundário</strong> para ação de menor ênfase; <strong>Button Link</strong> para consulta ou navegação (ex.: ver detalhes), o que evita peso visual excessivo. <strong>Não equalize botões de ações semanticamente diferentes</strong> só para ficarem iguais. Para um padrão entre jornadas, valide com Pesquisa e Evolução.</p>
+<p><sub>Ref. #1222 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> O botão em dev tem padding diferente do Figma e o texto quebra em alguns aparelhos.
+<strong>Resposta:</strong> No Storybook não há esse padding extra, e <strong>os botões não quebram</strong>: o texto do label fica com <strong>reticências</strong>. Verifique se o dev fez alterações manuais.</p>
+<p><sub>Ref. #1347 · 10/2026</sub></p>
+<h3>Buttons layout</h3>
+<p><strong>Dúvida:</strong> Os botões fixos de ação (ex.: no Feedback) devem ter sombra?
+<strong>Resposta:</strong> O Design System não define. Fica a critério do time; a recomendação de UX é usar sombra quando o conteúdo passa da altura da tela e rola por trás dos botões fixos.</p>
+<p><sub>Ref. #17 · 06/2024</sub></p>
+<p><strong>Dúvida:</strong> Usa chevron no botão secundário?
+<strong>Resposta:</strong> <strong>Não.</strong> No Button Fixed Footer Layout há três variações (Primary, Secondary e Button Link) e <strong>nenhuma usa chevron</strong> quando estão dentro dele, mesmo que o link leve o usuário para fora da jornada. Isso mantém a consistência entre app e web.</p>
+<p><sub>Ref. #20 · 06/2024</sub></p>
+<p><strong>Dúvida:</strong> Dá para usar loading no botão do Button Fixed Footer Layout?
+<strong>Resposta:</strong> Sim. Nas propriedades do botão, ative o estado <strong>Loading</strong>.</p>
+<p><sub>Ref. #21 · 06/2024</sub></p>
+<p><strong>Dúvida:</strong> No (Button) Fixed Footer Layout, o botão tem largura fixa ou se adapta ao texto?
+<strong>Resposta:</strong> Os botões têm largura <strong>Hug</strong> (se adaptam ao texto), no desktop e no mobile.</p>
+<p><sub>Ref. #29 · 07/2024</sub></p>
+<p><strong>Dúvida:</strong> Pode usar três botões (Primary, Secondary e Link) no Side Drawer? O Button Link leva chevron?
+<strong>Resposta:</strong> O Side Drawer usa o <strong>Button Group</strong> do Design System. No <strong>desktop</strong>, é possível usar as três hierarquias. No <strong>mobile</strong>, as combinações permitidas são: Primary; Primary + Secondary; Primary + Link; Secondary; Secondary + Link; Link. Avalie como a solução fica no mobile. O uso do chevron no Button Link segue o guia do arquivo <strong>Master B2C</strong>.</p>
+<p><sub>Ref. #87 · 12/2024</sub></p>
+<p><strong>Dúvida:</strong> O Fixed Footer segue a largura da tela (ex.: tablet acima de 1024px mostra botões lado a lado)? E o espaçamento?
+<strong>Resposta:</strong> Sim, o componente segue o tamanho da tela automaticamente. Como a versão desktop <strong>não traz espaçamento embutido</strong> entre o conteúdo e os botões, <strong>indique no handoff</strong> o espaçamento necessário, seguindo o guia de fundamentos (aplicação de tokens de espaçamento).</p>
+<p><sub>Ref. #135 · 02/2025</sub></p>
+<h3>Callout</h3>
+<p><strong>Dúvida:</strong> Posso esticar o Callout (Fill container)? Qual Theme context usar sobre um fundo da mesma cor?
+<strong>Resposta:</strong> Pode ajustar a largura: os componentes são responsivos e <strong>não há regra de largura</strong> para o Callout (sugestão: ocupar a mesma largura da coluna de conteúdo, mas é livre). Para ter contraste num fundo igual ao do Callout, use <strong>Alternative</strong>. Os Theme contexts refletem as cores de fundo: <strong>Default</strong> = Background Container (branco); <strong>Inverse</strong> = Background Container Brand (cor da marca); <strong>Alternative</strong> = Background Container Alternative (cinza).</p>
+<p><sub>Ref. #199 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> O Callout tem padding próprio em cima e embaixo, o que soma ao espaçamento até o botão. É bug?
+<strong>Resposta:</strong> O Callout tem padding externo <strong>pré-estabelecido</strong> (verificado: 24px). Considere isso ao calcular espaçamentos (ex.: para 40px até o botão, some 16px). Rows não têm esse padding externo no código. Problemas de implementação: canal de suporte de desenvolvimento.</p>
+<p><sub>Ref. #283 · 05/2025</sub></p>
+<p><strong>Dúvida:</strong> O dev diz que não dá para pôr um Callout branco numa tela de fundo cinza.
+<strong>Resposta:</strong> Declare o <strong>variant Alternative</strong> no container (Responsive Layout): o Callout se ajusta sozinho para <strong>fundo branco</strong>.</p>
+<p><sub>Ref. #1287 · 09/2026</sub></p>
+<h3>Card</h3>
+<p><strong>Dúvida:</strong> Advanced Data Card + Feature List (Extended): há limite de tamanho ou de linhas?
+<strong>Resposta:</strong> A altura mínima do Advanced Data Card é <strong>216px</strong> e não há máxima (use bom senso; não deixe o card ocupar a tela inteira). A Feature List foi feita para um template específico da Extended; para listas variáveis, prefira <strong>Row List</strong>.</p>
+<p><sub>Ref. #50 · 10/2024</sub></p>
+<p><strong>Dúvida:</strong> Existe nova versão de Snap Card para o app?
+<strong>Resposta:</strong> Não há versões novas. Use os cards existentes <strong>dentro do Carousel</strong> (isso resolve as diferenças de largura) e a propriedade <strong>aspect ratio</strong> para ter outros tamanhos. Para mais flexibilidade, use o <strong>Advanced Data Card</strong> com os blocos prontos nos slots.</p>
+<p><sub>Ref. #60 · 11/2024</sub></p>
+<p><strong>Dúvida:</strong> Posso usar só um botão no footer do Advanced Data Card?
+<strong>Resposta:</strong> Sim, não há impedimento.</p>
+<p><sub>Ref. #86 · 12/2024</sub></p>
+<p><strong>Dúvida:</strong> Onde está o "Add Item Card"? Posso pôr um Counter no footer do Advanced Data Card e tirar o divider?
+<strong>Resposta:</strong> O footer do <strong>Advanced Data Card</strong> tem só 3 opções predefinidas: <strong>imagem + texto + link</strong>, <strong>botão + link</strong> e <strong>texto + link</strong> (ou desligado). <strong>Não é possível</strong> remover o divider do footer manualmente, só os dividers entre os slots. O Advanced Data Card também tem versão desktop. O <strong>Add Item Card</strong> é um componente do CMS do app: não está disponível no Design System nem na Extended, então não pode ser usado em e-commerce. Alternativas: montar o elemento de forma <strong>"atômica"</strong> com componentes do Design System (recomendado, mais rápido) ou desenvolvê-lo na Extended (mais demorado). A biblioteca <strong>Modules</strong> tem só <strong>templates para o Figma</strong>: os devs não consomem componentes dela.</p>
+<p><sub>Ref. #123 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> O Advanced Data Card só prevê duas ações. Posso usar só o Button Primary?
+<strong>Resposta:</strong> <strong>Sim</strong>, pode usar só o Button Primary. Ao esconder o Button Link no Figma, o botão fica centralizado; ajuste o alinhamento à esquerda nas configurações de layout do footer. Havia melhoria planejada no footer para deixar isso visível no Figma.</p>
+<p><sub>Ref. #163 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> No Advanced Data Card, a imagem fica redonda. Posso mudar o corner radius para 8?
+<strong>Resposta:</strong> Primeiro atualize os componentes (havia atualizações pendentes). Montando com <strong>Simple Block</strong>, o resultado sai certo com 8px sem mexer manualmente. Regra: imagens têm <strong>raio de 16px</strong>, mas quando estão <strong>dentro de um container</strong> (Row, card ou outro elemento que as englobe) o raio passa a ser <strong>8px</strong>.</p>
+<p><sub>Ref. #197 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> O Advanced Data Card tem 345px no mobile, mas algumas telas usam 284px. Há regra de largura?
+<strong>Resposta:</strong> Os cards são <strong>responsivos</strong> e seguem a largura do container, por isso há variação (em carousel o container é menor, então 284px). No Figma o card tem uma largura inicial, que você ajusta ao container. Teste seu conteúdo em breakpoints diferentes; não há largura fixa.</p>
+<p><sub>Ref. #405 · 07/2025</sub></p>
+<p><strong>Dúvida:</strong> No Advanced Data Card: posso colocar um componente com 3 Row Blocks num slot? Usar só um botão? Igualar a altura de cards lado a lado?
+<strong>Resposta:</strong> (1) Colocar um componente composto por Row Blocks no slot: <strong>ok</strong>. (2) Usar só um botão é possível no código (o app usa). Há também o <strong>Data Card</strong>, que substitui o Advanced em alguns casos e tem a opção de um só botão. (3) No app, os elementos do card são <strong>alinhados para baixo</strong> (footer e valor sempre alinhados); no desktop vale a mesma lógica. A diferença no Figma vem da construção do componente. Valide o layout com Pesquisa e Evolução.</p>
+<p><sub>Ref. #466 · 08/2025</sub></p>
+<p><strong>Dúvida:</strong> O Poster Card "7:10 [update]" da Extended sumiu. Ainda posso usar?
+<strong>Resposta:</strong> O Poster Card da Extended foi <strong>descontinuado</strong>. No lugar do Poster Card e do Media Card, use o <strong>Cover Card</strong> do Design System com <strong>aspect ratio</strong> ativado.</p>
+<p><sub>Ref. #468 · 08/2025</sub></p>
+<p><strong>Dúvida:</strong> A variante de vídeo do Naked Card foi descontinuada. Como fazer um carousel de vídeos?
+<strong>Resposta:</strong> Monte uma <strong>imagem com o ícone de play por cima</strong> e use-a no campo <strong>Image</strong> do componente.</p>
+<p><sub>Ref. #484 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> Existe um "Error state card"?
+<strong>Resposta:</strong> Há um template na biblioteca <strong>Modules</strong> (Empty State Card com cenário de erro). O Master segue o padrão da Modules (ícone de alerta na cor da marca). Mudar para "X" vermelho é proposta de conceito, a levar a Pesquisa e Evolução.</p>
+<p><sub>Ref. #511 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> Por que o Ticket Card (Wallet, aba Benefícios) continua na biblioteca Extended?
+<strong>Resposta:</strong> O <strong>Ticket Card</strong> é um componente da <strong>Extended</strong> (Design System local), criado para mostrar promoções e descontos de serviços na aba de Benefícios.</p>
+<p><sub>Ref. #514 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> No Highlighted Value Block, posso esconder o Value dos headings e mudar tokens de cor dos textos? Ou uso outro card?
+<strong>Resposta:</strong> O Highlighted <strong>Value</strong> Block existe para mostrar <strong>pelo menos um Value</strong>: não use sem ele. Para vitrine de produtos, o app usa o <strong>Card de Produto</strong>, um template da biblioteca <strong>Modules</strong> baseado no <strong>Media Card</strong> do Design System com slot <strong>Price</strong>, agora com versão desktop. O <strong>pretitle</strong> tem cor padrão do sistema e <strong>não pode</strong> virar textSecondary; a cor que pode mudar é a do valor no slot Price.</p>
+<p><sub>Ref. #516 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso usar o Ticket Card (Extended) no portal? Ao esticar no desktop, ele perde a proporção.
+<strong>Resposta:</strong> Pode usar, na versão desktop. O comportamento de largura no desktop ficou em análise para possível evolução do componente.</p>
+<p><sub>Ref. #517 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> O Poster Card do conceito não está em nenhuma biblioteca. Posso usar?
+<strong>Resposta:</strong> O Poster Card foi <strong>descontinuado</strong>. Use o <strong>Cover Card</strong> com a configuração equivalente (aspect ratio).</p>
+<p><sub>Ref. #579 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> No Cover Card com altura fixa (sem aspect ratio), o Body não acompanha a imagem; com Fill, o texto sobe.
+<strong>Resposta:</strong> Não é bug, é o comportamento do componente. Para mudar a altura mantendo o conteúdo embaixo, ative o <strong>aspect ratio 7:10 ou 9:10</strong>.</p>
+<p><sub>Ref. #660 · 11/2025</sub></p>
+<p><strong>Dúvida:</strong> Cover Card com Brand Asset no footer slot fica desproporcional no mobile, principalmente dentro do Mosaic.
+<strong>Resposta:</strong> Existe um <strong>template de Cover Card com Brand Asset</strong> (mobile) na biblioteca <strong>Modules</strong>, pensado para <strong>Carousel</strong>, não para Mosaic. A marca não pode ser muito reduzida. Recomendação: usar o <strong>Carousel</strong>, como no app.</p>
+<p><sub>Ref. #810 · 01/2026</sub></p>
+<p><strong>Dúvida:</strong> Como compor um card de score de crédito?
+<strong>Resposta:</strong> Construção <strong>atômica</strong>: componente <strong>Meter</strong> + auto layout, transformado em componente e colocado no <strong>slot do Advanced Data Card</strong>.</p>
+<p><sub>Ref. #848 · 02/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso pôr um Checkbox no Top actions do Media Card?
+<strong>Resposta:</strong> <strong>Não.</strong> Top actions aceita <strong>só Icon Button</strong>. Se o checkbox for o principal, use a <strong>Row</strong>, com o preço "De/Por" no slot. A Row suporta até duas ações (checkbox + uma interação).</p>
+<p><sub>Ref. #916 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Depois da atualização, o Media Card com imagem à direita sempre mostra botões.
+<strong>Resposta:</strong> Deixe a propriedade de botão <strong>desligada</strong> nas propriedades. A diferença entre lado direito e esquerdo ficou em investigação.</p>
+<p><sub>Ref. #943 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Para banner de oferta, Cover Card ou Boxed Row? No desktop o card fica com muito espaço.
+<strong>Resposta:</strong> Ambos são responsivos e ocupam a largura do container. No tablet, o card causa menos estranheza. Veja como outras jornadas tratam esse tipo de conteúdo.</p>
+<p><sub>Ref. #952 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso usar o Display Media Card no carousel no lugar do Media Card?
+<strong>Resposta:</strong> Sim: <strong>Display</strong> é um <strong>tamanho</strong> nas propriedades do Media Card, é o mesmo componente.</p>
+<p><sub>Ref. #953 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Sem footer, o Advanced Data Card centraliza o conteúdo no Figma. É assim?
+<strong>Resposta:</strong> Isso acontece pela construção com slot. Para esse caso (só tag e title), use o <strong>Data Card</strong>, que faz quase tudo que o Advanced fazia.</p>
+<p><sub>Ref. #1031 · 05/2026</sub></p>
+<p><strong>Dúvida:</strong> O ícone do template "About" da biblioteca Modules muda de tamanho ao copiar para outro arquivo.
+<strong>Resposta:</strong> O tamanho correto é o original; a variação é bug do Figma. <strong>Prefira o Data Card</strong> no lugar do Advanced Data Card: ele replica o template e não quebra (os templates da Modules seriam ajustados para usar o Data Card).</p>
+<p><sub>Ref. #1098 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> O Advanced Data Card será migrado para a nova versão do app?
+<strong>Resposta:</strong> A orientação é <strong>usar o Data Card</strong> do Design System no lugar do Advanced Data Card.</p>
+<p><sub>Ref. #1166 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Para um card com cor de fundo customizada, imagem ou vídeo: Cover Card ou Data Card?
+<strong>Resposta:</strong> Use o <strong>Cover Card</strong>, que já permite <strong>imagem e custom color</strong> na estrutura.</p>
+<p><sub>Ref. #1189 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Como deixar a imagem circular do Cover Card com o mesmo tamanho do Data Card (space between 32px)?
+<strong>Resposta:</strong> Troque o <strong>Square pelo Image</strong> e use a propriedade do Square, como no Data Card (exemplo no arquivo). Foi pedido ao time global incluir o space between para qualquer asset.</p>
+<p><sub>Ref. #1193 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Ao tirar a imagem do Naked Card, o padding desconfigura.
+<strong>Resposta:</strong> Para card só com ícone e texto, use o <strong>Data Card</strong>.</p>
+<p><sub>Ref. #1229 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> No Cover Card com a faixa da marca, que informação posso pôr nessa faixa? Ela vai no topo ou no footer?
+<strong>Resposta:</strong> O padrão da faixa com a marca é <strong>no footer</strong> (no app, o topo foi solução temporária de código). Use o template do Cover Card com a faixa na biblioteca <strong>Modules</strong> (System Ops ia incluir versão desktop). O componente da faixa está na biblioteca <strong>Assets</strong>. A faixa pode ter <strong>só texto, texto + imagem ou só imagem</strong>, sempre com <strong>uma informação principal</strong>.</p>
+<p><sub>Ref. #1249 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> No Data Card desktop com Circle icon, o texto em duas linhas quebra o padding.
+<strong>Resposta:</strong> Texto em duas linhas é <strong>permitido</strong> (não se usa hífen, então palavras longas quebram). Aumente a <strong>altura do card</strong> para não faltar espaço abaixo do texto. A largura depende do container; a altura pode ser definida no handoff.</p>
+<p><sub>Ref. #1254 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> O mesmo card tem tamanhos diferentes em duas jornadas. Qual documentar no handoff?
+<strong>Resposta:</strong> A documentação de cards da nova versão do app <strong>não define tamanho exato</strong>, só o uso da variação <strong>Snap</strong>. O tamanho muda conforme o <strong>número de itens visíveis no carousel</strong> (3 ou 4), o conteúdo e o aspect ratio: o card mais alto (ex.: título em 2 linhas) vira referência. ⚠️ <strong>Arquivos de conceito não devem ser usados como referência de documentação</strong>: ainda não foram aprovados.</p>
+<p><sub>Ref. #1265 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Qual card usar nos snap cards? Onde alinhar a label?
+<strong>Resposta:</strong> A definição estava com Pesquisa e Evolução. Alinhamento fixo de texto: <strong>Data Card no topo</strong>, <strong>Cover Card embaixo</strong>. Confira também a quantidade de cards visíveis, o offset e o aspect ratio entre Figma e produção.</p>
+<p><sub>Ref. #1321 · 10/2026</sub></p>
+<p><strong>Dúvida:</strong> O dev diz que não há configuração para alinhar os dois botões no footer do Data Card como no Figma.
+<strong>Resposta:</strong> O Storybook mostra o alinhamento dos botões no footer; a propriedade existe.</p>
+<p><sub>Ref. #1324 · 10/2026</sub></p>
+<p><strong>Dúvida:</strong> No Data Card, os botões quebram no Figma, mas em dev ficam lado a lado com texto truncado. Qual seguir?
+<strong>Resposta:</strong> Siga o <strong>comportamento de dev</strong>: é como o componente deve funcionar em produção, conforme a definição atual.</p>
+<p><sub>Ref. #1325 · 10/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso pôr um menu meatball no canto do Data Card para abrir ações (web)?
+<strong>Resposta:</strong> Sim. No app seria um drawer; na web, faz mais sentido um <strong>menu dropdown</strong> (há exemplo no Playroom).</p>
+<p><sub>Ref. #1365 · 10/2026</sub></p>
+<p><strong>Dúvida:</strong> O Data Card snap deu problema no app. Também na web? Como seguir?
+<strong>Resposta:</strong> Use o <strong>Cover Card</strong> em vez do Data Card nesse tipo de construção, por causa do alinhamento de texto.</p>
+<p><sub>Ref. #1367 · 10/2026</sub></p>
+<p><strong>Dúvida:</strong> No Cover Card snap mobile, posso deixar o ícone menor, como no guia da nova versão do app?
+<strong>Resposta:</strong> Sim: o guia orienta configurar manualmente o asset como <strong>Square de 32px com ícone de 20px</strong>.</p>
+<p><sub>Ref. #1376 · 11/2026</sub></p>
+<p><strong>Dúvida:</strong> Qual a altura certa do Data Card? O espaçamento do meatball está certo? Posso usar Tag para indicar upload/download?
+<strong>Resposta:</strong> <strong>Não há altura definida</strong> para cards: fica a critério do time. O espaçamento do meatball está correto. Do lado de System não há impedimento para usar Tag nesse contexto (a definição de uso é de Pesquisa e Evolução). ⚠️ Não use componentes de bibliotecas marcadas "Não usar": puxe da biblioteca <strong>Desktop</strong> do Design System.</p>
+<p><sub>Ref. #1396 · 11/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso aumentar os snap cards de 112×112 para 124×124?
+<strong>Resposta:</strong> <strong>Não.</strong> O tamanho dos snaps foi definido para <strong>caber mais cards por tela</strong>. Revise o conteúdo, mas mantenha o tamanho.</p>
+<p><sub>Ref. #1397 · 11/2026</sub></p>
+<p><strong>Dúvida:</strong> Como adicionar uma linha de preço total ao Advanced Data Card (community)?
+<strong>Resposta:</strong> O <strong>Advanced Data Card não está mais sendo usado</strong>. Faça uma construção <strong>atômica</strong>: um <strong>Box</strong> de base com as <strong>Rows</strong> dentro, usando o divider da própria Row.</p>
+<p><sub>Ref. #1400 · 11/2026</sub></p>
+<h3>Carousel</h3>
+<p><strong>Dúvida:</strong> No Carousel, se mudar os controles (chevrons) de posição, ainda é preciso manter os do meio?
+<strong>Resposta:</strong> Não há documentação sobre isso. Por enquanto, ao usar um controle customizado, <strong>mantenha a duplicidade dos controles</strong>. O componente deve receber melhorias.</p>
+<p><sub>Ref. #22 · 06/2024 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> As setas do Carousel ficam sobre os cards na documentação, mas não no componente do Figma.
+<strong>Resposta:</strong> O comportamento é <strong>responsivo</strong>. Abaixo de 1024px (celular e tablet), cards e setas encostam na borda direita; acima de 1024px, os cards respeitam as margens do Responsive Layout e as setas se posicionam em relação aos cards. No Figma, o componente desktop está ajustado para 1368px; para 1024px, ajuste o <strong>Horizontal gap</strong> da camada para <strong>-20</strong>. No celular e no tablet, use a biblioteca <strong>Mobile</strong>, que <strong>não mostra setas</strong> (dispositivos touch). Obs.: <strong>Slideshow</strong> é outro componente, diferente do Carousel.</p>
+<p><sub>Ref. #196 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> O componente Carousel do Figma limita a 5 slides. Como colocar 7?
+<strong>Resposta:</strong> A documentação <strong>não recomenda mais de 5 itens</strong> no Carousel, por isso o limite. Se o produto aprovar mais itens (liderança + Pesquisa e Evolução), <strong>não quebre o componente</strong>: use o Carousel normalmente, posicione os itens extras ao lado e deixe um comentário para o dev indicando que fazem parte do Carousel.</p>
+<p><sub>Ref. #374 · 06/2025</sub></p>
+<p><strong>Dúvida:</strong> O Slideshow pode ocupar a largura total da tela, sem margem?
+<strong>Resposta:</strong> Sim: o <strong>Slideshow sempre segue a largura da tela</strong>, e não se adiciona margem.</p>
+<p><sub>Ref. #638 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> Há limite de itens no Carousel?
+<strong>Resposta:</strong> Não há limite técnico, mas a recomendação do Design System é <strong>não usar mais de 5 páginas</strong>. Para muitos itens, consulte Pesquisa e Evolução.</p>
+<p><sub>Ref. #749 · 12/2025</sub></p>
+<p><strong>Dúvida:</strong> Para fotos do produto, quero mostrar uma imagem por vez no Carousel, sem o pedaço da próxima. Posso desligar o "Peek"?
+<strong>Resposta:</strong> Não desligue camadas manualmente. Use o <strong>Slideshow</strong>, variação do Carousel <strong>sem o preview</strong> do próximo item.</p>
+<p><sub>Ref. #938 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Que componente usar para galeria com zoom de imagens do produto?
+<strong>Resposta:</strong> Há o <strong>Slideshow</strong> e o <strong>Carousel</strong>, mas nenhum tem a tira de miniaturas embaixo (evolução encaminhada ao time Core). A lupa/zoom no desktop é feita no código, não vem do componente.</p>
+<p><sub>Ref. #1021 · 05/2026 · ⚠️ limitação atual</sub></p>
+<h3>Checkbox</h3>
+<p><strong>Dúvida:</strong> Para termos e condições, pode esconder o checkbox do "Checkbox + Text" e mudar o preset do texto?
+<strong>Resposta:</strong> Se não há checkbox, o componente certo é o <strong>TextLink</strong> (que permite escolher o preset; o app usa preset 2). O <strong>Checkbox + Text</strong> usa preset 3, e esse preset deve ser mantido. Não altere presets de texto dos componentes.</p>
+<p><sub>Ref. #24 · 06/2024</sub></p>
+<h3>Chip</h3>
+<p><strong>Dúvida:</strong> Pode usar Chips em carousel no mobile (ex.: escolher data de vencimento)?
+<strong>Resposta:</strong> Essa evolução foi definida com Pesquisa e Evolução e liberada para as jornadas de e-commerce. Em outros contextos, valide com eles.</p>
+<p><sub>Ref. #234 · 04/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso usar no Chips [D] os mesmos paddings do Chips mobile, para dar mais respiro?
+<strong>Resposta:</strong> Não altere espaçamentos internos manualmente. Abra uma <strong>solicitação de melhoria</strong> para o ajuste ser feito na biblioteca oficial.</p>
+<p><sub>Ref. #267 · 04/2025</sub></p>
+<p><strong>Dúvida:</strong> No scroll horizontal de Chips, como deixar claro que há mais chips para rolar?
+<strong>Resposta:</strong> O componente já mostra uma "sobra" ou corta parte do último chip visível, o que indica que há mais conteúdo. Quanto menor a tela, mais rolagem.</p>
+<p><sub>Ref. #396 · 07/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso ter 15 Chips num carousel (datas de histórico)?
+<strong>Resposta:</strong> O recomendado é até 5 itens em carousel, mas não há limite técnico. Para datas, que é um comportamento conhecido, não há problema.</p>
+<p><sub>Ref. #874 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso usar Chip como Tab (ex.: "Receber" × "Retirar")?
+<strong>Resposta:</strong> <strong>Não</strong>: Chips não são usados para esse contexto. Use o componente <strong>Tabs</strong> ou siga o padrão de fluxo similar já existente no app. Fluxos iguais ou parecidos devem seguir o mesmo padrão.</p>
+<p><sub>Ref. #1169 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso trocar o ícone closeable do Chip por um chevron que abre um modal? Clicar no ícone de busca pode abrir o campo?
+<strong>Resposta:</strong> O Chip <strong>não permite trocar</strong> o ícone de closeable. Alternativas: usar o <strong>ícone no início</strong> do Chip ou um <strong>Button Secondary</strong> (visual parecido, mas menos de filtro). No fundo Alternative, o Chip não fica branco. Busca e ações são <strong>Icon Button</strong>; no tema Alternative, ficam na cor da marca, não brancos.</p>
+<p><sub>Ref. #1268 · 09/2026</sub></p>
+<h3>Counter</h3>
+<p><strong>Dúvida:</strong> No Counter com <strong>Remove</strong> e <strong>MinValue</strong>, dá para deixar a lixeira desabilitada (impedir de excluir o último item)?
+<strong>Resposta:</strong> <strong>Não.</strong> A ação remove aparece quando o contador chega a 1 e serve justamente para remover. Para impedir que o valor caia abaixo do mínimo, use <strong>MinValue</strong> (sem Remove): o "–" fica desabilitado. <strong>Disabled</strong> desabilita o componente inteiro. Para outro comportamento, abra uma sugestão de melhoria explicando objetivo e impacto.</p>
+<p><sub>Ref. #73 · 12/2024 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> O Counter desktop dentro do slot (zona C) de um Boxed Row ficava com padding quebrado e o MinValue não desabilitava o "–".
+<strong>Resposta:</strong> O bug do Counter foi corrigido, mas o do slot não pôde ser resolvido sem quebrar o slot. Recomendação: <strong>crie um componente local com o Counter e coloque-o manualmente no Boxed Row</strong>.</p>
+<p><sub>Ref. #105 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> O usuário pode clicar no número do Counter e digitar a quantidade?
+<strong>Resposta:</strong> <strong>Não.</strong> O Counter só permite alterar o valor pelos botões <strong>–</strong> e <strong>+</strong>.</p>
+<p><sub>Ref. #106 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso trocar o Counter por um botão "Excluir" (via slot/actions)?
+<strong>Resposta:</strong> O <strong>Counter já mostra a opção de excluir quando chega a 1</strong>. Para um botão de excluir, use o <strong>Button Link</strong> com <strong>StartIcon/EndIcon</strong> (havia bug do chevron no Button Link Danger). Trocar o padrão de tela é decisão de Pesquisa e Evolução.</p>
+<p><sub>Ref. #1204 · 08/2026</sub></p>
+<h3>Drawer</h3>
+<p><strong>Dúvida:</strong> O Side Drawer (ext) tem um slot; como colocar vários itens (ex.: 7 Boxed Rows)?
+<strong>Resposta:</strong> Monte um <strong>template local</strong> com a quantidade necessária de Boxed Rows do Design System e aplique-o como slot.</p>
+<p><sub>Ref. #40 · 10/2024</sub></p>
+<p><strong>Dúvida:</strong> Quantos níveis de navegação são permitidos dentro do Side Drawer?
+<strong>Resposta:</strong> O <strong>Side Drawer (ext)</strong> foi uma solução <strong>provisória</strong> de MVP. Hoje existe o <strong>Drawer</strong> na biblioteca principal do Design System: use esse. Por boas práticas e acessibilidade, <strong>evite navegação dentro do drawer</strong>.</p>
+<p><sub>Ref. #241 · 04/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso montar um seletor de cor com Circles? Posso aumentar o espaço entre o título e o slot do Drawer?
+<strong>Resposta:</strong> (1) Não existe componente de seletor de cor com bolinhas (poderia ser estudado); no app usa-se o <strong>Select</strong>. (2) O espaçamento entre título e slot <strong>não pode ser alterado</strong> no componente; se o conteúdo do slot precisar de padding superior, <strong>descreva no handoff</strong> onde o dev deve adicionar.</p>
+<p><sub>Ref. #768 · 01/2026</sub></p>
+<p><strong>Dúvida:</strong> O clique no X do Side Drawer não diferencia a etapa para analytics.
+<strong>Resposta:</strong> A URL não muda entre as etapas, tecnicamente é a mesma página. Isso deve ser resolvido com o dev responsável e com Research Ops (no caso, a squad contornou).</p>
+<p><sub>Ref. #918 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> No tablet (768×1024), o Drawer em produção se comporta como no desktop. Ajusto o Figma?
+<strong>Resposta:</strong> <strong>Não.</strong> No Storybook e no Playroom o Drawer abre <strong>de baixo</strong> no tablet, como documentado. O dev deve levar o problema ao canal de suporte de desenvolvimento.</p>
+<p><sub>Ref. #1077 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> O dev diz que não consegue fixar o Button Fixed Footer Layout no rodapé do Drawer.
+<strong>Resposta:</strong> No código, o Drawer <strong>já tem os botões como propriedades</strong> (no padrão do Figma); o dev não deve adicionar outro Fixed Footer. Persistindo, o dev deve procurar o canal de suporte de desenvolvimento.</p>
+<p><sub>Ref. #1147 · 07/2026</sub></p>
+<h3>Footer</h3>
+<p><strong>Dúvida:</strong> Há documentação ou componente de Footer para o portal?
+<strong>Resposta:</strong> Ainda não há documentação nem template oficial; o material estava sendo construído.</p>
+<p><sub>Ref. #519 · 09/2025 · ⚠️ limitação atual</sub></p>
+<h3>Header</h3>
+<p><strong>Dúvida:</strong> O Header mobile tem 32px de padding à direita e 16px à esquerda. Está certo? Posso zerar?
+<strong>Resposta:</strong> Está correto. No código, a margem é de 16px e o texto tem mais 16px de margem interna, para que textos longos quebrem melhor; no Figma isso aparece como 32px. Não altere. Sugestões de mudança passam pela liderança e por Ops, e no caso do Header dependem do time global.</p>
+<p><sub>Ref. #83 · 12/2024</sub></p>
+<p><strong>Dúvida:</strong> Posso usar o componente Header para criar mais de um título na mesma página?
+<strong>Resposta:</strong> Pode haver vários cabeçalhos com <strong>hierarquias diferentes</strong> (ex.: cabeçalho da página + cabeçalhos de seção em páginas longas). <strong>Nunca use dois títulos principais</strong> (h1 / Main Section Header) na mesma página. Evite também barra de navegação grande seguida de cabeçalho robusto no app. Para títulos de seção, a melhor opção é usar o componente <strong>Title</strong>.</p>
+<p><sub>Ref. #611 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso tirar o padding esquerdo do header na web?
+<strong>Resposta:</strong> O header segue a <strong>largura da tela de ponta a ponta</strong>. Ajuste a largura do componente para a da tela e o espaçamento fica correto.</p>
+<p><sub>Ref. #1251 · 08/2026</sub></p>
+<h3>Hero</h3>
+<p><strong>Dúvida:</strong> Dá para alterar largura e altura do Cover Hero, do Slideshow e dos cards dentro do Carousel?
+<strong>Resposta:</strong> Em todos, a <strong>altura pode ser alterada</strong>; a <strong>largura é sempre responsiva</strong>.</p>
+<p><sub>Ref. #470 · 08/2025</sub></p>
+<h3>List</h3>
+<p><strong>Dúvida:</strong> Numa lista de Rows, depois que o cliente seleciona uma opção, as outras ficam desabilitadas ou somem?
+<strong>Resposta:</strong> Consulte a <strong>demo interativa</strong> do componente na documentação do Design System para ver o comportamento.</p>
+<p><sub>Ref. #92 · 12/2024</sub></p>
+<p><strong>Dúvida:</strong> Numa Row, o Icon Button fica a 28px da margem final, e Radio/Checkbox a 16px. Está certo?
+<strong>Resposta:</strong> <strong>Sim.</strong> O espaço maior considera a área do Icon Button (que pode ter fundo sólido) e a <strong>área mínima de clique de 48px</strong>.</p>
+<p><sub>Ref. #147 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> Para que serve a opção <strong>Centered</strong> da Row, que não aparece no Playroom?
+<strong>Resposta:</strong> Use <strong>Centered</strong> só quando a Row tem <strong>uma linha</strong> (apenas título e detail). Ela centraliza o asset e a linha do título. Com mais linhas, não use.</p>
+<p><sub>Ref. #176 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> Numa Row com dois dados de mesmo peso, posso mudar o token do subtitle para text secondary ou usar a description em duas linhas?
+<strong>Resposta:</strong> <strong>Não.</strong> Não se alteram manualmente os tokens de cor dos componentes: siga a hierarquia de tokens (o subtitle usa <strong>TextPrimary</strong>). <strong>Não é possível</strong> fazer quebra de linha manual na Row. Valide padrões de uso com Pesquisa e Evolução e mantenha as bibliotecas atualizadas.</p>
+<p><sub>Ref. #198 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> Na tela de sucesso, se o texto de uma Row for longo, posso usar reticências em vez de quebrar a linha?
+<strong>Resposta:</strong> <strong>Evite reticências.</strong> O comportamento padrão é quebrar a linha. Pelas diretrizes de conteúdo e acessibilidade, reticências deixam a informação incompleta e podem ser ignoradas pelo leitor de tela.</p>
+<p><sub>Ref. #318 · 05/2025</sub></p>
+<p><strong>Dúvida:</strong> A imagem 1:1 da Row mobile tem 64px, como no desktop. Posso usar 40px?
+<strong>Resposta:</strong> <strong>Sim, pode usar 40px.</strong> Para mudar, altere o gap da camada <strong>Change "Space Between"</strong>: como o aspect ratio é 1:1, altura e largura se ajustam juntas.</p>
+<p><sub>Ref. #474 · 08/2025</sub></p>
+<p><strong>Dúvida:</strong> O detail da Row quebra dentro da Success Feedback Screen [D]. Aumento a largura do conteúdo?
+<strong>Resposta:</strong> O <strong>detail</strong> foi pensado para textos <strong>curtos</strong>. A Seção C (onde fica o detail) <strong>não deve passar de 40% da largura da linha</strong>; acima disso, o detail vira multilinha. Para textos maiores, use <strong>description</strong>, e valide com Pesquisa e Evolução.</p>
+<p><sub>Ref. #506 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> No desktop, posso usar Rows lado a lado? A Row pode não ter Title?
+<strong>Resposta:</strong> <strong>Rows só podem ser aplicadas em formato de lista</strong> (uma embaixo da outra). Para opções lado a lado, use o <strong>Media Card</strong> (ex.: com checkbox no top actions). O <strong>Title é o único item obrigatório</strong> da Row.</p>
+<p><sub>Ref. #789 · 01/2026</sub></p>
+<p><strong>Dúvida:</strong> Na Row, posso usar o subtitle com textSecondary para o preço "De" e a description com textPrimary para o "Por"?
+<strong>Resposta:</strong> <strong>Não</strong> se troca o preset de cor da Row. Alternativa: desenhe o "De/Por" num frame e use-o <strong>no slot</strong>, desligando subtitle e description. <strong>Não coloque botão dentro do slot</strong>: a Row tem duas interações possíveis (<strong>OnPress</strong> na área principal e <strong>Control</strong>, ex.: checkbox) e um botão no slot conflita com o OnPress. Use a própria área de OnPress para "mais detalhes".</p>
+<p><sub>Ref. #911 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Grupos de Rows + input num novo visual de loja. Há impeditivo?
+<strong>Resposta:</strong> O app já tem um padrão para esse tipo de layout. Criar um <strong>novo padrão</strong> para algo que já existe precisa passar por <strong>Pesquisa e Evolução</strong>. Do lado de System não há impedimento.</p>
+<p><sub>Ref. #937 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Na Zone A da Row, o Circle com ícone vem na cor da marca. Posso usar fundo cinza?
+<strong>Resposta:</strong> O Circle usa as cores da marca. O padrão em produção para esses fluxos é usar o <strong>ícone sem o fundo</strong> (ex.: central de faturas).</p>
+<p><sub>Ref. #969 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso ter um Button Link no slot e um Icon Button na lateral da Row?
+<strong>Resposta:</strong> A Row pode ter <strong>duas interações</strong>: o Icon Button e a área principal. O link fica figurativo: cerca de <strong>90%</strong> da Row é área clicável e <strong>10%</strong> fica para o Icon Button.</p>
+<p><sub>Ref. #978 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso usar reticências no nome longo de uma assinatura na Row?
+<strong>Resposta:</strong> <strong>Não é recomendado</strong>: reticências são má prática, especialmente para acessibilidade. Busque com o time de conteúdo uma forma de encurtar o texto.</p>
+<p><sub>Ref. #987 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> A imagem da Row no desktop fica com fundo branco?
+<strong>Resposta:</strong> Só se a <strong>imagem</strong> tiver fundo branco; não é padrão do componente.</p>
+<p><sub>Ref. #1042 · 05/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso pôr botões (tipo chips) dentro de um Boxed Row (FAQ)?
+<strong>Resposta:</strong> Dá para fazer, mas o tamanho e o espaçamento dos botões ficam pouco acessíveis (na Row, duas ações lado a lado são separadas por divider). Sugestão: mantenha os <strong>chips fora do box</strong>, no tamanho normal.</p>
+<p><sub>Ref. #1089 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> Qual componente de código corresponde ao Boxed Row com switch do Figma?
+<strong>Resposta:</strong> É o <strong>Boxed Row List</strong> do Design System, usado com o switch.</p>
+<p><sub>Ref. #1129 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> Os ícones do List Item mobile e desktop parecem diferentes.
+<strong>Resposta:</strong> Use no mobile o componente com o <strong>mesmo nome do desktop</strong> (Unordered List › List Item), que tem o mesmo bullet. A falha ao desligar "Last item" é provavelmente bug do Figma.</p>
+<p><sub>Ref. #1186 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso usar o ícone de fundo quadrado (como no Data Card snap da nova versão do app) também na web?
+<strong>Resposta:</strong> Sim, faz sentido para consistência. No mobile, selecione <strong>Squared</strong> em icon background, ajuste o corner do Square com a variable <strong>mediaSmall</strong> e use os tokens <strong>neutralLow</strong> (fundo) e <strong>neutralHigh</strong> (ícone). Na Row desktop do Figma ainda não há essa opção: use o <strong>Circled Icon</strong> com esses tokens e indique no handoff. No código, os devs usam o Square com raio de 12px.</p>
+<p><sub>Ref. #1260 · 08/2026</sub></p>
+<h3>Menu</h3>
+<p><strong>Dúvida:</strong> Há componentes no Design System equivalentes aos do iOS 26 usados num conceito?
+<strong>Resposta:</strong> System Ops mapeava os componentes novos do projeto. No caso mostrado, o equivalente é o <strong>Menu</strong> (sem o efeito "Liquid Glass").</p>
+<p><sub>Ref. #635 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso customizar o Menu com outros conteúdos? E usar o menu hambúrguer do Main Navigation Bar para outro conteúdo?
+<strong>Resposta:</strong> O <strong>Menu</strong> aceita algumas customizações (ex.: topo com avatar e textos; há exemplo no Playroom). O <strong>menu hambúrguer</strong> do Main Navigation Bar só existe para mostrar, em telas menores, os itens de navegação do desktop; se não há itens, ele nem aparece. Para abrir outro conteúdo a partir do header, use um <strong>Drawer</strong> acionado por outro elemento.</p>
+<p><sub>Ref. #1383 · 11/2026</sub></p>
+<h3>Modals</h3>
+<p><strong>Dúvida:</strong> O Dialog tem problemas de acessibilidade (fechar clicando no fundo, ações redundantes). O que usar para comunicar um erro?
+<strong>Resposta:</strong> Para erros e avisos de fluxo, use as telas de <strong>Feedback</strong> do Design System (<strong>Error Feedback</strong> e <strong>Info Feedback</strong>), que também têm versão desktop, em vez do Dialog. É o que o app usa.</p>
+<p><sub>Ref. #111 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> O padding horizontal de 24px do Modal Confirm é mantido em qualquer largura de tela?
+<strong>Resposta:</strong> <strong>Sim</strong>, o padding de 24px não deve ser alterado.</p>
+<p><sub>Ref. #124 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> Como implementar "Voltar" e "Fechar" juntos num modal do iOS?
+<strong>Resposta:</strong> O suporte não orienta código, mas há cenários no app iOS com modal que tem voltar e fechar ao mesmo tempo; use-os como referência para os devs.</p>
+<p><sub>Ref. #324 · 05/2025</sub></p>
+<p><strong>Dúvida:</strong> Os modais de permissão de iOS e Android da biblioteca estão atualizados? Quais usar?
+<strong>Resposta:</strong> Use os da biblioteca do Design System: quando forem atualizados, seu arquivo também atualiza.</p>
+<p><sub>Ref. #625 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> Há componente de "overflow menu" para compartilhar produto (biblioteca legada da loja)?
+<strong>Resposta:</strong> Foi definido usar os componentes da loja como estão, e o <strong>Modal</strong> recebeu melhorias planejadas: ligar/desligar botões e textos, slot para conteúdo customizado e botão de compartilhar (após validação de acessibilidade).</p>
+<p><sub>Ref. #933 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> A squad diz que não pode usar modal numa tela informativa.
+<strong>Resposta:</strong> É mais uma limitação da arquitetura do app do que do componente. O dev deve procurar o canal de suporte de desenvolvimento. Se não for possível, a opção mais adequada é o <strong>bottom sheet</strong>.</p>
+<p><sub>Ref. #955 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso fazer um modal com imagem em tela cheia, incluindo a área da navigation bar?
+<strong>Resposta:</strong> Tecnicamente sim, com construção <strong>atômica (Image + IconButton)</strong>, com o fechar acionando a bridge do app. É decisão de produto (Pesquisa e Evolução), porque pode gerar experiências diferentes no app. No caso, foi acordada a construção atômica, sem interação de arrastar.</p>
+<p><sub>Ref. #1208 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Os componentes nativos (ex.: alert de confirmação) vão ser equalizados com o design do Design System?
+<strong>Resposta:</strong> <strong>Sim, todos</strong> os componentes nativos passarão por esse processo de equalização, em levas.</p>
+<p><sub>Ref. #1398 · 11/2026</sub></p>
+<h3>Mosaic</h3>
+<p><strong>Dúvida:</strong> O Horizontal Mosaic aceita mais de 8 cards (ex.: 9)?
+<strong>Resposta:</strong> <strong>Sim.</strong> O componente do Figma tem limitações, mas no código o Mosaic aceita mais células (veja a documentação).</p>
+<p><sub>Ref. #223 · 03/2025</sub></p>
+<h3>Navigation bar</h3>
+<p><strong>Dúvida:</strong> Há regra de quando exibir a Tab Bar no app (ex.: some a partir do 3º nível)?
+<strong>Resposta:</strong> A regra está no arquivo <strong>Master B2C</strong>, na página "Navegação e comportamentos" (Guias e Referências de uso).</p>
+<p><sub>Ref. #78 · 12/2024</sub></p>
+<p><strong>Dúvida:</strong> No header do e-commerce, o Funnel Navigation desalinha logo e progress bar. Troco pelo Main Navigation?
+<strong>Resposta:</strong> Continue com o <strong>Funnel Navigation</strong>, que é o indicado para fluxos de funil. O desalinhamento foi reportado ao time global para correção, e a correção chega pela atualização.</p>
+<p><sub>Ref. #218 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> No header (Android), o título grande fica cortado com reticências. Qual a aplicação correta?
+<strong>Resposta:</strong> No caso, era uma <strong>Nav Bar</strong>, não o componente Header. Consulte o guia de fundamentos (navegação e comportamentos, com diferenças entre Android e iOS) e os templates de Nav Bar da biblioteca <strong>Modules</strong>. A opção <strong>close</strong> da Nav Bar continua válida.</p>
+<p><sub>Ref. #252 · 04/2025</sub></p>
+<p><strong>Dúvida:</strong> O Funnel Navigation Bar mobile não tem no Figma a propriedade para esconder os ícones da direita (que existe no código e no desktop).
+<strong>Resposta:</strong> Correção pedida ao time global. Enquanto isso, ajustar manualmente o alinhamento à esquerda é aceitável até a correção. Uso: o <strong>Funnel</strong> é para fluxos de <strong>transição/funil</strong> (ex.: web ou fluxo aberto a partir do app); num fluxo totalmente dentro do app, a <strong>Navigation Bar</strong> comum resolve.</p>
+<p><sub>Ref. #346 · 06/2025</sub></p>
+<p><strong>Dúvida:</strong> No Main Navigation Bar em 1024px, as categorias não cabem. Vira menu hambúrguer?
+<strong>Resposta:</strong> No código, as palavras <strong>quebram de linha</strong> para caber. A recomendação é evitar títulos longos no menu. É possível forçar o menu hambúrguer em 1024px no código.</p>
+<p><sub>Ref. #774 · 01/2026</sub></p>
+<p><strong>Dúvida:</strong> O Main Navigation em telas de 1920px fica com padding de 252px; precisamos de 120px.
+<strong>Resposta:</strong> Não ajuste manualmente: a correção vem com o novo breakpoint <strong>Extra Large Desktop</strong> no Responsive Layout (pedido ao time global), que deixará o padding correto.</p>
+<p><sub>Ref. #779 · 01/2026 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> A Nav Bar customizada tem 20px de padding inferior. Pode, se sempre usamos múltiplos de 8?
+<strong>Resposta:</strong> O Design System <strong>não tem regra rígida</strong> de múltiplos de 4/8, embora os siga na maioria dos casos. Os 20px foram escolhidos pelo efeito de gradiente translúcido com blur e por casos extremos (ex.: título longo). No caso relatado, combinou-se 20px da nav até o primeiro item, totalizando 40px.</p>
+<p><sub>Ref. #1306 · 09/2026</sub></p>
+<p><strong>Dúvida:</strong> Como fazer o header com seletor de perfil (segmented control) sem o componente pronto no Figma?
+<strong>Resposta:</strong> O componente entra pelo <strong>topSlot</strong> do <strong>Main Navigation Bar</strong> (já existe no código, ainda não no Figma). No Figma, crie um frame com <strong>16px de padding lateral</strong> e coloque o componente nele. No handoff, oriente o dev a ativar o topSlot.</p>
+<p><sub>Ref. #1326 · 10/2026</sub></p>
+<h3>Pagination</h3>
+<p><strong>Dúvida:</strong> Na paginação (biblioteca legada do Portal), as reticências são clicáveis? Como funciona o atalho?
+<strong>Resposta:</strong> As reticências <strong>não são interativas</strong>. A partir da página 9: mostra sempre a <strong>primeira e a última página</strong> e um conjunto de páginas em volta da atual. Com muitas páginas, usa reticências e <strong>atalhos intermediários</strong> (pontos médios entre blocos). Ex.: 40 páginas, atual 38 → 1 … 19 … 37 38 39 40. Pode ser usada com tabelas, formulários, abas, accordion, feedback e listas. A distância até o conteúdo varia conforme o contexto.</p>
+<p><sub>Ref. #634 · 10/2025</sub></p>
+<h3>Progress bar</h3>
+<p><strong>Dúvida:</strong> Como representar erro no Progress Bar?
+<strong>Resposta:</strong> Para estado de erro, use o <strong>Empty State Card</strong>, conforme a recomendação do arquivo Master.</p>
+<p><sub>Ref. #39 · 10/2024</sub></p>
+<h3>Radio button</h3>
+<p><strong>Dúvida:</strong> Como mostrar erro num grupo de Radio buttons obrigatório não preenchido?
+<strong>Resposta:</strong> Faça como nos inputs obrigatórios: um <strong>helper text de erro</strong> abaixo do grupo.</p>
+<p><sub>Ref. #887 · 03/2026</sub></p>
+<h3>Rating</h3>
+<p><strong>Dúvida:</strong> Posso montar uma tabela de avaliações (ranking) com componentes do Design System, sem interação?
+<strong>Resposta:</strong> Sim: construa usando o <strong>slot do Boxed</strong> com os componentes (Rating etc.).</p>
+<p><sub>Ref. #775 · 01/2026</sub></p>
+<h3>Select</h3>
+<p><strong>Dúvida:</strong> O Select aceita description nos itens da lista? Há estado "aberto" no Figma?
+<strong>Resposta:</strong> <strong>Não</strong> aceita description. O estado aberto não existe no Figma (só no código e na documentação); a sugestão foi levada ao time. Evoluções de componente exigem o fluxo no Figma, a necessidade confirmada e aprovação da liderança; o prazo depende do roadmap do time global.</p>
+<p><sub>Ref. #46 · 10/2024 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> No Select aberto, qual sombra usar, qual a altura máxima e tem divider entre as opções?
+<strong>Resposta:</strong> No <strong>mobile</strong> (app), as opções são <strong>nativas</strong> do sistema. Na <strong>web</strong> (mobile ou desktop), as opções seguem o padrão do navegador, não as nativas de iOS/Android. A sombra já vem no componente; a altura depende da quantidade de opções (não há limite de itens, mas a partir de certa quantidade há rolagem; pense na experiência). Siga o padrão do componente (<strong>sem divider</strong> entre as opções).</p>
+<p><sub>Ref. #79 · 12/2024</sub></p>
+<p><strong>Dúvida:</strong> Posso desenhar um visual próprio para o Select aberto na web?
+<strong>Resposta:</strong> Em aplicação <strong>web</strong>, as opções do Select seguem o <strong>sistema operacional ou o navegador</strong>: não precisa prever o visual no handoff, só listar as opções. (No app iOS, a seleção abre num sheet com radios.)</p>
+<p><sub>Ref. #770 · 01/2026</sub></p>
+<p><strong>Dúvida:</strong> Como o Select mostra textos longos no mobile?
+<strong>Resposta:</strong> No estado <strong>aberto</strong>, o texto quebra em várias linhas, ocupando a largura da tela. As <strong>reticências</strong> aparecem <strong>só no estado fechado</strong>. O componente foi feito para opções curtas, e reticências são ruins para acessibilidade: evite textos longos e veja limites com o time de conteúdo.</p>
+<p><sub>Ref. #910 · 03/2026</sub></p>
+<h3>Sheet</h3>
+<p><strong>Dúvida:</strong> Ao ativar o slot de uma Row dentro do Page Sheet e colocar uma List, o Figma dá erro.
+<strong>Resposta:</strong> Um componente não pode ser colocado dentro dele mesmo: a List é feita de Rows, então não dá para pôr Row dentro de Row. O Page Sheet é formado por Accordions, e dentro do Accordion é possível colocar List/Row.</p>
+<p><sub>Ref. #10 · 04/2024</sub></p>
+<p><strong>Dúvida:</strong> O Sheet não está sobrepondo o header (navbar) no app.
+<strong>Resposta:</strong> Como a navbar e a tab bar do app são <strong>nativas</strong>, o Sheet dentro da webview fica por baixo delas. É preciso usar o Sheet da <strong>bridge nativa</strong> do app. Para dúvidas de desenvolvimento, o dev deve procurar o canal de suporte de desenvolvimento do Design System; o suporte de Ops cobre só a camada de design.</p>
+<p><sub>Ref. #54 · 11/2024</sub></p>
+<p><strong>Dúvida:</strong> Ao tocar no ícone de 3 pontos (meatball) de um card, como as ações aparecem?
+<strong>Resposta:</strong> As opções aparecem num <strong>Sheet</strong> (bottom sheet no mobile; versão desktop no desktop), na variação <strong>Action List</strong>. Essa variação não deveria trazer botão primário obrigatório no desktop (reportado ao time global). Um modal de confirmação depois do Sheet não foi vetado.</p>
+<p><sub>Ref. #127 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> O minicart da biblioteca Extended já pode ser usado?
+<strong>Resposta:</strong> Pode, mas valide o caso de uso com o lead e com Pesquisa e Evolução (ele estava sendo usado em e-commerce, ainda não no app).</p>
+<p><sub>Ref. #138 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> Que regras de espaçamento seguir num Sheet com Input + Button Link?
+<strong>Resposta:</strong> A aplicação de tokens de espaçamento está no guia de fundamentos. ⚠️ <strong>Campo de texto dentro de slot do bottom sheet só funciona na web</strong>: no app (mobile) há problema de sobreposição com o teclado, por isso o Design System não permite. Deixe o campo fora do bottom sheet.</p>
+<p><sub>Ref. #153 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> Qual a altura máxima do mini cart desktop? Tem scroll próprio?
+<strong>Resposta:</strong> O mini cart segue as regras do <strong>Sheet desktop</strong>: a altura máxima é a altura da janela <strong>menos 64px</strong>; ao chegar nela, entra o scroll interno. O mini cart não sobrepõe o footer: é um bloco alinhado à direita que empurra o footer para baixo. O scroll da página é o nativo do navegador.</p>
+<p><sub>Ref. #189 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> No mini cart, dá para esconder o título e o valor em negrito da seção Other Values?
+<strong>Resposta:</strong> Não havia propriedade para isso; a melhoria entrou no backlog de System Ops.</p>
+<p><sub>Ref. #242 · 04/2025 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> O título do Sheet com 48 caracteres não quebra em duas linhas (aparecem reticências).
+<strong>Resposta:</strong> Há casos no app com título de Sheet de 64 caracteres: o corte é uma pré-definição que os devs conseguem tirar no código.</p>
+<p><sub>Ref. #575 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> O Sheet da Extended foi descontinuado?
+<strong>Resposta:</strong> <strong>Sim.</strong> Use só o Sheet do Design System.</p>
+<p><sub>Ref. #627 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> O Sheet não cobre o header no app; numa tela de sucesso em modal, preciso esconder voltar e fechar.
+<strong>Resposta:</strong> Existem dois bottom sheets: o do Design System, que atua <strong>só dentro da webview</strong> (fica sob a nav bar e a toolbar nativas), e o da <strong>bridge nativa</strong>, que cobre a tela toda. No app, use o da bridge. Os botões de navegação na tela de sucesso <strong>não são obrigatórios</strong>: os próprios botões de ação podem servir de saída. Use os componentes de sucesso vinculados ao Design System (não desvinculados nem descontinuados); hoje o componente não traz mais a navbar, então coloque a navbar de modal separada.</p>
+<p><sub>Ref. #637 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso usar o slot do Sheet (ex.: frete e cupons no carrinho)?
+<strong>Resposta:</strong> O slot do Sheet é <strong>só para aplicações web</strong>, como diz a propriedade. Na web, pode usar.</p>
+<p><sub>Ref. #701 · 11/2025</sub></p>
+<p><strong>Dúvida:</strong> O Mini Cart (Extended) pode ser usado no app?
+<strong>Resposta:</strong> Em tese foi feito para o e-commerce, mas como existe versão mobile, <strong>tecnicamente pode ser usado</strong> no app.</p>
+<p><sub>Ref. #907 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Que componente usar para anexar arquivos num chat web, com regras de quantidade, tamanho e extensão?
+<strong>Resposta:</strong> No mobile usa-se um <strong>Sheet</strong>; na web, um <strong>modal</strong> faz sentido. Use o <strong>Sheet</strong> com a opção <strong>Slot</strong> e um componente local com <strong>2 Rows</strong> no slot (há exemplo no Playroom).</p>
+<p><sub>Ref. #922 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Como mostrar preço "De/Por" no mini cart?
+<strong>Resposta:</strong> O uso do componente não está errado, mas esse tipo de mudança deve passar por <strong>Pesquisa e Evolução</strong>, porque o "De/Por" costuma precisar de destaque visual.</p>
+<p><sub>Ref. #972 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> O bottom sheet não fecha no iOS.
+<strong>Resposta:</strong> Como as docs não resolveram, o dev deve procurar o canal de suporte de desenvolvimento.</p>
+<p><sub>Ref. #1035 · 05/2026</sub></p>
+<p><strong>Dúvida:</strong> Para o aviso de cookies, o Sheet pode fechar só pelo botão "Continuar"?
+<strong>Resposta:</strong> Normalmente a pessoa pode <strong>recusar</strong> cookies. Use o Sheet no estado padrão, permitindo fechar sem aceitar.</p>
+<p><sub>Ref. #1036 · 05/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso colocar um card dentro de um bottom sheet no app? E num modal?
+<strong>Resposta:</strong> O bottom sheet <strong>só aceita slot na web</strong>. No app, use uma das variações prontas do Sheet. Feedback em modal só se a jornada já estava em modal; caso contrário, use a tela inteira.</p>
+<p><sub>Ref. #1091 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso pôr chevron na última Row de um bottom sheet (alterando de forma atômica)?
+<strong>Resposta:</strong> No caso relatado, após revisão com Pesquisa e Evolução, <strong>não foi permitido</strong>, e a Row foi removida.</p>
+<p><sub>Ref. #1096 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> No Sheet desktop (Actions), a description e o espaçamento até os botões divergem entre Figma e código. Qual seguir?
+<strong>Resposta:</strong> Provavelmente o <strong>Figma</strong> está correto: siga o Figma enquanto o bug aberto com o time global não é resolvido.</p>
+<p><sub>Ref. #1138 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> O Sheet continua sem sobrepor o header no app na nova versão do app?
+<strong>Resposta:</strong> Na nova versão do app, os componentes serão em <strong>Flutter</strong> e tab bar e nav bar deixam de ser nativas, então é provável que o problema não aconteça mais.</p>
+<p><sub>Ref. #1164 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Dá para ter links (termos e política) na descrição do Sheet?
+<strong>Resposta:</strong> O <strong>Action Sheet</strong> limita hyperlinks. Use o <strong>Custom Sheet</strong> com <strong>TextLink</strong>. Todos os links devem ter <strong>sublinhado</strong>, além da cor, para reforçar que são links.</p>
+<p><sub>Ref. #1207 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> O Sheet agora tem X para fechar. Se a única ação é fechar, oculto o botão primário?
+<strong>Resposta:</strong> Sim: nesse caso use o <strong>Sheet Info</strong>, que só apresenta informação.</p>
+<p><sub>Ref. #1209 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso usar o slot do Sheet para colocar um ícone no topo no app?
+<strong>Resposta:</strong> <strong>Não no app</strong>: o Sheet customizado (slot) funciona na web, mas <strong>não é suportado pela bridge nativa</strong>. O Action Sheet também não permite. Mantenha o padrão atual; isso pode mudar com a migração do app para Flutter.</p>
+<p><sub>Ref. #1213 · 08/2026 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> Devo ajustar o mini cart ao padrão da nova versão do app?
+<strong>Resposta:</strong> <strong>Não mexa no componente.</strong> Resete-o para garantir os espaçamentos corretos; ajuste só a distância até a borda da tela (8px). As evoluções da nova versão estão sendo feitas no próprio componente e chegam automaticamente.</p>
+<p><sub>Ref. #1261 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Como montar um bottom sheet para incluir cartão de crédito (número, nome, CPF)?
+<strong>Resposta:</strong> O bottom sheet no mobile é <strong>nativo</strong>, sem slot (o slot é "only web"). Além disso, o Sheet é para <strong>ações rápidas</strong>. Para um fluxo de cadastro de cartão, use um <strong>Drawer</strong>.</p>
+<p><sub>Ref. #1269 · 09/2026</sub></p>
+<p><strong>Dúvida:</strong> O bottom sheet (action list) não aceita ícones da biblioteca de ícones, só imagens.
+<strong>Resposta:</strong> Limitação do componente <strong>nativo</strong> (por isso os ícones ficam com baixa resolução). Na nova versão do app, em Flutter, os ícones do Design System poderão ser usados.</p>
+<p><sub>Ref. #1356 · 10/2026 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> Bottom sheet com slot para ajustar valor e parcelas; imagem no topo com a navegação transparente; valor em destaque editável.
+<strong>Resposta:</strong> (1) O bottom sheet com slot <strong>não funciona no app</strong> (só React/web); verifique se o fluxo já tem o componente em Flutter. (2) A navegação transparente com blur <strong>desfoca a imagem do topo</strong>, e isso não muda, por acessibilidade; um fluxo em modal pode ajudar. (3) Para o valor em destaque, use o <strong>Highlighted Value Block</strong> ou uma construção atômica.</p>
+<p><sub>Ref. #1381 · 11/2026 · ⚠️ limitação atual</sub></p>
+<h3>Skeletons</h3>
+<p><strong>Dúvida:</strong> Há tempo padrão para exibir o Skeleton (carregamento de 1–2 minutos)?
+<strong>Resposta:</strong> O Design System <strong>não define tempo</strong>. Boas práticas: mostrar o skeleton só se o carregamento passar de <strong>~100–200ms</strong> (evita flash), mantê-lo só enquanto o conteúdo não chega e, se passar de <strong>8–10 segundos</strong>, trocar por Spinner, Progress Bar ou uma tela de Feedback.</p>
+<p><sub>Ref. #669 · 11/2025</sub></p>
+<p><strong>Dúvida:</strong> Que carregamento usar quando não sei quanta informação vai carregar?
+<strong>Resposta:</strong> Use o <strong>Skeleton</strong> com um padrão intermediário e genérico, que depois carrega um empty state ou as informações. (O Loading Screen não é usado para carregar informações de funcionalidades.)</p>
+<p><sub>Ref. #1224 · 08/2026</sub></p>
+<h3>Slider</h3>
+<p><strong>Dúvida:</strong> O Slider (ex.: distribuição de internet) ainda pode ser usado?
+<strong>Resposta:</strong> Sim, está na biblioteca do Design System. A aplicação no conceito deve ser validada com Pesquisa e Evolução; dúvidas de acessibilidade vão para o canal do time de Acessibilidade.</p>
+<p><sub>Ref. #383 · 06/2025</sub></p>
+<h3>Slots</h3>
+<p><strong>Dúvida:</strong> No Desktop, o "replace me" dos slots puxa componentes da biblioteca Mobile.
+<strong>Resposta:</strong> Não precisa haver "replace me" próprio do desktop. O slot serve para ser trocado por outro componente <strong>da mesma biblioteca</strong>: no desktop, use componentes da biblioteca Desktop. Atenção para não misturar.</p>
+<p><sub>Ref. #48 · 10/2024</sub></p>
+<p><strong>Dúvida:</strong> Como inserir imagem no componente Alert?
+<strong>Resposta:</strong> Ative a propriedade de <strong>slot</strong>. O slot <strong>só aceita componentes</strong>: transforme o conteúdo em componente (Create component). Ele pode estar no mesmo arquivo ou numa biblioteca publicada e ativada. Depois, selecione-o em <strong>Swap instance</strong>. Há um tutorial de Slots.</p>
+<p><sub>Ref. #1005 · 04/2026</sub></p>
+<h3>Snackbar</h3>
+<p><strong>Dúvida:</strong> Qual a margem inferior da Snackbar no desktop? (No mobile há um auto layout com 8px.)
+<strong>Resposta:</strong> A documentação não traz essa medida. Confirmado com o time global: a margem inferior correta no desktop é <strong>24px</strong> (havia previsão de mudar para 40px no futuro). Mantenha 24px até haver atualização. Use sempre valores múltiplos de 4/8.</p>
+<p><sub>Ref. #11 · 04/2024</sub></p>
+<p><strong>Dúvida:</strong> Como posicionar a Snackbar no mobile e no desktop? Qual a largura no desktop?
+<strong>Resposta:</strong> <strong>Mobile:</strong> o componente já tem os paddings embutidos; deixe-o "grudado" na parte de baixo da tela, ocupando 100% da largura. Pode subir se houver um elemento fixo embaixo (ex.: mini cart). <strong>Desktop:</strong> a largura se adapta ao texto, de <strong>360px a 800px</strong> (acima disso quebra linha). Fica centralizada, <strong>40px acima da borda inferior do navegador</strong> (não do conteúdo), já que o footer da página não é fixo.</p>
+<p><sub>Ref. #65 · 11/2024</sub></p>
+<p><strong>Dúvida:</strong> Preciso documentar no handoff que a Snackbar desktop vai de 360 a 800px?
+<strong>Resposta:</strong> <strong>Não.</strong> Isso já está no código e no componente do Figma. Basta usar o componente certo e posicioná-lo na tela. (No mobile ela ocupa toda a largura.)</p>
+<p><sub>Ref. #106 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> Com uma Snackbar persistente (só fecha no "Fechar"), o resto da tela fica bloqueado?
+<strong>Resposta:</strong> Verifique o comportamento com o time de <strong>Acessibilidade</strong> e mantenha o mesmo comportamento de outros fluxos que usam Snackbar.</p>
+<p><sub>Ref. #132 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> O botão de ação da Snackbar deve dizer "Fechar" ou "Entendi"?
+<strong>Resposta:</strong> O Design System usa "Fechar" como padrão, mas os dois têm o mesmo sentido. Para a empresa, as diretrizes de conteúdo definem <strong>"Entendi"</strong>, já considerando acessibilidade. Em caso de dúvida, consulte o guia de conteúdo ou o time de conteúdo.</p>
+<p><sub>Ref. #227 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> Para fechar a Snackbar (crouton), uso o "X" (dismiss) ou a ação "Fechar"?
+<strong>Resposta:</strong> Os dois são opcionais e têm resultado parecido. "Fechar" escrito é mais preciso para acessibilidade. O <strong>"X" é recomendado para duração infinita</strong> (o texto fica até a pessoa fechar). A decisão final é de produto (Pesquisa e Evolução).</p>
+<p><sub>Ref. #1372 · 11/2026</sub></p>
+<h3>Stacking group</h3>
+<p><strong>Dúvida:</strong> Como mudar o tamanho dos avatares no Stacking Group? No Figma só há 24px ou 64px.
+<strong>Resposta:</strong> O Stacking Group pode ter de <strong>24 a 128px</strong>. Para 24 a 40px: ative a propriedade de tamanho, selecione a camada "Change space between value to modify itemSize" e digite o tamanho no auto layout. Para tamanhos maiores, até 128px, desative essa propriedade. A troca de imagem por logo é manual. Havia também um bug na cor do "mais itens" abaixo de 40px.</p>
+<p><sub>Ref. #23 · 05/2024</sub></p>
+<h3>Switch</h3>
+<p><strong>Dúvida:</strong> No Boxed Row mobile, o Switch (e o Radio) vem na versão iOS. Em produto web, troco?
+<strong>Resposta:</strong> Sim: em aplicação <strong>web</strong>, troque manualmente o Switch da zona C para a versão web.</p>
+<p><sub>Ref. #56 · 11/2024</sub></p>
+<h3>Table</h3>
+<p><strong>Dúvida:</strong> Dá para fazer conteúdo colapsado com "ver mais" (ex.: tabela técnica, conteúdo do fabricante)?
+<strong>Resposta:</strong> Existe o componente <strong>Table</strong>, mas ele não colapsa/expande. Alternativa: colocar a Table (ou o conteúdo) <strong>dentro do slot de um Accordion</strong>, ou usar um <strong>GroupedAccordion</strong> com AutoCollapsable/SingleOpen. Colapsar a Table seria uma melhoria a analisar.</p>
+<p><sub>Ref. #740 · 12/2025</sub></p>
+<p><strong>Dúvida:</strong> Como usar a Table com muitas linhas? Há paginação?
+<strong>Resposta:</strong> Quando as linhas passam da altura definida, a Table ganha <strong>scroll</strong>. A Table está disponível no código. Para "carregar mais", é possível compor <strong>Table + Button Layout com Button Link</strong> (há exemplo no Playroom). Botão de outline com fundo transparente exigiria construção atômica ou evolução dos botões.</p>
+<p><sub>Ref. #1187 · 07/2026</sub></p>
+<h3>Tag</h3>
+<p><strong>Dúvida:</strong> Qual o máximo de caracteres da Tag?
+<strong>Resposta:</strong> <strong>24 caracteres</strong>, contando os espaços, segundo o guia de conteúdo (que traz outras particularidades do componente).</p>
+<p><sub>Ref. #880 · 03/2026</sub></p>
+<h3>Timer</h3>
+<p><strong>Dúvida:</strong> Existe componente de "número grande" (ex.: código enviado ao titular)?
+<strong>Resposta:</strong> Use <strong>Circle</strong> com slot + o componente <strong>Text Timer</strong> (há exemplo no Playroom).</p>
+<p><sub>Ref. #535 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> Tirei o timer do botão (por acessibilidade). Como usar o Text Timer?
+<strong>Resposta:</strong> O <strong>Text Timer</strong> deve ficar <strong>dentro da frase</strong>, não solto na tela, para a pessoa entender que há um tempo rodando.</p>
+<p><sub>Ref. #1308 · 09/2026</sub></p>
+<h3>Title</h3>
+<p><strong>Dúvida:</strong> Title 2 e Title 3 parecem ter tamanhos diferentes no Figma e no código. Qual usar?
+<strong>Resposta:</strong> A referência de uso dos Titles é o <strong>guia de fundamentos</strong> (atualizado conforme o que está em produção). Figma e Storybook foram testados e batem. ⚠️ <strong>O tamanho dos Titles muda conforme o breakpoint</strong>: o valor maior que o dev viu era o de desktop. Se o app mostrar o tamanho de desktop, o dev deve checar qual Title está aplicado e, se preciso, procurar o canal de suporte de desenvolvimento.</p>
+<p><sub>Ref. #157 · 02/2025</sub></p>
+<h2>Input fields</h2>
+<p><strong>Dúvida:</strong> Ao atualizar a biblioteca, o Pin Field quebrou (caixa vermelha, helper text sumiu).
+<strong>Resposta:</strong> Não foi reproduzido pelo time; parece específico do arquivo ou das instâncias (possivelmente após o plugin de conversão para variables). A atualização das instâncias é individual: confira e corrija.</p>
+<p><sub>Ref. #57 · 11/2024</sub></p>
+<p><strong>Dúvida:</strong> Quando o helper text aparece num campo (ex.: erro), o espaço até a próxima seção muda?
+<strong>Resposta:</strong> O helper text <strong>empurra o conteúdo para baixo</strong>, preservando o espaçamento definido (ex.: 64px) entre o helper e a próxima seção. O helper faz parte do componente, então o gap entre os elementos é sempre o mesmo.</p>
+<p><sub>Ref. #64 · 11/2024</sub></p>
+<p><strong>Dúvida:</strong> Se o usuário preenche o número e depois marca "sem número", o campo deve limpar e voltar ao estado inicial?
+<strong>Resposta:</strong> Marcar "sem número" deixa o campo <strong>Inactive</strong>; o indicado é o campo ficar vazio e inativo (voltar ao estado inicial, sem o número digitado).</p>
+<p><sub>Ref. #109 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> No Date Picker mobile, usamos o componente do Design System ou o nativo?
+<strong>Resposta:</strong> O campo é o do Design System (<strong>Date Field</strong>). O <strong>calendário</strong> que abre é o <strong>nativo do sistema operacional</strong>, porque o Design System não tem calendário.</p>
+<p><sub>Ref. #229 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> O texto de erro (helper) é 12px ou 14px? Playroom e Storybook divergem.
+<strong>Resposta:</strong> O helper text do Input Field é <strong>12px no mobile</strong> (<code>mobile/text-preset-1/regular</code>) e <strong>14px no desktop</strong> (<code>desktop/text-preset-1/regular</code>).</p>
+<p><sub>Ref. #273 · 04/2025</sub></p>
+<p><strong>Dúvida:</strong> O Date Field mostra a data como "03/07/25" no Android e "3 de jul. de 2025" no iOS. Dá para padronizar?
+<strong>Resposta:</strong> É <strong>comportamento nativo</strong> do sistema operacional, tanto no formato da data quanto no calendário. Dúvidas sobre acessibilidade da abreviação devem ir para o time de Acessibilidade.</p>
+<p><sub>Ref. #387 · 07/2025</sub></p>
+<p><strong>Dúvida:</strong> Qual o máximo de caracteres do helper text do Text Field?
+<strong>Resposta:</strong> Não há limite definido na documentação nem no Master; o limite costuma vir de Produto ou Tech. Recomendação do time de conteúdo: <strong>cerca de 60 caracteres</strong>.</p>
+<p><sub>Ref. #656 · 11/2025</sub></p>
+<p><strong>Dúvida:</strong> No iOS, a data do Date Field deve ficar em dd/mm/aaaa?
+<strong>Resposta:</strong> A orientação de usar o nativo vale <strong>só para o Date Picker</strong> (o calendário), não para o Date Field. O formato da data segue o padrão do app; veja fluxos existentes para manter consistência.</p>
+<p><sub>Ref. #664 · 11/2025</sub></p>
+<p><strong>Dúvida:</strong> Como ter lista de sugestões (autocomplete de endereço) num Text Field?
+<strong>Resposta:</strong> O <strong>Text Field</strong> tem a prop de sugestões, mas <strong>não implementa o autocomplete</strong>: exige modo <em>controlled</em>, com todo o estado gerenciado pela squad. O <strong>Search Field</strong> já encapsula essa lógica (incluindo limpar). Recomendação: use o <strong>Search Field</strong> ou peça uma evolução do Text Field ao time global.</p>
+<p><sub>Ref. #705 · 12/2025</sub></p>
+<p><strong>Dúvida:</strong> O helper text pode quebrar em duas linhas?
+<strong>Resposta:</strong> Não se força quebra de linha, mas o texto <strong>quebra naturalmente</strong> ao chegar ao fim da área útil, e isso está correto. Para o texto em si, consulte o time de conteúdo.</p>
+<p><sub>Ref. #743 · 12/2025</sub></p>
+<p><strong>Dúvida:</strong> Dá para desabilitar fins de semana e feriados no calendário do Date Field?
+<strong>Resposta:</strong> <strong>Não.</strong> O Date Field prioriza o input nativo do navegador, que só aceita <strong>min</strong> e <strong>max</strong>; o calendário customizado também só valida o intervalo. Alternativa: usar <strong>validate</strong> para mostrar erro se uma data inválida for escolhida (ex.: "Esta data não está disponível para agendamento").</p>
+<p><sub>Ref. #796 · 01/2026 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> O Pin Field aceita letras?
+<strong>Resposta:</strong> <strong>Não</strong>, só números. Para códigos alfanuméricos, use um <strong>input comum</strong> (Text Field). A evolução para aceitar letras foi encaminhada ao time global.</p>
+<p><sub>Ref. #836 · 02/2026 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> Para agendamento com datas específicas, que componente usar? E a borda do Boxed Row difere da do input.
+<strong>Resposta:</strong> Há um <strong>date picker da Extended</strong> com calendário <strong>não nativo</strong>, que permite desabilitar datas: use-o se a jornada <strong>não for CMS</strong>. Se for CMS, use o do Design System (calendário nativo). A biblioteca <strong>Extended</strong> pode ser usada (componentes exclusivos da marca que o Design System não tem); a <strong>Modules</strong> é a biblioteca de <strong>templates</strong>. O Boxed Row não é input, então usa o token de <strong>borda comum</strong>, e não dá para trocar. Desabilitar datas passadas: o dev deve procurar o canal de suporte de desenvolvimento.</p>
+<p><sub>Ref. #924 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Não há input igual ao do assistente de IA (anexo, erro, multiline) para o chat web.
+<strong>Resposta:</strong> Os componentes do assistente são da <strong>Extended</strong> e estavam em evolução para incluir esses comportamentos (incluindo ajuste de contraste da borda), sem data prevista.</p>
+<p><sub>Ref. #962 · 04/2026 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> No Text Field multiline com contador de caracteres, posso esconder o texto do helper manualmente?
+<strong>Resposta:</strong> Não precisa desligar: deixe o <strong>texto do helper vazio</strong> e mantenha só o contador.</p>
+<p><sub>Ref. #1037 · 05/2026</sub></p>
+<p><strong>Dúvida:</strong> Como avisar que o aceite dos termos é obrigatório? Posso usar Popover?
+<strong>Resposta:</strong> O ideal seria a Snackbar. Como alternativa, um <strong>texto de erro com ícone</strong> (padrão de erro) é adequado. Avalie o gatilho: se o botão fica desabilitado sem o aceite, o erro pode nem ser necessário.</p>
+<p><sub>Ref. #1181 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> O Time Picker serve para contagem regressiva? Dá para limitar as horas?
+<strong>Resposta:</strong> O Time Picker serve <strong>só para escolher a hora</strong>, não para cronômetro (isso seria evolução). É possível <strong>limitar o intervalo</strong> de horas pelas configurações do componente.</p>
+<p><sub>Ref. #1242 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Os estados de erro e foco dos campos parecem diferentes entre documentação, Figma e app.
+<strong>Resposta:</strong> O <strong>contorno de foco</strong> depende do sistema operacional (ex.: azul no iOS) e por isso não aparece no Figma. Os demais aspectos dos estados de erro e foco são iguais no Figma e na documentação.</p>
+<p><sub>Ref. #1252 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> No Storybook, o input em foco tem contorno preto que não aparece no Figma. Qual está certo?
+<strong>Resposta:</strong> A cor do <strong>contorno de foco depende do sistema</strong> da pessoa, por isso não está no Figma. Não é controlado pelo Design System.</p>
+<p><sub>Ref. #1358 · 10/2026</sub></p>
+<p><strong>Dúvida:</strong> O campo focado aparece com borda azul em produção, mas não no Figma. É bug?
+<strong>Resposta:</strong> Não. A borda de foco <strong>varia de sistema para sistema</strong>, por isso não está no componente do Figma.</p>
+<p><sub>Ref. #1406 · 11/2026</sub></p>
+<h2>Patterns</h2>
+<h3>Empty state</h3>
+<p><strong>Dúvida:</strong> Para telas de erro e empty state da nova versão do app, sigo o conceito ou a biblioteca Modules?
+<strong>Resposta:</strong> Os materiais estavam sendo atualizados na biblioteca <strong>Modules</strong>: espere a atualização e use a Modules. A versão desktop dependia de definições de Pesquisa e Evolução.</p>
+<p><sub>Ref. #1373 · 11/2026</sub></p>
+<h3>Feedback</h3>
+<p><strong>Dúvida:</strong> Na tela de Error Feedback, posso manter o header com Progress Bar e o footer da tela anterior?
+<strong>Resposta:</strong> É uma decisão de padrão de jornada (lead + time de Pesquisa e Evolução). No caso relatado, ficou definido manter header e footer só no MVP e, como evolução, <strong>remover o Progress Bar do header e o footer</strong>, para ficar consistente com as outras telas de Feedback.</p>
+<p><sub>Ref. #118 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> Como montar a tela de Feedback Screen (Success, Info, Error) no desktop? Mantém o header?
+<strong>Resposta:</strong> Há exemplos no <strong>Playroom</strong> em 360, 768 e 1024px. O posicionamento e o header fazem parte da composição da tela: alinhe com o lead e use os arquivos de referência do conceito.</p>
+<p><sub>Ref. #119 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> Onde está a tela de sucesso intermediária (fundo branco) para jornadas secundárias (biometria, eSIM, cartão)?
+<strong>Resposta:</strong> Essa tela intermediária é uma <strong>exceção só do fluxo de biometria</strong>; o Master documenta o uso fora disso como <strong>incorreto</strong>. Para outros casos, alinhe com Pesquisa e Evolução (responsáveis pelo Master).</p>
+<p><sub>Ref. #392 · 07/2025</sub></p>
+<p><strong>Dúvida:</strong> De onde vem o ícone de check redondo usado numa tela de sucesso?
+<strong>Resposta:</strong> Ele vem por padrão nas telas de Sucesso da marca. As telas de sucesso intermediárias (fundo branco) são exceção do fluxo de biometria. No caso relatado, a orientação foi usar o <strong>ícone padrão da tela de Info</strong>.</p>
+<p><sub>Ref. #413 · 07/2025</sub></p>
+<p><strong>Dúvida:</strong> Telas de erro do portal podem ter conteúdo em bullets e passar do limite de caracteres?
+<strong>Resposta:</strong> <strong>Não.</strong> O limite de caracteres e a proibição de bullets nas telas de erro são diretrizes do time de conteúdo e <strong>valem também para o portal</strong>.</p>
+<p><sub>Ref. #429 · 07/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso usar Info Feedback Screen sem nenhum botão?
+<strong>Resposta:</strong> <strong>Não.</strong> As ações nas telas de Info Feedback são <strong>obrigatórias</strong>, e não é recomendado deixar a pessoa sem saída (parece que algo travou). Use o texto e o CTA para reforçar o aviso; o time de conteúdo pode ajudar com o texto.</p>
+<p><sub>Ref. #432 · 08/2025</sub></p>
+<p><strong>Dúvida:</strong> Telas de feedback finais de fluxo devem ter botão voltar?
+<strong>Resposta:</strong> O Master não prevê <strong>voltar</strong> como parte da estrutura das telas de feedback. Para exceções, consulte Pesquisa e Evolução.</p>
+<p><sub>Ref. #536 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> O ícone da Info Feedback é estático?
+<strong>Resposta:</strong> <strong>Sim.</strong> Só as telas de <strong>Error</strong> e <strong>Success</strong> Feedback têm animação.</p>
+<p><sub>Ref. #760 · 01/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso pôr um Data Card no slot da Info Feedback Screen?
+<strong>Resposta:</strong> Sim, desde que o card <strong>não seja interativo</strong>: a interação fica só nos botões da tela.</p>
+<p><sub>Ref. #1046 · 05/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso usar um Advanced Data Card (benefícios e logos) no slot da Info Feedback Screen?
+<strong>Resposta:</strong> Pode, desde que o card <strong>não tenha ação</strong>.</p>
+<p><sub>Ref. #1076 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> Na tela de erro, há regra de número de tentativas? Posso deixar só o botão primário?
+<strong>Resposta:</strong> O número de tentativas é <strong>regra de negócio/produto</strong>. Pode tirar o botão secundário, principalmente se o primário for "Tentar de novo" com boa chance de sucesso. ⚠️ O <strong>ícone de erro não pode ser retirado</strong>.</p>
+<p><sub>Ref. #1125 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> A Information Screen no desktop ocupa toda a área do grid. Está certo?
+<strong>Resposta:</strong> Sim, ela segue a largura do container.</p>
+<p><sub>Ref. #1191 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Que template usar para a tela de permissões do primeiro acesso ao app, na nova versão?
+<strong>Resposta:</strong> Mantenha o <strong>design atual</strong>, só adaptando à nova versão. Mudanças de design dessa tela-chave passam por Pesquisa e Evolução. Use as <strong>Rows do Design System</strong> (não as do conceito), respeitando tokens e estrutura, com título e descrição distintos.</p>
+<p><sub>Ref. #1288 · 09/2026</sub></p>
+<p><strong>Dúvida:</strong> Telas de resumo e conclusão seguindo o padrão da nova versão do app: com boxes ou com dividers?
+<strong>Resposta:</strong> Questão de padrão de produto, encaminhada a Pesquisa e Evolução. No caso, seguiu-se o padrão já entregue em outras telas do mesmo fluxo, ajustando depois se necessário.</p>
+<p><sub>Ref. #1294 · 09/2026</sub></p>
+<p><strong>Dúvida:</strong> Na nova tela de feedback, a description fica abaixo do título ou embaixo, como antes?
+<strong>Resposta:</strong> Sempre consulte o <strong>Guia de Padrões</strong> da nova versão do app (não bibliotecas marcadas como "não usar"). O documentado é a <strong>description logo abaixo do Title</strong>. Antes, o texto era adicionado via slot e a description do componente ficava vazia. A biblioteca Modules seria ajustada.</p>
+<p><sub>Ref. #1393 · 11/2026</sub></p>
+<h3>Loading screen</h3>
+<p><strong>Dúvida:</strong> Existe componente de tela de carregamento (spinner) para evitar divergências entre jornadas?
+<strong>Resposta:</strong> Sim, o <strong>Loading Screen</strong> existe no Design System, inclusive na versão desktop.</p>
+<p><sub>Ref. #28 · 06/2024</sub></p>
+<hr />
+<h1>Bugs e pendências registrados (sem conclusão)</h1>
+<p>Itens reportados ao time que não tinham solução registrada na data. Use só como alerta de que o problema já é conhecido.</p>
+<ul>
+<li><strong>Componentes &gt; Buttons layout:</strong> Após atualizar a biblioteca, o Fixed Footer Layout mudou o preset de texto de 3 para 5, o que quebra números grandes no mobile. A troca foi intencional? <em>Sem resposta registrada.</em> <sub>(Ref. #30 · 07/2024)</sub></li>
+<li><strong>Componentes &gt; Buttons layout:</strong> No Button Group (internal use) "Primary + Button Link", ao desligar <strong>Small</strong>, só o Primary volta ao tamanho normal. <em>Inconsistência confirmada e levada ao time global para correção. Confira o tamanho dos dois botões.</em> <sub>(Ref. #126 · 01/2025)</sub></li>
+<li><strong>Componentes &gt; Timeline:</strong> A Timeline só aceita um slot por etapa; como mostrar várias sub-etapas por macro-etapa? <em>Tratado em conversa privada; sem orientação registrada.</em> <sub>(Ref. #210 · 03/2025)</sub></li>
+<li><strong>Componentes &gt; Buttons layout:</strong> No Fixed Footer da biblioteca Modules, o espaço entre o texto de aceite e o botão parece desproporcional. <em>Em análise; sem conclusão registrada.</em> <sub>(Ref. #380 · 06/2025)</sub></li>
+<li><strong>Componentes &gt; Drawer:</strong> O Button Primary não fica disabled dentro do Drawer; depois da correção, a animação do footer parecia atrasada. <em>O time global abriu e corrigiu o problema do disabled. O atraso não foi reproduzido no Design System: parecia problema da implementação, que forçava o comportamento de desktop. No mobile, o Drawer deve <strong>vir de baixo</strong>.</em> <sub>(Ref. #403 · 07/2025)</sub></li>
+<li><strong>Componentes &gt; Card:</strong> No Advanced Data Card [D], o padding direito do título parece desalinhado; no Highlighted Value Block [D], o support text estava em bold e desalinhado. <em>O bug do Highlighted Value Block foi corrigido (atualize o componente ou puxe um novo). O padding do Advanced Data Card ficou em investigação.</em> <sub>(Ref. #461 · 08/2025)</sub></li>
+<li><strong>Componentes &gt; Mosaic:</strong> A primeira célula do Vertical Mosaic de 8 células está quebrada. <em>Reportado ao time global (outras variantes também tinham problema).</em> <sub>(Ref. #639 · 10/2025)</sub></li>
+<li><strong>Componentes &gt; Drawer:</strong> O slot do Drawer não acompanha a altura do conteúdo. <em>Sem resposta registrada.</em> <sub>(Ref. #821 · 02/2026)</sub></li>
+<li><strong>Componentes &gt; List:</strong> Há impeditivo nos agrupamentos de Rows propostos (compra combinada, switch de fidelidade)? <em>Pediram o contexto; sem conclusão registrada.</em> <sub>(Ref. #936 · 03/2026)</sub></li>
+<li><strong>Componentes &gt; Tabs:</strong> No tablet, as Tabs dentro de um drawer não ocupam toda a largura. <em>O componente deve preencher <strong>100% da largura</strong>; a limitação foi levada ao time global.</em> <sub>(Ref. #1004 · 04/2026)</sub></li>
+<li><strong>Componentes &gt; List:</strong> O Circled Icon no Boxed Row [D] quebra ao ativar Centered. <em>O asset estava com largura Fill (o componente vem em Hug); resete a instância. Possível bug do Figma, reportado ao time global.</em> <sub>(Ref. #1127 · 06/2026)</sub></li>
+<li><strong>Input fields:</strong> O tooltip do Credit Card Fields aparece desalinhado. <em>Dois bugs abertos com o time global (ícones de cartão e campo CVV).</em> <sub>(Ref. #1137 · 07/2026)</sub></li>
+<li><strong>Componentes &gt; Drawer:</strong> Com o Drawer aberto, o body ao fundo continua rolando (duas barras de rolagem). <em>Repassado ao time Core de System para ajuste.</em> <sub>(Ref. #1296 · 09/2026)</sub></li>
+<li><strong>Ícones e ilustrações:</strong> Há versão do ícone de chat de IA com o brilho (sparkle) preenchido, para combinar com o de busca com IA? <em>Em análise (o time pediu contexto); sem conclusão registrada.</em> <sub>(Ref. #1409 · 11/2026)</sub></li>
+</ul>
+</body>
+</html>
