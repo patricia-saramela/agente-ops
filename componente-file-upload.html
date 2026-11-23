@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>File Upload · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-file-upload">
+<h2>File Upload</h2>
+<p class="cat">Campos de formulário</p>
+<h3>Resumo</h3>
+<h4>FileUpload</h4>
+<p>Componente para o usuário escolher um ou mais arquivos do aparelho (documentos, fotos, vídeos). Mostra um ícone, um título, uma descrição e um botão que abre o seletor de arquivos do sistema. Com <code>withDropZone</code>, vira uma área com borda tracejada onde também dá para <strong>arrastar e soltar</strong> arquivos. Os arquivos escolhidos aparecem numa lista embaixo (cada um num <code>FileItem</code>), com nome, tamanho e um botão para remover.</p>
+<p>O componente tem dois modos:</p>
+<ul>
+<li><strong>Padrão</strong> (com <code>renderButton</code>): o Design System monta a área, o texto, o botão e a lista. Quem usa escolhe o botão e pode trocar a lista (<code>renderFiles</code>).
+</li>
+<li><strong>Livre</strong> (com <code>render</code>): quem usa desenha tudo. O componente só entrega os arquivos e as funções para abrir o seletor, arrastar e remover (ex.: uma galeria de fotos).
+</li></ul>
+<h4>FileItem</h4>
+<p>Linha que mostra um arquivo escolhido: miniatura ou ícone do tipo de arquivo, nome, tamanho e um botão ✕ para remover. É o item da lista padrão do <code>FileUpload</code> e pode ser usado numa lista própria (no <code>renderFiles</code>), dentro de um <code>BoxedRowList</code>.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>FileItem</h4><ul>
+<li>⚠️ <strong>Nome e tamanho:</strong> vêm do arquivo escolhido. Não é preciso informar no handoff, mas use exemplos reais (ex.: <code>fatura-outubro.pdf</code>, <code>230 KB</code>).
+</li>
+<li>⚠️ <strong>Imagens:</strong> no código, imagens aparecem como miniatura. Não use o ícone <code>jpg</code> ou <code>png</code> no design.
+</li>
+<li>⚠️ <strong>Arquivos psd:</strong> hoje aparecem com o ícone de clipe no código. Se o design depende do ícone de Photoshop, avise o time de desenvolvimento.
+</li>
+<li>⚠️ <strong>Sem Code Connect:</strong> o Dev Mode não mostra o código do <code>FileItem</code>.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Imagem com ícone de tipo (<code>Extension=jpg</code> ou <code>png</code>)</td><td>Existe</td><td>Não existe: imagens sempre aparecem como miniatura. ⚠️ Diferente.</td></tr>
+<tr><td>Arquivo psd</td><td>Ícone de Photoshop</td><td>Ícone de clipe, por um erro no código. ⚠️ Diferente.</td></tr>
+<tr><td>Item sem tamanho</td><td>Existe (escondendo o <code>Detail</code>)</td><td>Não existe: o tamanho aparece sempre. ⚠️ Diferente.</td></tr>
+<tr><td>Item sobre fundo <code>Alternative</code></td><td>Não existe</td><td>Existe. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>FileUpload</h4><ul>
+<li>⚠️ <strong>Sem Code Connect:</strong> o Dev Mode não mostra o código do <code>FileUpload</code>. Diga no handoff o botão usado, se tem área de arrastar e os textos.
+</li>
+<li>⚠️ <strong>Variante habilitada sem área de arrastar:</strong> no Figma, ela se chama <code>Disabled=True</code>. Confira o visual, não o nome, e diga no handoff se o componente fica desabilitado.
+</li>
+<li>⚠️ <strong>Regras dos arquivos:</strong> informe os tipos aceitos (ex.: "PDF ou JPG"), se pode mais de um arquivo, se os novos se somam aos que já estavam e o tamanho máximo. O código não valida tamanho nem quantidade sozinho.
+</li>
+<li>⚠️ <strong>Mensagens de erro:</strong> informe cada mensagem (ex.: "O arquivo passa de 10 MB", "Tipo de arquivo não aceito"). Arquivos arrastados não passam pelo filtro de tipo, então a mensagem de tipo errado também é preciso.
+</li>
+<li>⚠️ <strong>Estados automáticos:</strong> <code>Hover</code> e <code>Dragover</code> acontecem sozinhos no código. Não é preciso marcar quando usar cada um.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Sem área de arrastar, habilitado</td><td>Se chama <code>Disabled=True</code> (com <code>State=Default</code>)</td><td>É o componente sem <code>withDropZone</code> e sem <code>disabled</code>. ⚠️ Diferente (só o nome da variante).</td></tr>
+<tr><td>Sem área de arrastar, com <code>Hover</code> ou <code>Dragover</code></td><td>Não existe</td><td>Não existe: sem <code>withDropZone</code>, não dá para arrastar arquivos. Igual.</td></tr>
+<tr><td>Largura</td><td>496px</td><td>Ocupa a largura do espaço onde está. ⚠️ Diferente.</td></tr>
+<tr><td>Ícone crescendo ao arrastar um arquivo por cima</td><td>Não existe</td><td>Existe: com <code>withDropZone</code>, o <code>asset</code> cresce um pouco no <code>Dragover</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Modo livre (galeria de fotos, lista própria)</td><td>Não existe</td><td>Existe, com <code>render</code>: quem usa desenha tudo. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>FileUpload</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>renderButton</code> (obrigatória)</td><td></td><td></td><td>Desenha o botão que abre o seletor (ex.: <code>ButtonPrimary</code>, <code>ButtonSecondary</code> ou <code>IconButton</code>). Repasse todas as props recebidas para o botão. O botão é sempre pequeno (<code>small</code>). <strong>Só no modo padrão.</strong></td></tr>
+<tr><td><code>render</code> (obrigatória)</td><td></td><td></td><td>Desenha o componente inteiro. Recebe os arquivos e as funções para abrir o seletor (<code>openFileDialog</code>), remover (<code>removeFile</code>), trocar a lista (<code>setFiles</code>) e montar uma área de arrastar (<code>dropZoneProps</code>, <code>isDragActive</code>). <strong>Só no modo livre.</strong>²</td></tr>
+<tr><td><code>withDropZone</code></td><td>sim/não</td><td><code>false</code></td><td>Transforma o conteúdo numa área com borda tracejada, centralizada, onde dá para arrastar e soltar arquivos. A área toda abre o seletor ao clicar. <strong>Só no modo padrão.</strong>³</td></tr>
+<tr><td><code>asset</code></td><td></td><td></td><td>Ícone ou imagem acima do título (ex.: <code>&lt;IconExportRegular color="currentColor" /&gt;</code>). A cor muda com o fundo. <strong>Só no modo padrão.</strong></td></tr>
+<tr><td><code>title</code></td><td></td><td></td><td>Título (ex.: "Arraste ou escolha o seu arquivo"). É o rótulo do campo para o leitor de tela. <strong>Só no modo padrão.</strong></td></tr>
+<tr><td><code>description</code></td><td></td><td></td><td>Texto embaixo do título, na cor secundária (ex.: "PDF ou JPG, até 50 MB"). <strong>Só no modo padrão.</strong></td></tr>
+<tr><td><code>slot</code></td><td></td><td></td><td>Conteúdo livre entre a descrição e o botão. <strong>Só no modo padrão.</strong></td></tr>
+<tr><td><code>renderFiles</code></td><td></td><td></td><td>Troca a lista padrão de arquivos por uma lista própria. <strong>Só no modo padrão.</strong></td></tr>
+<tr><td><code>accept</code></td><td></td><td></td><td>Tipos de arquivo aceitos no seletor (ex.: <code>'image/*'</code>, <code>'.pdf,.docx'</code>).⁵</td></tr>
+<tr><td><code>multiple</code></td><td>sim/não</td><td></td><td>Permite escolher mais de um arquivo de uma vez. Sem ela, ao soltar vários arquivos, só o primeiro fica.⁶</td></tr>
+<tr><td><code>allowAppend</code></td><td>sim/não</td><td><code>false</code></td><td>Os arquivos novos se somam aos que já estavam. Sem ela, cada escolha substitui a lista.⁶</td></tr>
+<tr><td><code>capture</code></td><td><code>boolean | 'user' | 'environment'</code></td><td></td><td>No celular, abre direto a câmera: <code>'user'</code> para a câmera frontal e <code>'environment'</code> para a traseira.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td><code>false</code></td><td>Desabilita o componente: fica esmaecido, o botão fica desabilitado e não dá para arrastar nem remover arquivos.</td></tr>
+<tr><td><code>errorText</code></td><td></td><td></td><td>Mensagem de erro embaixo do conteúdo, em vermelho com um ícone de alerta. O componente não valida nada sozinho: quem usa decide quando mostrar.⁷</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Modo:</strong> use uma, e só uma, entre <code>renderButton</code> (modo padrão) e <code>render</code> (modo livre). Com <code>render</code>, as props marcadas como <strong>Só no modo padrão</strong> não são aceitas.</p>
+<p>² ℹ️ <strong>Modo livre:</strong> para a área de arrastar funcionar, espalhe o <code>dropZoneProps</code> no elemento da área (<code>&lt;div {...dropZoneProps}&gt;</code>) e use o <code>isDragActive</code> para mudar o visual enquanto o arquivo está por cima. O rótulo precisa de <code>htmlFor={id}</code> para o leitor de tela.</p>
+<p>³ ℹ️ <strong>Área de arrastar:</strong> com <code>withDropZone</code>, a área tem borda tracejada; ao passar o mouse e ao arrastar um arquivo por cima, a borda fica contínua e o fundo muda de cor. Enquanto o arquivo está por cima, o <code>asset</code> cresce um pouco. A área tem 32px de espaço interno em cima e embaixo e 24px dos lados (24px e 16px no celular e no tablet). Sem <code>withDropZone</code>, o conteúdo fica alinhado à esquerda, sem borda, e não aceita arrastar.</p>
+<p>⁴ ⚠️ <strong>Como pegar os arquivos:</strong> o <code>FileUpload</code> não tem <code>onChange</code> e não entra nos <code>values</code> do <code>Form</code> do Design System. Os arquivos chegam ao <code>renderFiles</code> ou ao <code>render</code> (<code>files</code>), ou ficam no campo de arquivo com o <code>name</code>, para um envio de formulário comum (<code>FormData</code>).</p>
+<p>⁵ ⚠️ <strong><code>accept</code> e arrastar:</strong> o <code>accept</code> filtra só os arquivos do seletor. Arquivos arrastados para a área <strong>não</strong> são filtrados: se precisar, confira o tipo e mostre o <code>errorText</code>.</p>
+<p>⁶ ⚠️ <strong><code>allowAppend</code> sem <code>multiple</code>:</strong> com <code>allowAppend</code> e sem <code>multiple</code>, cada escolha adiciona mais um arquivo, então a lista pode ter vários arquivos.</p>
+<p>⁷ ℹ️ <strong>Erro:</strong> o componente não tem limite de tamanho nem de quantidade. Valide os arquivos e passe a mensagem no <code>errorText</code>. A mensagem é anunciada pelo leitor de tela na hora.</p>
+<p>ℹ️ <strong>Lista padrão:</strong> sem <code>renderFiles</code>, os arquivos aparecem numa lista (<code>BoxedRowList</code>) com um <code>FileItem</code> para cada um. Para o leitor de tela, a lista se chama "Arquivos enviados".</p>
+<p>ℹ️ <strong>Cores:</strong> a cor do <code>asset</code> e a da borda da área de arrastar mudam com o fundo (<code>default</code>, <code>alternative</code>, <code>brand</code>, <code>negative</code> ou <code>media</code>).</p>
+<h4>FileItem</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>file</code> (obrigatória)</td><td></td><td></td><td>Arquivo mostrado. O nome é o título e o tamanho aparece à direita (ex.: <code>512 B</code>, <code>230 KB</code>, <code>1,5 MB</code>).¹</td></tr>
+<tr><td><code>onRemove</code> (obrigatória)</td><td></td><td></td><td>Chamada ao tocar no ✕, com o arquivo. Use o <code>removeFile</code> do <code>FileUpload</code>.</td></tr>
+<tr><td><code>removeLabel</code></td><td></td><td>"Excluir arquivo" + nome do arquivo</td><td>♿ Texto do botão ✕ para o leitor de tela.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Ícone:</strong> imagens aparecem como miniatura (40 × 40). Os outros arquivos têm um ícone pelo tipo: PDF, documento (DOC, DOCX, TXT), apresentação (PPT, PPTX), compactado (ZIP, RAR), CSS, HTML, ENEX, Illustrator (AI), vídeo (MP4, MOV, AVI) e áudio (MP3, WAV). Os demais tipos usam um ícone de clipe.</p>
+<p>⚠️ <strong>Arquivos PSD:</strong> o código procura a extensão <code>pds</code> em vez de <code>psd</code>, então arquivos do Photoshop aparecem com o ícone de clipe.</p>
+<p>ℹ️ <strong>Aparência:</strong> é um <code>BoxedRow</code>, então cada arquivo fica numa caixa. O botão ✕ é um <code>IconButton</code> pequeno.</p>
+<p>ℹ️ <strong>Tamanho:</strong> o tamanho usa o separador decimal do idioma, com até 2 casas em MB.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>FileItem</h4><p><strong>Figma:</strong> biblioteca Desktop › File Item [D] · biblioteca Mobile › File Item</p>
+<p>ℹ️ O File Item <strong>não tem Code Connect</strong> no Desktop nem no Mobile. No código, a lista padrão do <code>FileUpload</code> já monta os itens sozinha, a partir dos arquivos escolhidos.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Nome (camada <code>Title</code>)</td><td>texto livre</td><td><code>file</code> (nome do arquivo)</td><td>✅</td><td></td></tr>
+<tr><td>Tamanho (camada <code>Detail text</code>)</td><td><code>True</code> · <code>False</code> + texto</td><td><code>file</code> (tamanho do arquivo)</td><td>⚠️</td><td>No código, o tamanho aparece sempre (ex.: <code>230 KB</code>, <code>1,5 MB</code>). Não dá para esconder.</td></tr>
+<tr><td>Ícone do tipo (instância <code>File type</code>)</td><td><code>Extension</code>: 21 tipos (pdf, doc, docx, txt, ppt, pptx, zip, rar, css, html, enex, psd, ai, mp4, mov, avi, mp3, wav, jpg, png, unknown)</td><td><code>file</code> (tipo do arquivo)</td><td>⚠️</td><td>No código, o ícone vem sozinho do tipo do arquivo. Duas diferenças: imagens (jpg, png e outras) sempre aparecem como miniatura, nunca com ícone; e arquivos <strong>psd</strong> aparecem com o ícone de clipe (<code>unknown</code>), por um erro no código.</td></tr>
+<tr><td>Botão ✕ (<code>Icon Button</code> pequeno)</td><td>fixo</td><td><code>onRemove</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Theme variant</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code> · <code>Media</code></td><td>sem prop</td><td>⚠️</td><td>No código, as cores vêm do fundo onde a lista está. O código também tem o fundo <code>Alternative</code>, que o Figma não tem.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>FileUpload</h4><p><strong>Figma:</strong> biblioteca Desktop › File Upload [D] · biblioteca Mobile › File Upload</p>
+<p>ℹ️ O File Upload <strong>não tem Code Connect</strong> no Desktop nem no Mobile: o Dev Mode não mostra o trecho de código do <code>FileUpload</code>.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Título (camada <code>Upload your files</code>)</td><td>texto livre</td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td>Descrição (camada <code>Drag and drop files here or click to browse</code>)</td><td>texto livre</td><td><code>description</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Asset</code></td><td><code>True</code> · <code>False</code> + ícone ou imagem</td><td><code>asset</code></td><td>✅</td><td>O Figma oferece ícone, ícone em círculo e imagem (círculo, 1:1, 16:9 e 7:10). O código aceita qualquer um.</td></tr>
+<tr><td>Botão (instância <code>Action</code>)</td><td><code>Button Secondary</code> · <code>Button Primary</code> · <code>Button Link</code> · <code>Icon Button</code></td><td><code>renderButton</code></td><td>✅</td><td>No código, o botão é sempre pequeno (<code>small</code>), como no Figma.</td></tr>
+<tr><td><code>Show slot</code> + <code>Slot</code></td><td><code>True</code> · <code>False</code> + conteúdo livre</td><td><code>slot</code></td><td>✅</td><td></td></tr>
+<tr><td><code>File list</code> + <code>Add file items</code></td><td><code>True</code> · <code>False</code> + itens de arquivo</td><td>lista padrão ou <code>renderFiles</code></td><td>✅</td><td>No código, a lista aparece sozinha quando há arquivos escolhidos, com um File Item para cada um. Com <code>renderFiles</code>, a lista é livre.</td></tr>
+<tr><td><code>Error text</code> + camada <code>Error text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>errorText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>withDropZone</code></td><td><code>True</code> · <code>False</code></td><td><code>withDropZone</code></td><td>✅</td><td></td></tr>
+<tr><td><code>State</code></td><td><code>Default</code> · <code>Hover</code> · <code>Dragover</code> · <code>Disabled</code></td><td>sem prop</td><td>⚠️</td><td>No código, <code>Hover</code> e <code>Dragover</code> mudam sozinhos, ao passar o mouse e ao arrastar um arquivo por cima. O <code>State=Disabled</code> repete a propriedade <code>Disabled</code>: no código, é só o <code>disabled</code>.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>True</code> · <code>False</code></td><td><code>disabled</code></td><td>⚠️</td><td>Os nomes das variantes estão trocados: sem área de arrastar (<code>withDropZone=False</code>), o componente habilitado se chama <code>State=Default, Disabled=True</code>. O valor padrão também é <code>True</code>.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Alternative</code> · <code>Negative</code> · <code>Media</code></td><td>sem prop</td><td>⚠️</td><td>No código, as cores vêm do fundo onde o componente está. Os cinco fundos existem no código.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

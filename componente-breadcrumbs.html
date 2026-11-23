@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breadcrumbs · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-breadcrumbs">
+<h2>Breadcrumbs</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Componente de navegação que mostra onde a página atual está dentro da hierarquia do site (ex.: <code>Início / Seção / Subseção</code>). Cada nível anterior é um link, o último item é a página atual, e é exibido em uma cor secundária e sem link. Usado em páginas internas para que o usuário volte facilmente aos outros níveis.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Breadcrumbs</h4><ul>
+<li>⚠️ <strong>Mais de 4 níveis:</strong> o código aceita qualquer quantidade, mas o Figma só tem até 4. Se o fluxo tiver mais níveis, desenhe o caso e combine com quem desenvolve.
+</li>
+<li>⚠️ <strong>Página atual:</strong> é sempre o último item, sem link. Não repita a página atual como um nível anterior.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código que o Figma mostra no Dev Mode é sempre o mesmo exemplo fixo (2 níveis), qualquer que seja a variante escolhida.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>NavigationBreadcrumbs</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>title</code> (obrigatória)</td><td></td><td></td><td>Nome da página atual, exibido no fim da trilha, sem link.</td></tr>
+<tr><td><code>breadcrumbs</code> (obrigatória)</td><td></td><td></td><td>Níveis anteriores à página atual, na ordem do mais alto para o mais baixo. Cada item vira um link seguido do separador <code>/</code>. Ver campos abaixo.</td></tr>
+</tbody></table>
+<h6>Itens de <code>breadcrumbs</code></h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>title</code> (obrigatória)</td><td></td><td></td><td>Texto do link.</td></tr>
+<tr><td><code>url</code> (obrigatória)</td><td></td><td></td><td>Destino do link. A navegação usa o <code>Link</code> do roteador configurado no tema (navegação interna, via <code>to</code>).</td></tr>
+<tr><td><code>onNavigate</code></td><td></td><td></td><td>Função executada no clique, antes da navegação (ex.: enviar evento de analytics).</td></tr>
+</tbody></table>
+<p>ℹ️ O componente não aceita <code>children</code>: todo o conteúdo vem de <code>title</code> e <code>breadcrumbs</code>.</p>
+<p>ℹ️ A estrutura segue o padrão de acessibilidade do W3C: um <code>&lt;nav&gt;</code> com uma lista ordenada (<code>&lt;ol&gt;</code>). O item da página atual recebe <code>aria-current="page"</code> e não é clicável. Os separadores <code>/</code> são ignorados pelo leitor de tela.</p>
+<p>⚠️ A página atual não deve ser incluída dentro da propriedade <code>breadcrumbs</code>, ela já é exibida a partir da props <code>title</code>.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Breadcrumbs</h4><p><strong>Figma:</strong> biblioteca Desktop › Breadcrumbs [D] · biblioteca Mobile › Breadcrumbs</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Fundo da tela</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome (maiúscula)</td></tr>
+<tr><td>Valores do fundo</td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code> · <code>Media</code></td><td>O Mobile tem o fundo <code>Media</code> a mais</td></tr>
+<tr><td>Quantidade de níveis</td><td><code>Nº of nav level</code></td><td><code>Levels of navigation</code></td><td>Só o nome</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Nº of nav level</code></td><td><code>1</code> · <code>2</code> · <code>3</code> · <code>4</code></td><td><code>breadcrumbs</code> + <code>title</code></td><td>⚠️</td><td>No código, <code>breadcrumbs</code> recebe a lista dos níveis anteriores (cada um com texto e link) e <code>title</code> recebe a página atual. <strong>Não há limite de níveis</strong> no código; o Figma vai até 4.</td></tr>
+<tr><td>Textos de cada nível</td><td>texto livre</td><td><code>title</code> de cada item de <code>breadcrumbs</code> e <code>title</code></td><td>✅</td><td>O último texto é a página atual: aparece em cor secundária e sem link.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código o breadcrumbs muda de cor sozinho conforme o <strong>fundo onde está</strong>. O código também tem os fundos <code>Alternative</code> (que não existe no Figma) e <code>Media</code> (que no Figma só existe no Mobile).</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

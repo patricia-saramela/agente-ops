@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snackbar · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-snackbar">
+<h2>Snackbar</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Mensagem curta e temporária que aparece na parte de baixo da tela para informar o resultado de uma ação (ex.: "Plano alterado com sucesso"). Pode ter um botão de ação (ex.: "Desfazer") e um botão de fechar. Some sozinha depois de alguns segundos, a menos que seja persistente.</p>
+<ul>
+<li><strong><code>useSnackbar</code></strong>: hook com a função <code>openSnackbar</code>, que abre um snackbar a partir de qualquer lugar da aplicação. É a forma recomendada de usar.
+</li>
+<li><strong><code>Snackbar</code></strong>: o componente em si, para quando o snackbar é renderizado diretamente na tela.
+</li></ul>
+<p>As props são as mesmas nos dois casos: o objeto passado para <code>openSnackbar</code> tem as mesmas propriedades do componente.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Snackbar</h4><ul>
+<li>⚠️ <strong>Snackbar persistente:</strong> sem botão de ação, o código sempre mostra o ✕. Não desenhe um snackbar persistente sem nenhum botão.
+</li>
+<li>⚠️ <strong>Tempo na tela:</strong> o código só tem dois tempos fixos (5 segundos sem botão, 10 segundos com botão) ou persistente. Não dá para definir outro tempo.
+</li>
+<li>⚠️ <strong>Um de cada vez:</strong> se um novo snackbar abrir com outro na tela, o atual fecha e o novo aparece em seguida. Não desenhe dois snackbars juntos.
+</li>
+<li>⚠️ <strong>App nativo:</strong> dentro do app (webview), o snackbar é mostrado pelo próprio app, com a aparência do app, e não pelo componente do Figma.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código que o Figma mostra no Dev Mode usa o texto fixo "Action" no botão. Informe o texto certo no handoff.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td><code>Duration=Infinite</code> + <code>Action=No</code> + <code>Dismiss</code> desligado</td><td>Snackbar sem nenhum botão</td><td>O código mostra o ✕ mesmo assim, para o usuário conseguir fechar. ⚠️</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Snackbar / useSnackbar</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>type</code></td><td><code>'INFORMATIVE' | 'CRITICAL'</code></td><td><code>'INFORMATIVE'</code></td><td>🎨 Tipo da mensagem: <code>'INFORMATIVE'</code> para informações e confirmações, <code>'CRITICAL'</code> para erros (fundo na cor de erro, e o texto do botão de ação fica na mesma cor clara da mensagem).</td></tr>
+<tr><td><code>withDismiss</code></td><td>sim/não</td><td><code>false</code></td><td>🎨 Mostra o botão de fechar (✕). Num snackbar persistente sem botão de ação, o ✕ aparece mesmo sem esta prop.</td></tr>
+<tr><td><code>message</code> (obrigatória)</td><td></td><td></td><td>Texto da mensagem.</td></tr>
+<tr><td><code>buttonText</code></td><td></td><td></td><td>Texto do botão de ação. Clicar nele fecha o snackbar. Com texto longo, o botão vai para baixo da mensagem.</td></tr>
+<tr><td><code>duration</code></td><td><code>'PERSISTENT'</code></td><td></td><td>Com <code>'PERSISTENT'</code>, o snackbar só fecha por ação do usuário. Sem ela, fecha sozinho depois de 5 segundos (ou 10 segundos, se tiver botão de ação).¹</td></tr>
+<tr><td><code>buttonAccessibilityLabel</code></td><td></td><td></td><td>♿ Texto lido pelo leitor de tela para o botão de ação, no lugar do <code>buttonText</code>.</td></tr>
+<tr><td><code>closeButtonLabel</code></td><td></td><td></td><td>♿ Rótulo do botão de fechar. Sem ele, usa o texto do tema ou a tradução padrão (<code>'Fechar'</code>). Não funciona com o <code>openSnackbar</code> nem no app nativo.²</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Duração:</strong> o tempo padrão é de 5 segundos sem botão de ação e 10 segundos com botão de ação. Não há como definir outro tempo: as opções são esses padrões ou <code>'PERSISTENT'</code>.</p>
+<p>² ℹ️ <strong>App nativo:</strong> dentro do app nativo (webview), o snackbar é mostrado pelo próprio app, não pela página. Nesse caso, <code>closeButtonLabel</code> e <code>dataAttributes</code> não são usados, e a aparência segue o padrão do app.</p>
+<h6>useSnackbar</h6>
+<p>ℹ️ <strong>Um snackbar por vez:</strong> se um novo snackbar for aberto enquanto outro está na tela, o atual fecha (com o motivo <code>'CONSECUTIVE'</code>) e o novo aparece em seguida.</p>
+<p>ℹ️ O <code>useSnackbar</code> só funciona dentro do <code>ThemeContextProvider</code> do Design System, que já inclui o que o hook precisa.</p>
+<p>ℹ️ O componente não aceita <code>children</code>: o conteúdo vem de <code>message</code> e <code>buttonText</code>.</p>
+<p>ℹ️ <strong>Leitor de tela:</strong> o snackbar tem <code>role="alert"</code>, então a mensagem é anunciada assim que aparece.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Snackbar</h4><p><strong>Figma:</strong> biblioteca Desktop › Snackbar [D] · biblioteca Mobile › Web/Snackbar</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome do componente</td><td><code>Snackbar [D]</code></td><td><code>Web/Snackbar</code></td><td>Só o nome. No Mobile, o "Web" provavelmente indica que é o snackbar da página; dentro do app nativo, quem mostra o snackbar é o próprio app</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Texto (camada <code>Text</code>)</td><td>texto livre</td><td><code>message</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Type</code></td><td><code>Informative</code> · <code>Critical</code></td><td><code>type</code></td><td>✅</td><td>Padrão <code>Informative</code> nos dois.</td></tr>
+<tr><td><code>Action</code></td><td><code>Yes</code> · <code>No</code></td><td><code>buttonText</code></td><td>✅</td><td>No código, o botão aparece quando há texto para ele.</td></tr>
+<tr><td><code>Long action</code></td><td><code>Yes</code> · <code>No</code></td><td>sem prop</td><td>✅</td><td>No código não é prop: quando o texto do botão passa de 128px (celular) ou 160px (desktop), o botão vai para baixo da mensagem sozinho.</td></tr>
+<tr><td><code>Duration</code></td><td><code>Default</code> · <code>Infinite</code></td><td><code>duration</code></td><td>✅</td><td><code>Infinite</code> = <code>'PERSISTENT'</code>. <code>Default</code> fecha sozinho depois de 5 segundos (ou 10 segundos, com botão de ação).</td></tr>
+<tr><td><code>Dismiss</code></td><td>ligado/desligado</td><td><code>withDismiss</code></td><td>⚠️</td><td>Mostra o botão de fechar (✕). No código, o ✕ também aparece <strong>sozinho</strong> num snackbar persistente sem botão de ação, mesmo com <code>withDismiss</code> desligado.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Qual a margem inferior da Snackbar no desktop? (No mobile há um auto layout com 8px.) <strong>Resposta:</strong> A documentação não traz essa medida. Confirmado com o time global: a margem inferior correta no desktop é <strong>24px</strong> (havia previsão de mudar para 40px no futuro). Mantenha 24px até haver atualização. Use sempre valores múltiplos de 4/8.</p>
+<p><sub>Ref. #11 · 04/2024</sub></p>
+<p><strong>Dúvida:</strong> Como posicionar a Snackbar no mobile e no desktop? Qual a largura no desktop? <strong>Resposta:</strong> <strong>Mobile:</strong> o componente já tem os paddings embutidos; deixe-o "grudado" na parte de baixo da tela, ocupando 100% da largura. Pode subir se houver um elemento fixo embaixo (ex.: mini cart). <strong>Desktop:</strong> a largura se adapta ao texto, de <strong>360px a 800px</strong> (acima disso quebra linha). Fica centralizada, <strong>40px acima da borda inferior do navegador</strong> (não do conteúdo), já que o footer da página não é fixo.</p>
+<p><sub>Ref. #65 · 11/2024</sub></p>
+<p><strong>Dúvida:</strong> Preciso documentar no handoff que a Snackbar desktop vai de 360 a 800px? <strong>Resposta:</strong> <strong>Não.</strong> Isso já está no código e no componente do Figma. Basta usar o componente certo e posicioná-lo na tela. (No mobile ela ocupa toda a largura.)</p>
+<p><sub>Ref. #106 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> Com uma Snackbar persistente (só fecha no "Fechar"), o resto da tela fica bloqueado? <strong>Resposta:</strong> Verifique o comportamento com o time de <strong>Acessibilidade</strong> e mantenha o mesmo comportamento de outros fluxos que usam Snackbar.</p>
+<p><sub>Ref. #132 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> O botão de ação da Snackbar deve dizer "Fechar" ou "Entendi"? <strong>Resposta:</strong> O Design System usa "Fechar" como padrão, mas os dois têm o mesmo sentido. Para a empresa, as diretrizes de conteúdo definem <strong>"Entendi"</strong>, já considerando acessibilidade. Em caso de dúvida, consulte o guia de conteúdo ou o time de conteúdo.</p>
+<p><sub>Ref. #227 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> Para fechar a Snackbar (crouton), uso o "X" (dismiss) ou a ação "Fechar"? <strong>Resposta:</strong> Os dois são opcionais e têm resultado parecido. "Fechar" escrito é mais preciso para acessibilidade. O <strong>"X" é recomendado para duração infinita</strong> (o texto fica até a pessoa fechar). A decisão final é de produto (Pesquisa e Evolução).</p>
+<p><sub>Ref. #1372 · 11/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

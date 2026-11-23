@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Empty State Card · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-empty-state-card">
+<h2>Empty State Card</h2>
+<p class="cat">Padrões de tela</p>
+<h3>Resumo</h3>
+<p>Card de <strong>estado vazio</strong>, para usar no meio de outros conteúdos quando uma parte da tela não tem o que mostrar (ex.: "Nenhum serviço adicional contratado" num painel com outros cards). Mostra uma imagem pequena ou um ícone, um título, uma descrição e até três ações: botão primário, botão secundário e link, todos pequenos. O conteúdo fica empilhado dentro de um card com borda (<code>Boxed</code>).</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>EmptyStateCard</h4><ul>
+<li>⚠️ <strong>Botões pequenos:</strong> mantenha o <code>Small=True</code> do Button Group. O código espera botões pequenos.
+</li>
+<li>⚠️ <strong>Alinhamento dos botões:</strong> não use <code>Alignment=Space between</code>: no código, os botões ficam sempre à esquerda.
+</li>
+<li>⚠️ <strong>Descrição:</strong> se o card não tem descrição, diga no handoff (no Figma, a camada aparece sempre).
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código é sempre o mesmo exemplo fixo (<code>title="Title"</code>, <code>description="Description"</code> e uma imagem), qualquer que seja o design. Ele não leva o tipo de imagem, os textos nem os botões: informe tudo no handoff.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Botões de tamanho normal</td><td>Existe (<code>Small=False</code>)</td><td>Não deve ser usado: o código espera botões pequenos. ⚠️ Diferente.</td></tr>
+<tr><td>Botões espalhados (<code>Space between</code>)</td><td>Existe</td><td>Não existe. ⚠️ Diferente.</td></tr>
+<tr><td>Sem descrição</td><td>Não existe: a descrição aparece sempre</td><td>Existe: o <code>description</code> é opcional. ⚠️ Diferente.</td></tr>
+<tr><td>Card sobre fundo <code>Negative</code> ou <code>Media</code></td><td>Não existe</td><td>Existe. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>EmptyStateCard</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>title</code> (obrigatória)</td><td></td><td></td><td>Título (ex.: "Nenhum serviço adicional").</td></tr>
+<tr><td><code>titleAs</code></td><td></td><td><code>'h3'</code></td><td>Nível do título para o leitor de tela e a estrutura da página (<code>'h1'</code> a <code>'h6'</code> ou <code>'span'</code>). Não muda a aparência.</td></tr>
+<tr><td><code>description</code></td><td></td><td></td><td>Texto embaixo do título, na cor secundária.</td></tr>
+<tr><td><code>imageUrl</code> (obrigatória)</td><td></td><td></td><td>Imagem pequena em cima do título (ex.: uma ilustração), com 64px de altura no celular e no tablet e 80px no desktop.</td></tr>
+<tr><td><code>asset</code> (obrigatória)</td><td></td><td></td><td>Ícone ou elemento em cima do título (ex.: um ícone dentro de um <code>Circle</code>), num espaço de 48 × 48px no celular e no tablet e 56 × 56px no desktop.</td></tr>
+<tr><td><code>button</code></td><td></td><td></td><td>Botão primário. Precisa ser pequeno (<code>small</code>).²</td></tr>
+<tr><td><code>secondaryButton</code></td><td></td><td></td><td>Botão secundário.²</td></tr>
+<tr><td><code>buttonLink</code></td><td></td><td></td><td>Link (ex.: "Saiba mais").²</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Imagem:</strong> use <strong>uma</strong>, e só uma, entre <code>imageUrl</code> e <code>asset</code>. As imagens são decorativas: o leitor de tela não as lê. Diferente do <code>EmptyState</code>, não há imagem grande.</p>
+<p>² ⚠️ <strong>Botões pequenos:</strong> os botões devem ser pequenos (<code>&lt;ButtonPrimary small&gt;</code>). Com um botão primário de tamanho normal, o código mostra um erro no console durante o desenvolvimento, mas o botão aparece normal. Os botões ficam lado a lado (ou um embaixo do outro, se não couberem), na mesma organização do <code>ButtonGroup</code>; sem nenhum, a área de botões não aparece.</p>
+<p>ℹ️ <strong>Tamanho:</strong> o card ocupa a largura do espaço onde está, com 24px de espaço interno em cima e embaixo e 16px dos lados no celular e no tablet (40px em todos os lados no desktop). No desktop, o conteúdo tem no máximo 392px de largura, alinhado à esquerda.</p>
+<h5>Diferença entre EmptyState e EmptyStateCard</h5><table><thead><tr><th></th><th><code>EmptyState</code></th><th><code>EmptyStateCard</code></th></tr></thead><tbody>
+<tr><td><strong>Onde usar</strong></td><td>Na tela inteira ou numa seção grande</td><td>Dentro de um card, no meio de outros conteúdos</td></tr>
+<tr><td><strong>Título</strong></td><td>Grande (<code>Text6</code>), <code>h1</code> por padrão</td><td>Menor, <code>h3</code> por padrão</td></tr>
+<tr><td><strong>Imagem</strong></td><td>Grande (<code>largeImageUrl</code>), pequena (<code>imageUrl</code>) ou ícone (<code>asset</code>)</td><td>Pequena (<code>imageUrl</code>) ou ícone (<code>asset</code>)</td></tr>
+<tr><td><strong>Botões</strong></td><td>Um botão (primário <strong>ou</strong> secundário) e um link</td><td>Botão primário, botão secundário e link, todos pequenos</td></tr>
+<tr><td><strong>Aparência no desktop</strong></td><td>Caixa com borda, texto à esquerda e imagem grande à direita</td><td>Card com o conteúdo empilhado</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes irmãos:</strong> os dois mostram um estado vazio, com props parecidas, mas em tamanhos e lugares diferentes. Cada um tem seu próprio arquivo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>EmptyStateCard</h4><p><strong>Figma:</strong> biblioteca Desktop › Empty State Card [D] · biblioteca Mobile › Empty State Card</p>
+<p>ℹ️ No Figma, o Empty State Card tem dois tipos de imagem (<code>Asset type</code>), título, descrição e os botões, que são um <strong>Button Group</strong> exposto, com as próprias propriedades.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome do valor de link no Button Group (<code>Variant</code>)</td><td><code>Link</code>, <code>Primary+Link</code>, <code>Secondary+Link</code></td><td><code>ButtonLink</code>, <code>Primary+ButtonLink</code>, <code>Secondary+ButtonLink</code></td><td>Só o nome dos valores</td></tr>
+<tr><td>Nome do valor de alinhamento no Button Group (<code>Alignment</code>)</td><td><code>Space between</code></td><td><code>Space-between</code></td><td>Só o nome do valor (hífen)</td></tr>
+<tr><td><code>Variant=Primary+Secondary+Link</code> no Button Group</td><td>Existe</td><td>Não existe</td><td>Só o Desktop tem os três botões juntos</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Asset type</code></td><td><code>Image</code> · <code>Icon</code></td><td><code>imageUrl</code> · <code>asset</code></td><td>✅</td><td>Tamanhos iguais: imagem com 80px de altura no desktop e 64px no celular.</td></tr>
+<tr><td><code>Choose asset</code></td><td>ícone</td><td><code>asset</code></td><td>✅</td><td>Só no <code>Asset type=Icon</code>.</td></tr>
+<tr><td>Título (camada <code>Title</code>)</td><td>texto livre</td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td>Descrição (camada <code>Description</code>)</td><td>texto livre</td><td><code>description</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Actions</code></td><td><code>True</code> · <code>False</code></td><td><code>button</code>, <code>secondaryButton</code> e <code>buttonLink</code></td><td>✅</td><td>Sem <code>Actions</code>, nenhum botão.</td></tr>
+<tr><td><code>Variant</code> (Button Group)</td><td><code>Primary</code> · <code>Secondary</code> · <code>Link</code> e combinações</td><td><code>button</code>, <code>secondaryButton</code> e <code>buttonLink</code></td><td>✅</td><td>Todas as combinações do Figma existem no código, inclusive os três juntos.</td></tr>
+<tr><td><code>Small</code> (Button Group)</td><td><code>True</code> · <code>False</code></td><td><code>small</code> de cada botão</td><td>⚠️</td><td>No Figma, vem <code>True</code>, mas dá para mudar. No código, os botões <strong>devem</strong> ser pequenos: com o primário normal, aparece um erro no console durante o desenvolvimento.</td></tr>
+<tr><td><code>Alignment</code> (Button Group)</td><td><code>Left</code> · <code>Space between</code></td><td>sem prop</td><td>⚠️</td><td>No código, os botões ficam sempre alinhados à esquerda.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code></td><td>sem prop</td><td>⚠️</td><td>No código, as cores vêm do fundo onde o card está. O <code>Theme context</code> do Button Group (<code>Default</code>, <code>Brand</code>, <code>Negative</code>, <code>Media</code>) também é automático no código.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

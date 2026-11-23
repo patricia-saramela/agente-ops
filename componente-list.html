@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>List (Row, Boxed Row, listas) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-list">
+<h2>List (Row, Boxed Row, listas)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>Row / BoxedRow</h4>
+<p>Linha de lista com título e, opcionalmente, ícone ou imagem à esquerda, textos secundários, detalhe, badge e um controle à direita (seta, switch, checkbox, radio ou botão de ícone). Usada em listas de opções, configurações e menus de navegação.</p>
+<ul>
+<li><strong><code>Row</code></strong>: linha simples, separada das outras por uma linha divisória. Vai dentro de um <code>RowList</code>.
+</li>
+<li><strong><code>BoxedRow</code></strong>: a mesma linha dentro de uma caixa. Vai dentro de um <code>BoxedRowList</code>.
+</li></ul>
+<p>As duas têm as mesmas props. O <code>BoxedRow</code> tem, a mais, <code>variant</code> e <code>selected</code>.</p>
+<h4>RowList / BoxedRowList</h4>
+<p>Contêineres de lista que agrupam linhas.</p>
+<ul>
+<li><strong><code>RowList</code></strong>: agrupa <code>Row</code>, com linhas divisórias entre elas.
+</li>
+<li><strong><code>BoxedRowList</code></strong>: agrupa <code>BoxedRow</code>, cada uma numa caixa, com 16px de espaço entre elas.
+</li></ul>
+<h4>UnorderedList / OrderedList / ListItem</h4>
+<p>Listas de texto com marcadores, para conteúdo corrido (ex.: benefícios de um plano, passos de um processo).</p>
+<ul>
+<li><strong><code>UnorderedList</code></strong>: lista com marcadores (pontos).
+</li>
+<li><strong><code>OrderedList</code></strong>: lista numerada.
+</li>
+<li><strong><code>ListItem</code></strong>: cada item da lista.
+</li></ul>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Row</h4><ul>
+<li>⚠️ <strong>Mobile:</strong> no Figma Mobile, o tipo de asset, a tag e o conteúdo da direita ficam escondidos dentro da instância <code>List Structure</code>; confira dentro dela.
+</li>
+<li>⚠️ <strong>Lista compacta:</strong> o tamanho dos textos vem da lista (<code>RowList small</code>), não de cada linha.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código que o Figma mostra no Dev Mode usa a prop <code>extra</code> para o slot, mas essa prop <strong>não existe</strong> no código; o certo é <code>slot</code>.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td><code>Title</code> desligado</td><td>Linha sem título</td><td>Não é possível: <code>title</code> é obrigatório. ⚠️</td></tr>
+<tr><td><code>Divider</code> ligado no Boxed Row ou desligado no Row</td><td>Divisória escolhida à mão</td><td>O código ignora: o <code>Row</code> sempre tem e o <code>BoxedRow</code> nunca tem. ⚠️</td></tr>
+<tr><td><code>Small</code> em só algumas linhas</td><td>Linhas de tamanhos diferentes na mesma lista</td><td>O tamanho é da lista inteira. ⚠️</td></tr>
+</tbody></table>
+<h4>UnorderedList / OrderedList</h4><ul>
+<li>⚠️ <strong>Níveis:</strong> para itens de segundo ou terceiro nível, indique no handoff quais itens ficam dentro de quais.
+</li>
+<li>⚠️ <strong>Tamanho do texto:</strong> o item não define o tamanho do texto no código; informe o estilo de texto usado.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Row / BoxedRow</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>danger</code></td><td>sim/não</td><td></td><td>🎨 Título na cor de erro, para ações destrutivas (ex.: "Excluir conta"). No <code>BoxedRow</code>, não pode ser usado com <code>variant="brand"</code>.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>🎨 Linha desabilitada: esmaecida e sem resposta ao clique.</td></tr>
+<tr><td><code>withChevron</code></td><td>sim/não</td><td></td><td>🎨 Mostra a seta (›) à direita. Sem ela, a seta aparece sozinha nas linhas clicáveis sem controle.</td></tr>
+<tr><td><code>titleLinesMax</code></td><td>número</td><td></td><td>🎨 Número máximo de linhas do título.</td></tr>
+<tr><td><code>subtitleLinesMax</code></td><td>número</td><td></td><td>🎨 Número máximo de linhas do subtítulo.</td></tr>
+<tr><td><code>descriptionLinesMax</code></td><td>número</td><td></td><td>🎨 Número máximo de linhas da descrição.</td></tr>
+<tr><td><code>variant</code></td><td><code>'default' | 'brand'</code></td><td><code>'default'</code></td><td>🎨 Só no <code>BoxedRow</code>. Cor da caixa.</td></tr>
+<tr><td><code>selected</code></td><td>sim/não</td><td></td><td>🎨 Só no <code>BoxedRow</code>. Contorno de selecionado. Com checkbox, switch ou radio, o contorno aparece sozinho quando a linha está marcada.</td></tr>
+<tr><td><code>title</code> (obrigatória)</td><td></td><td></td><td>Título da linha.</td></tr>
+<tr><td><code>headline</code></td><td></td><td></td><td>Texto ou tag acima do título.</td></tr>
+<tr><td><code>subtitle</code></td><td></td><td></td><td>Texto abaixo do título.</td></tr>
+<tr><td><code>description</code></td><td></td><td></td><td>Texto abaixo do subtítulo, em cor secundária.</td></tr>
+<tr><td><code>detail</code></td><td></td><td></td><td>Texto curto à direita (ex.: um valor ou uma data).</td></tr>
+<tr><td><code>asset</code></td><td></td><td></td><td>Ícone ou imagem à esquerda. Se tiver <code>alt</code> ou <code>aria-label</code>, esse texto entra no rótulo da linha.</td></tr>
+<tr><td><code>badge</code></td><td></td><td></td><td>Badge à direita do texto: <code>true</code> mostra um ponto, um número mostra o valor.</td></tr>
+<tr><td><code>slot</code></td><td></td><td></td><td>Conteúdo livre abaixo dos textos.</td></tr>
+<tr><td><code>right</code></td><td></td><td></td><td>Conteúdo livre à direita, antes do controle ou da seta.</td></tr>
+<tr><td><code>touchableRole</code></td><td></td><td></td><td>♿ Papel da área clicável.</td></tr>
+<tr><td><code>tabIndex</code></td><td>número</td><td></td><td>♿ Ordem de foco pelo teclado.</td></tr>
+<tr><td><code>atomicReading</code></td><td>sim/não</td><td></td><td>♿ Linha sem ação: o leitor de tela lê a linha inteira de uma vez.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Ação:</strong> use no máximo uma ação na linha: clique (<code>onPress</code>, <code>to</code> ou <code>href</code>) ou um controle (<code>switch</code>, <code>checkbox</code>, <code>radioValue</code> ou <code>iconButton</code>). Com controle, <code>onPress</code> pode ser usado junto para dar uma ação separada à linha.</p>
+<p>ℹ️ O componente não aceita <code>children</code>: o conteúdo vem das props.</p>
+<p>ℹ️ O tamanho dos textos vem da lista: <code>RowList small</code> ou <code>BoxedRowList small</code> deixa todas as linhas compactas.</p>
+<h4>RowList / BoxedRowList</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td><code>false</code></td><td>🎨 Versão compacta: todas as linhas da lista ficam com textos menores.</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>As linhas (<code>Row</code> no <code>RowList</code>, <code>BoxedRow</code> no <code>BoxedRowList</code>).</td></tr>
+</tbody></table>
+<h4>UnorderedList / OrderedList / ListItem</h4><h5>Propriedades</h5><h6>UnorderedList e OrderedList</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Os itens (<code>ListItem</code>).</td></tr>
+</tbody></table>
+<h6>ListItem</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>withMarker</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Mostra o marcador do item. Com <code>false</code>, o item fica sem marcador.</td></tr>
+<tr><td><code>Icon</code></td><td></td><td></td><td>🎨 Ícone no lugar do marcador. Fica do tamanho do texto.</td></tr>
+<tr><td><code>icon</code></td><td></td><td></td><td>🎨 Elemento no lugar do marcador (ex.: um ícone com cor própria).</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Conteúdo do item.</td></tr>
+</tbody></table>
+<p>ℹ️ Os textos dos itens não têm tamanho próprio: use um componente de texto dentro do <code>ListItem</code> (ex.: <code>Text3</code>).</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Row</h4><p><strong>Figma:</strong></p>
+<ul>
+<li>Row: biblioteca Desktop › Row [D]
+</li>
+<li>Boxed Row: biblioteca Desktop › Boxed Row [D] · biblioteca Mobile › Boxed Row
+</li></ul>
+<p>ℹ️ No Figma, as propriedades dos textos, do asset, do badge, do slot e da divisória ficam na instância interna <strong>List Structure</strong>, exposta no painel do Row. No Desktop, as instâncias de dentro dela também são expostas: <strong>Zone A - Assets</strong> (tipo de asset), <strong>Zone B - Headline</strong> (tag acima do título) e <strong>Zone C - Presets</strong> (conteúdo da direita).</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Valores de <code>Centered</code> (Boxed Row)</td><td><code>On</code> · <code>Off</code></td><td><code>True</code> · <code>False</code></td><td>Só o nome dos valores</td></tr>
+<tr><td>Instâncias internas expostas (Boxed Row)</td><td><code>List Structure</code>, <code>Zone A - Assets</code>, <code>Zone B - Headline</code> e <code>Zone C - Presets</code></td><td>Só <code>List Structure</code></td><td>No Mobile, o tipo de asset, a tag e o conteúdo da direita não aparecem no painel; é preciso entrar na instância</td></tr>
+<tr><td>Row</td><td>Existe</td><td>Sem ligação de código</td><td>O Design System só liga ao código o Row do Desktop</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Title</code> + camada (List Structure)</td><td>ligado/desligado + texto</td><td><code>title</code></td><td>⚠️</td><td>No código, <code>title</code> é obrigatório: não existe linha sem título.</td></tr>
+<tr><td><code>Headline</code> (List Structure) + <code>Zone B - Headline</code></td><td>ligado/desligado + tag</td><td><code>headline</code></td><td>✅</td><td>No código, <code>headline</code> aceita um texto ou uma <code>Tag</code>.</td></tr>
+<tr><td><code>Subtitle</code> + camada (List Structure)</td><td>ligado/desligado + texto</td><td><code>subtitle</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Description</code> + camada (List Structure)</td><td>ligado/desligado + texto</td><td><code>description</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Asset</code> (List Structure) + <code>Zone A - Assets</code></td><td>ligado/desligado + <code>Icon</code>, <code>Icon Background</code> (<code>None</code> · <code>Circle</code> · <code>Square</code>), <code>Image</code> com <code>Aspect Ratio</code> (<code>Circle</code> · <code>1:1</code> · <code>16:9</code> · <code>7:10</code>), <code>Avatar</code></td><td><code>asset</code></td><td>✅</td><td>No código, <code>asset</code> recebe o elemento pronto: um ícone (dentro de <code>Circle</code> ou <code>Square</code> para ter fundo), uma <code>Image</code> com a proporção ou um <code>Avatar</code>.</td></tr>
+<tr><td><code>Badge</code> (List Structure)</td><td>ligado/desligado</td><td><code>badge</code></td><td>✅</td><td>No código, <code>badge</code> também aceita um número.</td></tr>
+<tr><td><code>Slot</code> + <code>🔄 Replace Slot</code> (List Structure)</td><td>ligado/desligado + instância</td><td><code>slot</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Divider</code> (List Structure)</td><td>ligado/desligado</td><td>sem prop</td><td>⚠️</td><td>No código não dá para escolher: o <code>Row</code> sempre tem divisória (menos a última linha da lista) e o <code>BoxedRow</code> nunca tem.</td></tr>
+<tr><td><code>Small</code> (List Structure)</td><td><code>True</code> · <code>False</code></td><td><code>small</code> (do <code>RowList</code>)</td><td>⚠️</td><td>No código é uma prop da lista inteira (<code>RowList small</code>), não de cada linha.</td></tr>
+<tr><td><code>Type</code> (Zone C - Presets)</td><td><code>Navigation</code> · <code>Switch</code> · <code>Checkbox</code> · <code>Radio</code> · <code>Icon button</code> · <code>None</code></td><td><code>withChevron</code> · <code>switch</code> · <code>checkbox</code> · <code>radioValue</code> · <code>iconButton</code></td><td>✅</td><td><code>Navigation</code> = seta (›), que no código aparece sozinha nas linhas clicáveis. <code>None</code> = nada à direita.</td></tr>
+<tr><td><code>Detail</code> (Zone C - Presets)</td><td>ligado/desligado</td><td><code>detail</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Slot</code> + <code>🔄 Replace Slot</code> (Zone C - Presets)</td><td>ligado/desligado + instância</td><td><code>right</code></td><td>✅</td><td>Conteúdo livre à direita.</td></tr>
+<tr><td><code>Double interaction?</code> (Zone C - Presets)</td><td><code>True</code> · <code>False</code></td><td><code>onPress</code> + controle</td><td>✅</td><td>No código, a linha com <code>onPress</code> e um controle (switch, checkbox ou botão de ícone) vira duas áreas de clique separadas por uma linha vertical.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>True</code> · <code>False</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Danger</code></td><td><code>True</code> · <code>False</code></td><td><code>danger</code></td><td>✅</td><td>No Figma e no código, <code>Danger</code> não existe com <code>Variant=Brand</code> no Boxed Row.</td></tr>
+<tr><td><code>Variant</code></td><td><code>Default</code> · <code>Brand</code></td><td><code>variant</code></td><td>✅</td><td>Só no Boxed Row.</td></tr>
+<tr><td><code>Centered</code></td><td><code>On</code>/<code>True</code> · <code>Off</code>/<code>False</code></td><td>sem prop</td><td>✅</td><td>No código, a centralização vertical é automática: a linha fica centralizada quando tem uma linha de texto só.</td></tr>
+<tr><td><code>Negative box</code></td><td><code>true</code> · <code>false</code></td><td>sem prop</td><td>⚠️</td><td>Só no Row. Pelo nome, corresponde ao <code>NegativeBox</code> em volta da lista, que remove a margem lateral. Confirme com quem desenvolve.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código a linha se ajusta sozinha ao <strong>fundo onde está</strong>. O código também tem os fundos <code>Alternative</code> e <code>Media</code>.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>UnorderedList / OrderedList</h4><p><strong>Figma:</strong></p>
+<ul>
+<li>Unordered List: biblioteca Desktop › Unordered List - List item [D]
+</li>
+<li>Ordered List: biblioteca Desktop › Ordered List - List item [D]
+</li></ul>
+<p>ℹ️ No Figma, cada instância é <strong>um item</strong> da lista. No código, a lista (<code>UnorderedList</code> ou <code>OrderedList</code>) agrupa os itens (<code>ListItem</code>).</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Unordered List e Ordered List</td><td>Existem</td><td>Sem ligação de código</td><td>O Design System só liga ao código os do Desktop</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Texto (camada <code>Text</code>)</td><td>texto livre</td><td><code>children</code> (<code>ListItem</code>)</td><td>✅</td><td></td></tr>
+<tr><td><code>Marker type</code> + <code>Icon</code> / <code>Custom marker</code></td><td><code>Default</code> · <code>Icon</code> · <code>Custom</code> · <code>None</code> + instância</td><td><code>Icon</code> / <code>icon</code> / <code>withMarker</code> (<code>ListItem</code>)</td><td>✅</td><td><code>Default</code> = marcador padrão; <code>Icon</code> = ícone escolhido em <code>Icon</code> (prop <code>Icon</code>); <code>Custom</code> = elemento escolhido em <code>Custom marker</code> (prop <code>icon</code>); <code>None</code> = <code>withMarker={false}</code>.</td></tr>
+<tr><td><code>Content</code> + <code>Custom content</code></td><td><code>Default</code> · <code>Custom</code> + instância</td><td><code>children</code> (<code>ListItem</code>)</td><td>✅</td><td>No código, o item aceita qualquer conteúdo.</td></tr>
+<tr><td><code>Last item</code></td><td>ligado/desligado</td><td>sem prop</td><td>✅</td><td>No código, o espaçamento do último item é automático.</td></tr>
+<tr><td><code>Level</code></td><td><code>Main</code> · <code>Second</code> · <code>Third</code></td><td>lista dentro de lista</td><td>⚠️</td><td>Não é prop: no código, o segundo e o terceiro nível são uma lista colocada dentro de um item.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código a lista se ajusta sozinha ao <strong>fundo onde está</strong>.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Numa lista de Rows, depois que o cliente seleciona uma opção, as outras ficam desabilitadas ou somem? <strong>Resposta:</strong> Consulte a <strong>demo interativa</strong> do componente na documentação do Design System para ver o comportamento.</p>
+<p><sub>Ref. #92 · 12/2024</sub></p>
+<p><strong>Dúvida:</strong> Numa Row, o Icon Button fica a 28px da margem final, e Radio/Checkbox a 16px. Está certo? <strong>Resposta:</strong> <strong>Sim.</strong> O espaço maior considera a área do Icon Button (que pode ter fundo sólido) e a <strong>área mínima de clique de 48px</strong>.</p>
+<p><sub>Ref. #147 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> Para que serve a opção <strong>Centered</strong> da Row, que não aparece no Playroom? <strong>Resposta:</strong> Use <strong>Centered</strong> só quando a Row tem <strong>uma linha</strong> (apenas título e detail). Ela centraliza o asset e a linha do título. Com mais linhas, não use.</p>
+<p><sub>Ref. #176 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> Numa Row com dois dados de mesmo peso, posso mudar o token do subtitle para text secondary ou usar a description em duas linhas? <strong>Resposta:</strong> <strong>Não.</strong> Não se alteram manualmente os tokens de cor dos componentes: siga a hierarquia de tokens (o subtitle usa <strong>TextPrimary</strong>). <strong>Não é possível</strong> fazer quebra de linha manual na Row. Valide padrões de uso com Pesquisa e Evolução e mantenha as bibliotecas atualizadas.</p>
+<p><sub>Ref. #198 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> Na tela de sucesso, se o texto de uma Row for longo, posso usar reticências em vez de quebrar a linha? <strong>Resposta:</strong> <strong>Evite reticências.</strong> O comportamento padrão é quebrar a linha. Pelas diretrizes de conteúdo e acessibilidade, reticências deixam a informação incompleta e podem ser ignoradas pelo leitor de tela.</p>
+<p><sub>Ref. #318 · 05/2025</sub></p>
+<p><strong>Dúvida:</strong> A imagem 1:1 da Row mobile tem 64px, como no desktop. Posso usar 40px? <strong>Resposta:</strong> <strong>Sim, pode usar 40px.</strong> Para mudar, altere o gap da camada <strong>Change "Space Between"</strong>: como o aspect ratio é 1:1, altura e largura se ajustam juntas.</p>
+<p><sub>Ref. #474 · 08/2025</sub></p>
+<p><strong>Dúvida:</strong> O detail da Row quebra dentro da Success Feedback Screen [D]. Aumento a largura do conteúdo? <strong>Resposta:</strong> O <strong>detail</strong> foi pensado para textos <strong>curtos</strong>. A Seção C (onde fica o detail) <strong>não deve passar de 40% da largura da linha</strong>; acima disso, o detail vira multilinha. Para textos maiores, use <strong>description</strong>, e valide com Pesquisa e Evolução.</p>
+<p><sub>Ref. #506 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> No desktop, posso usar Rows lado a lado? A Row pode não ter Title? <strong>Resposta:</strong> <strong>Rows só podem ser aplicadas em formato de lista</strong> (uma embaixo da outra). Para opções lado a lado, use o <strong>Media Card</strong> (ex.: com checkbox no top actions). O <strong>Title é o único item obrigatório</strong> da Row.</p>
+<p><sub>Ref. #789 · 01/2026</sub></p>
+<p><strong>Dúvida:</strong> Na Row, posso usar o subtitle com textSecondary para o preço "De" e a description com textPrimary para o "Por"? <strong>Resposta:</strong> <strong>Não</strong> se troca o preset de cor da Row. Alternativa: desenhe o "De/Por" num frame e use-o <strong>no slot</strong>, desligando subtitle e description. <strong>Não coloque botão dentro do slot</strong>: a Row tem duas interações possíveis (<strong>OnPress</strong> na área principal e <strong>Control</strong>, ex.: checkbox) e um botão no slot conflita com o OnPress. Use a própria área de OnPress para "mais detalhes".</p>
+<p><sub>Ref. #911 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Grupos de Rows + input num novo visual de loja. Há impeditivo? <strong>Resposta:</strong> O app já tem um padrão para esse tipo de layout. Criar um <strong>novo padrão</strong> para algo que já existe precisa passar por <strong>Pesquisa e Evolução</strong>. Do lado de System não há impedimento.</p>
+<p><sub>Ref. #937 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Na Zone A da Row, o Circle com ícone vem na cor da marca. Posso usar fundo cinza? <strong>Resposta:</strong> O Circle usa as cores da marca. O padrão em produção para esses fluxos é usar o <strong>ícone sem o fundo</strong> (ex.: central de faturas).</p>
+<p><sub>Ref. #969 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso ter um Button Link no slot e um Icon Button na lateral da Row? <strong>Resposta:</strong> A Row pode ter <strong>duas interações</strong>: o Icon Button e a área principal. O link fica figurativo: cerca de <strong>90%</strong> da Row é área clicável e <strong>10%</strong> fica para o Icon Button.</p>
+<p><sub>Ref. #978 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso usar reticências no nome longo de uma assinatura na Row? <strong>Resposta:</strong> <strong>Não é recomendado</strong>: reticências são má prática, especialmente para acessibilidade. Busque com o time de conteúdo uma forma de encurtar o texto.</p>
+<p><sub>Ref. #987 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> A imagem da Row no desktop fica com fundo branco? <strong>Resposta:</strong> Só se a <strong>imagem</strong> tiver fundo branco; não é padrão do componente.</p>
+<p><sub>Ref. #1042 · 05/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso pôr botões (tipo chips) dentro de um Boxed Row (FAQ)? <strong>Resposta:</strong> Dá para fazer, mas o tamanho e o espaçamento dos botões ficam pouco acessíveis (na Row, duas ações lado a lado são separadas por divider). Sugestão: mantenha os <strong>chips fora do box</strong>, no tamanho normal.</p>
+<p><sub>Ref. #1089 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> Qual componente de código corresponde ao Boxed Row com switch do Figma? <strong>Resposta:</strong> É o <strong>Boxed Row List</strong> do Design System, usado com o switch.</p>
+<p><sub>Ref. #1129 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> Os ícones do List Item mobile e desktop parecem diferentes. <strong>Resposta:</strong> Use no mobile o componente com o <strong>mesmo nome do desktop</strong> (Unordered List › List Item), que tem o mesmo bullet. A falha ao desligar "Last item" é provavelmente bug do Figma.</p>
+<p><sub>Ref. #1186 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso usar o ícone de fundo quadrado (como no Data Card snap da nova versão do app) também na web? <strong>Resposta:</strong> Sim, faz sentido para consistência. No mobile, selecione <strong>Squared</strong> em icon background, ajuste o corner do Square com a variable <strong>mediaSmall</strong> e use os tokens <strong>neutralLow</strong> (fundo) e <strong>neutralHigh</strong> (ícone). Na Row desktop do Figma ainda não há essa opção: use o <strong>Circled Icon</strong> com esses tokens e indique no handoff. No código, os devs usam o Square com raio de 12px.</p>
+<p><sub>Ref. #1260 · 08/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

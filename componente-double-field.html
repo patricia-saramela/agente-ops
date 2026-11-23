@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DoubleField · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-double-field">
+<h2>DoubleField</h2>
+<p class="cat">Layout</p>
+<h3>Resumo</h3>
+<p>Coloca dois campos de formulário lado a lado, na mesma linha (ex.: validade e CVV do cartão, DDD e telefone). Os dois campos dividem a largura em partes iguais ou em 40/60, com 16px de espaço entre eles. Cada campo passa a ocupar toda a largura da sua parte.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>DoubleField</h4><ul>
+<li>⚠️ <strong><code>Fullwidth</code>:</strong> não use o <code>Layout=Fullwidth</code> para um campo sozinho. No código, um campo na largura toda é só o campo, sem o Double Field.
+</li>
+<li>⚠️ <strong>Campos aceitos:</strong> use só os campos que o código aceita (ver a tabela acima).
+</li>
+<li>⚠️ <strong>Largura no desktop:</strong> diga se os dois campos têm a largura de um campo (328px) ou a largura toda.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o <code>Layout</code> do design, mas os campos aparecem como <code>&lt;div&gt;Field 1&lt;/div&gt;</code> e <code>&lt;div&gt;Field 2&lt;/div&gt;</code>: cada campo tem o próprio trecho. Com <code>Layout=Fullwidth</code>, o trecho sai sem <code>layout</code>, ou seja, <code>50/50</code> no código.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Um campo só, na largura toda</td><td>É o <code>Layout=Fullwidth</code></td><td>Não existe: um campo só ocupa a parte da esquerda. ⚠️ Diferente.</td></tr>
+<tr><td>Campos que o código não aceita (ex.: Search Field, Pin Field)</td><td>Dá para trocar a instância</td><td>Não existe: o <code>DoubleField</code> só aceita os dez campos listados. ⚠️ Diferente.</td></tr>
+<tr><td>Largura no desktop</td><td>496px</td><td>328px, ou a largura toda com <code>fullWidth</code>. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>DoubleField</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>layout</code></td><td><code>'50/50' | '40/60' | '60/40'</code></td><td><code>'50/50'</code></td><td>🎨 Como a largura é dividida entre os dois campos (o primeiro número é o campo da esquerda).</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, os dois campos juntos têm 328px no desktop (a largura de um campo) e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Os dois campos, na ordem da esquerda para a direita.¹</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Campos aceitos:</strong> <code>TextField</code>, <code>Select</code>, <code>EmailField</code>, <code>PasswordField</code>, <code>PhoneNumberField</code>, <code>IntegerField</code>, <code>DecimalField</code>, <code>DateField</code>, <code>CreditCardExpirationField</code> e <code>CvvField</code>. O <code>DoubleField</code> liga o <code>fullWidth</code> de cada campo sozinho: não é preciso passar.</p>
+<p>⚠️ <strong>Um campo só:</strong> com um campo só, ele ocupa só a parte da esquerda (ex.: metade da largura no <code>'50/50'</code>), e a parte da direita fica vazia.</p>
+<p>ℹ️ <strong>Sem quebra de linha:</strong> os dois campos ficam lado a lado em qualquer tela, também no celular. Em telas estreitas, prefira o <code>'50/50'</code> e campos com rótulos curtos.</p>
+<p>ℹ️ <strong>Sem identificação para testes:</strong> o <code>DoubleField</code> não aceita <code>dataAttributes</code>.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>DoubleField</h4><p><strong>Figma:</strong> biblioteca Desktop › Double Field [D] · biblioteca Mobile › Double Field</p>
+<p>ℹ️ No Figma, o Double Field tem dois Text Fields lado a lado, com 16px entre eles, como no código. Os campos são instâncias expostas: dá para mudar as propriedades de cada um e trocar por outro campo (ex.: Email Field).</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Layout</code></td><td><code>Fullwidth</code> · <code>50/50</code> · <code>40/60</code> · <code>60/40</code></td><td><code>layout</code></td><td>⚠️</td><td><code>50/50</code>, <code>40/60</code> e <code>60/40</code> são iguais. <code>Fullwidth</code> (o padrão no Figma) mostra <strong>um campo só</strong> ocupando a largura toda: no código, um campo só ocupa apenas a parte da esquerda. Para um campo na largura toda, use o campo sozinho, sem <code>DoubleField</code>.</td></tr>
+<tr><td>Campos (dois Text Fields expostos)</td><td>qualquer campo</td><td><code>children</code></td><td>✅</td><td>No código, o <code>DoubleField</code> aceita <code>TextField</code>, <code>Select</code>, <code>EmailField</code>, <code>PasswordField</code>, <code>PhoneNumberField</code>, <code>IntegerField</code>, <code>DecimalField</code>, <code>DateField</code>, <code>CreditCardExpirationField</code> e <code>CvvField</code>.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

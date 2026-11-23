@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pin Field · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-pin">
+<h2>Pin Field</h2>
+<p class="cat">Campos de formulário</p>
+<h3>Resumo</h3>
+<p>Campo para o usuário digitar um código curto, um algarismo em cada caixinha (ex.: o código de 6 dígitos recebido por SMS). O foco passa sozinho para a próxima caixinha a cada algarismo, e colar o código inteiro preenche todas de uma vez. No celular, abre o teclado numérico e pode preencher o código do SMS sozinho (<code>readSms</code>). Também pode esconder o código, como uma senha (<code>hideCode</code>). Funciona sozinho ou dentro de um <code>Form</code>.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>PinField</h4><ul>
+<li>⚠️ <strong>Texto que explica o campo:</strong> o Pin Field não tem rótulo. Desenhe um título ou texto acima das caixinhas (ex.: "Digite o código de 6 dígitos que enviamos por SMS") e diga no handoff que é ele que dá nome ao campo.
+</li>
+<li>⚠️ <strong>Código incompleto e código errado:</strong> o código só mostra erro sozinho com o campo vazio. Desenhe e informe as mensagens para código incompleto e para código incorreto (ex.: "Código incorreto. Confira o SMS e tente de novo."): o time de desenvolvimento mostra essas mensagens com o <code>Error</code> e o <code>Helper text</code>.
+</li>
+<li>⚠️ <strong>Código do SMS:</strong> diga se o código deve ser preenchido sozinho a partir do SMS. Isso vem ligado por padrão quando o código não é escondido (<code>Hide Pin=False</code>).
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o <code>Length</code>, o <code>Hide Pin</code>, o texto de ajuda, o <code>Error</code>, o <code>Disabled</code> e o <code>Read only</code> do design. O <code>name</code> é sempre <code>"pin-field"</code> e o <code>aria-label</code> é sempre <code>"PIN"</code>: informe o nome certo no handoff.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Mais de 6 caixinhas (ex.: 8)</td><td>Não existe: o máximo é 6</td><td>Existe: o <code>length</code> aceita qualquer número. ⚠️ Diferente.</td></tr>
+<tr><td>Campo vazio, sem foco</td><td>Não existe: sem foco (<code>Activated</code>), as caixinhas estão sempre preenchidas</td><td>Existe: é o estado inicial. ⚠️ Diferente.</td></tr>
+<tr><td>Foco numa caixinha depois de uma vazia</td><td>Não existe</td><td>Não existe: o foco vai sempre para a primeira caixinha vazia. Igual.</td></tr>
+<tr><td>Código de outros caracteres (ex.: letras)</td><td>Dá para escrever na propriedade <code>Pin</code></td><td>Não existe: só algarismos. ⚠️ Diferente.</td></tr>
+<tr><td>Caixinhas em duas linhas</td><td>Não existe</td><td>Existe: quando não cabem na largura, as caixinhas passam para a linha de baixo. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>PinField</h4><h5>Quando usar</h5><ul>
+<li><strong>Use o <code>PinField</code></strong> para códigos curtos só com números: código de verificação por SMS ou e-mail, PIN de 4 dígitos.
+</li>
+<li><strong>Use o <code>PasswordField</code></strong> para senhas com letras, números e símbolos.
+</li>
+<li><strong>Use o <code>IntegerField</code></strong> para um número digitado num campo só (ex.: uma quantidade).
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>length</code></td><td>número</td><td><code>6</code></td><td>Quantidade de caixinhas, ou seja, de algarismos do código.</td></tr>
+<tr><td><code>hideCode</code></td><td>sim/não</td><td><code>false</code></td><td>Esconde o código: cada algarismo aparece como um ponto (<code>•</code>), como numa senha.</td></tr>
+<tr><td><code>readSms</code></td><td>sim/não</td><td><code>true</code> sem <code>hideCode</code>, <code>false</code> com <code>hideCode</code></td><td>Preenche o código sozinho a partir do SMS recebido, nos aparelhos que permitem.¹</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado, com os algarismos juntos (ex.: <code>'123456'</code>). Algarismos além do <code>length</code> são cortados.</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho. Dentro de um <code>Form</code>, sem ele, usa o <code>initialValues</code>.</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada a cada mudança, com os algarismos digitados até agora (ex.: <code>'123'</code>).</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo das caixinhas. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o texto de ajuda com visual de erro.²</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo (fica esmaecido). Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo das caixinhas fica cinza claro.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Código do SMS:</strong> com <code>readSms</code>, no Chrome do Android, o campo pede ao sistema o código que chega por SMS e preenche as caixinhas sozinho. No iOS, o teclado sugere o código recebido. Para isso, o SMS precisa seguir o formato que o sistema reconhece (o time de desenvolvimento define o texto do SMS). Com <code>hideCode</code>, o <code>readSms</code> fica desligado, a menos que seja ligado de propósito.</p>
+<p>² ⚠️ <strong>Erro e validação:</strong> o <code>PinField</code> não aceita <code>validate</code> nem <code>optional</code>: dentro de um <code>Form</code>, ele é sempre obrigatório e só valida ao enviar. Com o campo vazio, mostra "Este campo é obrigatório"; <strong>um código incompleto (ex.: 3 de 6 algarismos) passa</strong> na validação. Para conferir o código, use o <code>onSubmit</code> do <code>Form</code> e mostre o erro com <code>error</code> e <code>helperText</code>. Com erro, só o texto embaixo fica vermelho: as caixinhas continuam com a borda normal.</p>
+<p>³ ⚠️ <strong>Sem rótulo visível:</strong> o <code>PinField</code> não tem <code>label</code>. Coloque um título ou texto na tela explicando o que digitar, e ligue-o ao campo com <code>aria-labelledby</code> (ou use <code>aria-label</code>). Para o leitor de tela, o campo é um grupo, e cada caixinha é lida como "Dígito 1 de 6", "Dígito 2 de 6" e assim por diante.</p>
+<p>ℹ️ <strong>Digitação:</strong> cada caixinha aceita um algarismo (só de 0 a 9). Ao digitar, o foco vai para a próxima; ao apagar, volta para a anterior. Não dá para pular caixinhas vazias: tocar numa caixinha depois da primeira vazia leva o foco para a primeira vazia. As setas do teclado andam entre as caixinhas. Colar ou preencher automaticamente o código inteiro preenche todas.</p>
+<p>ℹ️ <strong>Aparência:</strong> cada caixinha tem 48px de largura, com o algarismo centralizado. A caixinha com foco tem a borda na cor de destaque. Quando não cabem na largura, as caixinhas passam para a linha de baixo. O campo não tem versão menor (<code>small</code>) nem de largura toda (<code>fullWidth</code>).</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>PinField</h4><p><strong>Figma:</strong> biblioteca Desktop › Pin Field [D] · biblioteca Mobile › Pin Field</p>
+<p>ℹ️ No Figma, o Pin Field tem as caixinhas (48 × 48) e o texto de ajuda, sem rótulo, como no código. O código de exemplo é preenchido pela propriedade de texto <code>Pin</code>, um algarismo em cada caixinha.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Pin</code></td><td>texto livre (um algarismo por caixinha)</td><td><code>value</code> / <code>defaultValue</code></td><td>✅</td><td>No código, cada caixinha aceita só um algarismo de 0 a 9.</td></tr>
+<tr><td><code>Length</code></td><td><code>6</code> · <code>5</code> · <code>4</code> · <code>3</code> · <code>2</code></td><td><code>length</code></td><td>✅</td><td>O padrão é diferente: <code>4</code> no Figma e <code>6</code> no código. O trecho do Dev Mode sempre passa o <code>length</code> do design, então não muda o resultado.</td></tr>
+<tr><td><code>Hide Pin</code></td><td><code>False</code> · <code>True</code></td><td><code>hideCode</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Error</code></td><td><code>False</code> · <code>True</code></td><td><code>error</code></td><td>✅</td><td>Igual nos dois: só o texto de ajuda fica vermelho; as caixinhas continuam com a borda normal. No código, o erro "Este campo é obrigatório" também aparece sozinho ao enviar o <code>Form</code> com o campo vazio.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td></td></tr>
+<tr><td><code>State</code></td><td><code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Focused</code> = com foco (a caixinha com foco tem a borda de destaque), <code>Activated</code> = sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, as caixinhas têm sempre o fundo de contêiner; só o texto de ajuda muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rating (Rating, Info Rating) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-rating">
+<h2>Rating (Rating, Info Rating)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>Rating</h4>
+<p>Avaliação em que o usuário escolhe uma nota tocando num ícone, como "Como foi seu atendimento?". Há dois tipos: <strong>quantitativo</strong>, com estrelas (a nota preenche as estrelas até a escolhida), e <strong>qualitativo</strong>, com 5 rostos que vão de muito triste a muito feliz (só o rosto escolhido fica destacado).</p>
+<h4>InfoRating</h4>
+<p>Mostra uma nota com estrelas, só para leitura, como a média de avaliações de um produto. O usuário não interage com ela. Aceita meia estrela.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>InfoRating</h4><ul>
+<li>⚠️ <strong>Meia estrela:</strong> se o design mostra meia estrela, avise no handoff para usar <code>withHalfValue</code>. Sem ela, o código arredonda a nota.
+</li>
+<li>⚠️ <strong>Nota exata:</strong> informe de onde vem a nota (ex.: média das avaliações) e com quantas casas decimais.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código é sempre <code>&lt;InfoRating value={3} /&gt;</code>, fixo. No Mobile, o Info Rating não tem trecho de código.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Mais de 5 estrelas</td><td>Não existe</td><td>Existe, com <code>count</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Meia estrela sem <code>withHalfValue</code></td><td>Existe (<code>State=50%</code>)</td><td>Não existe: sem <code>withHalfValue</code>, a nota é arredondada (o <code>.5</code> para baixo). ⚠️ Diferente.</td></tr>
+<tr><td>Estrelas fora de ordem (ex.: cheia depois de vazia)</td><td>Dá para montar</td><td>Não existe: as estrelas se preenchem da primeira até a nota. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>Rating</h4><ul>
+<li>⚠️ <strong>Tamanho no desktop:</strong> o Figma Desktop usa ícones de 24px com 8px de espaço, mas o código usa 32px com 16px por padrão. Informe o tamanho desejado (<code>size</code>). O espaço de 16px não muda.
+</li>
+<li>⚠️ <strong>Avaliação de positivo e negativo:</strong> não existe no Figma. Para desenhar, troque os ícones à mão e informe no handoff os ícones, as cores e o texto de cada opção para o leitor de tela (<code>valueLabels</code>).
+</li>
+<li>⚠️ <strong>Dev Mode no Mobile:</strong> o trecho de código do Rating mostra <code>&lt;InfoRating value={3} /&gt;</code>, porque a ligação do Mobile aponta para o componente errado. O certo é o <code>Rating</code>. No Desktop, o trecho mostra <code>type</code> e <code>disabled</code> conforme o design.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Quantitativo com mais ou menos de 5 estrelas</td><td>Não existe</td><td>Existe, com <code>count</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Qualitativo com 2 opções (ex.: polegar para baixo e para cima)</td><td>Não existe</td><td>Existe, com <code>icons</code> próprios e <code>valueLabels</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Qualitativo com mais de um rosto marcado</td><td>Dá para montar</td><td>Não existe: só o rosto escolhido fica marcado. ⚠️ Diferente.</td></tr>
+<tr><td>Quantitativo com estrelas marcadas fora de ordem (ex.: 1ª e 3ª)</td><td>Dá para montar</td><td>Não existe: as estrelas ficam marcadas da primeira até a nota. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Rating</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>type</code></td><td><code>'quantitative' | 'qualitative'</code></td><td><code>'quantitative'</code></td><td>🎨 <code>'quantitative'</code> mostra estrelas; <code>'qualitative'</code> mostra rostos.</td></tr>
+<tr><td><code>size</code></td><td>número</td><td><code>32</code></td><td>🎨 Tamanho de cada ícone em px. O espaço entre os ícones é sempre de 16px.</td></tr>
+<tr><td><code>count</code></td><td>número</td><td><code>5</code></td><td>🎨 Quantidade de estrelas. <strong>Só no quantitativo.</strong></td></tr>
+<tr><td><code>icon</code></td><td></td><td>estrela preenchida e estrela vazada, na cor de controle ativo</td><td>🎨 Ícone usado no lugar da estrela: o ícone marcado, o desmarcado e a cor do marcado. <strong>Só no quantitativo.</strong></td></tr>
+<tr><td><code>icons</code></td><td></td><td>5 rostos, do vermelho ao verde</td><td>🎨 Ícones usados no lugar dos rostos, um por opção. <strong>Só no qualitativo.</strong></td></tr>
+<tr><td><code>value</code></td><td>número</td><td></td><td>Nota escolhida, controlada por quem usa o componente (atualize-a no <code>onChangeValue</code>). Com <code>0</code>, nada fica marcado.¹</td></tr>
+<tr><td><code>defaultValue</code></td><td>número</td><td></td><td>Nota inicial, quando o componente controla a nota sozinho.¹</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada com a nota escolhida (de 1 ao total de ícones).</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita a avaliação.</td></tr>
+<tr><td><code>valueLabels</code></td><td></td><td>"muito ruim", "ruim", "regular", "bom", "muito bom" (qualitativo com os rostos padrão) ou "1 de 5", "2 de 5"…</td><td>♿ Texto lido pelo leitor de tela em cada ícone, na ordem. Os textos precisam ser diferentes entre si.²</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Nota controlada ou não:</strong> com <code>value</code>, quem usa o componente guarda a nota e precisa atualizá-la no <code>onChangeValue</code>; sem ela, a avaliação começa no <code>defaultValue</code> (ou sem nada marcado) e troca sozinha. Valores fora do intervalo são ajustados para 0 ou para o total de ícones.</p>
+<p>² ⚠️ <strong>Textos repetidos em <code>valueLabels</code>:</strong> por dentro, cada ícone é uma opção de um grupo de radio, e o texto é o valor dela. Dois textos iguais fazem as duas opções se confundirem.</p>
+<p>⚠️ <strong>Dentro de um <code>Form</code>:</strong> o <code>Rating</code> não tem <code>name</code>. O grupo interno usa o nome fixo <code>info-rating</code>, e o valor guardado no formulário é o texto do <code>valueLabels</code> (ex.: "bom"), não o número. Dois Ratings no mesmo <code>Form</code> usam o mesmo nome. Use o <code>onChangeValue</code> para pegar a nota.</p>
+<p>ℹ️ <strong>Ícones próprios no qualitativo:</strong> a lista <code>icons</code> pode ter qualquer quantidade de opções, não só 5. Dá para fazer, por exemplo, uma avaliação de positivo e negativo com dois ícones de polegar (ver o segundo exemplo abaixo). A nota devolvida é a posição do ícone na lista (1 para o primeiro, 2 para o segundo).</p>
+<p>⚠️ <strong>Com <code>icons</code> próprios, passe <code>valueLabels</code>:</strong> os textos padrão dos rostos ("muito ruim" a "muito bom") só valem com os rostos padrão. Com outros ícones, o código usa os textos do quantitativo calculados pelo <code>count</code>, que continua 5: com dois ícones, o leitor de tela leria "1 de 5" e "2 de 5". Passe um texto para cada ícone (ex.: <code>['Não gostei', 'Gostei']</code>). Não use <code>count</code> para corrigir isso: no qualitativo, o TypeScript não aceita <code>count</code> (dá erro de tipo) e, mesmo que funcione na tela, o leitor de tela leria só "1 de 2" e "2 de 2", sem dizer o que cada opção significa.</p>
+<p>ℹ️ <strong>Interação:</strong> passando o mouse, os ícones mostram a prévia da nota. Pelo teclado, a avaliação funciona como um grupo de radio: as setas mudam a nota.</p>
+<p>ℹ️ <strong>Cores:</strong> no quantitativo, as estrelas marcadas usam a cor de controle ativo e as desmarcadas, a cor de controle. No qualitativo, cada rosto marcado tem sua cor (do vermelho ao verde). Sobre fundos <code>brand</code> e <code>negative</code>, todos usam as cores próprias desses fundos.</p>
+<h5>Diferença entre Rating e InfoRating</h5><table><thead><tr><th></th><th><code>Rating</code></th><th><code>InfoRating</code></th></tr></thead><tbody>
+<tr><td><strong>Para que serve</strong></td><td>O usuário dá a nota</td><td>Mostrar uma nota já dada (ex.: média de avaliações)</td></tr>
+<tr><td><strong>Interativo</strong></td><td>Sim (toque, mouse e teclado)</td><td>Não</td></tr>
+<tr><td><strong>Tipos</strong></td><td>Quantitativo (estrelas) e qualitativo (rostos)</td><td>Só quantitativo</td></tr>
+<tr><td><strong>Tamanho padrão</strong></td><td>32px</td><td>16px</td></tr>
+<tr><td><strong>Meia estrela</strong></td><td>Não</td><td>Sim, com <code>withHalfValue</code></td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>type</code>, <code>icons</code>, <code>defaultValue</code>, <code>onChangeValue</code>, <code>disabled</code>, <code>valueLabels</code></td><td><code>withHalfValue</code></td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os dois usam os mesmos ícones e cores, mas um é para escolher a nota e o outro, só para mostrar. Cada um tem seu arquivo.</p>
+<h4>InfoRating</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>size</code></td><td>número</td><td><code>16</code></td><td>🎨 Tamanho de cada estrela em px. O espaço entre elas acompanha o tamanho: 2px (até 16px), 4px (até 24px) ou 8px.</td></tr>
+<tr><td><code>count</code></td><td>número</td><td><code>5</code></td><td>🎨 Quantidade de estrelas.</td></tr>
+<tr><td><code>icon</code></td><td></td><td>estrela preenchida e estrela vazada, na cor de aviso (amarelo)</td><td>🎨 Ícone usado no lugar da estrela: o ícone marcado, o desmarcado e a cor dos dois.</td></tr>
+<tr><td><code>value</code></td><td>número</td><td></td><td>Nota mostrada, de 0 ao total de estrelas. Valores fora disso são ajustados. Sem ela, nenhuma estrela fica preenchida.¹</td></tr>
+<tr><td><code>withHalfValue</code></td><td>sim/não</td><td></td><td>Mostra meia estrela quando a nota tem fração.¹</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Frações:</strong></p>
+<table><thead><tr><th><code>value</code></th><th>Sem <code>withHalfValue</code></th><th>Com <code>withHalfValue</code></th></tr></thead><tbody>
+<tr><td><code>3.2</code></td><td>3 estrelas</td><td>3 estrelas</td></tr>
+<tr><td><code>3.5</code></td><td>3 estrelas (o <code>.5</code> arredonda para baixo)</td><td>3 e meia</td></tr>
+<tr><td><code>3.7</code></td><td>4 estrelas</td><td>3 e meia</td></tr>
+<tr><td><code>3.8</code></td><td>4 estrelas</td><td>4 estrelas</td></tr>
+</tbody></table>
+<p>Com <code>withHalfValue</code>, a fração vira meia estrela quando fica entre 0,25 e 0,75.</p>
+<p>⚠️ <strong>Texto padrão do leitor de tela:</strong> o "X de Y" usa o valor sem arredondar (ex.: "4.5 de 5"). Para notas com fração, passe um <code>aria-label</code> próprio (ex.: "Nota 4,5 de 5").</p>
+<p>ℹ️ <strong>Cores:</strong> as estrelas marcadas e desmarcadas usam a mesma cor; só o desenho muda (preenchida ou vazada). Sobre fundos <code>brand</code> e <code>negative</code>, usam as cores próprias desses fundos.</p>
+<h5>Diferença entre Rating e InfoRating</h5><table><thead><tr><th></th><th><code>Rating</code></th><th><code>InfoRating</code></th></tr></thead><tbody>
+<tr><td><strong>Para que serve</strong></td><td>O usuário dá a nota</td><td>Mostrar uma nota já dada (ex.: média de avaliações)</td></tr>
+<tr><td><strong>Interativo</strong></td><td>Sim (toque, mouse e teclado)</td><td>Não</td></tr>
+<tr><td><strong>Tipos</strong></td><td>Quantitativo (estrelas) e qualitativo (rostos)</td><td>Só quantitativo</td></tr>
+<tr><td><strong>Tamanho padrão</strong></td><td>32px</td><td>16px</td></tr>
+<tr><td><strong>Meia estrela</strong></td><td>Não</td><td>Sim, com <code>withHalfValue</code></td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>type</code>, <code>icons</code>, <code>defaultValue</code>, <code>onChangeValue</code>, <code>disabled</code>, <code>valueLabels</code></td><td><code>withHalfValue</code></td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os dois usam os mesmos ícones e cores, mas um é para escolher a nota e o outro, só para mostrar. Cada um tem seu arquivo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>InfoRating</h4><p><strong>Figma:</strong> biblioteca Desktop › Info Rating [D] · biblioteca Mobile › Info Rating</p>
+<p>ℹ️ Cada estrela é uma instância interna <strong>_resources/info-rating-atom</strong>, em que <code>State</code> define se ela está cheia, pela metade ou vazia, e <code>Icon fill</code> e <code>Icon regular</code> trocam os ícones.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Info Rating</td><td>Existe</td><td>Sem ligação de código</td><td>A ligação do Mobile aponta para o componente Rating, e não para o Info Rating</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Size</code></td><td><code>≤ 16 px</code> · <code>&gt; 16px - 24px</code> · <code>&gt; 24px</code></td><td><code>size</code></td><td>✅</td><td>No código, <code>size</code> é o tamanho exato em px (padrão 16). As três faixas do Figma são as mesmas do código para o espaço entre as estrelas: 2px, 4px e 8px.</td></tr>
+<tr><td><code>Nº of items</code></td><td><code>1</code> a <code>5</code></td><td><code>count</code></td><td>⚠️</td><td>No código não há limite: pode haver mais de 5 estrelas.</td></tr>
+<tr><td><code>State</code> (em cada estrela)</td><td><code>100%</code> · <code>50%</code> · <code>0%</code></td><td><code>value</code> + <code>withHalfValue</code></td><td>✅</td><td>No código, a nota define o que aparece. Meia estrela só com <code>withHalfValue</code>, quando a fração fica entre 0,25 e 0,75.</td></tr>
+<tr><td><code>Icon fill</code> + <code>Icon regular</code></td><td>ícones</td><td><code>icon</code></td><td>✅</td><td>No código, <code>icon</code> recebe o ícone cheio, o vazio e a cor.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, as cores mudam sozinhas conforme o fundo onde a nota está.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>Rating</h4><p><strong>Figma:</strong> biblioteca Desktop › Rating [D] · biblioteca Mobile › Rating</p>
+<p>ℹ️ Cada ícone é uma instância interna: <strong>_resources/Quantitative</strong> (estrela) ou <strong>_resources/Qualitative/…</strong> (um rosto por opção, de <code>sad</code> a <code>super-happy</code>). Em cada uma, <code>State</code> marca o ícone como ativo ou inativo, e <code>Icon fill</code> e <code>Icon regular</code> trocam o ícone marcado e o desmarcado.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Valor qualitativo de <code>Type</code></td><td><code>Qualititative</code></td><td><code>Qualitative</code></td><td>Só o nome do valor (o Desktop está com erro de digitação)</td></tr>
+<tr><td>Tamanho dos ícones</td><td>24px, com 8px de espaço</td><td>32px, com 16px de espaço</td><td>Muda o design. O Mobile segue o padrão do código</td></tr>
+<tr><td>Rating</td><td>Existe</td><td>Sem ligação de código</td><td>A ligação do Mobile que existe aponta para o código do <code>InfoRating</code></td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Type</code></td><td><code>Quantitative</code> · <code>Qualititative</code></td><td><code>type</code></td><td>✅</td><td><code>'quantitative'</code> (estrelas) ou <code>'qualitative'</code> (rostos).</td></tr>
+<tr><td><code>Disabled</code></td><td><code>On</code> · <code>Off</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>State</code> (em cada ícone)</td><td><code>Active</code> · <code>Inactive</code></td><td><code>value</code></td><td>⚠️</td><td>No Figma, cada ícone é marcado à mão. No código, a nota define o que aparece: no quantitativo, as estrelas ficam marcadas até a nota; no qualitativo, só o rosto escolhido.</td></tr>
+<tr><td><code>Icon fill</code> + <code>Icon regular</code> (estrela)</td><td>ícones</td><td><code>icon</code></td><td>✅</td><td>No código, <code>icon</code> recebe o ícone marcado, o desmarcado e a cor.</td></tr>
+<tr><td><code>Icon fill</code> + <code>Icon regular</code> (rostos)</td><td>ícones, 5 opções fixas</td><td><code>icons</code></td><td>✅</td><td>No código, <code>icons</code> aceita qualquer quantidade de opções.</td></tr>
+<tr><td>Tamanho dos ícones</td><td>24px (Desktop) · 32px (Mobile), sem propriedade</td><td><code>size</code></td><td>⚠️</td><td>No código, o padrão é 32px, com 16px de espaço entre os ícones, em qualquer tela. O Desktop do Figma usa 24px com 8px de espaço.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, as cores mudam sozinhas conforme o fundo onde a avaliação está.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Posso montar uma tabela de avaliações (ranking) com componentes do Design System, sem interação? <strong>Resposta:</strong> Sim: construa usando o <strong>slot do Boxed</strong> com os componentes (Rating etc.).</p>
+<p><sub>Ref. #775 · 01/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

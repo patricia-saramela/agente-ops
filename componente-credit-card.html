@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cartão de crédito (número, validade, CVV) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-credit-card">
+<h2>Cartão de crédito (número, validade, CVV)</h2>
+<p class="cat">Campos de formulário</p>
+<h3>Resumo</h3>
+<h4>CreditCardFields</h4>
+<p>Bloco pronto com os três campos do cartão de crédito: o número em cima e, embaixo, a validade e o CVV lado a lado. Usa o CreditCardNumberField, o CreditCardExpirationField e o <code>CvvField</code>, já com os rótulos, o espaçamento e a ligação entre eles (o CVV aceita 4 dígitos quando o cartão é American Express). Use dentro de um <code>Form</code>.</p>
+<h4>CreditCardExpirationField</h4>
+<p>Campo para a data de validade do cartão de crédito, no formato <strong>MM/AA</strong> (ex.: <code>08/29</code>). Só aceita números, coloca a barra sozinho enquanto o usuário digita, abre o teclado numérico no celular e já valida se a data está completa e não venceu. Tem o mesmo visual do TextField e funciona sozinho ou dentro de um <code>Form</code>. Costuma ser usado junto com o <code>CreditCardNumberField</code> e o <code>CvvField</code> (ou todos juntos no <code>CreditCardFields</code>).</p>
+<h4>CreditCardNumberField</h4>
+<p>Campo para o número do cartão de crédito. Só aceita números, separa os dígitos em grupos de 4 enquanto o usuário digita, abre o teclado numérico no celular e mostra à direita o logo da bandeira (Visa, Mastercard ou American Express) assim que reconhece o número. Também valida o número sozinho. Tem o mesmo visual do TextField e funciona sozinho ou dentro de um <code>Form</code>. Costuma ser usado junto com o <code>CreditCardExpirationField</code> e o <code>CvvField</code> (ou todos juntos no <code>CreditCardFields</code>).</p>
+<h4>CvvField</h4>
+<p>Campo para o código de segurança do cartão (CVV). Só aceita números, abre o teclado numérico no celular e tem à direita um ícone de informação que abre uma explicação de onde fica o código no cartão. Valida sozinho a quantidade de dígitos. Tem o mesmo visual do TextField e funciona sozinho ou dentro de um <code>Form</code>. Costuma ser usado junto com o <code>CreditCardNumberField</code> e o <code>CreditCardExpirationField</code> (ou todos juntos no <code>CreditCardFields</code>).</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>CreditCardExpirationField</h4><ul>
+<li>⚠️ <strong>Data de exemplo:</strong> use no design uma data que ainda não venceu (ex.: <code>08/29</code>). A data do componente (<code>07/11</code>) daria erro no código.
+</li>
+<li>⚠️ <strong>Mensagem de erro:</strong> a data incompleta ou vencida mostra "Data inválida" sozinha. Se precisar de outra mensagem ou de outra regra (ex.: validade mínima), informe no handoff.
+</li>
+<li>⚠️ <strong>Campo vazio com foco:</strong> o código mostra "MM/AA" como texto de exemplo. O componente do Figma não tem esse estado.
+</li>
+<li>⚠️ <strong>Formulário de cartão:</strong> se o formulário tiver número, validade e CVV, avise se o foco deve passar sozinho de um campo para o outro (<code>autoJump</code> do Form).
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o rótulo, o texto de ajuda, o <code>Error</code>, o <code>Disabled</code> e o <code>Read only</code> do design. O <code>name</code> é sempre <code>"credit-card-expiration-field"</code>.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Campo com foco e vazio</td><td>Não existe: o <code>Focused</code> sempre mostra uma data</td><td>Mostra o texto de exemplo "MM/AA". ⚠️ Diferente.</td></tr>
+<tr><td>Data de exemplo do componente (<code>07/11</code>)</td><td>Aparece sem erro</td><td>É uma data vencida (julho de 2011): o código mostraria "Data inválida". ⚠️ Diferente.</td></tr>
+<tr><td>Campo desabilitado com foco (<code>Disabled=True</code>, <code>State=Focused</code>)</td><td>Existe no Desktop</td><td>Não existe: campo desabilitado não recebe foco. ⚠️ Diferente.</td></tr>
+<tr><td>Largura do campo no desktop</td><td>496px</td><td>328px, ou a largura toda com <code>fullWidth</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Versão menor do campo</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>CreditCardFields</h4><ul>
+<li>⚠️ <strong>Rótulos:</strong> no código, os rótulos são sempre "Número de cartão", "Expiração" e "CVV". Se o design usar outros textos, é preciso montar os três campos separados.
+</li>
+<li>⚠️ <strong>Personalização:</strong> texto de ajuda, campo opcional, desabilitado ou largura toda não existem no <code>CreditCardFields</code>. Se o design tiver algum deles, avise: o desenvolvimento vai usar os três campos separados.
+</li>
+<li>⚠️ <strong>Proporção dos campos de baixo:</strong> no código, a validade tem 60% e o CVV 40%, e o bloco tem 328px no desktop. O componente do Figma tem outras medidas.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código é sempre <code>&lt;CreditCardFields /&gt;</code>, sem nenhuma prop. Ao clicar no campo da validade, o Dev Mode mostra um <code>TextField</code>, porque a instância interna é um Text Field.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Largura do bloco no desktop</td><td>496px</td><td>328px. ⚠️ Diferente.</td></tr>
+<tr><td>Texto de ajuda, campo opcional ou desabilitado</td><td>Dá para montar nas instâncias internas</td><td>Não existe no <code>CreditCardFields</code> (só com os campos separados). ⚠️ Diferente.</td></tr>
+<tr><td>Rótulos diferentes</td><td>Dá para trocar o texto das camadas</td><td>Não existe: os rótulos são fixos. ⚠️ Diferente.</td></tr>
+<tr><td>Versão menor dos campos</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>CreditCardNumberField</h4><ul>
+<li>⚠️ <strong>Número de exemplo:</strong> use no design um número com a bandeira certa (ex.: <code>4111 1111 1111 1111</code> para Visa, <code>5555 5555 5555 4444</code> para Mastercard). O número do componente (<code>1234…</code>) não é de nenhuma bandeira.
+</li>
+<li>⚠️ <strong>Bandeiras aceitas:</strong> o código só reconhece Visa, Mastercard e American Express. Se o produto precisar de outras bandeiras (ex.: Elo, Hipercard), isso não existe no Design System: avise antes do desenvolvimento. Se alguma das três não for aceita, informe no handoff.
+</li>
+<li>⚠️ <strong>Logo da bandeira:</strong> o padrão do componente é a Mastercard. Se o número de exemplo for de outra bandeira, troque o <code>Payment type</code> na instância interna (ver o passo a passo no início). Não escolha uma bandeira diferente da do número: no código, o logo sempre segue os primeiros dígitos.
+</li>
+<li>⚠️ <strong>Formulário de cartão:</strong> se o formulário tiver número, validade e CVV, avise se o foco deve passar sozinho de um campo para o outro (<code>autoJump</code> do Form).
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o rótulo, o texto de ajuda, o <code>Error</code>, o <code>Disabled</code> e o <code>Read only</code> do design. O <code>name</code> é sempre <code>"credit-card-number-field"</code>.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Número de exemplo (<code>1234 5678 1234 5678</code>) com o logo da Mastercard</td><td>Existe</td><td>Um número que começa com <code>1</code> não é de nenhuma bandeira: o código mostra o ícone cinza e o erro "Não é um número de cartão válido". ⚠️ Diferente.</td></tr>
+<tr><td>Bandeira trocada à mão (ex.: número de Visa com logo de Mastercard)</td><td>Dá para montar</td><td>Não existe: o logo sempre segue o número. ⚠️ Diferente.</td></tr>
+<tr><td>Outras bandeiras (ex.: Elo, Hipercard)</td><td>Não existem</td><td>Não existem: o número dá erro. ✅ Igual.</td></tr>
+<tr><td>Ícone de cartão cinza com o campo vazio</td><td>Existe</td><td>Existe. ✅ Igual.</td></tr>
+<tr><td>Campo desabilitado com foco (<code>Disabled=True</code>, <code>State=Focused</code>)</td><td>Existe no Desktop</td><td>Não existe: campo desabilitado não recebe foco. ⚠️ Diferente.</td></tr>
+<tr><td>Largura do campo no desktop</td><td>496px</td><td>328px, ou a largura toda com <code>fullWidth</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Versão menor do campo</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>CvvField</h4><ul>
+<li>⚠️ <strong>Quantidade de dígitos:</strong> diga se o CVV tem 3 dígitos (Visa e Mastercard) ou 4 (American Express), ou se depende do cartão. No código, o campo sozinho exige 4 dígitos, a menos que o desenvolvimento passe outra quantidade.
+</li>
+<li>⚠️ <strong>Balão de ajuda:</strong> no código, é sempre um Popover, com botão X, que abre acima do ícone. No Mobile do Figma, o balão é um Tooltip; considere o Popover no design.
+</li>
+<li>⚠️ <strong>Bandeiras:</strong> se o American Express não for aceito, a explicação dele não aparece no balão. Informe no handoff quais bandeiras são aceitas.
+</li>
+<li>⚠️ <strong>Ícone:</strong> não troque o ícone de informação: no código, ele é fixo.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o rótulo, o texto de ajuda, o <code>Error</code>, o <code>Disabled</code> e o <code>Read only</code> do design. O <code>name</code> é sempre <code>"cvv-field"</code>, e o <code>maxLength</code> não aparece.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>CVV de 3 ou 4 dígitos</td><td>O texto é livre</td><td>O campo exige exatamente a quantidade de <code>maxLength</code> (padrão: 4). Para Visa e Mastercard, o desenvolvimento precisa passar 3. ⚠️ Diferente.</td></tr>
+<tr><td>Campo sem o ícone de informação</td><td>Não existe</td><td>Não existe. ✅ Igual.</td></tr>
+<tr><td>Balão sem a explicação do American Express</td><td>Não existe</td><td>Existe, quando o American Express não é aceito. ⚠️ Diferente.</td></tr>
+<tr><td>Campo desabilitado com foco (<code>Disabled=True</code>, <code>State=Focused</code>)</td><td>Existe no Desktop</td><td>Não existe: campo desabilitado não recebe foco. ⚠️ Diferente.</td></tr>
+<tr><td>Largura do campo no desktop</td><td>496px</td><td>328px, ou a largura toda com <code>fullWidth</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Versão menor do campo</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>CreditCardFields</h4><h5>Quando usar</h5><ul>
+<li><strong>Use o <code>CreditCardFields</code></strong> quando o formulário pede os dados do cartão do jeito padrão, sem textos de ajuda nem rótulos próprios.
+</li>
+<li><strong>Use os três campos separados</strong> quando precisar trocar os rótulos, colocar texto de ajuda, deixar algum campo opcional, ocupar a largura toda ou mudar a organização dos campos.
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor dos três campos.</td></tr>
+<tr><td><code>numberFieldName</code></td><td></td><td><code>'ccNum'</code></td><td>Nome do campo do número. Dentro de um <code>Form</code>, é a chave do valor.</td></tr>
+<tr><td><code>expirationFieldName</code></td><td></td><td><code>'ccExp'</code></td><td>Nome do campo da validade.</td></tr>
+<tr><td><code>cvvFieldName</code></td><td></td><td><code>'ccCvv'</code></td><td>Nome do campo do CVV.</td></tr>
+<tr><td><code>acceptedCards</code></td><td></td><td>Visa, Mastercard e American Express</td><td>Bandeiras aceitas. No número, um cartão de uma bandeira desligada mostra o erro de número inválido. No CVV, define quais bandeiras aparecem na dica do ícone de ajuda.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>O que vem pronto:</strong></p>
+<table><thead><tr><th></th><th>Número</th><th>Validade</th><th>CVV</th></tr></thead><tbody>
+<tr><td>Rótulo (em português)</td><td>"Número de cartão"</td><td>"Expiração"</td><td>"CVV"</td></tr>
+<tr><td>Posição</td><td>Linha de cima, largura toda do bloco</td><td>Linha de baixo, 60% da largura</td><td>Linha de baixo, 40% da largura</td></tr>
+<tr><td>Validação</td><td>Bandeira e tamanho do número</td><td>Data completa e não vencida</td><td>Tamanho do CVV: 3 dígitos, ou 4 no American Express</td></tr>
+</tbody></table>
+<p>Os rótulos vêm dos textos do tema (no idioma do app) e não podem ser trocados pelas props. O bloco tem 16px entre as linhas.</p>
+<p>ℹ️ <strong>Valores:</strong> dentro de um <code>Form</code>, o <code>onSubmit</code> recebe os três valores pelos nomes (<code>ccNum</code>, <code>ccExp</code> e <code>ccCvv</code>, se não forem trocados). O número chega só com os dígitos e a validade chega como <code>{month, year, raw}</code>.</p>
+<p>⚠️ <strong>Sem personalização:</strong> não dá para passar texto de ajuda, <code>optional</code>, <code>disabled</code>, <code>fullWidth</code> ou validação extra para os campos. Os três são obrigatórios e, no desktop, o bloco tem sempre 328px de largura. Para qualquer uma dessas mudanças, use os três campos separados.</p>
+<p>⚠️ <strong>Dentro de um <code>Form</code>:</strong> o CVV descobre a bandeira do cartão pelo valor do número guardado no <code>Form</code>. Fora de um <code>Form</code>, o CVV aceita sempre 3 dígitos.</p>
+<p>ℹ️ <strong>Próximo campo:</strong> com <code>autoJump</code> no <code>Form</code>, o foco passa sozinho do número para a validade e da validade para o CVV, quando cada um é completado.</p>
+<h5>Diferença entre CreditCardFields e os campos separados</h5><table><thead><tr><th></th><th><code>CreditCardFields</code></th><th><code>CreditCardNumberField</code>, <code>CreditCardExpirationField</code> e <code>CvvField</code></th></tr></thead><tbody>
+<tr><td><strong>O que é</strong></td><td>Os três campos juntos, já organizados</td><td>Cada campo sozinho</td></tr>
+<tr><td><strong>Rótulos</strong></td><td>Fixos ("Número de cartão", "Expiração" e "CVV")</td><td>Livres (<code>label</code>)</td></tr>
+<tr><td><strong>Texto de ajuda, opcional, desabilitado, largura toda</strong></td><td>Não tem</td><td>Tem</td></tr>
+<tr><td><strong>Organização</strong></td><td>Número em cima; validade (60%) e CVV (40%) embaixo</td><td>Livre</td></tr>
+<tr><td><strong>Quando usar</strong></td><td>Formulário de cartão padrão</td><td>Quando precisar de qualquer personalização</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes que funcionam juntos:</strong> o <code>CreditCardFields</code> é feito com os três campos separados. Cada um tem seu próprio arquivo.</p>
+<h4>CreditCardExpirationField</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo (ex.: "Validade").</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado, no formato <code>MM/AA</code> (ex.: <code>'08/29'</code>).</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho, no formato <code>MM/AA</code>.</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada a cada mudança, com a data já separada em mês e ano.¹</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Validação extra, que roda depois da validação própria do campo: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo.²</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar (ou ao completar a data).</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo.</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo fica cinza claro.</td></tr>
+<tr><td><code>autoComplete</code></td><td></td><td><code>'cc-exp'</code></td><td>Tipo de preenchimento automático do navegador. O padrão é a validade do cartão.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>preventCopy</code></td><td>sim/não</td><td>configuração do tema</td><td>Impede copiar e recortar o texto do campo.</td></tr>
+<tr><td><code>placeholder</code></td><td></td><td></td><td>Não tem efeito: o campo sempre mostra "MM/AA" como texto de exemplo.³</td></tr>
+<tr><td><code>maxLength</code></td><td>número</td><td></td><td>Não tem efeito: o campo sempre aceita no máximo 5 caracteres (<code>MM/AA</code>).</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Valor:</strong> o valor tratado (<code>ExpirationDateValue</code>) é um objeto com:</p>
+<table><thead><tr><th>Campo</th><th>Tipo</th><th>Exemplo para <code>08/29</code></th></tr></thead><tbody>
+<tr><td><code>month</code></td><td><code>number | null</code></td><td><code>8</code></td></tr>
+<tr><td><code>year</code></td><td><code>number | null</code></td><td><code>2029</code> (o ano com 4 dígitos, sempre a partir de 2000)</td></tr>
+<tr><td><code>raw</code></td><td><code>string</code></td><td><code>'08/29'</code></td></tr>
+</tbody></table>
+<p>Enquanto a data está incompleta, <code>month</code> ou <code>year</code> ficam <code>null</code>. Dentro de um <code>Form</code>, é esse objeto que chega no <code>onSubmit</code> (<code>values</code>), e o texto <code>MM/AA</code> chega no <code>rawValues</code>.</p>
+<p>² ℹ️ <strong>Validação própria:</strong> o campo mostra "Data inválida" quando a data está incompleta ou já venceu (mês e ano anteriores ao atual). Ela roda assim que o usuário termina de digitar os 5 caracteres, ao perder o foco e ao enviar o <code>Form</code>. O <code>validate</code> só roda se a data passar nessa validação. Campo obrigatório vazio mostra "Este campo é obrigatório".</p>
+<p>³ ℹ️ <strong>Digitação:</strong> o campo formata o texto enquanto o usuário digita:</p>
+<ul>
+<li>Só aceita números; a barra entra sozinha depois do mês.
+</li>
+<li>Um mês que só pode ter um dígito ganha o zero na frente: <code>3</code> vira <code>03/</code>, e <code>13</code> vira <code>01/3</code>.
+</li>
+<li>O mês vai de <code>01</code> a <code>12</code>.
+</li>
+<li>Apagar a barra apaga junto o último dígito do mês.
+</li>
+<li>O texto de exemplo "MM/AA" aparece com o campo em foco e vazio. No celular, abre o teclado numérico.
+</li></ul>
+<p>ℹ️ <strong>Próximo campo:</strong> dentro de um <code>Form</code> com <code>autoJump</code>, quando a data é completada e está válida, o foco passa sozinho para o próximo campo (ex.: o CVV).</p>
+<h4>CreditCardNumberField</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo (ex.: "Número do cartão").</td></tr>
+<tr><td><code>acceptedCards</code></td><td></td><td><code>{americanExpress: true, visa: true, masterCard: true}</code></td><td>Bandeiras aceitas. Um cartão de uma bandeira com <code>false</code> mostra o erro de número inválido.¹</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado (ex.: <code>'4111111111111111'</code>). Aparece formatado em grupos de 4.</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho.</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada a cada mudança, com o número só com os dígitos (<code>value</code>) e como aparece no campo, com os espaços (<code>rawValue</code>).</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Validação extra, que roda depois da validação própria do campo: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo.¹</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar (ou ao completar o número).</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo.</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo fica cinza claro.</td></tr>
+<tr><td><code>placeholder</code></td><td></td><td></td><td>Texto de exemplo, que aparece quando o campo tem foco e está vazio.</td></tr>
+<tr><td><code>autoComplete</code></td><td></td><td><code>'cc-number'</code></td><td>Tipo de preenchimento automático do navegador. O padrão é o número do cartão.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>preventCopy</code></td><td>sim/não</td><td>configuração do tema</td><td>Impede copiar e recortar o texto do campo.</td></tr>
+<tr><td><code>maxLength</code></td><td>número</td><td></td><td>Não tem efeito: o limite é sempre o tamanho do número do cartão (16 dígitos, ou 15 no American Express).</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ⚠️ <strong>Validação própria e bandeiras aceitas:</strong> o campo mostra "Não é um número de cartão válido" quando:</p>
+<ul>
+<li>o número não começa como Visa (<code>4</code>), Mastercard (<code>5</code>) ou American Express (<code>34</code> ou <code>37</code>). <strong>Outras bandeiras, como Elo e Hipercard, sempre dão erro</strong>;
+</li>
+<li>a bandeira está desligada em <code>acceptedCards</code>;
+</li>
+<li>o número não tem o tamanho certo: 16 dígitos (Visa e Mastercard) ou 15 (American Express).
+</li></ul>
+<p>O campo só confere o começo e o tamanho do número: não confere se o número existe. A validação roda assim que o usuário completa o número, ao perder o foco e ao enviar o <code>Form</code>. O <code>validate</code> só roda se o número passar nessa validação. Campo obrigatório vazio mostra "Este campo é obrigatório".</p>
+<p>ℹ️ <strong>Digitação:</strong> o campo só aceita números e mostra os dígitos em grupos de 4 (ex.: <code>4111 1111 1111 1111</code>), inclusive no American Express. Não deixa digitar além do tamanho do cartão. No celular, abre o teclado numérico.</p>
+<p>ℹ️ <strong>Ícone da bandeira:</strong> à direita do campo fica um ícone de cartão cinza. Quando o número começa como Visa, Mastercard ou American Express, o ícone gira e mostra o logo da bandeira; se o número mudar para outra bandeira, troca o logo; se deixar de ser uma bandeira reconhecida, volta ao ícone cinza. O ícone não pode ser trocado.</p>
+<p>ℹ️ <strong>Valor:</strong> dentro de um <code>Form</code>, o <code>onSubmit</code> recebe o número só com os dígitos (<code>values</code>, ex.: <code>'4111111111111111'</code>) e o texto com os espaços (<code>rawValues</code>).</p>
+<p>ℹ️ <strong>Próximo campo:</strong> dentro de um <code>Form</code> com <code>autoJump</code>, quando o número é completado e está válido, o foco passa sozinho para o próximo campo (ex.: a validade).</p>
+<h4>CvvField</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo (ex.: "CVV").</td></tr>
+<tr><td><code>maxLength</code></td><td>número</td><td><code>4</code></td><td>Quantidade de dígitos do CVV: não deixa digitar mais que isso e <strong>exige exatamente essa quantidade</strong>.¹</td></tr>
+<tr><td><code>acceptedCards</code></td><td></td><td><code>{americanExpress: true, visa: true, masterCard: true}</code></td><td>Bandeiras mostradas na explicação do ícone de ajuda. Com <code>americanExpress: false</code>, a explicação do American Express não aparece. Não muda a validação.²</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado (ex.: <code>'123'</code>).</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho.</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada a cada mudança, com o código digitado.</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Validação extra, que roda depois da validação própria do campo: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo.¹</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar (ou ao completar o código).</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo.</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo fica cinza claro.</td></tr>
+<tr><td><code>placeholder</code></td><td></td><td></td><td>Texto de exemplo, que aparece quando o campo tem foco e está vazio.</td></tr>
+<tr><td><code>autoComplete</code></td><td></td><td><code>'cc-csc'</code></td><td>Tipo de preenchimento automático do navegador. O padrão é o código de segurança do cartão.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>preventCopy</code></td><td>sim/não</td><td>configuração do tema</td><td>Impede copiar e recortar o texto do campo.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ⚠️ <strong>Quantidade de dígitos:</strong> o campo mostra "CVV incorreto" quando o código não tem <strong>exatamente</strong> <code>maxLength</code> dígitos. Como o padrão é <code>4</code>, <strong>usado sozinho, o campo recusa um CVV de 3 dígitos</strong> (o de Visa e Mastercard). Passe <code>maxLength={3}</code>, ou <code>4</code> para American Express, conforme o cartão; o <code>CreditCardFields</code> já faz isso sozinho, a partir do número digitado. A validação roda assim que o usuário completa o código, ao perder o foco e ao enviar o <code>Form</code>. O <code>validate</code> só roda se a quantidade estiver certa. Campo obrigatório vazio mostra "Este campo é obrigatório".</p>
+<p>² ℹ️ <strong>Ícone de ajuda:</strong> à direita do campo fica um ícone de informação cinza (16px). Ao tocar nele, abre um balão (Popover) acima do ícone com:</p>
+<ul>
+<li>a imagem do verso de um cartão e o texto "O CVV são os 3 dígitos do reverso de seu cartão";
+</li>
+<li>se o American Express for aceito, a imagem da frente do cartão e o texto "Se for American Express, adicione os 4 dígitos do anverso".
+</li></ul>
+<p>O balão fecha pelo botão X ou tocando de novo no ícone. O leitor de tela lê o ícone como "Exibir ajuda CVV" (ou "Ocultar ajuda CVV", com o balão aberto). O ícone não pode ser tirado nem trocado.</p>
+<p>ℹ️ <strong>Digitação:</strong> o campo só aceita números e, no celular, abre o teclado numérico.</p>
+<p>ℹ️ <strong>Próximo campo:</strong> dentro de um <code>Form</code> com <code>autoJump</code>, quando o código é completado e está certo, o foco passa sozinho para o próximo campo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>CreditCardExpirationField</h4><p><strong>Figma:</strong> biblioteca Desktop › Credit Card Expiration Field [D] · biblioteca Mobile › Credit Card Expiration Field</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td><code>State=Focused</code> com <code>Disabled=True</code></td><td>Existe</td><td>Não existe</td><td>Só o Desktop tem um campo desabilitado com foco, que não acontece no código (campo desabilitado não recebe foco)</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td></td></tr>
+<tr><td>Valor (camada <code>Input Text</code>)</td><td>texto livre (ex.: <code>07/11</code>)</td><td><code>value</code> / <code>defaultValue</code></td><td>✅</td><td>No formato <code>MM/AA</code> nos dois. No código, o texto é formatado enquanto o usuário digita.</td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td>No código, o erro também aparece sozinho: "Data inválida" para data incompleta ou vencida.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td></td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Inactive</code> = vazio e sem foco, <code>Focused</code> = com foco, <code>Activated</code> = preenchido e sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o campo tem sempre fundo branco; só o texto de ajuda muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>CreditCardFields</h4><p><strong>Figma:</strong> biblioteca Desktop › Credit Card Fields [D] · biblioteca Mobile › Credit Card Fields</p>
+<p>ℹ️ No Figma, o Credit Card Fields é um componente fixo, sem propriedades: um <strong>Credit Card Number Field</strong> em cima e, embaixo, um <strong>Text Field</strong> (para a validade) e um <strong>CVV Field</strong> lado a lado, com 16px entre as linhas e entre os campos de baixo. Para mudar algo, é preciso entrar nas instâncias internas.</p>
+<p>⚠️ <strong>Bandeira do cartão:</strong> não há propriedade para trocar a bandeira, que vem como <strong>Mastercard</strong>. Para trocar, entre nas camadas até o ícone à direita do campo do número (a instância <strong>_Resources/Card Icons</strong>, dentro do Credit Card Number Field) e mude o <code>Payment type</code>. O passo a passo está em figma-credit-card-number-field.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Largura da validade e do CVV</td><td>349px e 131px (cerca de 70% e 26%)</td><td>196px e 131px (cerca de 57% e 38%)</td><td>Muda o design: a proporção entre os dois campos de baixo não é a mesma</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Campo do número (instância <strong>Credit Card Number Field</strong>)</td><td>fixo</td><td><code>CreditCardNumberField</code> interno</td><td>✅</td><td>Mesma posição nos dois: a linha de cima, com a largura toda.</td></tr>
+<tr><td>Campo da validade (instância <strong>Text Field</strong>)</td><td>fixo</td><td><code>CreditCardExpirationField</code> interno</td><td>⚠️</td><td>No Figma, é um <strong>Text Field</strong> comum, e não o Credit Card Expiration Field. A aparência é a mesma, mas o Dev Mode de quem clicar nele mostra um <code>TextField</code>.</td></tr>
+<tr><td>Campo do CVV (instância <strong>CVV Field</strong>)</td><td>fixo, com <code>CVV Tooltip</code> desligado</td><td><code>CvvField</code> interno</td><td>✅</td><td>Nos dois, o CVV mostra o ícone de informação à direita, com o balão de ajuda fechado. No código, o balão abre quando o usuário toca no ícone.</td></tr>
+<tr><td>Rótulos (camadas <code>Label</code>)</td><td>"Card number", "Expiry" e "CVV"</td><td>sem prop</td><td>⚠️</td><td>No código, os rótulos são fixos e vêm do idioma do app: "Número de cartão", "Expiração" e "CVV".</td></tr>
+<tr><td>Largura da validade e do CVV</td><td>cerca de 70% / 26% (Desktop) e 57% / 38% (Mobile)</td><td>sem prop</td><td>⚠️</td><td>No código, a validade tem 60% e o CVV 40% da largura do bloco, em qualquer tela.</td></tr>
+<tr><td>Espaçamento</td><td>16px entre as linhas e entre os campos de baixo</td><td>sem prop</td><td>✅</td><td>16px nos dois.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>CreditCardNumberField</h4><p><strong>Figma:</strong> biblioteca Desktop › Credit Card Number Field [D] · biblioteca Mobile › Credit Card Number Field</p>
+<p>ℹ️ No Figma, o ícone à direita do campo é o ícone de cartão cinza no estado vazio e o <strong>_Resources/Card Icons</strong> (com <code>Payment type</code>) nos estados com número. No código, o ícone muda sozinho conforme o número digitado.</p>
+<p>⚠️ <strong>Trocar a bandeira no Figma:</strong> o <code>Payment type</code> <strong>não aparece no painel do Credit Card Number Field</strong>, porque o ícone da bandeira é uma instância interna não exposta. Em todas as variantes, a bandeira padrão é a <strong>Mastercard</strong>. Para trocar:</p>
+<ol>
+<li>Selecione o Credit Card Number Field.
+</li>
+<li>Entre nas camadas (duplo clique, ou Ctrl/Cmd + clique) até selecionar o ícone da direita, a instância <strong>_Resources/Card Icons</strong>.
+</li>
+<li>No painel dessa instância, troque o <code>Payment type</code> para <code>American Express</code>, <code>Mastercard</code> ou <code>Visa</code>.
+</li></ol>
+<p>Isso só funciona nos estados <code>Focused</code> e <code>Activated</code>: no <code>Inactive</code> (campo vazio), o ícone é o cartão cinza, sem bandeira.</p>
+<p>ℹ️ <strong>Sugestão para o design system:</strong> expor a instância <strong>_Resources/Card Icons</strong> no Credit Card Number Field, para o <code>Payment type</code> aparecer no painel do campo, junto com as outras propriedades.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td><code>State=Focused</code> com <code>Disabled=True</code></td><td>Existe</td><td>Não existe</td><td>Só o Desktop tem um campo desabilitado com foco, que não acontece no código (campo desabilitado não recebe foco)</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td></td></tr>
+<tr><td>Número (camada <code>Input Text</code>)</td><td>texto livre (ex.: <code>1234 5678 1234 5678</code>)</td><td><code>value</code> / <code>defaultValue</code></td><td>✅</td><td>Em grupos de 4 dígitos nos dois.</td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td>No código, o erro também aparece sozinho: "Não é um número de cartão válido".</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Payment type</code> (instância interna _Resources/Card Icons, não exposta)</td><td><code>American Express</code> · <code>Mastercard</code> · <code>Visa</code></td><td>sem prop</td><td>⚠️</td><td>No Figma, só é trocado entrando nas camadas (ver acima). No código, o logo da bandeira aparece sozinho, a partir dos primeiros dígitos (Visa começa com <code>4</code>, Mastercard com <code>5</code>, American Express com <code>34</code> ou <code>37</code>).</td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Inactive</code> = vazio e sem foco, <code>Focused</code> = com foco, <code>Activated</code> = preenchido e sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o campo tem sempre fundo branco; só o texto de ajuda muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>CvvField</h4><p><strong>Figma:</strong> biblioteca Desktop › CVV Field [D] · biblioteca Mobile › CVV Field</p>
+<p>ℹ️ No Figma, o ícone de informação à direita aparece sempre, como no código. A propriedade <code>CVV Tooltip</code> mostra o balão de ajuda aberto, com o conteúdo <strong>_Resources/cvvTooltip</strong> (a imagem do cartão e a explicação).</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td>Balão de ajuda (<code>CVV Tooltip</code>)</td><td>Feito com o <strong>Popover</strong></td><td>Feito com o <strong>Tooltip</strong></td><td>Muda o design: são componentes diferentes. No código, é sempre um Popover</td></tr>
+<tr><td><code>State=Focused</code> com <code>Disabled=True</code></td><td>Existe</td><td>Não existe</td><td>Só o Desktop tem um campo desabilitado com foco, que não acontece no código (campo desabilitado não recebe foco)</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td></td></tr>
+<tr><td>Código (camada <code>Input Text</code>)</td><td>texto livre (ex.: <code>012</code>)</td><td><code>value</code> / <code>defaultValue</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td>No código, o erro também aparece sozinho: "CVV incorreto" quando o código não tem a quantidade certa de dígitos.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td></td></tr>
+<tr><td>Ícone de informação (<code>Choose icon</code>)</td><td>qualquer ícone (padrão: <code>information-regular</code>)</td><td>sem prop</td><td>⚠️</td><td>No código, o ícone é sempre o de informação e não pode ser trocado.</td></tr>
+<tr><td><code>CVV Tooltip</code></td><td><code>True</code> · <code>False</code></td><td>sem prop</td><td>⚠️</td><td>No código, o balão abre e fecha quando o usuário toca no ícone (e fecha pelo botão X).</td></tr>
+<tr><td>Conteúdo do balão (_Resources/cvvTooltip)</td><td>as explicações de Visa/Mastercard e de American Express, sempre as duas</td><td><code>acceptedCards</code></td><td>⚠️</td><td>No código, a explicação do American Express só aparece se ele for aceito. Os textos vêm do idioma do app (em português: "O CVV são os 3 dígitos do reverso de seu cartão" e "Se for American Express, adicione os 4 dígitos do anverso").</td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Inactive</code> = vazio e sem foco, <code>Focused</code> = com foco, <code>Activated</code> = preenchido e sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o campo tem sempre fundo branco; só o texto de ajuda muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

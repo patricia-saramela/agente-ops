@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Box · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-box">
+<h2>Box</h2>
+<p class="cat">Customização</p>
+<h3>Resumo</h3>
+<p>Contêiner usado para adicionar espaçamento interno (padding) em volta do conteúdo. Os valores de padding podem variar por tamanho de tela (mobile, tablet e desktop).</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Box</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>width</code></td><td></td><td></td><td>🎨 Largura do contêiner. Quando definida, usa <code>box-sizing: border-box</code> (o padding fica dentro da largura).</td></tr>
+<tr><td><code>padding</code></td><td></td><td><code>0</code></td><td>🎨 Padding nos quatro lados.</td></tr>
+<tr><td><code>paddingX</code></td><td></td><td>valor de <code>padding</code></td><td>🎨 Padding à esquerda e à direita.</td></tr>
+<tr><td><code>paddingY</code></td><td></td><td>valor de <code>padding</code></td><td>🎨 Padding em cima e embaixo.</td></tr>
+<tr><td><code>paddingTop</code></td><td></td><td>valor de <code>paddingY</code></td><td>🎨 Padding em cima.</td></tr>
+<tr><td><code>paddingBottom</code></td><td></td><td>valor de <code>paddingY</code></td><td>🎨 Padding embaixo.</td></tr>
+<tr><td><code>paddingLeft</code></td><td></td><td>valor de <code>paddingX</code></td><td>🎨 Padding à esquerda.</td></tr>
+<tr><td><code>paddingRight</code></td><td></td><td>valor de <code>paddingX</code></td><td>🎨 Padding à direita.</td></tr>
+<tr><td><code>background</code></td><td></td><td></td><td>🎨 Cor ou imagem de fundo (valor CSS de <code>background</code>).</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Conteúdo.</td></tr>
+</tbody></table>
+<p><strong>Tipos usados:</strong></p>
+<ul>
+<li><code>PadSize</code>: <code>0 \| 2 \| 4 \| 8 \| 12 \| 16 \| 20 \| 24 \| 32 \| 40 \| 48 \| 56 \| 64 \| 72 \| 80</code> (em px).
+</li>
+<li><code>ByBreakpoint&lt;T&gt;</code>: um valor único ou um objeto <code>{mobile, tablet?, desktop}</code>. Se <code>tablet</code> não for informado, usa o valor de <code>mobile</code>.
+</li></ul>
+<p><strong>Prioridade do padding:</strong> o lado específico (<code>paddingTop</code>, <code>paddingLeft</code>…) vence o eixo (<code>paddingX</code>, <code>paddingY</code>), que vence o <code>padding</code>.</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkbox · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-checkbox">
+<h2>Checkbox</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Caixa de seleção que o usuário marca ou desmarca, com um texto ao lado. Usado para escolhas independentes de sim/não, como aceitar termos ou escolher várias opções de uma lista. Funciona sozinho ou dentro de um <code>Form</code>, que guarda o valor pelo <code>name</code>.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Checkbox</h4><ul>
+<li>⚠️ <strong>Tamanho do texto:</strong> o código usa sempre o <code>Text-preset-3</code>. Evite os outros tamanhos do Checkbox + Text ou combine com quem desenvolve antes.
+</li>
+<li>⚠️ <strong>Estado indeterminado:</strong> não existe no Figma nem no código (o traço "–" de "selecionar todos").
+</li>
+<li>⚠️ <strong>Estilo iOS:</strong> o biblioteca Mobile usa a caixa no estilo iOS. No código, esse estilo aparece <strong>só em aparelhos iOS</strong>; nos outros aparelhos e no navegador do computador, o checkbox usa o estilo padrão.
+</li>
+<li>⚠️ <strong>Links no texto:</strong> evite links dentro do texto do checkbox. No código, clicar no link também marca ou desmarca o checkbox.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Checkbox</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>🎨 Desabilita o checkbox: fica esmaecido, não recebe foco e não muda ao clicar. Dentro de um <code>Form</code>, também fica desabilitado enquanto o formulário está sendo enviado.</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>🎨 Texto exibido ao lado da caixa. Clicar no texto também marca/desmarca.</td></tr>
+<tr><td><code>checked</code></td><td>sim/não</td><td></td><td>🎨 Estado marcado no modo controlado. Use junto com <code>onChange</code> e atualize o valor a cada mudança.</td></tr>
+<tr><td><code>render</code> (obrigatória)</td><td></td><td></td><td>Monta um layout personalizado. Recebe a caixa pronta (<code>controlElement</code>), o <code>id</code> para usar no texto (<code>labelId</code>) e o estado atual (<code>checked</code>, <code>disabled</code>).</td></tr>
+<tr><td><code>defaultChecked</code></td><td>sim/não</td><td><code>false</code></td><td>Estado inicial no modo não controlado (o próprio checkbox guarda o estado).</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Conteúdo:</strong> use <code>children</code> (texto ao lado da caixa) <strong>ou</strong> <code>render</code> (layout personalizado), não os dois. Com <code>render</code>, coloque o <code>labelId</code> recebido no <code>id</code> do texto, para o leitor de tela associar o texto ao checkbox.</p>
+<p>ℹ️ <strong>Controlado × não controlado:</strong> com <code>checked</code>, quem controla o estado é você (atualize <code>checked</code> no <code>onChange</code>). Sem <code>checked</code>, o checkbox guarda o estado sozinho, começando em <code>defaultChecked</code>.</p>
+<p>⚠️ <strong>Sem estado indeterminado:</strong> o checkbox só tem dois estados, marcado e desmarcado. Não existe o estado indeterminado (o traço "–", usado em "selecionar todos" com parte dos itens marcada): o valor é sempre <code>boolean</code> e o leitor de tela recebe só <code>aria-checked</code> <code>true</code> ou <code>false</code>, nunca <code>"mixed"</code>. Dá para simular o traço com <code>render</code>, mas ele fica só visual: o leitor de tela continua anunciando "marcado" ou "não marcado".</p>
+<p>ℹ️ O checkbox não é um <code>&lt;input&gt;</code> nativo: é um <code>&lt;div role="checkbox"&gt;</code>. Ele recebe foco pelo teclado e alterna com a tecla <strong>Espaço</strong>. O clique no checkbox não se propaga para os elementos pais.</p>
+<p>⚠️ Evite links ou botões dentro do <code>children</code>: um clique neles também marca/desmarca o checkbox. Coloque o link fora do texto do checkbox.</p>
+<p>ℹ️ A aparência se adapta ao fundo (<code>ThemeVariant</code>: <code>default</code>, <code>brand</code>, <code>negative</code>…) e ao sistema: no iOS a caixa e o ícone de marcado têm outro estilo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Checkbox</h4><p><strong>Figma:</strong></p>
+<ul>
+<li>Checkbox (só a caixa): biblioteca Desktop › Checkbox [D]
+</li>
+<li>Checkbox + Text: biblioteca Desktop › Checkbox + Text [D] · biblioteca Mobile › Checkbox + Text
+</li></ul>
+<p>ℹ️ No Figma são dois componentes (a caixa sozinha e a caixa com texto). No código é um só: o <code>Checkbox</code> com <code>children</code> (texto) é o "Checkbox + Text". No Checkbox + Text, o estado marcado fica na caixa interna.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td><code>State</code></td><td><code>True</code> · <code>False</code></td><td><code>On</code> · <code>Off</code></td><td>Só o nome dos valores</td></tr>
+<tr><td><code>Disabled</code></td><td><code>True</code> · <code>False</code></td><td><code>On</code> · <code>Off</code></td><td>Só o nome dos valores</td></tr>
+<tr><td>Caixa interna do Checkbox + Text</td><td><code>Checkbox [D]</code></td><td><code>iOS/Checkbox</code></td><td>O Mobile usa a caixa no estilo iOS</td></tr>
+<tr><td>Checkbox sozinho (sem texto)</td><td>Existe</td><td>Sem ligação de código</td><td>O Design System só liga ao código o Checkbox sozinho do Desktop</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>State</code></td><td><code>True</code> · <code>False</code></td><td><code>checked</code> / <code>defaultChecked</code></td><td>✅</td><td>Marcado ou desmarcado.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>True</code> · <code>False</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td>Texto (camada <code>Children</code>)</td><td>texto livre</td><td><code>children</code></td><td>✅</td><td>Só no Checkbox + Text.</td></tr>
+<tr><td><code>Text size</code></td><td><code>Text-preset-1</code> · <code>2</code> · <code>3</code> · <code>4</code></td><td>sem prop</td><td>⚠️</td><td>Só no Checkbox + Text. No código o texto é <strong>sempre <code>Text-preset-3</code></strong>. Os outros tamanhos só dão para fazer montando o layout com a prop <code>render</code>, sem o alinhamento automático da caixa com o texto.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código o checkbox muda de cor sozinho conforme o <strong>fundo onde está</strong>. O código também tem os fundos <code>Alternative</code> e <code>Media</code>, que não existem no Figma.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Para termos e condições, pode esconder o checkbox do "Checkbox + Text" e mudar o preset do texto? <strong>Resposta:</strong> Se não há checkbox, o componente certo é o <strong>TextLink</strong> (que permite escolher o preset; o app usa preset 2). O <strong>Checkbox + Text</strong> usa preset 3, e esse preset deve ser mantido. Não altere presets de texto dos componentes.</p>
+<p><sub>Ref. #24 · 06/2024</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

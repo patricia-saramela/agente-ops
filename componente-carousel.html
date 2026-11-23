@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carousel (Carousel, Centered Carousel, Slideshow) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-carousel">
+<h2>Carousel (Carousel, Centered Carousel, Slideshow)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>Carousel</h4>
+<p>Lista horizontal de itens (geralmente cards) que o usuário percorre arrastando ou pelas setas. Os itens são agrupados em <strong>páginas</strong>: cada página mostra alguns itens lado a lado, e a quantidade muda por tamanho de tela. Pode ter bullets de paginação e passar sozinho (autoplay).</p>
+<p>O Carousel tem três variações:</p>
+<table><thead><tr><th>Variação</th><th>Quando usar</th><th>Documentação</th></tr></thead><tbody>
+<tr><td><code>Carousel</code></td><td>Vários itens por página, configuráveis por tamanho de tela.</td><td>Este arquivo</td></tr>
+<tr><td><code>CenteredCarousel</code></td><td>Um item em destaque no centro, com as pontas dos vizinhos aparecendo (no celular).</td><td>centered-carousel</td></tr>
+<tr><td><code>Slideshow</code></td><td>Um item por vez ocupando toda a largura, como banners.</td><td>slideshow</td></tr>
+</tbody></table>
+<p>As peças que montam os controles (bullets, setas, botão de autoplay e o contexto para controles personalizados) estão em carousel-controls.</p>
+<h4>Controles do Carousel (PageBullets / CarouselPageControls / CarouselAutoplayControl / CarouselContextProvider)</h4>
+<p>Subcomponentes do Carousel. São as peças que o <code>Carousel</code>, o <code>CenteredCarousel</code> e o <code>Slideshow</code> usam para montar os controles, exportadas para quem precisa de <strong>controles personalizados</strong> (ex.: bullets e setas num rodapé fixo, fora do carrossel).</p>
+<ul>
+<li><strong><code>CarouselContextProvider</code></strong>: envolve o carrossel e os controles personalizados. Dá acesso ao estado e às ações do carrossel (próxima página, página atual, etc.).
+</li>
+<li><strong><code>useCarouselContext</code></strong> / <strong><code>CarouselContextConsumer</code></strong>: leem esse estado dentro do <code>CarouselContextProvider</code> (hook ou render prop).
+</li>
+<li><strong><code>PageBullets</code></strong>: os bullets de paginação.
+</li>
+<li><strong><code>CarouselPageControls</code></strong>: as setas de anterior/próximo.
+</li>
+<li><strong><code>CarouselAutoplayControl</code></strong>: o botão de pausar/retomar o autoplay.
+</li></ul>
+<h4>CenteredCarousel</h4>
+<p>Variação do Carousel com <strong>um item em destaque no centro</strong>. No celular e no tablet, mostra um item por vez centralizado, com as pontas do anterior e do próximo aparecendo dos lados. No desktop, mostra três itens. As setas avançam um item por vez. Usado para destacar itens um a um, como planos ou produtos em vitrine.</p>
+<h4>Slideshow</h4>
+<p>Variação do Carousel que mostra <strong>um item por vez, ocupando toda a largura</strong>. No celular e no tablet, encosta nas bordas da tela. As setas, o botão de autoplay e os bullets ficam <strong>sobre</strong> o item, na parte de baixo. Usado para banners e destaques em sequência, geralmente com imagens ou <code>Hero</code>.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Carousel</h4><ul>
+<li>⚠️ <strong>Itens por página:</strong> informe quantos itens aparecem por página em cada tamanho de tela. No Desktop, o Figma não tem essa opção.
+</li>
+<li>⚠️ <strong>Autoplay:</strong> informe o tempo de cada página e se o carrossel volta ao início. No código, o autoplay pausa sozinho quando o carrossel sai da tela e para quando o usuário interage.
+</li>
+<li>⚠️ <strong>Uma página só:</strong> no código, quando todos os itens cabem numa página, as setas e os bullets somem.
+</li>
+<li>⚠️ <strong>Dev Mode no Desktop:</strong> o trecho de código que o Figma Desktop mostra no Dev Mode traz um exemplo fixo de itens por página (2 no celular e 10 no desktop), que não vem do design.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h4>CenteredCarousel</h4><ul>
+<li>⚠️ <strong>Layout fixo:</strong> no código, o CenteredCarousel mostra 1 item centralizado no celular e no tablet e 3 itens no desktop. Não dá para mudar a quantidade de itens.
+</li>
+<li>⚠️ <strong>Sem autoplay:</strong> nem no Figma nem no código o CenteredCarousel passa sozinho. Para passar sozinho, use o Carousel ou o Slideshow.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h4>Slideshow</h4><ul>
+<li>⚠️ <strong>Acessibilidade:</strong> o Slideshow não aceita um nome para o leitor de tela. Se a sequência precisar ser identificada, coloque um título visível antes dela.
+</li>
+<li>⚠️ <strong>Autoplay:</strong> informe o tempo de cada item e se o slideshow volta ao início.
+</li>
+<li>⚠️ <strong>Largura:</strong> no celular e no tablet, o Slideshow encosta nas bordas da tela.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Carousel</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>withBullets</code></td><td>sim/não</td><td></td><td>🎨 Mostra os bullets de paginação.</td></tr>
+<tr><td><code>withControls</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Mostra os controles abaixo dos itens: botão de autoplay à esquerda (se houver <code>autoplay</code>), bullets no centro e setas de anterior/próximo à direita. Com <code>false</code>, só os bullets (se houver) aparecem, centralizados.</td></tr>
+<tr><td><code>autoplay</code></td><td></td><td></td><td>🎨 Passa as páginas sozinho. <code>true</code> usa 5 segundos por página; no objeto, <code>time</code> é o intervalo em milissegundos e <code>loop</code> volta ao início depois da última página.¹</td></tr>
+<tr><td><code>itemsPerPage</code></td><td></td><td><code>{mobile: 1, tablet: 2, desktop: {small: 1, medium: 2, large: 3}}</code></td><td>Quantos itens aparecem por página. O valor vale para todas as telas. No desktop, <code>small</code>/<code>medium</code>/<code>large</code> dependem da largura do contêiner (ex.: coluna de um <code>GridLayout</code>). Aceita decimais (ex.: <code>1.2</code>) para mostrar parte do próximo item.²</td></tr>
+<tr><td><code>mobilePageOffset</code></td><td><code>'regular' | 'large'</code></td><td><code>'regular'</code></td><td>Quanto do próximo item aparece na borda da tela no celular e no tablet. <code>'large'</code> mostra mais (64px).</td></tr>
+<tr><td><code>itemStyle</code></td><td></td><td></td><td>Estilo aplicado ao contêiner de cada item.</td></tr>
+<tr><td><code>itemClassName</code></td><td></td><td></td><td>Classe CSS aplicada ao contêiner de cada item.</td></tr>
+<tr><td><code>items</code> (obrigatória)</td><td></td><td></td><td>Itens do carrossel, na ordem de exibição.</td></tr>
+<tr><td><code>itemsToScroll</code></td><td>número</td><td></td><td>Quantos itens avançam a cada clique nas setas. Sem ela, avança uma página inteira.</td></tr>
+<tr><td><code>free</code></td><td>sim/não</td><td></td><td>Rolagem livre: o carrossel para onde o usuário soltar, sem encaixar no início de um item.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Autoplay:</strong></p>
+<ul>
+<li>Pausa sozinho quando o carrossel sai da tela ou a aba do navegador fica oculta, e volta quando aparece de novo.
+</li>
+<li>Para totalmente quando o usuário clica nas setas, arrasta o carrossel ou usa o teclado nele.
+</li>
+<li>Sem <code>loop</code>, para na última página; o botão de autoplay vira "recomeçar".
+</li>
+<li>Não inicia se o sistema do usuário pedir menos animações (<code>prefers-reduced-motion</code>).
+</li>
+<li>O botão de pausar/retomar só aparece com <code>withControls</code>.
+</li></ul>
+<p>² ℹ️ <strong>Páginas:</strong> o número de páginas é o total de itens dividido pelos itens por página (arredondando para baixo os decimais). Quando há só uma página num tamanho de tela, as setas e os bullets somem nesse tamanho.</p>
+<p>ℹ️ O componente não aceita <code>children</code>: os itens vêm de <code>items</code>.</p>
+<p>ℹ️ Para o leitor de tela, o carrossel é uma região (<code>role="region"</code>) com uma lista (<code>role="list"</code>), e cada item é um <code>listitem</code>. As setas anunciam a página de destino (ex.: "Página seguinte, 2 de 4").</p>
+<p>⚠️ A prop <code>renderBullets</code> está depreciada e não foi documentada. Para bullets ou controles personalizados, use o <code>CarouselContextProvider</code> (ver carousel-controls).</p>
+<h5>Diferença entre Carousel, CenteredCarousel e Slideshow</h5><table><thead><tr><th>Aspecto</th><th><code>Carousel</code></th><th><code>CenteredCarousel</code></th><th><code>Slideshow</code></th></tr></thead><tbody>
+<tr><td><strong>Itens por página</strong></td><td>Configurável (<code>itemsPerPage</code>); padrão 1 / 2 / 1–3 (celular / tablet / desktop)</td><td>Fixo: 1 no celular e tablet, 3 no desktop</td><td>Sempre 1, na largura toda</td></tr>
+<tr><td><strong>Aparência</strong></td><td>Itens lado a lado, com espaço entre eles; a ponta do próximo item aparece no celular</td><td>Item centralizado, com as pontas dos vizinhos dos dois lados (celular/tablet); sem espaço entre itens</td><td>Item ocupa toda a largura (encosta nas bordas da tela no celular/tablet); setas e bullets ficam <strong>sobre</strong> o item</td></tr>
+<tr><td><strong>Avanço nas setas</strong></td><td>Uma página (ou <code>itemsToScroll</code>)</td><td>Um item</td><td>Um item</td></tr>
+<tr><td><strong>Autoplay</strong></td><td>Sim</td><td>Não</td><td>Sim</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>itemsPerPage</code>, <code>itemsToScroll</code>, <code>mobilePageOffset</code>, <code>free</code>, <code>autoplay</code></td><td></td><td><code>initialPageIndex</code>, <code>inverseBullets</code>, <code>autoplay</code></td></tr>
+<tr><td><strong>Não tem</strong></td><td></td><td><code>autoplay</code> e as props de layout do <code>Carousel</code></td><td><code>itemStyle</code>, <code>itemClassName</code>, <code>aria-label</code>, <code>aria-labelledby</code></td></tr>
+<tr><td><strong><code>onPageChange</code></strong></td><td>Recebe <code>{pageIndex, shownItemIndexes}</code></td><td>Recebe <code>{pageIndex, shownItemIndexes}</code></td><td>Recebe só o índice (<code>number</code>)</td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: o <code>Carousel</code> e o <code>CenteredCarousel</code> usam a mesma base interna (o <code>CenteredCarousel</code> é um <code>Carousel</code> com layout fixo), e o <code>Slideshow</code> tem implementação própria, mas os três compartilham os mesmos controles (bullets, setas, autoplay).</p>
+<h4>Controles do Carousel (PageBullets / CarouselPageControls / CarouselAutoplayControl / CarouselContextProvider)</h4><h5>Propriedades</h5><h6>CarouselContextProvider</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Conteúdo com o carrossel e os controles personalizados. Deve conter <strong>um</strong> carrossel.</td></tr>
+</tbody></table>
+<h6>Valores de useCarouselContext / CarouselContextConsumer</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>bulletsProps</code></td><td></td><td></td><td>Props prontas para passar ao <code>PageBullets</code> (<code>&lt;PageBullets {...bulletsProps} /&gt;</code>).</td></tr>
+<tr><td><code>pageControlsProps</code></td><td></td><td></td><td>Props prontas para passar ao <code>CarouselPageControls</code>, junto com <code>goPrev</code> e <code>goNext</code>. Não é preenchido pelo <code>Slideshow</code>.¹</td></tr>
+<tr><td><code>autoplayControlProps</code></td><td></td><td></td><td>Props prontas para passar ao <code>CarouselAutoplayControl</code>. Não é preenchido pelo <code>Slideshow</code>.¹</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Slideshow:</strong> com o <code>Slideshow</code>, o contexto só traz <code>goPrev</code>, <code>goNext</code>, <code>goToPage</code> e <code>bulletsProps</code>.</p>
+<h6>PageBullets</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>currentIndex</code> (obrigatória)</td><td>número</td><td></td><td>Índice da página atual (bullet destacado).</td></tr>
+<tr><td><code>numPages</code> (obrigatória)</td><td></td><td></td><td>Total de páginas. Com objeto, cada tamanho de tela mostra a sua quantidade (sem <code>tablet</code>, usa o valor de <code>mobile</code>).</td></tr>
+</tbody></table>
+<p>ℹ️ Com mais de 5 páginas, só 5 bullets aparecem por vez; os das pontas ficam menores e a fila acompanha a página atual. As cores se adaptam ao fundo (<code>ThemeVariant</code>).</p>
+<h6>CarouselPageControls</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>bleedLeft</code></td><td>sim/não</td><td></td><td>🎨 Remove o espaço interno à esquerda da seta anterior, alinhando com o conteúdo.</td></tr>
+<tr><td><code>bleedRight</code></td><td>sim/não</td><td></td><td>🎨 Remove o espaço interno à direita da seta próxima.</td></tr>
+<tr><td><code>prevArrowEnabled</code> (obrigatória)</td><td>sim/não</td><td></td><td>Habilita a seta de anterior.</td></tr>
+<tr><td><code>nextArrowEnabled</code> (obrigatória)</td><td>sim/não</td><td></td><td>Habilita a seta de próximo.</td></tr>
+<tr><td><code>pagesCount</code></td><td>número</td><td></td><td>♿ Total de páginas. Com <code>currentPageIndex</code>, o rótulo das setas inclui a página de destino (ex.: "Página seguinte, 2 de 4").</td></tr>
+<tr><td><code>currentPageIndex</code></td><td>número</td><td></td><td>♿ Índice da página atual. Usado com <code>pagesCount</code> no rótulo das setas.</td></tr>
+</tbody></table>
+<h6>CarouselAutoplayControl</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>bleedLeft</code></td><td>sim/não</td><td><code>false</code></td><td>🎨 Remove o espaço interno à esquerda do botão.</td></tr>
+<tr><td><code>bleedRight</code></td><td>sim/não</td><td><code>false</code></td><td>🎨 Remove o espaço interno à direita do botão.</td></tr>
+<tr><td><code>isAutoplayEnabled</code> (obrigatória)</td><td>sim/não</td><td></td><td>Estado do autoplay. Ligado, mostra o ícone de pausar; desligado, o de reproduzir.</td></tr>
+<tr><td><code>isAtLastPage</code> (obrigatória)</td><td>sim/não</td><td></td><td>Com o autoplay desligado na última página, mostra o ícone de recomeçar.</td></tr>
+</tbody></table>
+<p>ℹ️ Os rótulos das setas e do botão de autoplay para o leitor de tela vêm do tema e já são traduzidos (ex.: "Página anterior", "Pausar carrossel automático").</p>
+<p>⚠️ <code>useCarouselContext</code> e <code>CarouselContextConsumer</code> só funcionam dentro de um <code>CarouselContextProvider</code>. Fora dele, chamar <code>goNext</code>, <code>goPrev</code> ou <code>goToPage</code> gera um erro.</p>
+<h4>CenteredCarousel</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>withBullets</code></td><td>sim/não</td><td></td><td>🎨 Mostra os bullets de paginação.</td></tr>
+<tr><td><code>withControls</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Mostra os controles abaixo dos itens: bullets no centro e setas de anterior/próximo à direita. Com <code>false</code>, só os bullets (se houver) aparecem, centralizados.</td></tr>
+<tr><td><code>itemStyle</code></td><td></td><td></td><td>Estilo aplicado ao contêiner de cada item.</td></tr>
+<tr><td><code>itemClassName</code></td><td></td><td></td><td>Classe CSS aplicada ao contêiner de cada item.</td></tr>
+<tr><td><code>items</code> (obrigatória)</td><td></td><td></td><td>Itens do carrossel, na ordem de exibição.</td></tr>
+</tbody></table>
+<p>ℹ️ O layout é fixo: 1 item por página no celular e no tablet, 3 no desktop, sem espaço entre os itens. Não aceita <code>itemsPerPage</code>, <code>itemsToScroll</code>, <code>mobilePageOffset</code>, <code>free</code> nem <code>autoplay</code>.</p>
+<p>ℹ️ Quando há só uma página num tamanho de tela, as setas e os bullets somem nesse tamanho.</p>
+<p>ℹ️ O componente não aceita <code>children</code>: os itens vêm de <code>items</code>.</p>
+<p>⚠️ A prop <code>renderBullets</code> está depreciada e não foi documentada. Para bullets ou controles personalizados, use o <code>CarouselContextProvider</code> (ver carousel-controls).</p>
+<h5>Diferença entre Carousel, CenteredCarousel e Slideshow</h5><table><thead><tr><th>Aspecto</th><th><code>Carousel</code></th><th><code>CenteredCarousel</code></th><th><code>Slideshow</code></th></tr></thead><tbody>
+<tr><td><strong>Itens por página</strong></td><td>Configurável (<code>itemsPerPage</code>); padrão 1 / 2 / 1–3 (celular / tablet / desktop)</td><td>Fixo: 1 no celular e tablet, 3 no desktop</td><td>Sempre 1, na largura toda</td></tr>
+<tr><td><strong>Aparência</strong></td><td>Itens lado a lado, com espaço entre eles; a ponta do próximo item aparece no celular</td><td>Item centralizado, com as pontas dos vizinhos dos dois lados (celular/tablet); sem espaço entre itens</td><td>Item ocupa toda a largura (encosta nas bordas da tela no celular/tablet); setas e bullets ficam <strong>sobre</strong> o item</td></tr>
+<tr><td><strong>Avanço nas setas</strong></td><td>Uma página (ou <code>itemsToScroll</code>)</td><td>Um item</td><td>Um item</td></tr>
+<tr><td><strong>Autoplay</strong></td><td>Sim</td><td>Não</td><td>Sim</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>itemsPerPage</code>, <code>itemsToScroll</code>, <code>mobilePageOffset</code>, <code>free</code>, <code>autoplay</code></td><td></td><td><code>initialPageIndex</code>, <code>inverseBullets</code>, <code>autoplay</code></td></tr>
+<tr><td><strong>Não tem</strong></td><td></td><td><code>autoplay</code> e as props de layout do <code>Carousel</code></td><td><code>itemStyle</code>, <code>itemClassName</code>, <code>aria-label</code>, <code>aria-labelledby</code></td></tr>
+<tr><td><strong><code>onPageChange</code></strong></td><td>Recebe <code>{pageIndex, shownItemIndexes}</code></td><td>Recebe <code>{pageIndex, shownItemIndexes}</code></td><td>Recebe só o índice (<code>number</code>)</td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: o <code>Carousel</code> e o <code>CenteredCarousel</code> usam a mesma base interna (o <code>CenteredCarousel</code> é um <code>Carousel</code> com layout fixo), e o <code>Slideshow</code> tem implementação própria, mas os três compartilham os mesmos controles (bullets, setas, autoplay).</p>
+<h4>Slideshow</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>withBullets</code></td><td>sim/não</td><td></td><td>🎨 Mostra os bullets de paginação.</td></tr>
+<tr><td><code>inverseBullets</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Bullets em cor clara, para fundos escuros (imagens). Com <code>false</code>, usa as cores padrão.</td></tr>
+<tr><td><code>withControls</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Mostra os controles sobre o item, na parte de baixo: botão de autoplay à esquerda (se houver <code>autoplay</code>), bullets no centro e setas de anterior/próximo à direita. Com <code>false</code>, só os bullets (se houver) aparecem, centralizados.</td></tr>
+<tr><td><code>items</code> (obrigatória)</td><td></td><td></td><td>Itens do slideshow, um por página.</td></tr>
+<tr><td><code>autoplay</code></td><td></td><td></td><td>Passa os itens sozinho. <code>true</code> usa 5 segundos por item; no objeto, <code>time</code> é o intervalo em milissegundos e <code>loop</code> volta ao início depois do último item.¹</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Autoplay:</strong></p>
+<ul>
+<li>Pausa sozinho quando o slideshow sai da tela ou a aba do navegador fica oculta, e volta quando aparece de novo.
+</li>
+<li>Para de vez quando o usuário clica nas setas.
+</li>
+<li>Sem <code>loop</code>, para no último item; o botão de autoplay vira "recomeçar".
+</li>
+<li>Não inicia se o sistema do usuário pedir menos animações (<code>prefers-reduced-motion</code>).
+</li>
+<li>O botão de pausar/retomar só aparece com <code>withControls</code>.
+</li></ul>
+<p>ℹ️ Com um único item, as setas, o autoplay e os bullets não aparecem.</p>
+<p>ℹ️ O componente não aceita <code>children</code>: os itens vêm de <code>items</code>.</p>
+<p>⚠️ Diferente do <code>Carousel</code>, o <code>Slideshow</code> não aceita <code>aria-label</code> nem <code>aria-labelledby</code>. Se a sequência precisar de um nome para o leitor de tela, coloque um título visível antes dela.</p>
+<h5>Diferença entre Carousel, CenteredCarousel e Slideshow</h5><table><thead><tr><th>Aspecto</th><th><code>Carousel</code></th><th><code>CenteredCarousel</code></th><th><code>Slideshow</code></th></tr></thead><tbody>
+<tr><td><strong>Itens por página</strong></td><td>Configurável (<code>itemsPerPage</code>); padrão 1 / 2 / 1–3 (celular / tablet / desktop)</td><td>Fixo: 1 no celular e tablet, 3 no desktop</td><td>Sempre 1, na largura toda</td></tr>
+<tr><td><strong>Aparência</strong></td><td>Itens lado a lado, com espaço entre eles; a ponta do próximo item aparece no celular</td><td>Item centralizado, com as pontas dos vizinhos dos dois lados (celular/tablet); sem espaço entre itens</td><td>Item ocupa toda a largura (encosta nas bordas da tela no celular/tablet); setas e bullets ficam <strong>sobre</strong> o item</td></tr>
+<tr><td><strong>Avanço nas setas</strong></td><td>Uma página (ou <code>itemsToScroll</code>)</td><td>Um item</td><td>Um item</td></tr>
+<tr><td><strong>Autoplay</strong></td><td>Sim</td><td>Não</td><td>Sim</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>itemsPerPage</code>, <code>itemsToScroll</code>, <code>mobilePageOffset</code>, <code>free</code>, <code>autoplay</code></td><td></td><td><code>initialPageIndex</code>, <code>inverseBullets</code>, <code>autoplay</code></td></tr>
+<tr><td><strong>Não tem</strong></td><td></td><td><code>autoplay</code> e as props de layout do <code>Carousel</code></td><td><code>itemStyle</code>, <code>itemClassName</code>, <code>aria-label</code>, <code>aria-labelledby</code></td></tr>
+<tr><td><strong><code>onPageChange</code></strong></td><td>Recebe <code>{pageIndex, shownItemIndexes}</code></td><td>Recebe <code>{pageIndex, shownItemIndexes}</code></td><td>Recebe só o índice (<code>number</code>)</td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: o <code>Carousel</code> e o <code>CenteredCarousel</code> usam a mesma base interna (o <code>CenteredCarousel</code> é um <code>Carousel</code> com layout fixo), e o <code>Slideshow</code> tem implementação própria, mas os três compartilham os mesmos controles (bullets, setas, autoplay).</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Carousel</h4><p><strong>Figma:</strong> biblioteca Desktop › Carousel [D] · biblioteca Mobile › Carousel</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Página atual</td><td><code>Current page</code>: <code>First</code> · <code>Middle</code> · <code>Last</code></td><td><code>Current slide</code>: <code>#1</code> a <code>#5</code></td><td>Nome e valores diferentes: o Desktop indica a posição (primeira, do meio, última) e o Mobile o número do item</td></tr>
+<tr><td><code>Nº of slides</code></td><td>Não existe</td><td><code>3</code> · <code>4</code> · <code>5</code></td><td>Só o Mobile define a quantidade de itens</td></tr>
+<tr><td><code>Items per page</code></td><td>Não existe</td><td><code>1</code> · <code>2</code></td><td>Só o Mobile define quantos itens aparecem por página</td></tr>
+<tr><td><code>Page Offset (mobile only)</code></td><td>Não existe</td><td><code>Regular</code> · <code>Large</code></td><td>Só o Mobile tem; no código, esse recurso também só vale no celular e no tablet</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Show bullets</code></td><td>ligado/desligado</td><td><code>withBullets</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Controls</code></td><td>ligado/desligado</td><td><code>withControls</code></td><td>✅</td><td>No código, os controles vêm ligados por padrão.</td></tr>
+<tr><td><code>Autoplay</code></td><td>ligado/desligado</td><td><code>autoplay</code></td><td>⚠️</td><td>No código, o autoplay também define o tempo de cada página (padrão: 5 segundos) e se volta ao início depois da última página (<code>loop</code>).</td></tr>
+<tr><td><code>Current page</code></td><td><code>First</code> · <code>Middle</code> · <code>Last</code></td><td><code>initialActiveItem</code></td><td>⚠️</td><td>No código, é o <strong>número do item</strong> que deve aparecer primeiro (o primeiro é <code>0</code>); o carrossel abre na página que contém esse item.</td></tr>
+<tr><td><code>Items per page</code></td><td><code>1</code> · <code>2</code></td><td><code>itemsPerPage</code></td><td>⚠️</td><td>Só no Mobile. No código, aceita qualquer número (inclusive decimais, como <code>1.2</code>, para mostrar parte do próximo item) e pode variar por tamanho de tela. Padrão: 1 no celular, 2 no tablet e de 1 a 3 no desktop.</td></tr>
+<tr><td><code>Nº of slides</code></td><td><code>3</code> · <code>4</code> · <code>5</code></td><td>quantidade de itens em <code>items</code></td><td>⚠️</td><td>Só no Mobile. No código, não há limite de itens.</td></tr>
+<tr><td><code>Page Offset (mobile only)</code></td><td><code>Regular</code> · <code>Large</code></td><td><code>mobilePageOffset</code></td><td>✅</td><td>Quanto do próximo item aparece na borda da tela.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código os controles mudam de cor sozinhos conforme o <strong>fundo onde estão</strong>. O código também tem os fundos <code>Alternative</code> e <code>Media</code>, que não existem no Figma.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>CenteredCarousel</h4><p><strong>Figma:</strong> biblioteca Desktop › Centered Carousel [D]</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Centered Carousel</td><td>Existe</td><td>Sem ligação de código</td><td>O Design System só liga ao código o Centered Carousel do Desktop</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Show bullets</code></td><td>ligado/desligado</td><td><code>withBullets</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Controls</code></td><td>ligado/desligado</td><td><code>withControls</code></td><td>✅</td><td>No código, os controles vêm ligados por padrão.</td></tr>
+<tr><td><code>Current page</code></td><td><code>#1</code> a <code>#4</code></td><td><code>initialActiveItem</code></td><td>⚠️</td><td>No código, é o número do item que aparece primeiro, começando em <code>0</code> (<code>#1</code> = <code>0</code>). Não há limite de itens.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código os controles mudam de cor sozinhos conforme o <strong>fundo onde estão</strong>. O código também tem os fundos <code>Alternative</code> e <code>Media</code>, que não existem no Figma.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>Slideshow</h4><p><strong>Figma:</strong> biblioteca Desktop › Slideshow [D]</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Slideshow</td><td>Existe</td><td>Sem ligação de código</td><td>O Design System só liga ao código o Slideshow do Desktop</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Show bullets</code></td><td>ligado/desligado</td><td><code>withBullets</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Controls</code></td><td>ligado/desligado</td><td><code>withControls</code></td><td>✅</td><td>No código, os controles vêm ligados por padrão.</td></tr>
+<tr><td><code>Autoplay</code></td><td>ligado/desligado</td><td><code>autoplay</code></td><td>⚠️</td><td>No código, o autoplay também define o tempo de cada item (padrão: 5 segundos) e se volta ao início depois do último (<code>loop</code>).</td></tr>
+<tr><td><code>Current Slide</code></td><td><code>#1</code> a <code>#5</code></td><td><code>initialPageIndex</code></td><td>✅</td><td>No código começa em <code>0</code> (<code>#1</code> = <code>0</code>).</td></tr>
+<tr><td><code>Nº of Slides</code></td><td><code>3</code> · <code>4</code> · <code>5</code></td><td>quantidade de itens em <code>items</code></td><td>⚠️</td><td>No código, não há limite de itens. Com um item só, as setas, o autoplay e os bullets não aparecem.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> No Carousel, se mudar os controles (chevrons) de posição, ainda é preciso manter os do meio? <strong>Resposta:</strong> Não há documentação sobre isso. Por enquanto, ao usar um controle customizado, <strong>mantenha a duplicidade dos controles</strong>. O componente deve receber melhorias.</p>
+<p><sub>Ref. #22 · 06/2024 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> As setas do Carousel ficam sobre os cards na documentação, mas não no componente do Figma. <strong>Resposta:</strong> O comportamento é <strong>responsivo</strong>. Abaixo de 1024px (celular e tablet), cards e setas encostam na borda direita; acima de 1024px, os cards respeitam as margens do Responsive Layout e as setas se posicionam em relação aos cards. No Figma, o componente desktop está ajustado para 1368px; para 1024px, ajuste o <strong>Horizontal gap</strong> da camada para <strong>-20</strong>. No celular e no tablet, use a biblioteca <strong>Mobile</strong>, que <strong>não mostra setas</strong> (dispositivos touch). Obs.: <strong>Slideshow</strong> é outro componente, diferente do Carousel.</p>
+<p><sub>Ref. #196 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> O componente Carousel do Figma limita a 5 slides. Como colocar 7? <strong>Resposta:</strong> A documentação <strong>não recomenda mais de 5 itens</strong> no Carousel, por isso o limite. Se o produto aprovar mais itens (liderança + Pesquisa e Evolução), <strong>não quebre o componente</strong>: use o Carousel normalmente, posicione os itens extras ao lado e deixe um comentário para o dev indicando que fazem parte do Carousel.</p>
+<p><sub>Ref. #374 · 06/2025</sub></p>
+<p><strong>Dúvida:</strong> O Slideshow pode ocupar a largura total da tela, sem margem? <strong>Resposta:</strong> Sim: o <strong>Slideshow sempre segue a largura da tela</strong>, e não se adiciona margem.</p>
+<p><sub>Ref. #638 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> Há limite de itens no Carousel? <strong>Resposta:</strong> Não há limite técnico, mas a recomendação do Design System é <strong>não usar mais de 5 páginas</strong>. Para muitos itens, consulte Pesquisa e Evolução.</p>
+<p><sub>Ref. #749 · 12/2025</sub></p>
+<p><strong>Dúvida:</strong> Para fotos do produto, quero mostrar uma imagem por vez no Carousel, sem o pedaço da próxima. Posso desligar o "Peek"? <strong>Resposta:</strong> Não desligue camadas manualmente. Use o <strong>Slideshow</strong>, variação do Carousel <strong>sem o preview</strong> do próximo item.</p>
+<p><sub>Ref. #938 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Que componente usar para galeria com zoom de imagens do produto? <strong>Resposta:</strong> Há o <strong>Slideshow</strong> e o <strong>Carousel</strong>, mas nenhum tem a tira de miniaturas embaixo (evolução encaminhada ao time Core). A lupa/zoom no desktop é feita no código, não vem do componente.</p>
+<p><sub>Ref. #1021 · 05/2026 · ⚠️ limitação atual</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

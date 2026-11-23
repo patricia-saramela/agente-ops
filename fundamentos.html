@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parte 1 · Fundamentos · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<h1>Parte 1 · Fundamentos</h1>
+<h2>Tamanhos de tela (breakpoints)</h2>
+<table><thead><tr><th>Tamanho</th><th>Largura da tela (viewport)</th><th>Biblioteca do Figma</th><th>Layout guide do Figma</th></tr></thead><tbody>
+<tr><td>Celular</td><td>até 767px</td><td>Mobile</td><td>Mobile</td></tr>
+<tr><td>Tablet</td><td>768px a 1023px</td><td>Mobile</td><td>Tablet</td></tr>
+<tr><td>Desktop</td><td>1024px a 1511px</td><td>Desktop</td><td>Desktop</td></tr>
+<tr><td>Desktop grande</td><td>1512px a 1831px</td><td>Desktop</td><td>Large Desktop</td></tr>
+<tr><td>Desktop extragrande</td><td>a partir de 1832px</td><td>Desktop</td><td>Extra Large Desktop</td></tr>
+</tbody></table>
+<ul>
+<li>Vale a <strong>largura da viewport (pixel lógico)</strong>, não a resolução física do aparelho. Ex.: um tablet de 1600×2560 com DPR 2 tem 800px de viewport, então é <strong>tablet</strong>.
+</li>
+<li><strong>Tablet deitado</strong> com 1024px ou mais de largura passa a se comportar como <strong>desktop</strong> (grid e componentes de desktop).
+</li>
+<li>⚠️ <strong>A altura também conta:</strong> uma tela com menos de <strong>550px de altura</strong> é tratada como <strong>celular</strong>, mesmo que seja larga (ex.: celular deitado, janela de navegador bem baixa).
+</li>
+<li>Quando este documento diz "celular", "tablet" e "desktop", valem essas faixas. "Desktop" inclui os três tamanhos de desktop.
+</li></ul>
+<h2>Web, webview e app</h2>
+<p>As regras de comportamento desta base descrevem o <strong>código web do Design System</strong> (React), usado em sites e nas telas web abertas <strong>dentro do app</strong> (webview). Alguns componentes mudam dentro do app:</p>
+<ul>
+<li><strong>Dentro do app (webview):</strong> Alert e Confirm viram o <strong>alerta nativo</strong> do sistema; o Snackbar é mostrado <strong>pelo próprio app</strong>; os tipos prontos do Sheet usam o <strong>visual nativo</strong>; a lista do Select, o calendário do Date Field e os seletores de data/hora são <strong>do sistema</strong>; a barra de navegação e a tab bar são <strong>nativas</strong> (um Sheet web fica por baixo delas).
+</li>
+<li><strong>Em aparelhos iOS</strong>, Checkbox, Radio, Switch e Slider usam sozinhos o visual do sistema. Não existe visual específico de Android: vale o visual Web.
+</li>
+<li>O que está descrito aqui sobre o app vale para a <strong>versão atual</strong> do app. No app 5.0 pode ser diferente (ver a seção abaixo).
+</li></ul>
+<h2>App 5.0 e versão atual</h2>
+<ul>
+<li>O <strong>app 5.0</strong> é a nova versão do app, que faz parte de uma atualização de diretrizes em andamento. Ele usa a <strong>skin Evolution</strong>, componentes em <strong>Flutter</strong> e um <strong>Guia de Padrões</strong> próprio.
+</li>
+<li>Algumas regras desta base valem só para a versão atual e podem mudar no app 5.0. Exemplos registrados pelo suporte: o sheet nativo sem slot e sem ícones da biblioteca, e a barra de navegação nativa por cima do sheet, que devem deixar de ser limitações no app 5.0.
+</li>
+<li>Nas dúvidas do suporte, "nova versão do app" ou "nova versão do app (5.0)" se refere ao app 5.0.
+</li>
+<li>As alterações específicas do app 5.0 terão uma documentação própria. Quando esta base não falar do app 5.0, a referência é o Guia de Padrões da nova versão do app.
+</li></ul>
+<h2>Grid, margens e layout</h2>
+<ul>
+<li>No código, a tela começa com o <strong>Responsive Layout</strong> (margens laterais) e, dentro dele, o <strong>Grid Layout</strong> (colunas). No Figma eles não existem como componente: o equivalente são os <strong>Layout guides</strong> da biblioteca Desktop (<strong>Shift+G</strong> mostra/esconde). Toda tela precisa de um Layout guide do Design System.
+</li>
+<li><strong>Margens laterais:</strong> 16px no celular, 32px no tablet (768px), 48px no desktop (1024px), 64px no desktop grande (1512px). No desktop extragrande (1832px), as 12 colunas ficam centralizadas com largura fixa e <strong>as margens crescem</strong> com a tela. Conteúdo centralizado com margens grandes em monitores grandes é o comportamento esperado, não bug.
+</li>
+<li><strong>Espaço entre colunas (gutter):</strong> 24px no desktop e 16px no tablet.
+</li>
+<li><strong>Modelos de duas colunas:</strong> <code>6+6</code>, <code>8+4</code>, <code>7+5</code> (só no código), <code>4+6</code> (esquerda nas colunas 1–4, direita 6–11), <code>5+4</code> (esquerda 2–6, direita 8–11; usado em funil) e <code>3+9</code>; e de uma coluna: <code>12</code>, <code>10</code> e <code>8</code>. Os modelos são recomendados, não obrigatórios. No <code>8+4</code>, as 8 colunas são fixas e as 4 "móveis": o espaço entre os dois blocos varia com a largura da tela (não é erro).
+</li>
+<li><strong>No celular</strong> (e, por padrão, no tablet), as colunas viram uma só: o bloco da esquerda fica em cima e o da direita embaixo.
+</li>
+<li><strong>Listas (Row/Boxed Row) no desktop</strong> ocupam 8 colunas do grid de 12 (use o modelo 12 ou 8+4).
+</li>
+<li><strong>Inputs</strong> têm largura mínima, mas não máxima fixa: escalam com as colunas (podem ocupar 6 ou 8 colunas). No desktop, sem "largura toda", o campo tem <strong>328px</strong> no código (o componente do Figma tem 496px): informe qual usar.
+</li>
+<li>O Design System <strong>não define rolagem de interface</strong> (ex.: só a lista rolar com o título fixo): é decisão de produto.
+</li>
+<li>O Design System <strong>não tem regra rígida</strong> de múltiplos de 4/8, embora os siga na maioria dos casos.
+</li></ul>
+<h2>Fundos e cores (Theme context)</h2>
+<ul>
+<li>No Figma, a propriedade <strong>Theme context</strong> diz sobre qual fundo o componente está. <strong>No código ela não é uma prop:</strong> a cor vem do fundo onde o componente está (a faixa da página com <code>variant</code>). Os fundos são: <strong>Default</strong> (branco), <strong>Alternative</strong> (cinza claro), <strong>Brand/Inverse</strong> (cor da marca), <strong>Negative</strong> (escuro) e <strong>Media</strong> (sobre imagem).
+</li>
+<li>A maioria dos componentes <strong>troca de cor sozinha</strong> conforme o fundo. <strong>Não trocam</strong> (ficam com as cores do fundo padrão): <strong>Select</strong>, <strong>Table</strong>, <strong>Tag</strong> em fundo Negative, <strong>Timeline</strong> em fundo Negative e o conteúdo do <strong>Tooltip</strong> (só a borda muda).
+</li>
+<li>Para um elemento branco numa tela de fundo cinza (ex.: Callout), declare o fundo <strong>Alternative</strong> no container: o componente se ajusta sozinho para fundo branco.
+</li>
+<li>Cores e textos vêm sempre da biblioteca <strong>Skins</strong> (variables e text styles). Fundo de tela: <code>background</code> (branco) ou <code>backgroundAlternative</code> (cinza claro). Exceção: telas de sucesso de fim de fluxo usam fundo <code>brand</code>.
+</li>
+<li>Não existe como aplicar opacidade livre a uma variável (ex.: <code>background</code> a 3%): use só as variáveis que já existem (algumas, como <code>backgroundSelected</code>, já têm transparência embutida). Não se trocam tokens de cor dos componentes à mão (ex.: subtitle da Row, cor do Text Link, borda de card). <code>inputBorder</code> é só para campos de formulário; para outros elementos, <code>border</code>.
+</li>
+<li><strong>Imagens:</strong> raio de <strong>16px</strong>; quando estão <strong>dentro de um container</strong> (Row, card), o raio passa a ser <strong>8px</strong>.
+</li></ul>
+<h2>Bibliotecas do Figma</h2>
+<ul>
+<li><strong>Desktop</strong> (telas ≥1024px, componentes com sufixo [D]) e <strong>Mobile</strong> (celular e tablet, ≤1023px). Não misture as duas, nem dentro de slots.
+</li>
+<li><strong>Skins:</strong> variables de cor e text styles da marca (skin padrão e skin Evolution). <strong>Extended:</strong> componentes exclusivos da marca, liberados com o sufixo <strong>(ext)</strong>, com código e Storybook próprios (não use text styles da Extended). A Extended terá uma base de conhecimento própria. <strong>Modules:</strong> templates <strong>só para o Figma</strong> (os devs não consomem componentes dela). <strong>Assets:</strong> logos, bandeiras de cartão, redes sociais. <strong>Helper:</strong> recursos de handoff e acessibilidade (componente <strong>Notas</strong>).
+</li>
+<li>Bibliotecas legadas (Portal, Loja, Hybris, Agile, DS B2B antigo) atendem jornadas que ainda não migraram: use uma só, nunca misture com o Design System na mesma jornada.
+</li></ul>
+<h2>Princípios de uso (valem para quase todas as respostas)</h2>
+<ul>
+<li>Componentes são controlados <strong>só pelas propriedades</strong>. Não dê detach nem altere padding, gap, resizing, tokens de cor ou presets de texto à mão. Se a variação não existe, o caminho é a solicitação de melhoria.
+</li>
+<li>Mantenha as bibliotecas atualizadas. Antes de reportar problema, use <strong>Reset instance</strong>.
+</li>
+<li><strong>Slots só aceitam componentes</strong> (transforme o conteúdo em componente e use Swap instance). Alguns slots funcionam <strong>só na web</strong> (ex.: Sheet <code>Slot (Only web)</code>).
+</li>
+<li>Se não existe um componente, prefira <strong>construção atômica</strong> com componentes do Design System em vez de criar algo do zero.
+</li>
+<li><strong>Evite reticências e truncamento:</strong> prejudicam a acessibilidade. Prefira textos curtos (time de conteúdo).
+</li>
+<li>Use o componente do <strong>tipo de dado certo</strong> (Email Field, Phone Number Field, Date Field…) em vez de só Text Field.
+</li>
+<li>Arquivos de conceito não são referência de documentação. Use os guias oficiais (guia de fundamentos, Master, Guia de Padrões da nova versão do app).
+</li>
+<li><strong>Área de toque mínima: 48px</strong> (o código garante isso nos botões de ícone, mesmo no pequeno).
+</li>
+<li>Um texto de título deve usar o componente <strong>Title</strong> só se for de fato um título; cada página tem <strong>um único título principal (h1)</strong>.
+</li>
+<li><strong>Tipografia muda por tamanho de tela:</strong> use os presets da plataforma certa (ex.: text-preset-3 tem 18px no desktop e 16px no celular; o helper text dos campos tem 12px no celular e 14px no desktop). O tamanho dos Titles também muda com o breakpoint.
+</li></ul>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

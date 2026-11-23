@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buttons layout (Button Layout, Button Group, Fixed Footer) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-buttons-layout">
+<h2>Buttons layout (Button Layout, Button Group, Fixed Footer)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>ButtonLayout</h4>
+<p>Organiza até três ações (um botão primário, um secundário e um link) com o espaçamento e o alinhamento padrão do Design System. Usado no rodapé de telas, formulários e modais. É a base usada pelo <code>Dialog</code>, <code>Drawer</code>, <code>Sheet</code> e <code>ButtonFixedFooterLayout</code>.</p>
+<h4>ButtonFixedFooterLayout</h4>
+<p>Versão pronta do <code>FixedFooterLayout</code> para rodapés com botões. Recebe os botões e já monta o rodapé com o espaçamento certo, usando um <code>ButtonLayout</code> com alinhamento <code>full-width</code>.</p>
+<h4>ButtonGroup</h4>
+<p>Agrupa até três ações (um botão primário, um secundário e um link) com o espaçamento e o alinhamento padrão do Design System. Usado no fim de cards, seções ou formulários.</p>
+<h4>FixedFooterLayout</h4>
+<p>Layout de página com um rodapé fixo na parte de baixo da tela, enquanto o conteúdo rola por trás. Use quando uma ação precisa ficar sempre visível (ex.: "Continuar" em um fluxo). Para o caso mais comum, rodapé só com botões, prefira o <code>ButtonFixedFooterLayout</code>.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>ButtonFixedFooterLayout</h4><ul>
+<li>⚠️ <strong>Largura dos botões:</strong> no código, os botões ocupam toda a largura no celular e no tablet; no desktop, ficam alinhados à esquerda.
+</li>
+<li>⚠️ <strong>Desktop:</strong> o rodapé só fica fixo no celular e no tablet. No desktop, aparece logo depois do conteúdo.
+</li>
+<li>⚠️ <strong>Botão de perigo:</strong> os dois botões podem ser <code>ButtonDanger</code> no código. Se o design usar o botão de perigo, indique no handoff.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Só o link</td><td>Não existe</td><td>Só com <code>link</code>, o rodapé <strong>não aparece</strong>. ✅ Coerente.</td></tr>
+</tbody></table>
+<h4>ButtonGroup</h4><ul>
+<li>⚠️ <strong><code>Space between</code>:</strong> não existe no código. Se o design usar esse alinhamento, combine com quem desenvolve antes.
+</li>
+<li>⚠️ <strong>Uso interno:</strong> nas telas, prefira o <strong>Button Layout</strong>. O Button Group é usado dentro de outros componentes.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h4>ButtonLayout</h4><ul>
+<li>⚠️ <strong>Botão de perigo:</strong> o botão principal pode ser um <code>ButtonDanger</code> no código. Se o design usar o botão de perigo nessa posição, indique no handoff.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h4>FixedFooterLayout</h4><ul>
+<li>⚠️ <strong>Desktop:</strong> no código, o rodapé só fica fixo no celular e no tablet. No desktop, ele aparece logo depois do conteúdo, sem sombra.
+</li>
+<li>⚠️ <strong>Telas baixas:</strong> se sobrar menos de 200px acima do rodapé, ele deixa de ser fixo e rola junto com o conteúdo.
+</li>
+<li>⚠️ <strong>Só botões:</strong> para um rodapé só com botões, prefira o <strong>Button Fixed Footer Layout</strong>.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>ButtonLayout</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>align</code></td><td><code>'full-width' | 'left' | 'center' | 'right'</code></td><td><code>'full-width'</code></td><td>🎨 Alinhamento das ações.¹</td></tr>
+<tr><td><code>primaryButton</code></td><td></td><td></td><td>Botão principal. Aceita <code>ButtonPrimary</code> ou <code>ButtonDanger</code>.</td></tr>
+<tr><td><code>secondaryButton</code></td><td></td><td></td><td>Elemento <code>ButtonSecondary</code>.</td></tr>
+<tr><td><code>link</code></td><td></td><td></td><td>Elemento <code>ButtonLink</code>.</td></tr>
+</tbody></table>
+<p>ℹ️ Cada prop aceita só o componente indicado (o TypeScript reclama de outros) ou <code>null</code>/<code>undefined</code>, o que facilita mostrar ações de forma condicional.</p>
+<p>¹ ℹ️ <strong>Alinhamento:</strong></p>
+<table><thead><tr><th><code>align</code></th><th>Comportamento</th></tr></thead><tbody>
+<tr><td><code>full-width</code></td><td>No celular e no tablet, os botões ocupam toda a largura. No desktop, funciona como <code>left</code>.</td></tr>
+<tr><td><code>left</code></td><td>Ações alinhadas à esquerda.</td></tr>
+<tr><td><code>center</code></td><td>Ações centralizadas.</td></tr>
+<tr><td><code>right</code></td><td>Ações alinhadas à direita, com a ordem invertida: o secundário vem antes do primário (padrão de diálogos, "Cancelar | Confirmar").</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Link:</strong> com um botão só, o link fica na mesma linha. Com dois botões (ou nenhum), o link vai para uma linha própria.</p>
+<h4>ButtonFixedFooterLayout</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>footerBgColor</code></td><td></td><td><code>vars.colors.background</code></td><td>🎨 Cor de fundo do rodapé.</td></tr>
+<tr><td><code>containerBgColor</code></td><td></td><td><code>vars.colors.background</code></td><td>🎨 Cor de fundo da área do conteúdo. Aceita gradiente.</td></tr>
+<tr><td><code>footerScrollEffect</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Mostra uma sombra no rodapé quando há conteúdo rolável embaixo dele.</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Conteúdo da página.</td></tr>
+<tr><td><code>button</code></td><td></td><td></td><td>Botão principal do rodapé.</td></tr>
+<tr><td><code>secondaryButton</code></td><td></td><td></td><td>Segundo botão do rodapé.</td></tr>
+<tr><td><code>link</code></td><td></td><td></td><td>Link exibido junto aos botões.</td></tr>
+<tr><td><code>isFooterVisible</code></td><td>sim/não</td><td><code>true</code></td><td>Mostra ou esconde o rodapé.</td></tr>
+<tr><td><code>onChangeFooterHeight</code></td><td></td><td></td><td>É chamada quando a altura do rodapé muda, com o valor em px.</td></tr>
+</tbody></table>
+<p>⚠️ O rodapé só aparece se houver <code>button</code> ou <code>secondaryButton</code>. <strong>Só com <code>link</code>, o rodapé não é exibido.</strong></p>
+<p>ℹ️ Os botões ocupam toda a largura no celular e no tablet. No desktop, ficam alinhados à esquerda.</p>
+<p>ℹ️ Herda o comportamento do <code>FixedFooterLayout</code>: o rodapé só fica fixo no celular e no tablet, e deixa de ser fixo em telas muito baixas.</p>
+<p>ℹ️ Dentro de um <code>Form</code>, use <code>submit</code> no botão do rodapé para enviar o formulário. O botão fica ligado ao formulário pelo <code>id</code>, então funciona mesmo que o rodapé seja renderizado fora do <code>&lt;form&gt;</code>.</p>
+<h4>ButtonGroup</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>align</code></td><td><code>ByBreakpoint&lt;'center' | 'left'&gt;</code></td><td><code>'left'</code></td><td>🎨 Alinhamento das ações. Pode variar por tela (<code>{mobile, tablet?, desktop}</code>); sem <code>tablet</code>, usa o valor de <code>mobile</code>.</td></tr>
+<tr><td><code>primaryButton</code></td><td></td><td></td><td>Elemento <code>ButtonPrimary</code>.</td></tr>
+<tr><td><code>secondaryButton</code></td><td></td><td></td><td>Elemento <code>ButtonSecondary</code>.</td></tr>
+<tr><td><code>link</code></td><td></td><td></td><td>Elemento <code>ButtonLink</code>.</td></tr>
+</tbody></table>
+<p>ℹ️ Cada prop aceita só o componente indicado (o TypeScript reclama de outros) ou <code>null</code>/<code>undefined</code>, o que facilita mostrar ações de forma condicional.</p>
+<p>ℹ️ Sem nenhuma ação, o componente não renderiza nada.</p>
+<p>ℹ️ Os botões aparecem na ordem primário → secundário → link. Quando há os dois botões <strong>e</strong> o link, o link vai para uma linha própria.</p>
+<h4>FixedFooterLayout</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>footerHeight</code></td><td></td><td><code>'auto'</code></td><td>🎨 Altura do rodapé.</td></tr>
+<tr><td><code>footerBgColor</code></td><td></td><td><code>vars.colors.background</code></td><td>🎨 Cor de fundo do rodapé.</td></tr>
+<tr><td><code>containerBgColor</code></td><td></td><td><code>vars.colors.background</code></td><td>🎨 Cor de fundo da área do conteúdo. Aceita gradiente.</td></tr>
+<tr><td><code>footerScrollEffect</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Mostra uma sombra no rodapé quando há conteúdo rolável embaixo dele.</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Conteúdo da página.</td></tr>
+<tr><td><code>footer</code> (obrigatória)</td><td></td><td></td><td>Conteúdo do rodapé.</td></tr>
+<tr><td><code>isFooterVisible</code></td><td>sim/não</td><td><code>true</code></td><td>Mostra ou esconde o rodapé.</td></tr>
+<tr><td><code>onChangeFooterHeight</code></td><td></td><td></td><td>É chamada quando a altura do rodapé muda, com o valor em px.</td></tr>
+<tr><td><code>footerRole</code></td><td></td><td></td><td>♿ Role ARIA do rodapé.</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>O rodapé só fica fixo no celular e no tablet.</strong> No desktop, ele aparece logo depois do conteúdo, sem sombra.</p>
+<p>ℹ️ Se a tela for baixa demais (menos de 200px livres acima do rodapé), o rodapé deixa de ser fixo e rola junto com o conteúdo.</p>
+<p>ℹ️ O rodapé respeita a área segura da parte de baixo da tela (ex.: a barra do iPhone).</p>
+<p>ℹ️ Enquanto o rodapé está fixo, a página reserva espaço embaixo para que ele não cubra o elemento com foco ao navegar pelo teclado.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>ButtonFixedFooterLayout</h4><p><strong>Figma:</strong> biblioteca Desktop › Button Fixed Footer Layout [D] · biblioteca Mobile › Button Fixed Footer Layout</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Combinação de botões</td><td><code>Variant</code>: <code>Primary</code> · <code>Secondary</code> · <code>Primary+Link</code> · <code>Secondary+Link</code> · <code>Primary+Secondary</code> · <code>Primary+Secondary+Link</code></td><td><code>Secondary</code> (<code>On</code> · <code>Off</code>) + <code>Add link</code> (<code>On</code> · <code>Off</code>)</td><td>Estrutura diferente: no Desktop é uma lista de combinações; no Mobile o botão primário está sempre presente e o secundário e o link são ligados à parte</td></tr>
+<tr><td>Só o botão secundário</td><td>Existe (<code>Variant=Secondary</code>)</td><td>Não existe</td><td>O Mobile sempre tem o botão primário</td></tr>
+<tr><td><code>Shadow</code></td><td>Não existe</td><td><code>Yes</code> · <code>No</code></td><td>Só o Mobile tem sombra no rodapé</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Variant</code> com <code>Primary</code></td><td>botão principal</td><td><code>button</code></td><td>✅</td><td>No código, aceita <code>ButtonPrimary</code>, <code>ButtonSecondary</code> ou <code>ButtonDanger</code>.</td></tr>
+<tr><td><code>Variant</code> com <code>Secondary</code></td><td>segundo botão</td><td><code>secondaryButton</code></td><td>✅</td><td>No código, também aceita <code>ButtonPrimary</code>, <code>ButtonSecondary</code> ou <code>ButtonDanger</code>.</td></tr>
+<tr><td><code>Variant</code> com <code>Link</code></td><td>link</td><td><code>link</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código os botões mudam de cor sozinhos conforme o <strong>fundo onde estão</strong>. O código também tem os fundos <code>Alternative</code> e <code>Media</code>, que não existem no Figma.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>ButtonGroup</h4><p><strong>Figma:</strong> biblioteca Desktop › Button Group (internal use) [D] · biblioteca Mobile › Button Group</p>
+<p>ℹ️ No Figma, o Button Group é marcado como <strong>uso interno</strong>: "(internal use)" no nome do Desktop e 🚫 no nome de todas as variantes do Mobile. Ele é usado dentro de outros componentes (como cards e callout), não diretamente nas telas.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome do link em <code>Variant</code></td><td><code>Link</code></td><td><code>ButtonLink</code></td><td>Só o nome</td></tr>
+<tr><td><code>Variant</code> <code>Primary+Secondary+Link</code></td><td>Existe</td><td>Não existe</td><td>O Mobile não tem os três juntos</td></tr>
+<tr><td>Valor de <code>Alignment</code></td><td><code>Space between</code></td><td><code>Space-between</code></td><td>Só o nome</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Variant</code></td><td><code>Primary</code> · <code>Secondary</code> · <code>Link</code> e combinações</td><td><code>primaryButton</code>, <code>secondaryButton</code>, <code>link</code></td><td>✅</td><td>No código, cada botão é uma prop separada. Com os dois botões <strong>e</strong> o link, o link vai para uma linha própria.</td></tr>
+<tr><td><code>Small</code></td><td><code>True</code> · <code>False</code></td><td><code>small</code> de cada botão</td><td>⚠️</td><td>Não é prop do grupo: no código, o tamanho é definido em cada botão (<code>ButtonPrimary small</code>, etc.).</td></tr>
+<tr><td><code>Alignment</code></td><td><code>Left</code> · <code>Space between</code></td><td><code>align</code></td><td>⚠️</td><td>No código, <code>align</code> aceita <code>left</code> (padrão) e <strong><code>center</code></strong>, e pode variar por tamanho de tela. <strong><code>Space between</code> não existe no código</strong>, e <code>center</code> não existe no Figma.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code> · <code>Media</code></td><td>sem prop</td><td>⚠️</td><td>No código os botões mudam de cor sozinhos conforme o <strong>fundo onde estão</strong>. O código também tem o fundo <code>Alternative</code>, que não existe no Figma.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>ButtonLayout</h4><p><strong>Figma:</strong> biblioteca Desktop › Button Layout [D] · biblioteca Mobile › Button Layout</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Valores de <code>Primary</code>, <code>Secondary</code> e <code>Link</code></td><td><code>True</code> · <code>False</code></td><td><code>true</code> · <code>false</code></td><td>Só o nome dos valores (minúsculas)</td></tr>
+<tr><td><code>Long labels</code></td><td>Não existe</td><td><code>True</code> · <code>False</code></td><td>Só o Mobile tem a variante com textos longos</td></tr>
+<tr><td>Valores de <code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code> · <code>Media</code></td><td>O Mobile tem o fundo <code>Media</code> a mais</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Align</code></td><td><code>Full width</code> · <code>Left</code> · <code>Center</code> · <code>Right</code></td><td><code>align</code></td><td>✅</td><td>Padrão <code>Full width</code> nos dois. No código, <code>Full width</code> só ocupa toda a largura no celular e no tablet; no desktop funciona como <code>Left</code>. Com <code>Right</code>, a ordem inverte: o secundário vem antes do primário.</td></tr>
+<tr><td><code>Primary</code></td><td><code>True</code> · <code>False</code></td><td><code>primaryButton</code></td><td>✅</td><td>No código, aceita <code>ButtonPrimary</code> ou <code>ButtonDanger</code>.</td></tr>
+<tr><td><code>Secondary</code></td><td><code>True</code> · <code>False</code></td><td><code>secondaryButton</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Link</code></td><td><code>True</code> · <code>False</code></td><td><code>link</code></td><td>✅</td><td>Com um botão só, o link fica na mesma linha; com dois botões, vai para uma linha própria.</td></tr>
+<tr><td><code>Long labels</code></td><td><code>True</code> · <code>False</code></td><td>sem prop</td><td>✅</td><td>Só no Mobile. No código não é prop: quando os textos não cabem lado a lado, os botões quebram de linha sozinhos.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código os botões mudam de cor sozinhos conforme o <strong>fundo onde estão</strong>. O código também tem os fundos <code>Alternative</code> e <code>Media</code> (no Figma, o <code>Media</code> só existe no Mobile).</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>FixedFooterLayout</h4><p><strong>Figma:</strong> biblioteca Desktop › Fixed Footer Layout [D] · biblioteca Mobile › Fixed Footer Layout</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Conteúdo do rodapé</td><td>troca de instância <code>🔄 Replace Slot</code></td><td>camada <code>REPLACE ME!</code></td><td>Só o nome</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Conteúdo do rodapé (<code>🔄 Replace Slot</code>)</td><td>instância</td><td><code>footer</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Slot</code></td><td><code>Yes</code></td><td><code>footer</code></td><td>✅</td><td>Só existe com conteúdo. No código, o <code>footer</code> é obrigatório.</td></tr>
+<tr><td><code>Shadow</code></td><td><code>On</code> · <code>Off</code></td><td><code>footerScrollEffect</code></td><td>⚠️</td><td>No código, a sombra não é fixa: com <code>footerScrollEffect</code> (padrão: ligado), ela <strong>só aparece quando há conteúdo rolando por trás do rodapé</strong>, e só no celular e no tablet.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Os botões fixos de ação (ex.: no Feedback) devem ter sombra? <strong>Resposta:</strong> O Design System não define. Fica a critério do time; a recomendação de UX é usar sombra quando o conteúdo passa da altura da tela e rola por trás dos botões fixos.</p>
+<p><sub>Ref. #17 · 06/2024</sub></p>
+<p><strong>Dúvida:</strong> Usa chevron no botão secundário? <strong>Resposta:</strong> <strong>Não.</strong> No Button Fixed Footer Layout há três variações (Primary, Secondary e Button Link) e <strong>nenhuma usa chevron</strong> quando estão dentro dele, mesmo que o link leve o usuário para fora da jornada. Isso mantém a consistência entre app e web.</p>
+<p><sub>Ref. #20 · 06/2024</sub></p>
+<p><strong>Dúvida:</strong> Dá para usar loading no botão do Button Fixed Footer Layout? <strong>Resposta:</strong> Sim. Nas propriedades do botão, ative o estado <strong>Loading</strong>.</p>
+<p><sub>Ref. #21 · 06/2024</sub></p>
+<p><strong>Dúvida:</strong> No (Button) Fixed Footer Layout, o botão tem largura fixa ou se adapta ao texto? <strong>Resposta:</strong> Os botões têm largura <strong>Hug</strong> (se adaptam ao texto), no desktop e no mobile.</p>
+<p><sub>Ref. #29 · 07/2024</sub></p>
+<p><strong>Dúvida:</strong> Pode usar três botões (Primary, Secondary e Link) no Side Drawer? O Button Link leva chevron? <strong>Resposta:</strong> O Side Drawer usa o <strong>Button Group</strong> do Design System. No <strong>desktop</strong>, é possível usar as três hierarquias. No <strong>mobile</strong>, as combinações permitidas são: Primary; Primary + Secondary; Primary + Link; Secondary; Secondary + Link; Link. Avalie como a solução fica no mobile. O uso do chevron no Button Link segue o guia do arquivo <strong>Master B2C</strong>.</p>
+<p><sub>Ref. #87 · 12/2024</sub></p>
+<p><strong>Dúvida:</strong> O Fixed Footer segue a largura da tela (ex.: tablet acima de 1024px mostra botões lado a lado)? E o espaçamento? <strong>Resposta:</strong> Sim, o componente segue o tamanho da tela automaticamente. Como a versão desktop <strong>não traz espaçamento embutido</strong> entre o conteúdo e os botões, <strong>indique no handoff</strong> o espaçamento necessário, seguindo o guia de fundamentos (aplicação de tokens de espaçamento).</p>
+<p><sub>Ref. #135 · 02/2025</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stacking Group · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-stacking-group">
+<h2>Stacking Group</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Grupo de avatares ou imagens pequenas lado a lado, sobrepostos ou separados, que pode resumir os que sobram num contador "+N". Use para mostrar quem participa de algo (ex.: as pessoas de um plano família) ou um conjunto de itens sem ocupar muito espaço.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>StackingGroup</h4><ul>
+<li>⚠️ <strong>Quantidade de itens:</strong> informe o total de itens e o limite de posições. No código, o "+N" é calculado sozinho: com <code>maxItems={4}</code> e 6 itens, aparecem 3 itens e "+3".
+</li>
+<li>⚠️ <strong>Tamanho:</strong> se os itens não forem de 64px nem de 24px, informe o tamanho no handoff. O contador precisa ter o mesmo tamanho dos itens.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código mostra o <code>maxItems</code> do design, mas sempre com itens de exemplo (<code>&lt;div&gt;Item 1&lt;/div&gt;</code>…) e <code>moreItemsStyle={{type: 'circle', size: 40}}</code>, qualquer que seja o tipo ou o tamanho do design.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Mais de 9 posições</td><td>Não existe</td><td>Existe. ⚠️ Diferente.</td></tr>
+<tr><td>Contador "+N" com todos os itens cabendo no limite</td><td>Existe (<code>More items=True</code>)</td><td>Não existe: sem itens sobrando, o contador não aparece. ⚠️ Diferente.</td></tr>
+<tr><td>Itens de outros tamanhos (ex.: 40px)</td><td>Não existe: só 64px ou 24px</td><td>Existe. ⚠️ Diferente.</td></tr>
+<tr><td>Contador sobre fundo <code>Negative</code></td><td>Não existe</td><td>Existe, com as cores do fundo negativo. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>StackingGroup</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>stacked</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Com <code>true</code>, os itens se sobrepõem 8px; com <code>false</code>, ficam separados por 8px.</td></tr>
+<tr><td><code>moreItemsStyle</code> (obrigatória)</td><td><code>{type: 'circle' | 'square'; size: number}</code></td><td></td><td>🎨 Formato e tamanho em px do contador "+N". Use o mesmo formato e tamanho dos itens (ex.: <code>circle</code> para <code>Avatar</code>, <code>square</code> para <code>Image</code>). Com <code>square</code>, também arredonda os cantos das imagens do grupo.¹</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Os itens do grupo, normalmente <code>Avatar</code> ou <code>Image</code>.</td></tr>
+<tr><td><code>maxItems</code></td><td>número</td><td>sem limite</td><td>Quantidade máxima de posições, <strong>contando o contador "+N"</strong>.²</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Contador "+N":</strong> fica no fim do grupo, com o fundo de marca claro e o texto na cor de marca (as cores mudam sozinhas sobre fundos <code>brand</code> e <code>negative</code>). Com <code>stacked</code>, ganha uma borda fina, para se destacar do item embaixo dele.</p>
+<p>² ⚠️ <strong><code>maxItems</code> inclui o contador:</strong> com <code>maxItems={4}</code> e 6 itens, o grupo mostra <strong>3 itens e "+3"</strong> (4 posições ao todo). Se os itens couberem no limite, nenhum contador aparece.</p>
+<p>ℹ️ O <code>StackingGroup</code> não aceita <code>dataAttributes</code> nem <code>aria-label</code>. Para o leitor de tela, cada item precisa ter o próprio nome (ex.: o <code>aria-label</code> do <code>Avatar</code>).</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>StackingGroup</h4><p><strong>Figma:</strong> biblioteca Desktop › Stacking Group [D] · biblioteca Mobile › Stacking Group</p>
+<p>ℹ️ No Figma, o Stacking Group só tem <code>Max. Items</code> no painel principal. O tipo dos itens, a sobreposição, o tamanho, o fundo e o contador ficam na instância interna <strong>_resources/types</strong> (camada <code>Asset type</code>), e o contador "+N" é a instância <strong>_resources/more item</strong>.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Fundo (_resources/types e _resources/more item)</td><td><code>Brand</code> (<code>True</code> · <code>False</code>)</td><td><code>Variant</code> (<code>Default</code> · <code>Brand</code>)</td><td>Só o nome da propriedade e dos valores</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Max. Items</code></td><td><code>2</code> a <code>9</code></td><td><code>maxItems</code></td><td>✅</td><td>Nos dois, é o total de posições na tela, contando o contador "+N". No código não há limite de 9.</td></tr>
+<tr><td><code>Stacked</code></td><td><code>True</code> · <code>False</code></td><td><code>stacked</code></td><td>✅</td><td>No Figma, os itens se sobrepõem 9px; no código, 8px. Separados, ficam a 8px nos dois.</td></tr>
+<tr><td><code>Type</code></td><td><code>Avatar</code> · <code>Image</code> · <code>Circle</code></td><td><code>children</code> + <code>moreItemsStyle.type</code></td><td>✅</td><td>No código, os itens são os <code>Avatar</code> ou <code>Image</code> passados como filhos. <code>Avatar</code> e <code>Circle</code> = <code>type: 'circle'</code>; <code>Image</code> = <code>type: 'square'</code>.</td></tr>
+<tr><td><code>More items</code></td><td><code>True</code> · <code>False</code></td><td>sem prop</td><td>⚠️</td><td>No código, o contador aparece sozinho quando há mais itens que o <code>maxItems</code>. Não dá para ligar ou desligar.</td></tr>
+<tr><td><code>≤ 40px</code></td><td><code>False</code> (64px) · <code>True</code> (24px)</td><td><code>moreItemsStyle.size</code> + tamanho dos itens</td><td>⚠️</td><td>No Figma, só existem os tamanhos 64px e 24px. No código, o tamanho é livre.</td></tr>
+<tr><td><code>Brand</code></td><td><code>True</code> · <code>False</code></td><td>sem prop</td><td>⚠️</td><td>No código, as cores do contador mudam sozinhas conforme o fundo (<code>brand</code>, <code>negative</code>…).</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Como mudar o tamanho dos avatares no Stacking Group? No Figma só há 24px ou 64px. <strong>Resposta:</strong> O Stacking Group pode ter de <strong>24 a 128px</strong>. Para 24 a 40px: ative a propriedade de tamanho, selecione a camada "Change space between value to modify itemSize" e digite o tamanho no auto layout. Para tamanhos maiores, até 128px, desative essa propriedade. A troca de imagem por logo é manual. Havia também um bug na cor do "mais itens" abaixo de 40px.</p>
+<p><sub>Ref. #23 · 05/2024</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

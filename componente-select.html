@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Select · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-select">
+<h2>Select</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Campo de formulário em que o usuário escolhe uma opção numa lista que abre ao tocar, como "Estado" ou "Tipo de documento". Mostra o rótulo, a opção escolhida, uma seta e, embaixo, um texto de ajuda ou de erro.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Select</h4><ul>
+<li>⚠️ <strong>Fundo de marca:</strong> não use o Select com <code>Theme context=Brand</code> ou <code>Negative</code> esperando essas cores: no código, o campo sempre tem o visual do fundo padrão.
+</li>
+<li>⚠️ <strong>Largura:</strong> o Figma Desktop desenha o campo com 496px, mas o código usa 328px por padrão no desktop (ou a largura toda, com <code>fullWidth</code>). Informe a largura desejada.
+</li>
+<li>⚠️ <strong>Lista no celular:</strong> no iOS e no Android, a lista é a nativa do sistema, não a do Figma Desktop.
+</li>
+<li>⚠️ <strong>Campo opcional:</strong> se o campo não for obrigatório, avise no handoff e diga se o rótulo deve mostrar "(opcional)".
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código usa rótulo e opções fixos ("Label", "Option 1", "Option 2"); só <code>helperText</code>, <code>error</code> e <code>disabled</code> seguem o design.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Select sobre fundo <code>Brand</code> ou <code>Negative</code></td><td>Existe, com cores próprias</td><td>O campo fica com o visual do fundo padrão. ⚠️ Diferente.</td></tr>
+<tr><td>Lista aberta com o campo desabilitado (Mobile)</td><td>Existe (<code>State=Opened</code>, <code>Disabled=True</code>)</td><td>Não existe: o campo desabilitado não abre. ⚠️ Diferente.</td></tr>
+<tr><td>Campo com erro sem texto de ajuda (Desktop)</td><td>Não existe</td><td>Existe (<code>error</code> sem <code>helperText</code>). ⚠️ Diferente.</td></tr>
+<tr><td>Voltar o campo para vazio depois de escolher</td><td>Dá para desenhar (<code>State=Inactive</code>)</td><td>Não existe: o usuário não consegue limpar a escolha. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Select</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo e das opções.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 No desktop, o campo ocupa toda a largura disponível em vez de 328px. No celular e no tablet, já ocupa a largura toda.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo. Fica dentro do campo e sobe quando há uma opção escolhida.</td></tr>
+<tr><td><code>options</code> (obrigatória)</td><td></td><td></td><td>Opções da lista: <code>value</code> é o valor devolvido e <code>text</code>, o texto mostrado.</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Opção escolhida, controlada por quem usa o componente (atualize-a no <code>onChangeValue</code>).¹</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Opção escolhida no início, quando o campo controla a escolha sozinho.¹</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada com o <code>value</code> da opção escolhida.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda abaixo do campo. Com erro do <code>Form</code>, é substituído pela mensagem de erro.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo em estado de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo opcional. Sem ela, o campo é obrigatório dentro de um <code>Form</code>.</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td></td><td>Mostra "(opcional)" ao lado do rótulo. Só com <code>optional</code>.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, ele também fica desabilitado enquanto o formulário é enviado.</td></tr>
+<tr><td><code>native</code></td><td>sim/não</td><td></td><td>Usa a lista nativa do sistema em qualquer aparelho.²</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td><code>false</code></td><td>Coloca o foco no campo ao aparecer na tela.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco. <strong>Só funciona com a lista nativa.</strong>²</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td><strong>Não tem efeito:</strong> existe no tipo, mas o <code>Select</code> não usa.³</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Escolha controlada ou não:</strong> com <code>value</code>, quem usa o componente guarda a opção e precisa atualizá-la no <code>onChangeValue</code>; sem ela, o campo começa no <code>defaultValue</code> (ou vazio) e troca sozinho. Dentro de um <code>Form</code>, o valor fica guardado no formulário pelo <code>name</code>.</p>
+<p>² ℹ️ <strong>Lista nativa ou do Design System:</strong></p>
+<table><thead><tr><th></th><th>Lista nativa do sistema</th><th>Lista do Design System</th></tr></thead><tbody>
+<tr><td>Quando aparece</td><td>Em aparelhos iOS e Android (celular ou tablet) e sempre que <code>native</code> está ligado</td><td>Nos outros casos, como navegadores de computador</td></tr>
+<tr><td>Aparência</td><td>A do sistema operacional</td><td>Caixa abaixo do campo (ou acima, se faltar espaço), com até 8 opções visíveis e rolagem para o resto</td></tr>
+<tr><td>Teclado</td><td>O do sistema</td><td>Enter ou Espaço abre; ↑ ↓ passam pelas opções; Enter ou Espaço escolhe; Esc fecha</td></tr>
+<tr><td><code>onBlur</code></td><td>Funciona</td><td><strong>Não é chamado</strong></td></tr>
+</tbody></table>
+<p>³ ⚠️ <strong><code>validate</code> não funciona:</strong> a validação do <code>Select</code> dentro de um <code>Form</code> é só a de campo obrigatório. Para outras regras, valide no <code>onSubmit</code> do <code>Form</code> ou no <code>onChangeValue</code> e use <code>error</code> e <code>helperText</code> para mostrar a mensagem.</p>
+<p>⚠️ <strong>Sem opção vazia:</strong> depois de escolher uma opção, o usuário não consegue voltar o campo para vazio. Se for preciso, inclua uma opção como "Nenhum" na lista.</p>
+<p>ℹ️ <strong>Fundo:</strong> o campo sempre usa o visual do fundo padrão (<code>default</code>), mesmo sobre fundos <code>brand</code> ou <code>negative</code>.</p>
+<p>ℹ️ O <code>Select</code> não aceita <code>children</code>.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Select</h4><p><strong>Figma:</strong> biblioteca Desktop › Select [D] · biblioteca Mobile › Select</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de fundo</td><td><code>Theme context</code></td><td><code>Theme Context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td><code>Helper text</code> com <code>Error=Yes</code></td><td>Sempre visível: a propriedade não esconde o texto</td><td>Liga e desliga</td><td>No Desktop, o campo com erro sempre mostra o texto de ajuda</td></tr>
+<tr><td><code>State=Opened</code></td><td>Mostra a lista de opções do Design System abaixo do campo</td><td>Não mostra lista</td><td>Muda o design, igual ao código: no celular a lista é a nativa do sistema</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td>Obrigatório no código.</td></tr>
+<tr><td><code>Helper text</code></td><td><code>True</code> · <code>False</code></td><td><code>helperText</code></td><td>✅</td><td>Com erro do <code>Form</code>, o código troca o texto de ajuda pela mensagem de erro.</td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td>Dentro de um <code>Form</code>, o erro também aparece sozinho quando o campo obrigatório fica vazio.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td>Opções (em <code>State=Opened</code>)</td><td>lista desenhada</td><td><code>options</code></td><td>✅</td><td>No código, cada opção tem <code>value</code> e <code>text</code>. A lista do Design System mostra até 8 opções e rola para o resto.</td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code> · <code>Opened</code></td><td>sem prop</td><td>⚠️</td><td>No código, os estados vêm da interação: <code>Focused</code> com o campo em foco, <code>Opened</code> com a lista aberta e <code>Activated</code> quando há uma opção escolhida (<code>value</code> ou <code>defaultValue</code>).</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o <code>Select</code> <strong>sempre usa o visual do fundo padrão</strong>, mesmo sobre fundos <code>brand</code> ou <code>negative</code>. As variantes <code>Brand</code> e <code>Negative</code> do Figma não existem no código.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> O Select aceita description nos itens da lista? Há estado "aberto" no Figma? <strong>Resposta:</strong> <strong>Não</strong> aceita description. O estado aberto não existe no Figma (só no código e na documentação); a sugestão foi levada ao time. Evoluções de componente exigem o fluxo no Figma, a necessidade confirmada e aprovação da liderança; o prazo depende do roadmap do time global.</p>
+<p><sub>Ref. #46 · 10/2024 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> No Select aberto, qual sombra usar, qual a altura máxima e tem divider entre as opções? <strong>Resposta:</strong> No <strong>mobile</strong> (app), as opções são <strong>nativas</strong> do sistema. Na <strong>web</strong> (mobile ou desktop), as opções seguem o padrão do navegador, não as nativas de iOS/Android. A sombra já vem no componente; a altura depende da quantidade de opções (não há limite de itens, mas a partir de certa quantidade há rolagem; pense na experiência). Siga o padrão do componente (<strong>sem divider</strong> entre as opções).</p>
+<p><sub>Ref. #79 · 12/2024</sub></p>
+<p><strong>Dúvida:</strong> Posso desenhar um visual próprio para o Select aberto na web? <strong>Resposta:</strong> Em aplicação <strong>web</strong>, as opções do Select seguem o <strong>sistema operacional ou o navegador</strong>: não precisa prever o visual no handoff, só listar as opções. (No app iOS, a seleção abre num sheet com radios.)</p>
+<p><sub>Ref. #770 · 01/2026</sub></p>
+<p><strong>Dúvida:</strong> Como o Select mostra textos longos no mobile? <strong>Resposta:</strong> No estado <strong>aberto</strong>, o texto quebra em várias linhas, ocupando a largura da tela. As <strong>reticências</strong> aparecem <strong>só no estado fechado</strong>. O componente foi feito para opções curtas, e reticências são ruins para acessibilidade: evite textos longos e veja limites com o time de conteúdo.</p>
+<p><sub>Ref. #910 · 03/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

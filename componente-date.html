@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data e hora (Date, Date Time, Month, Time) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-date">
+<h2>Data e hora (Date, Date Time, Month, Time)</h2>
+<p class="cat">Campos de formulário</p>
+<h3>Resumo</h3>
+<h4>DateField</h4>
+<p>Campo para escolher uma data (dia, mês e ano), como a data de nascimento ou a data de um agendamento. Ao tocar no campo, abre o seletor de data do próprio sistema (o calendário do navegador, do Android ou do iOS). Tem um ícone de calendário à direita, pode limitar as datas permitidas (<code>min</code> e <code>max</code>) e tem o mesmo visual do TextField. Funciona sozinho ou dentro de um <code>Form</code>.</p>
+<h4>DateTimeField</h4>
+<p>Campo para escolher uma data e uma hora juntas (dia, mês, ano, hora e minuto), como o horário de um agendamento. Ao tocar no campo, abre o seletor de data e hora do próprio sistema (do navegador, do Android ou do iOS). Tem um ícone de calendário à direita, pode limitar o período permitido (<code>min</code> e <code>max</code>) e tem o mesmo visual do TextField. Funciona sozinho ou dentro de um <code>Form</code>.</p>
+<h4>MonthField</h4>
+<p>Campo para escolher um mês e um ano, sem o dia, como o mês de referência de uma fatura ou o mês de início de um contrato. Ao tocar no campo, abre o seletor de mês do próprio sistema (do navegador, do Android ou do iOS). Tem um ícone de calendário à direita, pode limitar o período permitido (<code>min</code> e <code>max</code>) e tem o mesmo visual do TextField. Funciona sozinho ou dentro de um <code>Form</code>.</p>
+<h4>TimeField</h4>
+<p>Campo para escolher uma hora (hora e minuto), como o horário de um lembrete ou o início de um atendimento. Ao tocar no campo, abre o seletor de hora do próprio sistema (do navegador, do Android ou do iOS). Tem um ícone de relógio à direita, pode limitar o horário permitido (<code>min</code> e <code>max</code>) e tem o mesmo visual do TextField. Funciona sozinho ou dentro de um <code>Form</code>.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>DateField</h4><ul>
+<li>⚠️ <strong>Data de exemplo:</strong> use no design só a data, no formato <code>dd/mm/aaaa</code> (ex.: <code>23/05/1990</code>). A data do Desktop do Figma (<code>01 / 08 / 18 at 09:00</code>) tem hora e formato que o <code>DateField</code> não mostra.
+</li>
+<li>⚠️ <strong>Datas permitidas:</strong> diga se há data mínima ou máxima (ex.: "só datas futuras", "maior de 18 anos"). Fora do intervalo, o código mostra "Data não permitida"; se precisar de outra mensagem, informe.
+</li>
+<li>⚠️ <strong>Calendário:</strong> não desenhe o calendário aberto esperando que ele apareça assim: no código, é o seletor do sistema, que muda de um aparelho para outro.
+</li>
+<li>⚠️ <strong>Data e hora:</strong> se o campo precisar de data e hora, o componente certo é o Date Time Field.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o rótulo, o texto de ajuda, o <code>Error</code>, o <code>Disabled</code> e o <code>Read only</code> do design. O <code>name</code> é sempre <code>"date-field"</code>, e <code>min</code> e <code>max</code> não aparecem.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Data com hora no campo</td><td>Existe no Desktop (<code>01 / 08 / 18 at 09:00</code>)</td><td>Não existe no <code>DateField</code> (para isso, há o <code>DateTimeField</code>). ⚠️ Diferente.</td></tr>
+<tr><td>Calendário aberto</td><td>Não existe</td><td>É o seletor do sistema (navegador, Android ou iOS), com aparência própria de cada aparelho. No Firefox, é um calendário do Design System. ⚠️ Diferente.</td></tr>
+<tr><td>Datas bloqueadas no calendário</td><td>Não existe</td><td>Existe, com <code>min</code> e <code>max</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Campo desabilitado com foco (<code>Disabled=True</code>, <code>State=Focused</code>)</td><td>Existe no Desktop</td><td>Não existe: campo desabilitado não recebe foco. ⚠️ Diferente.</td></tr>
+<tr><td>Largura do campo no desktop</td><td>496px</td><td>328px, ou a largura toda com <code>fullWidth</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Versão menor do campo</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>DateTimeField</h4><ul>
+<li>⚠️ <strong>Exemplo no design:</strong> use o formato do Mobile do Figma (<code>dd/mm/aaaa, hh:mm</code>, ex.: <code>12/11/2026, 14:30</code>). O exemplo do Desktop (<code>01 / 08 / 18 at 09:00</code>) tem um formato que não aparece no código.
+</li>
+<li>⚠️ <strong>Período permitido:</strong> diga se há data e hora mínimas ou máximas (ex.: "só a partir de agora", "horário comercial nos próximos 15 dias"). Fora do período, o código mostra "Data não permitida"; se precisar de outra mensagem, informe. Uma regra como "só horário comercial" não é coberta por <code>min</code> e <code>max</code> e precisa ser descrita no handoff.
+</li>
+<li>⚠️ <strong>Seletor:</strong> não desenhe o seletor de data e hora aberto esperando que ele apareça assim: no código, é o seletor do sistema.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o rótulo, o texto de ajuda, o <code>Error</code>, o <code>Disabled</code> e o <code>Read only</code> do design. O <code>name</code> é sempre <code>"date-time-field"</code>, e <code>min</code> e <code>max</code> não aparecem.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Seletor de data e hora aberto</td><td>Não existe</td><td>É o seletor do sistema, com aparência própria de cada aparelho. No Firefox, é um calendário do Design System com a escolha da hora. ⚠️ Diferente.</td></tr>
+<tr><td>Período bloqueado no seletor</td><td>Não existe</td><td>Existe, com <code>min</code> e <code>max</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Botão ✕ para limpar o valor</td><td>Não existe</td><td>Existe só no Firefox, em campo opcional preenchido. ⚠️ Diferente.</td></tr>
+<tr><td>Campo desabilitado com foco (<code>Disabled=True</code>, <code>State=Focused</code>)</td><td>Existe no Desktop</td><td>Não existe: campo desabilitado não recebe foco. ⚠️ Diferente.</td></tr>
+<tr><td>Largura do campo no desktop</td><td>496px</td><td>328px, ou a largura toda com <code>fullWidth</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Versão menor do campo</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>MonthField</h4><ul>
+<li>⚠️ <strong>Ícone de calendário:</strong> o componente do Figma não tem o ícone, mas o código mostra sempre o calendário à direita. Conte com ele no design (como no Date Field).
+</li>
+<li>⚠️ <strong>Mês de exemplo:</strong> não use o formato <code>07/11</code> esperando que apareça assim. No código, a tela mostra o mês no formato do sistema (ex.: "outubro de 2026"). Para a validade de cartão (MM/AA), o componente certo é o Credit Card Expiration Field.
+</li>
+<li>⚠️ <strong>Meses permitidos:</strong> diga se há mês mínimo ou máximo (ex.: "só os últimos 12 meses"). Fora do período, o código mostra "Data não permitida"; se precisar de outra mensagem, informe.
+</li>
+<li>⚠️ <strong>Seletor de mês:</strong> não desenhe o seletor aberto esperando que ele apareça assim: no código, é o seletor do sistema, que muda de um aparelho para outro.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o rótulo, o texto de ajuda, o <code>Error</code>, o <code>Disabled</code> e o <code>Read only</code> do design. O <code>name</code> é sempre <code>"month-field"</code>, e <code>min</code> e <code>max</code> não aparecem.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Campo sem ícone de calendário</td><td>É o único jeito no Figma</td><td>Não existe: o ícone aparece sempre. ⚠️ Diferente.</td></tr>
+<tr><td>Mês no formato MM/AA (<code>07/11</code>)</td><td>É o exemplo do componente</td><td>Não existe: a tela mostra o formato do sistema (ex.: "julho de 2011") ou <code>2011-07</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Seletor de mês aberto</td><td>Não existe</td><td>É o seletor do sistema, com aparência própria de cada aparelho. No Firefox e no Safari do computador, é um calendário do Design System. ⚠️ Diferente.</td></tr>
+<tr><td>Meses bloqueados no seletor</td><td>Não existe</td><td>Existe, com <code>min</code> e <code>max</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Campo desabilitado com foco (<code>Disabled=True</code>, <code>State=Focused</code>)</td><td>Existe no Desktop</td><td>Não existe: campo desabilitado não recebe foco. ⚠️ Diferente.</td></tr>
+<tr><td>Largura do campo no desktop</td><td>496px</td><td>328px, ou a largura toda com <code>fullWidth</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Versão menor do campo</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>TimeField</h4><ul>
+<li>⚠️ <strong>Sem Code Connect:</strong> o Dev Mode não mostra o código do <code>TimeField</code>. Informe no handoff o rótulo, o texto de ajuda e os estados usados.
+</li>
+<li>⚠️ <strong>Horário permitido:</strong> diga se há hora mínima ou máxima (ex.: "de 8h às 18h"). Fora do horário, o código mostra "Data não permitida", que não fala de hora: informe a mensagem certa (ex.: "Escolha um horário entre 8h e 18h") ou explique o horário no texto de ajuda.
+</li>
+<li>⚠️ <strong>Formato da hora:</strong> use no design o formato de 24 horas (ex.: <code>14:30</code>), que é o mais comum no Brasil. A tela segue o formato do aparelho do usuário.
+</li>
+<li>⚠️ <strong>Seletor de hora:</strong> não desenhe o seletor aberto esperando que ele apareça assim: no código, é o seletor do sistema, que muda de um aparelho para outro.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Seletor de hora aberto</td><td>Não existe</td><td>É o seletor do sistema, com aparência própria de cada aparelho. ⚠️ Diferente.</td></tr>
+<tr><td>Hora em 12 horas (ex.: <code>9:00 AM</code>)</td><td>Dá para escrever no texto</td><td>Depende do aparelho: o código guarda sempre em 24 horas, e a tela segue o formato do sistema do usuário. ⚠️ Diferente.</td></tr>
+<tr><td>Campo desabilitado com foco (<code>Disabled=True</code>, <code>State=Focused</code>)</td><td>Existe no Desktop</td><td>Não existe: campo desabilitado não recebe foco. ⚠️ Diferente.</td></tr>
+<tr><td>Largura do campo no desktop</td><td>496px</td><td>328px, ou a largura toda com <code>fullWidth</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Versão menor do campo</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>DateField</h4><h5>Quando usar</h5><ul>
+<li><strong>Use o <code>DateField</code></strong> para uma data completa (dia, mês e ano).
+</li>
+<li><strong>Use o <code>MonthField</code></strong> para mês e ano, sem o dia (ex.: mês de referência de uma fatura).
+</li>
+<li><strong>Use o <code>DateTimeField</code></strong> para data e hora juntas.
+</li>
+<li><strong>Use o <code>TimeField</code></strong> só para a hora.
+</li>
+<li><strong>Use o <code>CreditCardExpirationField</code></strong> para a validade do cartão (MM/AA).
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo (ex.: "Data de nascimento").</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado, sempre no formato <code>AAAA-MM-DD</code> (ex.: <code>'1990-05-23'</code>).¹</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho, no formato <code>AAAA-MM-DD</code>.</td></tr>
+<tr><td><code>min</code></td><td></td><td></td><td>Data mínima permitida. O seletor não deixa escolher datas antes dela.²</td></tr>
+<tr><td><code>max</code></td><td></td><td></td><td>Data máxima permitida. O seletor não deixa escolher datas depois dela.²</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada quando a data muda, com a data no formato <code>AAAA-MM-DD</code>. <strong>Não é chamada</strong> quando a data está fora do intervalo de <code>min</code> e <code>max</code>.</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Validação extra, que roda depois da validação de <code>min</code> e <code>max</code>: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo.</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo.</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo fica cinza claro.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>autoComplete</code></td><td></td><td></td><td>Tipo de preenchimento automático do navegador.</td></tr>
+<tr><td><code>placeholder</code> e <code>maxLength</code></td><td></td><td></td><td>Não têm efeito útil neste campo: o formato da data é definido pelo seletor do sistema.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Formato do valor e da tela:</strong> o valor guardado (no <code>value</code>, no <code>onChangeValue</code> e no <code>onSubmit</code> do <code>Form</code>) é sempre <code>AAAA-MM-DD</code>, seja qual for o idioma. Na tela, a data aparece no formato do sistema do usuário (no Brasil, normalmente <code>dd/mm/aaaa</code>). Para mostrar a data em outro lugar, converta o valor.</p>
+<p>² ⚠️ <strong>Datas fora do intervalo:</strong> com <code>min</code> ou <code>max</code>, o seletor bloqueia as datas fora do intervalo. Se mesmo assim uma data fora do intervalo for digitada, o campo mostra "Data não permitida" e o <code>onChangeValue</code> não é chamado. A data de <code>min</code> e <code>max</code> é comparada pelo dia, no fuso do usuário.</p>
+<p>ℹ️ <strong>Seletor de data:</strong> na maioria dos navegadores e no celular, o campo usa o seletor do próprio sistema, então a aparência do calendário muda de um aparelho para outro e não segue o visual do Design System. <strong>No Firefox</strong>, o campo abre um calendário próprio do Design System, por cima da tela; nele, quando o campo é opcional e já tem valor, o ícone de calendário vira um botão ✕ que apaga a data.</p>
+<p>ℹ️ <strong>Ícone:</strong> o ícone de calendário fica sempre à direita do campo e não pode ser trocado. Com o campo vazio e sem foco, o formato da data (ex.: <code>dd/mm/aaaa</code>) fica escondido; só o rótulo aparece.</p>
+<p>⚠️ <strong>iOS:</strong> dentro de um <code>Form</code>, quando o primeiro erro é num <code>DateField</code>, o campo não recebe o foco sozinho (para não abrir o seletor de data); a página só rola até ele.</p>
+<h4>DateTimeField</h4><h5>Quando usar</h5><ul>
+<li><strong>Use o <code>DateTimeField</code></strong> quando o usuário precisa escolher data e hora juntas.
+</li>
+<li><strong>Use o <code>DateField</code></strong> para só a data, sem hora.
+</li>
+<li><strong>Use o <code>TimeField</code></strong> para só a hora.
+</li>
+<li><strong>Use o <code>MonthField</code></strong> para mês e ano, sem o dia.
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo (ex.: "Data e horário da visita").</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado, sempre no formato <code>AAAA-MM-DDTHH:mm</code> (ex.: <code>'2026-11-12T14:30'</code>).¹</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho, no formato <code>AAAA-MM-DDTHH:mm</code>.</td></tr>
+<tr><td><code>min</code></td><td></td><td></td><td>Data e hora mínimas permitidas. O seletor não deixa escolher antes delas.²</td></tr>
+<tr><td><code>max</code></td><td></td><td>31/12/9999, 23:59</td><td>Data e hora máximas permitidas. O seletor não deixa escolher depois delas.²</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada quando o valor muda, no formato <code>AAAA-MM-DDTHH:mm</code>. <strong>Não é chamada</strong> quando o valor está fora do período de <code>min</code> e <code>max</code>.</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Validação extra, que roda depois da validação de <code>min</code> e <code>max</code>: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo.</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo.³</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo fica cinza claro.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>autoComplete</code></td><td></td><td></td><td>Tipo de preenchimento automático do navegador.</td></tr>
+<tr><td><code>placeholder</code> e <code>maxLength</code></td><td></td><td></td><td>Não têm efeito útil neste campo: o formato é definido pelo seletor do sistema.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Formato do valor e da tela:</strong> o valor guardado (no <code>value</code>, no <code>onChangeValue</code> e no <code>onSubmit</code> do <code>Form</code>) é sempre <code>AAAA-MM-DDTHH:mm</code>, com a hora em 24 horas e no fuso do usuário, seja qual for o idioma. Na tela, a data e a hora aparecem no formato do sistema do usuário (no Brasil, normalmente <code>dd/mm/aaaa, hh:mm</code>).</p>
+<p>² ⚠️ <strong>Fora do período:</strong> com <code>min</code> ou <code>max</code>, o seletor bloqueia o que está fora do período. Se mesmo assim um valor fora dele for digitado, o campo mostra "Data não permitida" e o <code>onChangeValue</code> não é chamado. O <code>max</code> padrão (fim do ano 9999) é só técnico: evita que alguns navegadores aceitem anos com mais de 4 dígitos.</p>
+<p>³ ℹ️ <strong>Botão de limpar no Firefox:</strong> no Firefox, quando o campo é opcional e já tem valor, o ícone de calendário vira um botão ✕ que apaga o valor.</p>
+<p>ℹ️ <strong>Seletor de data e hora:</strong> na maioria dos navegadores e no celular, o campo usa o seletor do próprio sistema, então a aparência muda de um aparelho para outro e não segue o visual do Design System. <strong>No Firefox</strong>, como o seletor do navegador não tem hora, o campo abre um calendário próprio do Design System, com a escolha da hora, por cima da tela.</p>
+<p>ℹ️ <strong>Ícone:</strong> o ícone de calendário fica à direita do campo e não pode ser trocado. Com o campo vazio e sem foco, o formato da data e da hora fica escondido; só o rótulo aparece.</p>
+<p>⚠️ <strong>iOS:</strong> dentro de um <code>Form</code>, quando o primeiro erro é num <code>DateTimeField</code>, o campo não recebe o foco sozinho (para não abrir o seletor); a página só rola até ele.</p>
+<h4>MonthField</h4><h5>Quando usar</h5><ul>
+<li><strong>Use o <code>MonthField</code></strong> para mês e ano, sem o dia (ex.: "Mês da fatura").
+</li>
+<li><strong>Use o <code>DateField</code></strong> para uma data completa (dia, mês e ano).
+</li>
+<li><strong>Use o <code>DateTimeField</code></strong> para data e hora juntas.
+</li>
+<li><strong>Use o <code>CreditCardExpirationField</code></strong> para a validade do cartão (MM/AA), que é digitada e não usa seletor.
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo (ex.: "Mês da fatura").</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado, sempre no formato <code>AAAA-MM</code> (ex.: <code>'2026-10'</code>).¹</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho, no formato <code>AAAA-MM</code>.</td></tr>
+<tr><td><code>min</code></td><td></td><td></td><td>Mês mínimo permitido. O seletor não deixa escolher meses antes dele.²</td></tr>
+<tr><td><code>max</code></td><td></td><td></td><td>Mês máximo permitido. O seletor não deixa escolher meses depois dele.²</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada quando o mês muda, no formato <code>AAAA-MM</code>. <strong>Não é chamada</strong> quando o mês está fora do período de <code>min</code> e <code>max</code>.</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Validação extra, que roda depois da validação de <code>min</code> e <code>max</code>: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo.</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo.³</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo fica cinza claro.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>autoComplete</code></td><td></td><td></td><td>Tipo de preenchimento automático do navegador.</td></tr>
+<tr><td><code>placeholder</code> e <code>maxLength</code></td><td></td><td></td><td>Não têm efeito útil neste campo: o formato é definido pelo seletor.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Formato do valor e da tela:</strong> o valor guardado (no <code>value</code>, no <code>onChangeValue</code> e no <code>onSubmit</code> do <code>Form</code>) é sempre <code>AAAA-MM</code>, seja qual for o idioma. Com o seletor do sistema, a tela mostra o mês no formato do aparelho (no Brasil, normalmente "outubro de 2026"). Com o calendário do Design System (ver abaixo), a tela mostra <code>2026-10</code>.</p>
+<p>² ⚠️ <strong>Fora do período:</strong> com <code>min</code> ou <code>max</code>, o seletor bloqueia os meses fora do período. Se mesmo assim um mês fora dele for digitado, o campo mostra "Data não permitida" e o <code>onChangeValue</code> não é chamado. O <code>min</code> e o <code>max</code> são comparados só pelo mês e o ano, no fuso do usuário: o dia da data não importa.</p>
+<p>³ ℹ️ <strong>Botão de limpar:</strong> no calendário do Design System, quando o campo é opcional e já tem valor, o ícone de calendário vira um botão ✕ que apaga o mês.</p>
+<p>ℹ️ <strong>Seletor de mês:</strong> nos navegadores que têm seletor de mês (como o Chrome, o Edge e os celulares), o campo usa o do próprio sistema, então a aparência muda de um aparelho para outro e não segue o visual do Design System. <strong>Nos navegadores sem seletor de mês</strong> (como o Firefox e o Safari no computador), o campo abre um calendário próprio do Design System, por cima da tela, que começa na lista de meses.</p>
+<p>ℹ️ <strong>Ícone:</strong> o ícone de calendário fica à direita do campo e não pode ser trocado. Com o campo vazio e sem foco, o formato do mês fica escondido; só o rótulo aparece.</p>
+<p>⚠️ <strong>iOS:</strong> dentro de um <code>Form</code>, quando o primeiro erro é num <code>MonthField</code>, o campo não recebe o foco sozinho (para não abrir o seletor); a página só rola até ele.</p>
+<h4>TimeField</h4><h5>Quando usar</h5><ul>
+<li><strong>Use o <code>TimeField</code></strong> só para a hora, sem data (ex.: "Horário preferido para contato").
+</li>
+<li><strong>Use o <code>DateTimeField</code></strong> para data e hora juntas.
+</li>
+<li><strong>Use o <code>DateField</code></strong> para só a data.
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo (ex.: "Horário preferido").</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado, sempre no formato <code>HH:mm</code> (ex.: <code>'14:30'</code>).¹</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho, no formato <code>HH:mm</code>.</td></tr>
+<tr><td><code>min</code></td><td></td><td></td><td>Hora mínima permitida, no formato <code>HH:mm</code> (ex.: <code>'08:00'</code>).²</td></tr>
+<tr><td><code>max</code></td><td></td><td></td><td>Hora máxima permitida, no formato <code>HH:mm</code> (ex.: <code>'18:00'</code>).²</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada quando a hora muda, no formato <code>HH:mm</code>. <strong>Não é chamada</strong> quando a hora está fora do horário de <code>min</code> e <code>max</code>.</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Validação extra, que roda depois da validação de <code>min</code> e <code>max</code>: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo.</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo.</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo fica cinza claro.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>autoComplete</code></td><td></td><td></td><td>Tipo de preenchimento automático do navegador.</td></tr>
+<tr><td><code>placeholder</code> e <code>maxLength</code></td><td></td><td></td><td>Não têm efeito útil neste campo: o formato é definido pelo seletor do sistema.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Formato do valor e da tela:</strong> o valor guardado (no <code>value</code>, no <code>onChangeValue</code> e no <code>onSubmit</code> do <code>Form</code>) é sempre <code>HH:mm</code>, com a hora em 24 horas, seja qual for o idioma. Na tela, a hora aparece no formato do sistema do usuário (no Brasil, normalmente <code>14:30</code>; em inglês, pode aparecer <code>2:30 PM</code>).</p>
+<p>² ⚠️ <strong>Fora do horário:</strong> diferente do <code>DateField</code>, o <code>min</code> e o <code>max</code> são <strong>textos</strong> no formato <code>HH:mm</code>, com dois algarismos na hora (<code>'08:00'</code>, não <code>'8:00'</code>). Fora do horário, o campo mostra "<strong>Data</strong> não permitida" (a mesma mensagem dos campos de data) e o <code>onChangeValue</code> não é chamado. Se precisar de outra mensagem (ex.: "Escolha um horário entre 8h e 18h"), mude o texto no tema ou explique o horário no <code>helperText</code>. O seletor do sistema pode deixar escolher uma hora fora do horário: o erro aparece ao validar.</p>
+<p>ℹ️ <strong>Seletor de hora:</strong> o campo usa sempre o seletor do próprio sistema, então a aparência muda de um aparelho para outro e não segue o visual do Design System. Diferente do <code>DateField</code>, não há calendário próprio do Design System em nenhum navegador.</p>
+<p>ℹ️ <strong>Ícone:</strong> o ícone de relógio fica à direita do campo e não pode ser trocado. Com o campo vazio e sem foco, o formato da hora fica escondido; só o rótulo aparece.</p>
+<p>⚠️ <strong>iOS:</strong> dentro de um <code>Form</code>, quando o primeiro erro é num <code>TimeField</code>, o campo não recebe o foco sozinho (para não abrir o seletor); a página só rola até ele.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>DateField</h4><p><strong>Figma:</strong> biblioteca Desktop › Date Field [D] · biblioteca Mobile › Date Field</p>
+<p>ℹ️ No Figma, o Date Field é só o campo, com o ícone de calendário à direita. O seletor de data (calendário) não faz parte do componente: no código, é o do próprio sistema do usuário.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td>Data de exemplo (camada <code>Input Text</code>)</td><td><code>01 / 08 / 18 at 09:00</code></td><td><code>01/08/2021</code></td><td>Muda o design: o Desktop mostra data e hora, com espaços e ano de 2 dígitos; o Mobile mostra só a data</td></tr>
+<tr><td><code>State=Focused</code> com <code>Disabled=True</code></td><td>Existe</td><td>Não existe</td><td>Só o Desktop tem um campo desabilitado com foco, que não acontece no código (campo desabilitado não recebe foco)</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td></td></tr>
+<tr><td>Data (camada <code>Input Text</code>)</td><td>texto livre</td><td><code>value</code> / <code>defaultValue</code></td><td>⚠️</td><td>No código, o valor é sempre <code>AAAA-MM-DD</code>, e a tela mostra a data no formato do sistema do usuário (no Brasil, normalmente <code>dd/mm/aaaa</code>). O Desktop do Figma mostra também a hora, que o <code>DateField</code> não tem.</td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td>No código, o erro também aparece sozinho: "Data não permitida" para datas fora do intervalo de <code>min</code> e <code>max</code>.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td></td></tr>
+<tr><td>Ícone de calendário</td><td>fixo</td><td>sem prop</td><td>✅</td><td>Fixo nos dois.</td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Inactive</code> = vazio e sem foco, <code>Focused</code> = com foco, <code>Activated</code> = preenchido e sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o campo tem sempre fundo branco; só o texto de ajuda muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>DateTimeField</h4><p><strong>Figma:</strong> biblioteca Desktop › DateTime Field [D] · biblioteca Mobile › Date Time Field</p>
+<p>ℹ️ No Figma, o DateTime Field é só o campo, com o ícone de calendário à direita. O seletor de data e hora não faz parte do componente: no código, é o do próprio sistema do usuário.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome do componente</td><td><code>DateTime Field [D]</code></td><td><code>Date Time Field</code></td><td>Só o nome do componente (com e sem espaço)</td></tr>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td>Data e hora de exemplo (camada <code>Input Text</code>)</td><td><code>01 / 08 / 18 at 09:00</code></td><td><code>01/08/2021, 09:00</code></td><td>Muda o design: o Desktop tem espaços, ano de 2 dígitos e "at" em inglês; o Mobile segue o formato <code>dd/mm/aaaa, hh:mm</code></td></tr>
+<tr><td><code>State=Focused</code> com <code>Disabled=True</code></td><td>Existe</td><td>Não existe</td><td>Só o Desktop tem um campo desabilitado com foco, que não acontece no código (campo desabilitado não recebe foco)</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td></td></tr>
+<tr><td>Data e hora (camada <code>Input Text</code>)</td><td>texto livre</td><td><code>value</code> / <code>defaultValue</code></td><td>⚠️</td><td>No código, o valor é sempre <code>AAAA-MM-DDTHH:mm</code>, e a tela mostra a data e a hora no formato do sistema do usuário (no Brasil, normalmente <code>dd/mm/aaaa, hh:mm</code>, como no Mobile do Figma).</td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td>No código, o erro também aparece sozinho: "Data não permitida" para valores fora do período de <code>min</code> e <code>max</code>.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td></td></tr>
+<tr><td>Ícone de calendário</td><td>fixo</td><td>sem prop</td><td>✅</td><td>Fixo nos dois.</td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Inactive</code> = vazio e sem foco, <code>Focused</code> = com foco, <code>Activated</code> = preenchido e sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o campo tem sempre fundo branco; só o texto de ajuda muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>MonthField</h4><p><strong>Figma:</strong> biblioteca Desktop › Month Field [D] · biblioteca Mobile › Month Field</p>
+<p>ℹ️ No Figma, o Month Field é só o campo. O seletor de mês não faz parte do componente: no código, é o do próprio sistema do usuário, ou um calendário do Design System nos navegadores sem seletor de mês.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td><code>State=Focused</code> com <code>Disabled=True</code></td><td>Existe</td><td>Não existe</td><td>Só o Desktop tem um campo desabilitado com foco, que não acontece no código (campo desabilitado não recebe foco)</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td></td></tr>
+<tr><td>Mês (camada <code>Input Text</code>)</td><td>texto livre</td><td><code>value</code> / <code>defaultValue</code></td><td>⚠️</td><td>No código, o valor é sempre <code>AAAA-MM</code>, e a tela mostra o mês no formato do sistema do usuário (no Brasil, normalmente "outubro de 2026"), ou <code>2026-10</code> no calendário do Design System. O exemplo do Figma (<code>07/11</code>) está no formato MM/AA, que o <code>MonthField</code> não mostra.</td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td>No código, o erro também aparece sozinho: "Data não permitida" para meses fora do período de <code>min</code> e <code>max</code>.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td></td></tr>
+<tr><td>Ícone de calendário</td><td>não existe (a camada <code>Right icon</code> está escondida em todas as variantes)</td><td>sem prop</td><td>⚠️</td><td>No código, o ícone de calendário aparece sempre à direita do campo.</td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Inactive</code> = vazio e sem foco, <code>Focused</code> = com foco, <code>Activated</code> = preenchido e sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o campo tem sempre fundo branco; só o texto de ajuda muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>TimeField</h4><p><strong>Figma:</strong> biblioteca Desktop › Time Field [D] · biblioteca Mobile › Time Field</p>
+<p>ℹ️ No Figma, o Time Field é só o campo, com o ícone de relógio à direita. O seletor de hora não faz parte do componente: no código, é sempre o do próprio sistema do usuário.</p>
+<p>ℹ️ O Time Field <strong>não tem Code Connect</strong> no Desktop nem no Mobile: o Dev Mode não mostra o trecho de código do <code>TimeField</code>.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td><code>State=Focused</code> com <code>Disabled=True</code></td><td>Existe</td><td>Não existe</td><td>Só o Desktop tem um campo desabilitado com foco, que não acontece no código (campo desabilitado não recebe foco)</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td></td></tr>
+<tr><td>Hora (camada <code>Input Text</code>)</td><td>texto livre</td><td><code>value</code> / <code>defaultValue</code></td><td>✅</td><td>No código, o valor é sempre <code>HH:mm</code>, e a tela mostra a hora no formato do sistema do usuário (no Brasil, normalmente <code>09:00</code>).</td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td>No código, o erro também aparece sozinho: "Data não permitida" para horas fora do horário de <code>min</code> e <code>max</code>.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td></td></tr>
+<tr><td>Ícone de relógio</td><td>fixo</td><td>sem prop</td><td>✅</td><td>Fixo nos dois.</td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Inactive</code> = vazio e sem foco, <code>Focused</code> = com foco, <code>Activated</code> = preenchido e sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o campo tem sempre fundo branco; só o texto de ajuda muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skip Link · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-skip-link">
+<h2>Skip Link</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Link de acesso rápido para quem navega pelo teclado: fica escondido e só aparece quando recebe o foco com a tecla Tab, no canto superior esquerdo. Ao ser ativado, leva direto a uma parte da página (ex.: "Ir para o conteúdo principal"), sem passar por todo o menu.</p>
+<ul>
+<li><strong><code>SkipLink</code></strong>: um link de acesso rápido.
+</li>
+<li><strong><code>SkipLinkNav</code></strong>: agrupa vários <code>SkipLink</code> numa lista de navegação, com um nome para o leitor de tela.
+</li></ul>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>SkipLink</h4><ul>
+<li>⚠️ <strong>Só aparece com o teclado:</strong> o Skip link não aparece para quem usa mouse ou toque. Desenhe-o numa tela separada ou numa anotação, mostrando o estado com foco.
+</li>
+<li>⚠️ <strong>Destino:</strong> informe para onde cada link leva (ex.: conteúdo principal, rodapé) e a ordem dos links.
+</li>
+<li>⚠️ <strong>Tamanho:</strong> o código usa o link no tamanho padrão, um pouco maior que o do Figma.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código usa sempre <code>targetId="main-content"</code>. Só o texto segue o design.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Vários links de acesso rápido</td><td>Várias instâncias do Skip link</td><td><code>SkipLinkNav</code> com vários <code>SkipLink</code>; cada um aparece ao receber o foco. ✅ Igual.</td></tr>
+<tr><td>Link com ícone</td><td>Dá para ligar o ícone do Button Link interno</td><td>Não existe: o link é só texto. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>SkipLink / SkipLinkNav</h4><h5>Propriedades</h5><h6>SkipLink</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>targetId</code> (obrigatória)</td><td></td><td></td><td><code>id</code> do elemento para onde o link leva (sem o <code>#</code>).</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Texto do link (ex.: "Ir para o conteúdo principal").</td></tr>
+</tbody></table>
+<h6>SkipLinkNav</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Os <code>SkipLink</code>. Cada um vira um item da lista.</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Onde colocar:</strong> no começo da página, antes do cabeçalho, para ser o primeiro elemento alcançado com a tecla Tab.</p>
+<p>ℹ️ <strong>Aparência:</strong> quando recebe o foco, o link aparece numa caixa com fundo de contêiner, borda, sombra e cantos arredondados, no canto superior esquerdo do elemento posicionado mais próximo (normalmente a página). Sem foco, fica escondido, mas o leitor de tela continua encontrando.</p>
+<p>⚠️ <strong>Destino precisa ter o <code>id</code>:</strong> o elemento de destino precisa ter o mesmo <code>id</code> passado em <code>targetId</code>. Para o foco ir para ele (e não só a rolagem), use um elemento que receba foco ou adicione <code>tabIndex={-1}</code> a ele.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>SkipLink</h4><p><strong>Figma:</strong> biblioteca Desktop › Skip link · biblioteca Mobile › Skip link</p>
+<p>ℹ️ No Figma, o Skip link <strong>não tem propriedades</strong>: é a caixa com um Button Link dentro. O texto fica na camada do Button Link. Não há componente para o <code>SkipLinkNav</code>, que no código só agrupa os links numa lista, sem aparência própria.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td><code>Theme context</code> do Button Link interno</td><td><code>Alternative</code></td><td><code>Default</code></td><td>Muda a cor do link dentro da caixa</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Texto do link (camada do Button Link)</td><td>texto livre</td><td><code>children</code></td><td>✅</td><td></td></tr>
+<tr><td>Tamanho do link (Button Link <code>Small=True</code>)</td><td>pequeno</td><td>sem prop</td><td>⚠️</td><td>No código, o link usa o tamanho padrão do <code>ButtonLink</code>, maior que o do Figma.</td></tr>
+<tr><td>Visibilidade</td><td>sempre visível</td><td>sem prop</td><td>⚠️</td><td>No código, o link fica escondido e só aparece quando recebe o foco pelo teclado (Tab).</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

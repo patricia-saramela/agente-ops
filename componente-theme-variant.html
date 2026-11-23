@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theme Variant (fundo e cores) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-theme-variant">
+<h2>Theme Variant (fundo e cores)</h2>
+<p class="cat">Utilitários</p>
+<h3>Resumo</h3>
+<p>Informa aos componentes de dentro <strong>qual é o fundo onde eles estão</strong>, para que ajustem as cores sozinhos (ex.: um botão sobre fundo da marca usa as cores próprias para esse fundo). É o equivalente, no código, à propriedade <code>Theme context</code> dos componentes do Figma.</p>
+<ul>
+<li><strong><code>ThemeVariant</code></strong>: define o fundo para todo o conteúdo de dentro.
+</li>
+<li><strong><code>useThemeVariant</code></strong>: hook que devolve o fundo atual, para usar em componentes próprios.
+</li></ul>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>ThemeVariant / useThemeVariant</h4><h5>Propriedades</h5><h6>ThemeVariant</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>variant</code></td><td><code>'default' | 'brand' | 'negative' | 'alternative' | 'media' | 'inverse'</code></td><td><code>'default'</code></td><td>🎨 Fundo onde o conteúdo está. <code>'inverse'</code> está obsoleto: use <code>'brand'</code>.</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Conteúdo que vai usar as cores desse fundo.</td></tr>
+</tbody></table>
+<h6>useThemeVariant</h6>
+<p>Não recebe parâmetros. Devolve <code>'default'</code>, <code>'brand'</code>, <code>'negative'</code>, <code>'alternative'</code> ou <code>'media'</code>. Se o fundo foi definido como <code>'inverse'</code>, devolve <code>'brand'</code>.</p>
+<p>⚠️ <strong>O <code>ThemeVariant</code> não pinta o fundo:</strong> ele só avisa os componentes. A cor de fundo precisa ser aplicada à parte. Componentes que já têm fundo próprio, como o <code>Boxed</code> com <code>variant</code>, já definem o <code>ThemeVariant</code> para o conteúdo deles.</p>
+<p>ℹ️ O valor vale para tudo que está dentro, até o próximo <code>ThemeVariant</code>. Fora de qualquer <code>ThemeVariant</code>, o fundo é <code>'default'</code>.</p>
+<p>ℹ️ <strong>Figma:</strong> não é um componente no Figma. O equivalente é a propriedade <code>Theme context</code> de cada componente, com os valores <code>Default</code>, <code>Brand</code>, <code>Negative</code> e <code>Media</code> (o <code>Alternative</code> não existe em todos).</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timeline · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-timeline">
+<h2>Timeline</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>Timeline</h4>
+<p>Linha do tempo com etapas, como o andamento de um pedido ("Pedido recebido", "Em separação", "Saiu para entrega"). O <code>Timeline</code> é o contêiner e organiza os <code>TimelineItem</code> na vertical ou na horizontal, ligados por uma linha. Cada etapa fica concluída, atual ou futura (ver TimelineItem).</p>
+<h4>TimelineItem</h4>
+<p>Uma etapa do Timeline: um marcador (ponto, número ou ícone), a linha até a próxima etapa e o conteúdo ao lado. O <code>state</code> diz se a etapa está concluída, é a atual ou ainda vai acontecer.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Timeline</h4><ul>
+<li>⚠️ <strong>Etapa atual:</strong> marque só uma etapa como <code>Active</code>, as anteriores como <code>Completed</code> e as seguintes como <code>Inactived</code>.
+</li>
+<li>⚠️ <strong>Fundo negative:</strong> não use a Timeline com <code>Theme Variant=Negative</code> esperando essas cores: no código, ela fica com as cores do fundo padrão.
+</li>
+<li>⚠️ <strong>Horizontal no celular:</strong> cada etapa precisa de pelo menos 240px. No celular, prefira a vertical ou use poucas etapas.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue só a <code>Orientation</code>. Ele sempre mostra 3 etapas com ponto (concluída, atual e futura) e textos de exemplo, sem o <code>Assets</code>, os estados e o conteúdo do design.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Linha do tempo sobre fundo <code>Negative</code></td><td>Existe, com cores próprias</td><td>As cores são as do fundo padrão. ⚠️ Diferente.</td></tr>
+<tr><td>Marcador <code>Custom</code> sobre fundo <code>Brand</code> ou <code>Negative</code></td><td>Não existe</td><td>Existe (qualquer elemento no <code>asset</code>). ⚠️ Diferente.</td></tr>
+<tr><td>Duas etapas <code>Active</code></td><td>Dá para montar, marcando à mão</td><td>Dá para montar, mas o leitor de tela anuncia as duas como a etapa atual. ✅ Igual.</td></tr>
+<tr><td>Mais de 7 etapas</td><td>Não existe</td><td>Existe. ⚠️ Diferente.</td></tr>
+<tr><td>Várias etapas na horizontal no celular</td><td>Cabe no frame do componente</td><td>Cada etapa tem no mínimo 240px e não há rolagem: passa da largura da tela. ⚠️ Diferente.</td></tr>
+<tr><td>Etapa concluída com número ou ícone</td><td>Mostra um ✓</td><td>Mostra um ✓. ✅ Igual.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Timeline</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>orientation</code></td><td><code>'horizontal' | 'vertical'</code></td><td><code>'vertical'</code></td><td>🎨 Direção da linha do tempo.¹</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Os <code>TimelineItem</code>, na ordem.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Orientação:</strong></p>
+<table><thead><tr><th></th><th><code>'vertical'</code> (padrão)</th><th><code>'horizontal'</code></th></tr></thead><tbody>
+<tr><td>Etapas</td><td>Uma embaixo da outra, com 16px entre elas</td><td>Lado a lado, com a mesma largura e 16px entre elas</td></tr>
+<tr><td>Marcador</td><td>À esquerda do conteúdo, com a linha descendo até a próxima etapa</td><td>Acima do conteúdo, com a linha indo para a direita até a próxima etapa</td></tr>
+</tbody></table>
+<p>⚠️ <strong>Largura na horizontal:</strong> o conteúdo de cada etapa tem no mínimo 240px de largura, e a linha do tempo não ganha rolagem. Com várias etapas lado a lado, ela passa da largura da tela no celular. Na horizontal, use poucas etapas ou só em telas largas.</p>
+<p>ℹ️ <strong>Linha entre as etapas:</strong> a última etapa não tem linha depois dela. O conteúdo de cada etapa tem no mínimo 72px de altura, que define o comprimento mínimo da linha na vertical.</p>
+<h5>Diferença entre Timeline e TimelineItem</h5><table><thead><tr><th></th><th><code>Timeline</code></th><th><code>TimelineItem</code></th></tr></thead><tbody>
+<tr><td><strong>Papel</strong></td><td>Contêiner: organiza as etapas e define a orientação</td><td>Uma etapa: marcador, linha e conteúdo</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>orientation</code></td><td><code>state</code>, <code>asset</code></td></tr>
+<tr><td><strong>Conteúdo</strong></td><td>Os <code>TimelineItem</code></td><td>Qualquer conteúdo (textos, botões etc.)</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes que funcionam juntos:</strong> o <code>TimelineItem</code> só se organiza certo dentro de um <code>Timeline</code>, e o <code>Timeline</code> espera receber <code>TimelineItem</code>. Cada um tem seu próprio arquivo.</p>
+<h4>TimelineItem</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>state</code> (obrigatória)</td><td><code>'active' | 'inactive' | 'completed'</code></td><td></td><td>🎨 Estado da etapa: <code>'completed'</code> (concluída), <code>'active'</code> (a atual) ou <code>'inactive'</code> (futura).¹</td></tr>
+<tr><td><code>asset</code></td><td><code>React.ReactNode | {kind: 'dot'} | {kind: 'number', number} | {kind: 'icon', Icon} | {kind: 'circled-icon', Icon}</code></td><td><code>{kind: 'dot'}</code></td><td>🎨 Marcador da etapa: um dos tipos prontos ou um elemento próprio. Com <code>null</code>, não há marcador.¹</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Conteúdo da etapa (ex.: título, data e descrição).</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Marcador em cada estado:</strong></p>
+<table><thead><tr><th><code>asset</code></th><th><code>'inactive'</code></th><th><code>'active'</code></th><th><code>'completed'</code></th></tr></thead><tbody>
+<tr><td><code>{kind: 'dot'}</code> (padrão)</td><td>Círculo vazado, na cor neutra</td><td>Círculo vazado na cor de destaque, com ondas animadas em volta</td><td>Círculo preenchido na cor de destaque</td></tr>
+<tr><td><code>{kind: 'number', number}</code></td><td>Número num círculo de 32px, com borda neutra</td><td>Número e borda na cor de destaque</td><td>Círculo de 32px na cor de marca, com um ✓</td></tr>
+<tr><td><code>{kind: 'icon', Icon}</code></td><td>Ícone de 24px na cor neutra</td><td>Ícone na cor de destaque</td><td>Um ✓ de 24px na cor de destaque, no lugar do ícone</td></tr>
+<tr><td><code>{kind: 'circled-icon', Icon}</code></td><td>Ícone num círculo de 40px com borda, na cor neutra</td><td>Ícone na cor de destaque</td><td>Círculo de 40px na cor de marca, com um ✓</td></tr>
+</tbody></table>
+<p>Na etapa <code>'completed'</code>, o <code>number</code> e o <code>Icon</code> não são obrigatórios, porque o marcador vira sempre o ✓. Nos outros estados, são obrigatórios.</p>
+<p>ℹ️ <strong>Etapa atual:</strong> com <code>state="active"</code>, o leitor de tela anuncia a etapa como a etapa atual (<code>aria-current="step"</code>). Marque só uma etapa como <code>'active'</code>.</p>
+<p>ℹ️ <strong>Cores conforme o fundo:</strong> sobre fundo <code>brand</code>, o ponto, o ✓, a linha e o ícone sem círculo usam as cores para fundo de marca, e o <code>circled-icon</code> perde a borda. Nos fundos <code>negative</code> e <code>media</code>, e no modo escuro, as cores são as do fundo padrão.</p>
+<h5>Diferença entre Timeline e TimelineItem</h5><table><thead><tr><th></th><th><code>Timeline</code></th><th><code>TimelineItem</code></th></tr></thead><tbody>
+<tr><td><strong>Papel</strong></td><td>Contêiner: organiza as etapas e define a orientação</td><td>Uma etapa: marcador, linha e conteúdo</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>orientation</code></td><td><code>state</code>, <code>asset</code></td></tr>
+<tr><td><strong>Conteúdo</strong></td><td>Os <code>TimelineItem</code></td><td>Qualquer conteúdo (textos, botões etc.)</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes que funcionam juntos:</strong> o <code>TimelineItem</code> só se organiza certo dentro de um <code>Timeline</code>, e o <code>Timeline</code> espera receber <code>TimelineItem</code>. Cada um tem seu próprio arquivo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Timeline</h4><p><strong>Figma:</strong> biblioteca Desktop › Timeline [D] · biblioteca Mobile › Timeline</p>
+<p>ℹ️ No Figma, a <strong>Timeline</strong> tem até 7 etapas (<code>Event 2</code> a <code>Event 7</code> ligam ou desligam as etapas, e a primeira está sempre visível). Cada etapa tem um marcador <strong>_Resourses/Asset</strong> (com <code>Type</code> e <code>State</code>) e um conteúdo <strong>_Resourses/Content Event</strong>, que é um slot. No código, cada etapa é um <code>TimelineItem</code>.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de tema (Timeline)</td><td><code>Theme Variant</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Orientation</code> (Timeline)</td><td><code>Vertical</code> · <code>Horizontal</code></td><td><code>orientation</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Assets</code> (Timeline)</td><td><code>Dot</code> · <code>Number</code> · <code>Icon</code> · <code>Icon circle</code></td><td><code>asset</code> de cada <code>TimelineItem</code></td><td>✅</td><td>No Figma, troca o marcador de todas as etapas de uma vez. No código, cada etapa escolhe o seu.</td></tr>
+<tr><td><code>Type</code> (_Resourses/Asset)</td><td><code>Dot</code> · <code>Number</code> · <code>Icon</code> · <code>Icon circle</code> · <code>Custom</code></td><td><code>asset</code></td><td>✅</td><td><code>Dot</code> = <code>{kind: 'dot'}</code>, <code>Number</code> = <code>{kind: 'number'}</code>, <code>Icon</code> = <code>{kind: 'icon'}</code>, <code>Icon circle</code> = <code>{kind: 'circled-icon'}</code> e <code>Custom</code> = um elemento próprio.</td></tr>
+<tr><td><code>State</code> (_Resourses/Asset)</td><td><code>Completed</code> · <code>Active</code> · <code>Inactived</code></td><td><code>state</code></td><td>✅</td><td><code>Inactived</code> = <code>'inactive'</code>. Nos dois, a etapa concluída mostra um ✓ no lugar do número ou do ícone.</td></tr>
+<tr><td>Número (camada de texto do <code>Number</code>)</td><td>texto livre</td><td><code>number</code></td><td>✅</td><td></td></tr>
+<tr><td><code>🔄 Replace slot</code> (_Resourses/Asset)</td><td>qualquer ícone</td><td><code>Icon</code></td><td>✅</td><td></td></tr>
+<tr><td><code>🔄 Replace slot</code> (_Resourses/Content Event)</td><td>qualquer conteúdo</td><td><code>children</code> do <code>TimelineItem</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Event 2</code> a <code>Event 7</code> (Timeline)</td><td><code>True</code> · <code>False</code></td><td>quantidade de <code>TimelineItem</code></td><td>⚠️</td><td>No Figma, de 1 a 7 etapas. No código, pode haver qualquer quantidade.</td></tr>
+<tr><td><code>Theme Variant</code> (Timeline e _Resourses/Asset)</td><td><code>Default</code> · <code>Brand</code> · <code>Alternative</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, as cores mudam sozinhas conforme o fundo, mas <strong>só no fundo <code>brand</code></strong>: no <code>negative</code>, a linha do tempo usa as cores do fundo padrão.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

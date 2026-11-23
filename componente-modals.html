@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modals (Alert, Confirm, Dialog) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-modals">
+<h2>Modals (Alert, Confirm, Dialog)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>Dialog</h4>
+<p>Janela modal completa, por cima da tela e com o fundo escurecido: pode ter imagem, título, subtítulo, mensagem, conteúdo extra, até dois botões, um link e sempre tem o botão X para fechar. Use quando o alert e o confirm não bastam, como para apresentar uma novidade ou pedir uma informação.</p>
+<p>ℹ️ Não existe um componente para colocar na tela: o dialog é aberto por código, com a função <code>dialog</code> do hook <code>useDialog</code>. Só um modal (alert, confirm ou dialog) pode estar aberto por vez.</p>
+<h4>Alert</h4>
+<p>Janela modal com uma mensagem e um único botão (Aceitar), por cima da tela e com o fundo escurecido. Use para avisos que o usuário só precisa reconhecer, como "Sua sessão expirou".</p>
+<p>ℹ️ Não existe um componente para colocar na tela: o alert é aberto por código, com a função <code>alert</code> do hook <code>useDialog</code>. Só um modal (alert, confirm ou dialog) pode estar aberto por vez.</p>
+<h4>Confirm</h4>
+<p>Janela modal com uma pergunta e dois botões (Aceitar e Cancelar), por cima da tela e com o fundo escurecido. Use para confirmar uma ação antes de executá-la, como "Excluir esta conta?".</p>
+<p>ℹ️ Não existe um componente para colocar na tela: o confirm é aberto por código, com a função <code>confirm</code> do hook <code>useDialog</code>. Só um modal (alert, confirm ou dialog) pode estar aberto por vez.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Alert</h4><ul>
+<li>⚠️ <strong>Dev Mode trocado no Desktop:</strong> o trecho de código do Alert [D] mostra <code>confirm(...)</code>, e o do Confirm [D] mostra <code>alert(...)</code>. As ligações de código estão invertidas. No Mobile estão certas.
+</li>
+<li>⚠️ <strong>Texto do botão no Dev Mode:</strong> o trecho sempre mostra <code>acceptText: 'Accept'</code>, não o texto do design.
+</li>
+<li>⚠️ <strong>Dentro do app:</strong> informe se o alert vai aparecer no app. Lá o visual é o alerta do sistema (use os componentes iOS/Android para desenhar) e o botão de perigo não aparece.
+</li>
+<li>⚠️ <strong>Fechar:</strong> o alert não fecha ao clicar fora. Fechar com a tecla Esc conta como aceitar.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Alert com ícone (Desktop)</td><td>Dá para mostrar a camada escondida à mão</td><td>Não existe: o <code>alert</code> não aceita ícone. Use o <code>dialog</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Alert com botão de perigo</td><td>Não existe</td><td>Existe, com <code>destructive</code>. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>Confirm</h4><ul>
+<li>⚠️ <strong>Dev Mode trocado no Desktop:</strong> o trecho de código do Confirm [D] mostra <code>alert(...)</code>, e o do Alert [D] mostra <code>confirm(...)</code>. As ligações de código estão invertidas. No Mobile estão certas.
+</li>
+<li>⚠️ <strong>Textos dos botões no Dev Mode:</strong> o trecho sempre mostra <code>acceptText: 'Accept'</code> e <code>cancelText: 'Cancel'</code>, não os textos do design.
+</li>
+<li>⚠️ <strong>Ação destrutiva:</strong> se o botão principal for de perigo (ex.: "Excluir"), avise no handoff: no Figma não há essa opção.
+</li>
+<li>⚠️ <strong>Dentro do app:</strong> informe se o confirm vai aparecer no app. Lá o visual é o alerta do sistema (use os componentes iOS/Android para desenhar).
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Confirm com ícone (Desktop)</td><td>Dá para mostrar a camada escondida à mão</td><td>Não existe: o <code>confirm</code> não aceita ícone. Use o <code>dialog</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Confirm com um botão só</td><td>Dá para esconder um botão à mão</td><td>Não existe: o <code>confirm</code> sempre tem os dois botões. Para um botão, use o <code>alert</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Confirm com botão de perigo</td><td>Não existe</td><td>Existe, com <code>destructive</code> (também no alerta nativo). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>Dialog</h4><ul>
+<li>⚠️ <strong>Mensagem obrigatória:</strong> no código não existe dialog sem mensagem. Se o design esconder a <code>Description</code>, combine com o desenvolvimento o texto que vai entrar.
+</li>
+<li>⚠️ <strong>Botões:</strong> indique quais botões e link aparecem e o que cada um faz; no código, cada botão só aparece se tiver ação.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código mostra props que não existem: <code>extra</code> (o certo é <code>slot</code>), <code>showCancel</code> e, no Mobile, <code>forceWeb</code>. Os textos dos botões são sempre "Accept"/"Cancel", o link é sempre o mesmo exemplo e o trecho não reflete a escolha de botões do design.
+</li>
+<li>⚠️ <strong>Fechar:</strong> o dialog fecha pelo X, pelo clique fora e pela tecla Esc, e todos contam como cancelar.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Dialog sem mensagem (<code>Description=False</code>)</td><td>Existe</td><td>Não existe: <code>message</code> é obrigatória. ⚠️ Diferente.</td></tr>
+<tr><td>Dialog sem título</td><td>Só no Mobile</td><td>Existe. ⚠️ Diferente no Desktop.</td></tr>
+<tr><td>Dialog sem botões</td><td>Não existe</td><td>Existe: sem <code>onAccept</code>, <code>onCancel</code> e <code>link</code>, fecha só pelo X, clique fora ou Esc. ⚠️ Diferente.</td></tr>
+<tr><td>Dialog só com link</td><td>Não existe</td><td>Existe. ⚠️ Diferente.</td></tr>
+<tr><td>Dialog com botão de perigo</td><td>Não existe</td><td>Existe, com <code>destructive</code>. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Dialog</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>destructive</code></td><td>sim/não</td><td><code>false</code></td><td>🎨 O botão Aceitar vira um botão de perigo (<code>ButtonDanger</code>).</td></tr>
+<tr><td><code>message</code> (obrigatória)</td><td></td><td></td><td>Texto principal, em cor secundária.</td></tr>
+<tr><td><code>title</code></td><td></td><td></td><td>Título.</td></tr>
+<tr><td><code>acceptText</code></td><td></td><td>texto do tema ("Aceitar")</td><td>Texto do botão Aceitar.</td></tr>
+<tr><td><code>onAccept</code></td><td></td><td></td><td>Chamada quando o usuário aceita. <strong>O botão Aceitar só aparece com ela.</strong></td></tr>
+<tr><td><code>asset</code></td><td></td><td></td><td>Imagem ou ícone acima do título (40px no celular, 64px no desktop).</td></tr>
+<tr><td><code>subtitle</code></td><td></td><td></td><td>Subtítulo, abaixo do título.</td></tr>
+<tr><td><code>slot</code></td><td></td><td></td><td>Conteúdo extra abaixo da mensagem (ex.: um formulário).</td></tr>
+<tr><td><code>cancelText</code></td><td></td><td>texto do tema ("Cancelar")</td><td>Texto do botão Cancelar.</td></tr>
+<tr><td><code>onCancel</code></td><td></td><td></td><td>Chamada quando o usuário cancela ou fecha (botão Cancelar, X, clique fora ou Esc). <strong>O botão Cancelar só aparece com ela.</strong></td></tr>
+<tr><td><code>link</code></td><td></td><td></td><td>Link junto dos botões.</td></tr>
+<tr><td><code>closeButtonLabel</code></td><td></td><td>texto do tema ("Fechar")</td><td>♿ Texto lido pelo leitor de tela no botão X.</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Fechar:</strong> pelo X, pelo clique fora ou pela tecla Esc, que contam como cancelar. Navegar para outra página (ex.: botão Voltar do navegador) também fecha.</p>
+<p>ℹ️ <strong>Botões:</strong> sem <code>onAccept</code>, <code>onCancel</code> e <code>link</code>, o dialog não tem área de botões; fecha só pelo X, pelo clique fora ou pela tecla Esc.</p>
+<p>ℹ️ <strong>App nativo:</strong> ao contrário do alert e do confirm, o dialog usa o visual do Design System também dentro do app.</p>
+<p>ℹ️ <strong>Tamanho e botões:</strong> 680px de largura no desktop, com os botões lado a lado (Aceitar primeiro). No celular, a largura da tela menos 24px de cada lado, com os botões ocupando a largura toda, um embaixo do outro. Se o conteúdo for alto, a mensagem ganha rolagem. Ao fechar, o foco volta para o elemento que abriu o dialog.</p>
+<h5>Diferença entre Alert, Confirm e Dialog</h5><table><thead><tr><th></th><th>Alert</th><th>Confirm</th><th>Dialog</th></tr></thead><tbody>
+<tr><td><strong>Para que serve</strong></td><td>Aviso que só precisa ser reconhecido</td><td>Pergunta de sim ou não</td><td>Modal completo, com conteúdo extra</td></tr>
+<tr><td><strong>Função</strong></td><td><code>alert</code></td><td><code>confirm</code></td><td><code>dialog</code></td></tr>
+<tr><td><strong>Botão Aceitar</strong></td><td>Sempre</td><td>Sempre</td><td>Só com <code>onAccept</code></td></tr>
+<tr><td><strong>Botão Cancelar</strong></td><td>Nunca</td><td>Sempre</td><td>Só com <code>onCancel</code></td></tr>
+<tr><td><strong>Botão X (fechar)</strong></td><td>Não</td><td>Não</td><td>Sempre</td></tr>
+<tr><td><strong>Clique fora fecha</strong></td><td>Não</td><td>Não</td><td>Sim (cancela)</td></tr>
+<tr><td><strong>Esc</strong></td><td>Aceita</td><td>Cancela</td><td>Cancela</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td></td><td><code>cancelText</code>, <code>onCancel</code></td><td><code>cancelText</code>, <code>onCancel</code>, <code>asset</code>, <code>subtitle</code>, <code>slot</code>, <code>link</code></td></tr>
+<tr><td><strong>Dentro do app</strong></td><td>Alerta nativo do sistema</td><td>Alerta nativo do sistema</td><td>Visual do Design System</td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os três usam a mesma janela interna, mas cada um tem props e regras de botões próprias. Cada um tem seu arquivo.</p>
+<h4>Alert</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>destructive</code></td><td>sim/não</td><td><code>false</code></td><td>🎨 O botão Aceitar vira um botão de perigo (<code>ButtonDanger</code>).¹</td></tr>
+<tr><td><code>message</code> (obrigatória)</td><td></td><td></td><td>Texto principal, em cor secundária.</td></tr>
+<tr><td><code>title</code></td><td></td><td></td><td>Título.</td></tr>
+<tr><td><code>acceptText</code></td><td></td><td>texto do tema ("Aceitar")</td><td>Texto do botão Aceitar.</td></tr>
+<tr><td><code>onAccept</code></td><td></td><td></td><td>Chamada quando o alert fecha. Fechar de qualquer jeito (botão ou Esc) conta como aceitar.</td></tr>
+<tr><td><code>closeButtonLabel</code></td><td></td><td></td><td>♿ Sem efeito no alert, que não tem botão X.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>App nativo:</strong> dentro do app (webview), o alert usa o alerta nativo do sistema (iOS/Android) no lugar do visual do Design System. Nele, só <code>title</code>, <code>message</code> e <code>acceptText</code> são usados; <code>destructive</code> e <code>className</code> não têm efeito.</p>
+<p>ℹ️ <strong>Fechar:</strong> só pelo botão Aceitar ou pela tecla Esc. Clicar fora não fecha. Navegar para outra página (ex.: botão Voltar do navegador) também fecha.</p>
+<p>ℹ️ <strong>Tamanho:</strong> 680px de largura no desktop; no celular, a largura da tela menos 24px de cada lado. Se o conteúdo for alto, a mensagem ganha rolagem. Ao fechar, o foco volta para o elemento que abriu o alert.</p>
+<h5>Diferença entre Alert, Confirm e Dialog</h5><table><thead><tr><th></th><th>Alert</th><th>Confirm</th><th>Dialog</th></tr></thead><tbody>
+<tr><td><strong>Para que serve</strong></td><td>Aviso que só precisa ser reconhecido</td><td>Pergunta de sim ou não</td><td>Modal completo, com conteúdo extra</td></tr>
+<tr><td><strong>Função</strong></td><td><code>alert</code></td><td><code>confirm</code></td><td><code>dialog</code></td></tr>
+<tr><td><strong>Botão Aceitar</strong></td><td>Sempre</td><td>Sempre</td><td>Só com <code>onAccept</code></td></tr>
+<tr><td><strong>Botão Cancelar</strong></td><td>Nunca</td><td>Sempre</td><td>Só com <code>onCancel</code></td></tr>
+<tr><td><strong>Botão X (fechar)</strong></td><td>Não</td><td>Não</td><td>Sempre</td></tr>
+<tr><td><strong>Clique fora fecha</strong></td><td>Não</td><td>Não</td><td>Sim (cancela)</td></tr>
+<tr><td><strong>Esc</strong></td><td>Aceita</td><td>Cancela</td><td>Cancela</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td></td><td><code>cancelText</code>, <code>onCancel</code></td><td><code>cancelText</code>, <code>onCancel</code>, <code>asset</code>, <code>subtitle</code>, <code>slot</code>, <code>link</code></td></tr>
+<tr><td><strong>Dentro do app</strong></td><td>Alerta nativo do sistema</td><td>Alerta nativo do sistema</td><td>Visual do Design System</td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os três usam a mesma janela interna, mas cada um tem props e regras de botões próprias. Cada um tem seu arquivo.</p>
+<h4>Confirm</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>destructive</code></td><td>sim/não</td><td><code>false</code></td><td>🎨 O botão Aceitar vira um botão de perigo (<code>ButtonDanger</code>). Use para ações destrutivas, como excluir.</td></tr>
+<tr><td><code>message</code> (obrigatória)</td><td></td><td></td><td>Texto principal, em cor secundária.</td></tr>
+<tr><td><code>title</code></td><td></td><td></td><td>Título.</td></tr>
+<tr><td><code>acceptText</code></td><td></td><td>texto do tema ("Aceitar")</td><td>Texto do botão Aceitar.</td></tr>
+<tr><td><code>onAccept</code></td><td></td><td></td><td>Chamada quando o usuário aceita.</td></tr>
+<tr><td><code>cancelText</code></td><td></td><td>texto do tema ("Cancelar")</td><td>Texto do botão Cancelar.</td></tr>
+<tr><td><code>onCancel</code></td><td></td><td></td><td>Chamada quando o usuário cancela (botão Cancelar ou Esc).</td></tr>
+<tr><td><code>closeButtonLabel</code></td><td></td><td></td><td>♿ Sem efeito no confirm, que não tem botão X.</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>App nativo:</strong> dentro do app (webview), o confirm usa o alerta nativo do sistema (iOS/Android) no lugar do visual do Design System. Nele, <code>title</code>, <code>message</code>, <code>acceptText</code>, <code>cancelText</code> e <code>destructive</code> são usados; <code>className</code> não tem efeito.</p>
+<p>ℹ️ <strong>Fechar:</strong> pelos botões ou pela tecla Esc (que cancela). Clicar fora não fecha. Navegar para outra página (ex.: botão Voltar do navegador) também fecha.</p>
+<p>ℹ️ <strong>Tamanho e botões:</strong> 680px de largura no desktop, com os botões lado a lado (Aceitar primeiro). No celular, a largura da tela menos 24px de cada lado, com os botões ocupando a largura toda, um embaixo do outro. Se o conteúdo for alto, a mensagem ganha rolagem. Ao fechar, o foco volta para o elemento que abriu o confirm.</p>
+<h5>Diferença entre Alert, Confirm e Dialog</h5><table><thead><tr><th></th><th>Alert</th><th>Confirm</th><th>Dialog</th></tr></thead><tbody>
+<tr><td><strong>Para que serve</strong></td><td>Aviso que só precisa ser reconhecido</td><td>Pergunta de sim ou não</td><td>Modal completo, com conteúdo extra</td></tr>
+<tr><td><strong>Função</strong></td><td><code>alert</code></td><td><code>confirm</code></td><td><code>dialog</code></td></tr>
+<tr><td><strong>Botão Aceitar</strong></td><td>Sempre</td><td>Sempre</td><td>Só com <code>onAccept</code></td></tr>
+<tr><td><strong>Botão Cancelar</strong></td><td>Nunca</td><td>Sempre</td><td>Só com <code>onCancel</code></td></tr>
+<tr><td><strong>Botão X (fechar)</strong></td><td>Não</td><td>Não</td><td>Sempre</td></tr>
+<tr><td><strong>Clique fora fecha</strong></td><td>Não</td><td>Não</td><td>Sim (cancela)</td></tr>
+<tr><td><strong>Esc</strong></td><td>Aceita</td><td>Cancela</td><td>Cancela</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td></td><td><code>cancelText</code>, <code>onCancel</code></td><td><code>cancelText</code>, <code>onCancel</code>, <code>asset</code>, <code>subtitle</code>, <code>slot</code>, <code>link</code></td></tr>
+<tr><td><strong>Dentro do app</strong></td><td>Alerta nativo do sistema</td><td>Alerta nativo do sistema</td><td>Visual do Design System</td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os três usam a mesma janela interna, mas cada um tem props e regras de botões próprias. Cada um tem seu arquivo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Alert</h4><p><strong>Figma:</strong> biblioteca Desktop › Alert [D] · biblioteca Mobile › Web/Alert</p>
+<p><strong>Alertas nativos (só Mobile):</strong> iOS/Alert · iOS26/Alert · Android/Alert</p>
+<p>ℹ️ O <strong>Web/Alert</strong> é o visual do Design System, usado no navegador. Dentro do app, o <code>alert</code> mostra o alerta do sistema, que corresponde aos componentes <strong>iOS/Alert</strong>, <strong>iOS26/Alert</strong> e <strong>Android/Alert</strong>. Eles não têm ligação de código e não entram na comparação abaixo.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Botão</td><td><code>Button Primary [D]</code> solto, do tamanho do texto</td><td><code>Button Fixed Footer Layout</code> (<code>Secondary=Off</code>), na largura toda</td><td>Muda o design, igual ao código: no celular o botão ocupa a largura toda</td></tr>
+<tr><td>Camada de ícone</td><td><code>Icon sizes (by default) [D]</code> escondida, sem propriedade</td><td>Não existe</td><td>Só o Desktop tem a camada. O código não aceita ícone no alert</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Title</code></td><td><code>True</code> · <code>False</code></td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td>Mensagem (camada <code>Description text</code> / <code>Description</code>)</td><td>texto livre</td><td><code>message</code></td><td>✅</td><td>Obrigatória nos dois.</td></tr>
+<tr><td>Texto do botão (camada <code>Action</code>)</td><td>texto livre</td><td><code>acceptText</code></td><td>✅</td><td>Sem <code>acceptText</code>, o código usa o texto do tema ("Aceitar").</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>Confirm</h4><p><strong>Figma:</strong> biblioteca Desktop › Confirm [D] · biblioteca Mobile › Web/Confirm</p>
+<p><strong>Alertas nativos (só Mobile):</strong> iOS/Alert · iOS26/Alert · Android/Alert</p>
+<p>ℹ️ O <strong>Web/Confirm</strong> é o visual do Design System, usado no navegador. Dentro do app, o <code>confirm</code> mostra o alerta do sistema, que corresponde aos componentes <strong>iOS/Alert</strong>, <strong>iOS26/Alert</strong> e <strong>Android/Alert</strong> (no Android, <code>Type=2 Actions</code>). Eles não têm ligação de código e não entram na comparação abaixo.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Botões</td><td><code>Button Primary [D]</code> e <code>Button Secondary [D]</code> soltos, lado a lado</td><td><code>Button Fixed Footer Layout</code> (<code>Secondary=On</code>), um embaixo do outro na largura toda</td><td>Muda o design, igual ao código: no celular os botões ficam empilhados</td></tr>
+<tr><td>Camada de ícone</td><td><code>Icon sizes (by default) [D]</code> escondida, sem propriedade</td><td>Não existe</td><td>Só o Desktop tem a camada. O código não aceita ícone no confirm</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Title</code></td><td><code>True</code> · <code>False</code></td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td>Mensagem (camada <code>Description text</code> / <code>Description</code>)</td><td>texto livre</td><td><code>message</code></td><td>✅</td><td>Obrigatória nos dois.</td></tr>
+<tr><td>Texto do botão principal (camada <code>Action</code>)</td><td>texto livre</td><td><code>acceptText</code></td><td>✅</td><td>Sem <code>acceptText</code>, o código usa o texto do tema ("Aceitar").</td></tr>
+<tr><td>Texto do botão secundário (camada <code>Action</code>)</td><td>texto livre</td><td><code>cancelText</code></td><td>✅</td><td>Sem <code>cancelText</code>, o código usa o texto do tema ("Cancelar").</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>Dialog</h4><p><strong>Figma:</strong> biblioteca Desktop › Dialog [D] · biblioteca Mobile › Web/Dialog</p>
+<p>ℹ️ Os botões e o link ficam na instância interna <strong>Button Fixed Footer Layout [D]</strong> (Desktop) ou <strong>Button Fixed Footer Layout</strong> (Mobile). O botão X é a instância <strong>.dismissAction</strong>. Ao contrário do alert e do confirm, o dialog usa o visual do Design System também dentro do app.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Imagem</td><td><code>Icon</code> + <code>Choose icon</code></td><td><code>Asset</code> + <code>Choose asset</code></td><td>Só o nome das propriedades</td></tr>
+<tr><td><code>Title</code></td><td>Não existe: o título está sempre visível</td><td><code>True</code> · <code>False</code></td><td>No Desktop não dá para esconder o título</td></tr>
+<tr><td>Botões e link</td><td><code>Variant</code> do Button Fixed Footer Layout [D]: <code>Primary+Link</code>, <code>Primary</code>, <code>Secondary+Link</code>, <code>Secondary</code>, <code>Primary+Secondary</code>, <code>Primary+Secondary+Link</code></td><td><code>Secondary</code> e <code>Add link</code> (<code>On</code> · <code>Off</code>), com o botão principal sempre visível</td><td>No Mobile não dá para ter só o botão secundário. Os botões ficam empilhados na largura toda no Mobile, igual ao código</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Icon</code> + <code>Choose icon</code></td><td><code>True</code> · <code>False</code> + ícone</td><td><code>asset</code></td><td>✅</td><td>40px no celular, 64px no desktop. No código também aceita uma imagem.</td></tr>
+<tr><td>Título (camada <code>Title</code>)</td><td>texto livre</td><td><code>title</code></td><td>⚠️</td><td>No código, <code>title</code> é opcional. No Desktop do Figma o título não pode ser escondido (no Mobile, pode).</td></tr>
+<tr><td><code>Subtitle</code></td><td><code>True</code> · <code>False</code></td><td><code>subtitle</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Description</code></td><td><code>True</code> · <code>False</code></td><td><code>message</code></td><td>⚠️</td><td>No Figma dá para esconder. No código, <code>message</code> é obrigatória.</td></tr>
+<tr><td><code>Slot</code></td><td><code>True</code> · <code>False</code></td><td><code>slot</code></td><td>✅</td><td>Conteúdo extra abaixo da mensagem.</td></tr>
+<tr><td><code>Variant</code> (Button Fixed Footer Layout [D])</td><td><code>Primary</code>, <code>Secondary</code>, <code>Link</code> e combinações</td><td><code>onAccept</code>, <code>onCancel</code>, <code>link</code></td><td>⚠️</td><td>No código, cada botão aparece só se a ação for passada: Aceitar com <code>onAccept</code>, Cancelar com <code>onCancel</code>, link com <code>link</code>. O código também permite nenhum botão ou só o link, o que o Figma não tem.</td></tr>
+<tr><td>Botão X (<code>.dismissAction</code>)</td><td>sempre visível</td><td>sem prop</td><td>✅</td><td>No código, o <code>dialog</code> sempre tem o X.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> O Dialog tem problemas de acessibilidade (fechar clicando no fundo, ações redundantes). O que usar para comunicar um erro? <strong>Resposta:</strong> Para erros e avisos de fluxo, use as telas de <strong>Feedback</strong> do Design System (<strong>Error Feedback</strong> e <strong>Info Feedback</strong>), que também têm versão desktop, em vez do Dialog. É o que o app usa.</p>
+<p><sub>Ref. #111 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> O padding horizontal de 24px do Modal Confirm é mantido em qualquer largura de tela? <strong>Resposta:</strong> <strong>Sim</strong>, o padding de 24px não deve ser alterado.</p>
+<p><sub>Ref. #124 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> Como implementar "Voltar" e "Fechar" juntos num modal do iOS? <strong>Resposta:</strong> O suporte não orienta código, mas há cenários no app iOS com modal que tem voltar e fechar ao mesmo tempo; use-os como referência para os devs.</p>
+<p><sub>Ref. #324 · 05/2025</sub></p>
+<p><strong>Dúvida:</strong> Os modais de permissão de iOS e Android da biblioteca estão atualizados? Quais usar? <strong>Resposta:</strong> Use os da biblioteca do Design System: quando forem atualizados, seu arquivo também atualiza.</p>
+<p><sub>Ref. #625 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> Há componente de "overflow menu" para compartilhar produto (biblioteca legada da loja)? <strong>Resposta:</strong> Foi definido usar os componentes da loja como estão, e o <strong>Modal</strong> recebeu melhorias planejadas: ligar/desligar botões e textos, slot para conteúdo customizado e botão de compartilhar (após validação de acessibilidade).</p>
+<p><sub>Ref. #933 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> A squad diz que não pode usar modal numa tela informativa. <strong>Resposta:</strong> É mais uma limitação da arquitetura do app do que do componente. O dev deve procurar o canal de suporte de desenvolvimento. Se não for possível, a opção mais adequada é o <strong>bottom sheet</strong>.</p>
+<p><sub>Ref. #955 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso fazer um modal com imagem em tela cheia, incluindo a área da navigation bar? <strong>Resposta:</strong> Tecnicamente sim, com construção <strong>atômica (Image + IconButton)</strong>, com o fechar acionando a bridge do app. É decisão de produto (Pesquisa e Evolução), porque pode gerar experiências diferentes no app. No caso, foi acordada a construção atômica, sem interação de arrastar.</p>
+<p><sub>Ref. #1208 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Os componentes nativos (ex.: alert de confirmação) vão ser equalizados com o design do Design System? <strong>Resposta:</strong> <strong>Sim, todos</strong> os componentes nativos passarão por esse processo de equalização, em levas.</p>
+<p><sub>Ref. #1398 · 11/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

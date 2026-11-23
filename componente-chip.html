@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chip · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-chip">
+<h2>Chip</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Etiqueta compacta e arredondada com um texto curto, e opcionalmente um ícone e um badge. Usado para filtros, seleção de opções, tags removíveis e atalhos de navegação.</p>
+<p>O Chip funciona em um destes modos, conforme as props passadas:</p>
+<ul>
+<li><strong>Estático</strong>: só exibe o texto.
+</li>
+<li><strong>Removível</strong>: com <code>onClose</code>, ganha um botão ✕ para remover o chip.
+</li>
+<li><strong>Selecionável</strong>: com <code>active</code>, mostra o estado selecionado. O clique é tratado por um <code>Checkbox</code> ou <code>RadioButton</code> em volta (ver exemplo).
+</li>
+<li><strong>Clicável</strong>: com <code>onPress</code>, <code>to</code> ou <code>href</code>, o chip inteiro é um botão ou link. Com <code>active</code>, mostra que é a opção atual (ex.: aba ou seção ativa).
+</li></ul>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Chip</h4><ul>
+<li>⚠️ <strong>Chip de seleção:</strong> no Figma basta trocar <code>Selected</code>. No código, o chip de seleção precisa estar dentro de um <code>Checkbox</code> (várias opções) ou de um <code>RadioButton</code> (uma opção) para responder ao clique. Indique no handoff se a seleção é <strong>múltipla</strong> ou <strong>única</strong>.
+</li>
+<li>⚠️ <strong>Texto longo:</strong> o código não quebra o texto em duas linhas. Evite textos longos ou desenhe já com a reticência.
+</li>
+<li>⚠️ <strong>Dev Mode no Mobile:</strong> o trecho de código que o Figma Mobile mostra no Dev Mode sempre inclui o botão ✕ (<code>onClose</code>) e não inclui <code>badge</code> nem a ação, mesmo quando a variante não é removível. No Desktop o trecho segue a variante escolhida.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td><code>Closable</code> + <code>Selected</code></td><td>Não existe (o chip removível só tem <code>Selected=False</code>)</td><td>O chip removível ignora <code>active</code>. ✅ Igual.</td></tr>
+<tr><td><code>Closable</code> + <code>Badge</code></td><td>Não existe (o chip removível só tem <code>Badge=False</code>)</td><td>O chip removível não mostra o badge. ✅ Igual.</td></tr>
+<tr><td><code>Closable</code> + <code>Type=Action</code></td><td>Não existe (o chip removível só tem <code>Type=Selection</code>)</td><td>Não dá para usar <code>onClose</code> junto com <code>onPress</code>/<code>to</code>/<code>href</code>. ✅ Igual.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Chip</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão compacta, com texto e espaçamentos menores.</td></tr>
+<tr><td><code>Icon</code></td><td></td><td></td><td>🎨 Ícone exibido antes do texto. O tamanho (20px) e a cor são definidos pelo chip.</td></tr>
+<tr><td><code>badge</code></td><td></td><td></td><td>🎨 Badge exibido depois do texto: <code>true</code> mostra um ponto e um número mostra o valor (acima de 9, <code>+9</code>). Não aparece no chip removível.</td></tr>
+<tr><td><code>active</code></td><td>sim/não</td><td></td><td>🎨 Estado selecionado/ativo. No chip clicável, usa outra cor (de navegação) para indicar a opção atual. Obrigatória no modo selecionável.</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Texto do chip. Fica em uma linha só; o excedente é cortado com reticências.</td></tr>
+<tr><td><code>closeButtonLabel</code></td><td></td><td></td><td>♿ Rótulo do botão ✕ lido pelo leitor de tela. Sem ele, usa o texto do tema ou a tradução padrão (<code>'Fechar'</code> em português). Só no chip removível.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Modo:</strong> use no máximo um entre <code>onClose</code> (removível), <code>active</code> sem ação (selecionável) e <code>onPress</code>/<code>to</code>/<code>href</code> (clicável). Entre <code>onPress</code>, <code>to</code> e <code>href</code>, use só um.</p>
+<p>ℹ️ <strong>Chip selecionável:</strong> o <code>active</code> só muda a aparência; sozinho, o chip não responde ao clique. Para o usuário marcar e desmarcar, coloque o chip no <code>render</code> de um <code>Checkbox</code> (várias opções) ou de um <code>RadioButton</code> dentro de um <code>RadioGroup</code> (uma opção), passando <code>active={checked}</code> e <code>id={labelId}</code>. Assim o clique, o teclado e o leitor de tela funcionam.</p>
+<p>ℹ️ O chip não aceita outros elementos como conteúdo: <code>children</code> precisa ser um texto.</p>
+<p>ℹ️ As cores se adaptam ao fundo (<code>ThemeVariant</code>): sobre <code>alternative</code>, <code>brand</code>, <code>negative</code> ou <code>media</code> o chip usa as variações próprias para esses fundos.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Chip</h4><p><strong>Figma:</strong> biblioteca Desktop › Chips [D] · biblioteca Mobile › Chip</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Texto (camada <code>Text</code>)</td><td>texto livre</td><td><code>children</code></td><td>✅</td><td>No código, o texto fica em <strong>uma linha só</strong>; o excedente é cortado com reticências.</td></tr>
+<tr><td><code>Type</code></td><td><code>Selection</code> · <code>Action</code></td><td>sem prop própria</td><td>⚠️</td><td>Não é uma prop: o tipo depende de <strong>como o chip é usado</strong>. <code>Action</code> = chip com ação (<code>onPress</code>, <code>to</code> ou <code>href</code>). <code>Selection</code> = chip sem ação, colocado dentro de um <code>Checkbox</code> ou <code>RadioButton</code>, que cuida do clique.</td></tr>
+<tr><td><code>Selected</code></td><td><code>True</code> · <code>False</code></td><td><code>active</code></td><td>✅</td><td><code>Selection</code> + <code>Selected</code> = fundo claro com borda e texto na cor da marca. <code>Action</code> + <code>Selected</code> = fundo sólido na cor do botão primário (indica a página ou seção atual); em <code>Theme context</code> <code>Brand</code> ou <code>Negative</code>, volta ao fundo claro.</td></tr>
+<tr><td><code>Small</code></td><td><code>True</code> · <code>False</code></td><td><code>small</code></td><td>✅</td><td>Altura mínima de 32px (<code>True</code>) ou 40px (<code>False</code>), igual nos dois.</td></tr>
+<tr><td><code>Icon</code> + <code>Choose icon</code></td><td><code>True</code> · <code>False</code> + ícone</td><td><code>Icon</code></td><td>✅</td><td>No código, o ícone é passado diretamente; sem ícone, a prop fica vazia. Tamanho de 20px nos dois.</td></tr>
+<tr><td><code>Badge</code></td><td><code>True</code> · <code>False</code></td><td><code>badge</code></td><td>⚠️</td><td>No Figma é só ligado/desligado. No código, <code>badge={true}</code> mostra um ponto e um número mostra o valor (acima de 9, <code>+9</code>). Informe no handoff qual dos dois usar.</td></tr>
+<tr><td><code>Closable</code></td><td><code>True</code> · <code>False</code></td><td><code>onClose</code></td><td>✅</td><td>O chip ganha o botão ✕.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code> · <code>Alternative</code></td><td>sem prop</td><td>⚠️</td><td>No código não é uma prop: o chip muda de cor sozinho conforme o <strong>fundo onde está</strong>. No Figma, escolha o <code>Theme context</code> igual ao fundo da tela. O código também tem o fundo <code>Media</code> (sobre imagens), que não existe no Figma e usa as mesmas cores do <code>Brand</code>.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Pode usar Chips em carousel no mobile (ex.: escolher data de vencimento)? <strong>Resposta:</strong> Essa evolução foi definida com Pesquisa e Evolução e liberada para as jornadas de e-commerce. Em outros contextos, valide com eles.</p>
+<p><sub>Ref. #234 · 04/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso usar no Chips [D] os mesmos paddings do Chips mobile, para dar mais respiro? <strong>Resposta:</strong> Não altere espaçamentos internos manualmente. Abra uma <strong>solicitação de melhoria</strong> para o ajuste ser feito na biblioteca oficial.</p>
+<p><sub>Ref. #267 · 04/2025</sub></p>
+<p><strong>Dúvida:</strong> No scroll horizontal de Chips, como deixar claro que há mais chips para rolar? <strong>Resposta:</strong> O componente já mostra uma "sobra" ou corta parte do último chip visível, o que indica que há mais conteúdo. Quanto menor a tela, mais rolagem.</p>
+<p><sub>Ref. #396 · 07/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso ter 15 Chips num carousel (datas de histórico)? <strong>Resposta:</strong> O recomendado é até 5 itens em carousel, mas não há limite técnico. Para datas, que é um comportamento conhecido, não há problema.</p>
+<p><sub>Ref. #874 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso usar Chip como Tab (ex.: "Receber" × "Retirar")? <strong>Resposta:</strong> <strong>Não</strong>: Chips não são usados para esse contexto. Use o componente <strong>Tabs</strong> ou siga o padrão de fluxo similar já existente no app. Fluxos iguais ou parecidos devem seguir o mesmo padrão.</p>
+<p><sub>Ref. #1169 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso trocar o ícone closeable do Chip por um chevron que abre um modal? Clicar no ícone de busca pode abrir o campo? <strong>Resposta:</strong> O Chip <strong>não permite trocar</strong> o ícone de closeable. Alternativas: usar o <strong>ícone no início</strong> do Chip ou um <strong>Button Secondary</strong> (visual parecido, mas menos de filtro). No fundo Alternative, o Chip não fica branco. Busca e ações são <strong>Icon Button</strong>; no tema Alternative, ficam na cor da marca, não brancos.</p>
+<p><sub>Ref. #1268 · 09/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

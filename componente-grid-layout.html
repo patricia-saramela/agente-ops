@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GridLayout · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-grid-layout">
+<h2>GridLayout</h2>
+<p class="cat">Layout</p>
+<h3>Resumo</h3>
+<p>Grade de 12 colunas da página, usada para dividir uma tela em uma ou duas colunas de conteúdo. Tem modelos prontos (<code>template</code>), como <code>'8+4'</code> (conteúdo principal e uma coluna lateral) ou <code>'8'</code> (uma coluna central mais estreita). No celular, e por padrão também no tablet, as colunas viram uma só e o conteúdo fica empilhado. Costuma ser usado dentro de um <code>ResponsiveLayout</code>, que dá as margens laterais da página.</p>
+<p>ℹ️ <strong>Tipo de layout:</strong> o Design System tem dois tipos de componentes de layout. Os <strong>orientados à página</strong> (<code>ResponsiveLayout</code> e <code>GridLayout</code>) montam a estrutura da tela: margens e colunas da página. Os <strong>orientados a componentes</strong> (<code>Grid</code> e <code>HorizontalScroll</code>) organizam um grupo de itens dentro dessa estrutura. O <code>GridLayout</code> é do primeiro tipo.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>GridLayout</h4><h5>Modelos</h5><table><thead><tr><th><code>template</code></th><th>Desktop</th><th>Uso comum</th></tr></thead><tbody>
+<tr><td><code>'6+6'</code></td><td>Duas colunas iguais (6 + 6)</td><td>Conteúdo dividido ao meio (ex.: texto e imagem)</td></tr>
+<tr><td><code>'8+4'</code></td><td>Principal de 8 colunas + lateral de 4</td><td>Conteúdo com uma coluna lateral (ex.: resumo do pedido)</td></tr>
+<tr><td><code>'7+5'</code></td><td>Principal de 7 colunas + lateral de 5</td><td>Como o <code>'8+4'</code>, mas com a coluna lateral mais larga</td></tr>
+<tr><td><code>'4+6'</code></td><td>Lateral de 4 + 1 vazia + principal de 6 + 1 vazia</td><td>Menu ou filtros à esquerda e conteúdo à direita</td></tr>
+<tr><td><code>'5+4'</code></td><td>1 vazia + 5 + 1 vazia + 4 + 1 vazia</td><td>Dois blocos centralizados, com respiro dos lados</td></tr>
+<tr><td><code>'3+9'</code></td><td>Lateral de 3 + principal de 9</td><td>Navegação lateral estreita e conteúdo largo</td></tr>
+<tr><td><code>'10'</code></td><td>Uma coluna de 10, centralizada (1 vazia de cada lado)</td><td>Conteúdo largo com respiro</td></tr>
+<tr><td><code>'8'</code></td><td>Uma coluna de 8, centralizada (2 vazias de cada lado)</td><td>Formulários e textos, mais fáceis de ler</td></tr>
+</tbody></table>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>template</code></td><td><code>'6+6' | '8+4' | '7+5' | '4+6' | '5+4' | '3+9' | '10' | '8'</code></td><td></td><td>🎨 Modelo de divisão da página (ver a tabela acima). Sem ele, o <code>children</code> vai direto para a grade de 12 colunas.¹</td></tr>
+<tr><td><code>collapseBreakpoint</code></td><td><code>'tablet' | 'mobile'</code></td><td><code>'tablet'</code></td><td>🎨 Até que tamanho de tela as colunas viram uma só: com <code>'tablet'</code>, no celular e no tablet; com <code>'mobile'</code>, só no celular (no tablet, mantém as 12 colunas).</td></tr>
+<tr><td><code>verticalSpace</code></td><td></td><td><code>0</code></td><td>🎨 Espaço vertical, em pixels, entre os blocos empilhados quando as colunas viram uma só. Não tem efeito com as colunas lado a lado.</td></tr>
+<tr><td><code>left</code> (obrigatória)</td><td></td><td></td><td>Conteúdo da coluna da esquerda. Só nos modelos de duas colunas (<code>'6+6'</code>, <code>'8+4'</code>, <code>'7+5'</code>, <code>'4+6'</code>, <code>'5+4'</code> e <code>'3+9'</code>).</td></tr>
+<tr><td><code>right</code> (obrigatória)</td><td></td><td></td><td>Conteúdo da coluna da direita. Só nos modelos de duas colunas.</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Conteúdo da coluna única (<code>'10'</code> e <code>'8'</code>) ou, sem <code>template</code>, os itens da grade.</td></tr>
+</tbody></table>
+<p>¹ ⚠️ <strong>Sem <code>template</code>:</strong> cada item do <code>children</code> ocupa <strong>uma</strong> das 12 colunas no desktop. Para montar colunas de outros tamanhos, prefira os modelos ou o <code>Grid</code>.</p>
+<p>² ℹ️ <strong>Conteúdo por modelo:</strong> nos modelos de duas colunas, use <code>left</code> e <code>right</code> (os dois são obrigatórios). Nos modelos <code>'10'</code> e <code>'8'</code>, e sem <code>template</code>, use <code>children</code>.</p>
+<p>ℹ️ <strong>Espaços:</strong> entre as colunas, 24px no desktop e 16px no tablet. As colunas vazias dos modelos <code>'4+6'</code>, <code>'5+4'</code>, <code>'10'</code> e <code>'8'</code> só existem com as colunas lado a lado; empilhado, o conteúdo ocupa a largura toda.</p>
+<p>ℹ️ <strong>Ordem empilhada:</strong> quando as colunas viram uma só, o <code>left</code> fica em cima e o <code>right</code> embaixo.</p>
+<p>ℹ️ <strong>Figma:</strong> o <code>GridLayout</code> não existe como componente no Figma. No design, o equivalente é a <strong>layout grid</strong> de 12 colunas aplicada ao frame da tela: o conteúdo é encaixado nas colunas, com 24px entre elas no desktop e 16px no tablet. No handoff, diga o modelo usado (ex.: <code>8+4</code>) e se, no tablet, as colunas ficam lado a lado ou empilhadas.</p>
+<p>ℹ️ <strong>Frames de referência no Figma:</strong> a página <strong>Layouts</strong> do biblioteca Desktop tem frames com a layout grid de cada modelo, em cinco tamanhos de tela (Mobile, Tablet 768px, Desktop 1024px, Large Desktop 1512px e Extra Large Desktop 1832px): 12 colunas, <code>4 + 6</code>, <code>5 + 4</code> (marcado como "Funnel usage"), <code>8 + 4</code>, <code>3 + 9</code> e <code>6 + 6</code>. Os modelos <code>'10'</code> e <code>'8'</code> não têm frame. O frame de celular se chama "Mobile &lt;576px", mas no código o celular vai até 767px (ver Tamanhos de tela).</p>
+<p>ℹ️ <strong>Carrossel na coluna:</strong> dentro do <code>GridLayout</code>, o <code>Carousel</code> mostra, no desktop, 1 item por página nas colunas pequenas (até 5 colunas), 2 nas médias (6 a 9) e 3 nas grandes (10 ou mais), a menos que o <code>itemsPerPage</code> diga outra coisa.</p>
+<h5>Diferença entre GridLayout e Grid</h5><table><thead><tr><th></th><th><code>GridLayout</code></th><th><code>Grid</code></th></tr></thead><tbody>
+<tr><td><strong>Tipo de layout</strong></td><td>Orientado à página (como o <code>ResponsiveLayout</code>)</td><td>Orientado a componentes (como o <code>HorizontalScroll</code>)</td></tr>
+<tr><td><strong>Para que serve</strong></td><td>Dividir a <strong>página</strong> em uma ou duas colunas</td><td>Organizar <strong>itens</strong> em linhas e colunas (ex.: uma vitrine)</td></tr>
+<tr><td><strong>Colunas</strong></td><td>Sempre 12, com modelos prontos (<code>template</code>)</td><td>Livres: de 1 a 12 colunas, ou colunas automáticas por tamanho</td></tr>
+<tr><td><strong>No celular</strong></td><td>As colunas viram uma só, sozinhas</td><td>Mantém as colunas definidas (ou se ajustam, com colunas automáticas)</td></tr>
+<tr><td><strong>Espaço entre colunas</strong></td><td>Fixo: 24px no desktop e 16px no tablet</td><td>Escolhido com o <code>gap</code></td></tr>
+<tr><td><strong>Quando usar</strong></td><td>Estrutura da tela</td><td>Listas e grupos de conteúdo dentro da tela</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes diferentes:</strong> os dois montam grades, mas para fins diferentes, e as props não se parecem. Cada um tem seu próprio arquivo. É comum usar um <code>Grid</code> dentro de uma coluna do <code>GridLayout</code>.</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

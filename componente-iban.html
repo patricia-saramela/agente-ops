@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IBAN Field · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-iban">
+<h2>IBAN Field</h2>
+<p class="cat">Campos de formulário</p>
+<h3>Resumo</h3>
+<p>Campo para o usuário digitar um IBAN, o número internacional de conta bancária (ex.: <code>ES79 2100 0813 6101 2345 6789</code>). Enquanto o usuário digita, o campo coloca as letras em maiúsculas e separa o número em grupos de 4. Ao validar, confere se o IBAN é válido: se não for, mostra "IBAN incorreto". Tem o mesmo visual do TextField e funciona sozinho ou dentro de um <code>Form</code>.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>IbanField</h4><ul>
+<li>⚠️ <strong>Mensagem de erro:</strong> o código já mostra "IBAN incorreto" quando o IBAN não é válido. Se precisar de outro texto, ou de outras regras (ex.: só contas de um país), informe as regras e as mensagens.
+</li>
+<li>⚠️ <strong>Campo opcional:</strong> hoje, um campo de IBAN opcional deixado em branco mostra "IBAN incorreto" e não deixa enviar o formulário. Se o IBAN for opcional na tela, avise no handoff para o time de desenvolvimento tratar o caso.
+</li>
+<li>⚠️ <strong>Formato:</strong> use no design o IBAN em maiúsculas e em grupos de 4 (ex.: <code>ES79 2100 0813 6101 2345 6789</code>), que é como o código mostra.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o rótulo, o texto de ajuda, o <code>Error</code>, o <code>Disabled</code> e o <code>Read only</code> do design. O <code>name</code> é sempre <code>"iban-field"</code>, e o <code>Prefix</code> <strong>não aparece</strong> no trecho, mesmo ligado no design: informe o prefixo no handoff.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Campo opcional vazio</td><td>Não existe (o Figma não tem opcional)</td><td>Mostra "IBAN incorreto" ao perder o foco e não deixa enviar o formulário. ⚠️ Diferente.</td></tr>
+<tr><td>IBAN com letras minúsculas ou sem espaços</td><td>Dá para escrever no texto</td><td>Não existe: as letras viram maiúsculas e os espaços entram sozinhos. ⚠️ Diferente.</td></tr>
+<tr><td>IBAN maior que o do país</td><td>Dá para escrever no texto</td><td>Não existe: o campo não deixa digitar além do tamanho do IBAN do país (ou 32 caracteres). ⚠️ Diferente.</td></tr>
+<tr><td>Campo desabilitado com foco (<code>Disabled=True</code>, <code>State=Focused</code>)</td><td>Existe no Desktop</td><td>Não existe: campo desabilitado não recebe foco. ⚠️ Diferente.</td></tr>
+<tr><td>Largura do campo no desktop</td><td>496px</td><td>328px, ou a largura toda com <code>fullWidth</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Versão menor do campo</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>IbanField</h4><h5>Quando usar</h5><ul>
+<li><strong>Use o <code>IbanField</code></strong> quando o campo recebe um IBAN (ex.: conta para débito automático ou reembolso em países que usam IBAN).
+</li>
+<li><strong>Use o <code>TextField</code></strong> para dados bancários sem IBAN, como agência e conta no Brasil.
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo (ex.: "IBAN").</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado por quem usa o campo (atualize-o no <code>onChange</code> ou no <code>onChangeValue</code>).¹</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho. Dentro de um <code>Form</code>, sem ele, usa o <code>initialValues</code>.</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada a cada mudança. <code>value</code> é o IBAN sem espaços (<code>ES7921000813610123456789</code>) e <code>rawValue</code> é o texto como está no campo (<code>ES79 2100 0813 6101 2345 6789</code>).¹</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Validação extra, que roda depois da validação do IBAN: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo (ex.: só IBANs da Espanha).²</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo. Sem ela, o campo é obrigatório dentro de um <code>Form</code>.³</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo, mesmo com <code>optional</code>.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo fica cinza claro.</td></tr>
+<tr><td><code>prefix</code></td><td></td><td></td><td>Texto antes do valor, na cor secundária. Aparece quando o campo tem foco ou valor.</td></tr>
+<tr><td><code>placeholder</code></td><td></td><td></td><td>Texto de exemplo dentro do campo, que aparece quando o campo tem foco e está vazio (ex.: <code>"ES00 0000 0000 0000 0000 0000"</code>).</td></tr>
+<tr><td><code>maxLength</code></td><td>número</td><td></td><td>Limite extra de caracteres, contando os espaços. Não é preciso: o campo já limita o tamanho sozinho.⁴</td></tr>
+<tr><td><code>getSuggestions</code></td><td></td><td></td><td>Mostra uma lista de sugestões enquanto o usuário digita (ex.: IBANs já usados). Só funciona com <code>value</code> e sem <code>defaultValue</code>.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>autoComplete</code></td><td></td><td></td><td>Tipo de preenchimento automático do navegador.</td></tr>
+<tr><td><code>preventCopy</code></td><td>sim/não</td><td>configuração do tema</td><td>Impede copiar e recortar o texto do campo.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Formato:</strong> o campo aceita só letras e algarismos. As letras viram maiúsculas, e a cada 4 caracteres entra um espaço. O valor guardado (no <code>value</code> do <code>onChangeValue</code> e no <code>onSubmit</code> do <code>Form</code>) não tem espaços: <code>ES7921000813610123456789</code>. O texto com espaços fica no <code>rawValue</code>.</p>
+<p>² ℹ️ <strong>Validação do IBAN:</strong> dentro de um <code>Form</code>, o campo confere o código do país (2 letras), os 2 dígitos de controle, o tamanho (para Espanha, Reino Unido, Alemanha e Brasil) e a conta de verificação do IBAN. Se algo estiver errado, mostra "IBAN incorreto" (o texto vem do tema e muda com o idioma). O <code>validate</code> só roda quando o IBAN é válido.</p>
+<p>³ ⚠️ <strong>Campo opcional vazio:</strong> a validação do IBAN roda mesmo com o campo vazio. Então, um <code>IbanField</code> com <code>optional</code> que o usuário deixa em branco mostra "IBAN incorreto" ao perder o foco e não deixa enviar o <code>Form</code>. Hoje não há prop para mudar isso.</p>
+<p>⁴ ℹ️ <strong>Tamanho máximo:</strong> o campo não deixa digitar além do tamanho do IBAN do país: 24 caracteres na Espanha, 22 no Reino Unido e na Alemanha e 29 no Brasil, sem contar os espaços. Para os outros países, o limite é 32, o maior IBAN que existe.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>IbanField</h4><p><strong>Figma:</strong> biblioteca Desktop › IBAN Field [D] · biblioteca Mobile › IBAN Field</p>
+<p>ℹ️ No Figma, o IBAN Field tem o mesmo desenho do Text Field, com um IBAN de exemplo já separado em grupos de 4. O que faz dele um campo de IBAN (maiúsculas e espaços automáticos, limite de tamanho e a mensagem "IBAN incorreto") só existe no código.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td><code>State=Focused</code> com <code>Disabled=True</code></td><td>Existe</td><td>Não existe</td><td>Só o Desktop tem um campo desabilitado com foco, que não acontece no código (campo desabilitado não recebe foco)</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td></td></tr>
+<tr><td>Valor (camada <code>Text value</code>)</td><td>texto livre</td><td><code>value</code> / <code>defaultValue</code></td><td>✅</td><td>No código, as letras viram maiúsculas e o espaço a cada 4 caracteres entra sozinho, como no exemplo do Figma.</td></tr>
+<tr><td><code>Prefix</code> + camada <code>Prefix</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>prefix</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td>No código, o erro também aparece sozinho dentro de um <code>Form</code>: "IBAN incorreto" quando o IBAN não é válido, campo obrigatório vazio ou regra do <code>validate</code>.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td></td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Inactive</code> = vazio e sem foco, <code>Focused</code> = com foco, <code>Activated</code> = preenchido e sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o campo tem sempre fundo branco; só o texto de ajuda muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text Link · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-text-link">
+<h2>Text Link</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Link dentro de um texto, como "Leia os [termos de uso]" ou "Esqueceu a senha? [Recuperar]". Fica na cor de link, com sublinhado, e usa o tamanho e o peso do texto em volta. Para um link sozinho, fora de um texto, prefira o ButtonLink.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>TextLink</h4><ul>
+<li>⚠️ <strong>Tamanho:</strong> o link sempre tem o tamanho do texto em volta. Desenhe o link com as mesmas variáveis do parágrafo onde ele está, e não com o <code>text2</code> do componente, se o parágrafo for de outro tamanho.
+</li>
+<li>⚠️ <strong>Sublinhado no celular:</strong> com <code>Underline=onHover</code>, o link aparece no celular só com a cor, sem sublinhado. Prefira <code>Always</code>, para o link ser reconhecido também por quem não distingue cores.
+</li>
+<li>⚠️ <strong>Destino:</strong> diga para onde o link leva e se abre em nova aba.
+</li>
+<li>⚠️ <strong>Link sozinho:</strong> para um link fora de um texto (ex.: "Ver todos"), use o <code>ButtonLink</code>, e não o Text Link.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código mostra o <code>underline</code>, o <code>disabled</code> e o texto do design, sempre com <code>onPress={() =&gt; {}}</code> como ação. Troque pela ação real.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Link em outro tamanho de texto</td><td>Só trocando as variáveis da camada à mão</td><td>Existe: segue o texto em volta. ⚠️ Diferente.</td></tr>
+<tr><td><code>onHover</code> no celular</td><td>Mostra o link sem sublinhado</td><td>Igual: sem mouse, o link fica sem sublinhado. ✅ Igual.</td></tr>
+<tr><td>Link desabilitado com sublinhado</td><td>Não existe</td><td>Não existe: desabilitado, o sublinhado some. ✅ Igual.</td></tr>
+<tr><td>Link sobre fundo <code>Media</code></td><td>Não existe</td><td>Existe, com a cor de link para fundos de imagem. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>TextLink</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>underline</code></td><td><code>'always' | 'on hover'</code></td><td><code>'always'</code></td><td>🎨 Sublinhado sempre visível (<code>'always'</code>; ao passar o mouse, a linha fica mais grossa) ou só ao passar o mouse (<code>'on hover'</code>).¹</td></tr>
+<tr><td><code>onPress</code> (obrigatória)</td><td></td><td></td><td>Função executada no clique.</td></tr>
+<tr><td><code>href</code> (obrigatória)</td><td></td><td></td><td>Link para uma URL.</td></tr>
+<tr><td><code>to</code> (obrigatória)</td><td></td><td></td><td>Navegação interna, pelo router da aplicação.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Texto do link.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o link: fica esmaecido, sem sublinhado e não responde ao clique. Dentro de um <code>Form</code>, também fica desabilitado enquanto o formulário é enviado.</td></tr>
+<tr><td><code>newTab</code></td><td>sim/não</td><td></td><td>Abre o link em uma nova aba. Só funciona com <code>href</code> ou <code>to</code>.</td></tr>
+<tr><td><code>loadOnTop</code></td><td>sim/não</td><td></td><td>Abre o link na janela principal. Só funciona com <code>href</code>.</td></tr>
+<tr><td><code>fullPageOnWebView</code></td><td>sim/não</td><td></td><td>Dentro do app nativo (webview), navega recarregando a página inteira. Só funciona com <code>to</code>.</td></tr>
+<tr><td><code>replace</code></td><td>sim/não</td><td></td><td>Substitui a página atual no histórico em vez de criar uma nova entrada. Só funciona com <code>to</code>.</td></tr>
+<tr><td><code>onNavigate</code></td><td></td><td></td><td>Chamada ao navegar. Só funciona com <code>href</code> ou <code>to</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Sublinhado:</strong> em telas sem mouse (celular), o <code>'on hover'</code> deixa o link <strong>sem sublinhado</strong>, só com a cor. Para o link ser reconhecido também por quem não distingue cores, prefira <code>'always'</code>.</p>
+<p>² ℹ️ <strong>Ação:</strong> use uma, e só uma, entre <code>onPress</code>, <code>href</code> e <code>to</code>. Sem nenhuma, dá erro de TypeScript. O <code>TextLink</code> não aceita <code>submit</code> nem <code>fake</code>. Com <code>onPress</code>, o leitor de tela anuncia o link como botão.</p>
+<p>ℹ️ <strong>Tamanho e cor:</strong> o link não tem tamanho próprio: usa o tamanho, a altura da linha e o peso do texto em volta (coloque-o dentro de um <code>Text1</code>…<code>Text10</code>). A cor é a de link do tema e muda sozinha conforme o fundo (<code>brand</code>, <code>negative</code>, <code>media</code>). Palavras longas quebram para não passar da largura.</p>
+<p>ℹ️ <strong>Clique:</strong> o clique no link não se propaga para os elementos pais (ex.: um card clicável em volta).</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>TextLink</h4><p><strong>Figma:</strong> biblioteca Desktop › Text Link [D] · biblioteca Mobile › Text Link</p>
+<p>ℹ️ No Figma, o Text Link é uma camada de texto solta, com o estilo <code>text2</code> (16px no Desktop, 14px no Mobile). No código, o <code>TextLink</code> fica dentro de um texto e usa o tamanho dele.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Valor <code>Hover</code> em <code>State</code></td><td><code>Default</code> · <code>Hover</code> · <code>Disabled</code></td><td><code>Default</code> · <code>Disabled</code></td><td>Só no Desktop, porque no celular não há mouse</td></tr>
+<tr><td>Nome da camada de texto</td><td><code>Action</code></td><td><code>Link</code></td><td>Só o nome da camada</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Texto (camada <code>Action</code>)</td><td>texto livre</td><td><code>children</code></td><td>✅</td><td></td></tr>
+<tr><td><code>State</code></td><td><code>Default</code> · <code>Hover</code> · <code>Disabled</code></td><td><code>disabled</code></td><td>✅</td><td><code>Disabled</code> = <code>disabled</code>. O <code>Hover</code> não é prop: no código, aparece sozinho ao passar o mouse.</td></tr>
+<tr><td><code>Underline</code></td><td><code>Always</code> · <code>onHover</code></td><td><code>underline</code></td><td>✅</td><td><code>onHover</code> = <code>'on hover'</code>.</td></tr>
+<tr><td>Tamanho do texto</td><td><code>text2</code> fixo (16px no Desktop, 14px no Mobile)</td><td>sem prop</td><td>⚠️</td><td>No código, o link usa o tamanho, a altura da linha e o peso do texto em volta. Um link num <code>Text3</code> fica no tamanho do <code>Text3</code>.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, a cor muda sozinha conforme o fundo onde o link está.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

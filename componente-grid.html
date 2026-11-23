@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grid / GridItem · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-grid">
+<h2>Grid / GridItem</h2>
+<p class="cat">Layout</p>
+<h3>Resumo</h3>
+<p>Grade para organizar conteúdos em linhas e colunas, com espaço entre eles (ex.: uma vitrine de produtos, uma galeria de fotos, um painel com cartões de tamanhos diferentes).</p>
+<ul>
+<li><strong><code>Grid</code></strong>: a grade. Define as colunas e as linhas, o espaço entre elas e o alinhamento dos itens.
+</li>
+<li><strong><code>GridItem</code></strong>: um item da grade, quando ele precisa ocupar mais de uma célula, começar numa posição específica ou ter um alinhamento próprio. Itens simples não precisam de <code>GridItem</code>: qualquer conteúdo dentro do <code>Grid</code> já ocupa uma célula.
+</li></ul>
+<p>ℹ️ <strong>Tipo de layout:</strong> o Design System tem dois tipos de componentes de layout. Os <strong>orientados à página</strong> (<code>ResponsiveLayout</code> e <code>GridLayout</code>) montam a estrutura da tela: margens e colunas da página. Os <strong>orientados a componentes</strong> (<code>Grid</code> e <code>HorizontalScroll</code>) organizam um grupo de itens dentro dessa estrutura. O <code>Grid</code> é do segundo tipo.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Grid / GridItem</h4><h5>Propriedades</h5><h6>Grid</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>columns</code></td><td></td><td></td><td>🎨 Colunas da grade: um número fixo de colunas iguais, ou um tamanho mínimo e máximo para as colunas se repetirem até preencher a largura.¹</td></tr>
+<tr><td><code>rows</code></td><td></td><td></td><td>🎨 Linhas da grade, do mesmo jeito que as <code>columns</code>.¹</td></tr>
+<tr><td><code>gap</code></td><td></td><td><code>0</code></td><td>🎨 Espaço entre os itens, em pixels: <code>0</code>, <code>2</code>, <code>4</code>, <code>8</code>, <code>12</code>, <code>16</code>, <code>24</code>, <code>32</code>, <code>40</code>, <code>48</code>, <code>56</code>, <code>64</code>, <code>72</code> ou <code>80</code>. Pode mudar por tamanho de tela e ser diferente entre colunas e linhas.²</td></tr>
+<tr><td><code>flow</code></td><td><code>'row' | 'column' | 'row dense' | 'column dense'</code></td><td></td><td>🎨 Ordem em que os itens preenchem a grade: linha por linha (<code>'row'</code>) ou coluna por coluna (<code>'column'</code>). Com <code>dense</code>, os itens menores preenchem os buracos deixados pelos maiores.</td></tr>
+<tr><td><code>justifyItems</code></td><td><code>'start' | 'end' | 'center' | 'stretch'</code></td><td></td><td>🎨 Alinhamento horizontal de cada item dentro da sua célula.</td></tr>
+<tr><td><code>alignItems</code></td><td><code>'start' | 'end' | 'center' | 'stretch' | 'baseline'</code></td><td></td><td>🎨 Alinhamento vertical de cada item dentro da sua célula.</td></tr>
+<tr><td><code>justifyContent</code></td><td><code>'start' | 'end' | 'center' | 'stretch' | 'space-around' | 'space-between' | 'space-evenly'</code></td><td></td><td>🎨 Alinhamento horizontal da grade inteira, quando ela é mais estreita que o espaço.</td></tr>
+<tr><td><code>alignContent</code></td><td><code>'start' | 'end' | 'center' | 'stretch' | 'space-around' | 'space-between' | 'space-evenly'</code></td><td></td><td>🎨 Alinhamento vertical da grade inteira, quando ela é mais baixa que o espaço.</td></tr>
+<tr><td><code>height</code></td><td></td><td></td><td>🎨 Altura da grade.</td></tr>
+<tr><td><code>minHeight</code></td><td></td><td></td><td>🎨 Altura mínima da grade.</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Itens da grade.</td></tr>
+<tr><td><code>as</code></td><td></td><td><code>'div'</code></td><td>Elemento usado na grade (ex.: <code>'ul'</code> para uma lista).³</td></tr>
+</tbody></table>
+<h6>GridItem</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>columnSpan</code></td><td><code>1</code> a <code>12</code> | <code>'full'</code></td><td></td><td>🎨 Quantas colunas o item ocupa. Com <code>'full'</code>, ocupa todas.</td></tr>
+<tr><td><code>rowSpan</code></td><td><code>1</code> a <code>12</code> | <code>'full'</code></td><td></td><td>🎨 Quantas linhas o item ocupa. Com <code>'full'</code>, ocupa todas.</td></tr>
+<tr><td><code>span</code></td><td></td><td></td><td>🎨 Atalho para <code>columnSpan</code> e <code>rowSpan</code> juntos: um valor para os dois, ou <code>[colunas, linhas]</code>. Tem prioridade sobre eles.</td></tr>
+<tr><td><code>columnStart</code></td><td></td><td></td><td>🎨 Coluna onde o item começa.</td></tr>
+<tr><td><code>rowStart</code></td><td></td><td></td><td>🎨 Linha onde o item começa.</td></tr>
+<tr><td><code>justifySelf</code></td><td><code>'start' | 'end' | 'center' | 'stretch'</code></td><td></td><td>🎨 Alinhamento horizontal deste item, no lugar do <code>justifyItems</code> da grade.</td></tr>
+<tr><td><code>alignSelf</code></td><td><code>'start' | 'end' | 'center' | 'stretch' | 'baseline'</code></td><td></td><td>🎨 Alinhamento vertical deste item, no lugar do <code>alignItems</code> da grade.</td></tr>
+<tr><td><code>order</code></td><td>número</td><td></td><td>🎨 Muda a posição do item na grade, sem mudar a ordem no código.⁴</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Conteúdo do item.</td></tr>
+<tr><td><code>as</code></td><td></td><td><code>'div'</code></td><td>Elemento usado no item (ex.: <code>'li'</code> dentro de um <code>Grid</code> com <code>as="ul"</code>).</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Colunas automáticas:</strong> com <code>columns={{minSize: 160}}</code>, a grade cria quantas colunas de pelo menos 160px couberem na largura, e elas dividem o espaço que sobra. Em telas menores que o <code>minSize</code>, a coluna ocupa a largura toda. O <code>maxSize</code> limita o tamanho máximo (padrão: dividir o espaço igualmente). Sem <code>columns</code>, a grade tem uma coluna só.</p>
+<p>² ℹ️ <strong>Espaço por tamanho de tela:</strong> <code>gap={{mobile: 8, desktop: 24}}</code> usa 8px no celular e 24px no desktop; sem <code>tablet</code>, o tablet usa o valor do celular. <code>gap={[16, 24]}</code> usa 16px entre as colunas e 24px entre as linhas.</p>
+<p>³ ℹ️ <strong>Lista:</strong> para uma lista de itens (ex.: produtos), use <code>as="ul"</code> no <code>Grid</code> e <code>as="li"</code> em cada <code>GridItem</code>. O <code>role="list"</code> entra sozinho, para o leitor de tela anunciar a quantidade de itens também no Safari.</p>
+<p>⁴ ⚠️ <strong>Ordem:</strong> o <code>order</code> muda só a posição na tela. O leitor de tela e o teclado seguem a ordem do código, então use com cuidado para não confundir a navegação.</p>
+<p>ℹ️ <strong>Figma:</strong> o <code>Grid</code> não existe no Figma. No design, o mesmo resultado é feito com o <strong>auto layout</strong> do frame: a direção e a quebra de linha (<code>Wrap</code>) organizam os itens em linhas e colunas, e o espaçamento do auto layout equivale ao <code>gap</code>. Para colunas fixas, use as <strong>layout grids</strong> do frame. No handoff, diga o número de colunas (ou o tamanho mínimo de cada uma), o espaço entre os itens em cada tamanho de tela e quais itens ocupam mais de uma célula.</p>
+<p>ℹ️ <strong>Sem <code>testid</code> padrão:</strong> diferente da maioria dos componentes, o <code>Grid</code> e o <code>GridItem</code> não têm <code>testid</code> padrão.</p>
+<h5>Diferença entre GridLayout e Grid</h5><table><thead><tr><th></th><th><code>GridLayout</code></th><th><code>Grid</code></th></tr></thead><tbody>
+<tr><td><strong>Tipo de layout</strong></td><td>Orientado à página (como o <code>ResponsiveLayout</code>)</td><td>Orientado a componentes (como o <code>HorizontalScroll</code>)</td></tr>
+<tr><td><strong>Para que serve</strong></td><td>Dividir a <strong>página</strong> em uma ou duas colunas</td><td>Organizar <strong>itens</strong> em linhas e colunas (ex.: uma vitrine)</td></tr>
+<tr><td><strong>Colunas</strong></td><td>Sempre 12, com modelos prontos (<code>template</code>)</td><td>Livres: de 1 a 12 colunas, ou colunas automáticas por tamanho</td></tr>
+<tr><td><strong>No celular</strong></td><td>As colunas viram uma só, sozinhas</td><td>Mantém as colunas definidas (ou se ajustam, com colunas automáticas)</td></tr>
+<tr><td><strong>Espaço entre colunas</strong></td><td>Fixo: 24px no desktop e 16px no tablet</td><td>Escolhido com o <code>gap</code></td></tr>
+<tr><td><strong>Quando usar</strong></td><td>Estrutura da tela</td><td>Listas e grupos de conteúdo dentro da tela</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes diferentes:</strong> os dois montam grades, mas para fins diferentes, e as props não se parecem. Cada um tem seu próprio arquivo. É comum usar um <code>Grid</code> dentro de uma coluna do <code>GridLayout</code>.</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

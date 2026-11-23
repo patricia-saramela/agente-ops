@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loading Screen · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-loading-screen">
+<h2>Loading Screen</h2>
+<p class="cat">Padrões de tela</p>
+<h3>Resumo</h3>
+<h4>LoadingScreen</h4>
+<p>Tela de carregamento: ocupa no mínimo a altura toda da tela, com um indicador de carregamento (spinner) no centro e, embaixo dele, um título e uma descrição (ex.: "Estamos preparando sua fatura"). Os textos podem se alternar enquanto o carregamento demora (<code>texts</code>). Quando o carregamento termina (<code>isLoading={false}</code>), o fundo some com um efeito suave e o <code>onClose</code> é chamado. Também aceita um conteúdo próprio no lugar do spinner (ex.: uma ilustração).</p>
+<h4>BrandLoadingScreen</h4>
+<p>Tela de carregamento com a <strong>animação da marca</strong>: nas skins da marca, a animação do mascote da marca; nas outras, o logo da marca pulsando. Ocupa no mínimo a altura toda da tela, com um título e uma descrição embaixo da animação, que entram e saem com animação. Quando o carregamento termina (<code>isLoading={false}</code>), a animação da marca e os textos se encerram e o <code>onClose</code> é chamado. Serve para a abertura do app ou para momentos de marca.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>BrandLoadingScreen</h4><ul>
+<li>⚠️ <strong>Sem Code Connect:</strong> o Dev Mode não mostra o código do <code>BrandLoadingScreen</code>. Informe o título, a descrição e, se houver, a lista de textos que se alternam.
+</li>
+<li>⚠️ <strong>Logo animado:</strong> o logo parado do Figma vira, no código, a animação da marca (o mascote da marca, na skin padrão). Não é preciso desenhar a animação.
+</li>
+<li>⚠️ <strong>Fundo:</strong> o <code>Theme variant</code> do Figma não tem efeito no código: o fundo é sempre o que a marca define. Na skin padrão, é a cor da marca (<code>inverse</code> no Figma).
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Animação da marca (mascote da marca ou logo pulsando)</td><td>Não existe: logo parado</td><td>Existe, sempre. ⚠️ Diferente.</td></tr>
+<tr><td>Fundo diferente do definido pela marca</td><td>Existe (<code>Theme variant</code>)</td><td>Não existe: o fundo é sempre o do tema. ⚠️ Diferente.</td></tr>
+<tr><td>Textos que se alternam, com animação</td><td>Não existe</td><td>Existe, com <code>texts</code>. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>LoadingScreen</h4><ul>
+<li>⚠️ <strong>Fundo:</strong> diga se a tela usa o fundo padrão ou o da marca (<code>Theme context=inverse</code> no Figma, <code>variant="brand"</code> no código).
+</li>
+<li>⚠️ <strong>Textos que se alternam:</strong> se o carregamento pode demorar, informe a lista de títulos e descrições e quanto tempo cada um fica na tela.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o <code>Title</code> e o <code>Description</code> (com os textos do design), mas <strong>não leva o <code>Theme context</code></strong>: com <code>inverse</code>, informe no handoff que é <code>variant="brand"</code>.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Textos que se alternam</td><td>Não existe</td><td>Existe, com <code>texts</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Conteúdo próprio no lugar do spinner (ex.: uma ilustração)</td><td>Não existe</td><td>Existe, com <code>children</code>: os textos descem e o conteúdo fica no meio. ⚠️ Diferente.</td></tr>
+<tr><td>Saída da tela</td><td>Não existe</td><td>O fundo some suavemente quando o carregamento termina. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>LoadingScreen</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>variant</code></td><td><code>'default' | 'brand'</code></td><td><code>'default'</code></td><td>🎨 Fundo da tela: o fundo padrão ou a cor da marca. Os componentes de dentro usam as cores certas para o fundo.</td></tr>
+<tr><td><code>title</code></td><td></td><td></td><td>Título embaixo do spinner, centralizado. Não pode ser usado junto com <code>texts</code>.¹</td></tr>
+<tr><td><code>description</code></td><td></td><td></td><td>Texto embaixo do título, na cor secundária. Não pode ser usado junto com <code>texts</code>.¹</td></tr>
+<tr><td><code>texts</code></td><td></td><td></td><td>Lista de títulos e descrições que se alternam, cada um por <code>duration</code> milissegundos (padrão: 5000). Depois do último, volta ao primeiro.¹</td></tr>
+<tr><td><code>isLoading</code></td><td>sim/não</td><td><code>true</code></td><td>Indica que ainda está carregando. Com <code>false</code>, o fundo some com um efeito suave (0,5 s) e, ao terminar, o <code>onClose</code> é chamado.</td></tr>
+<tr><td><code>onClose</code></td><td></td><td></td><td>Chamada quando a tela termina de sumir, depois do <code>isLoading={false}</code>. Use para tirar a tela de carregamento e mostrar o conteúdo.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Conteúdo próprio no lugar do spinner (ex.: uma ilustração animada).²</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Textos:</strong> use <strong>ou</strong> <code>title</code> e <code>description</code>, <strong>ou</strong> a lista <code>texts</code>. Na lista, os textos trocam sem animação no <code>LoadingScreen</code> (a troca animada é do <code>BrandLoadingScreen</code>). O título é um <code>h1</code>: a tela de carregamento é o conteúdo principal enquanto aparece.</p>
+<p>² ℹ️ <strong>Conteúdo próprio:</strong> sem <code>children</code>, o spinner (32px) e os textos ficam centralizados na tela. Com <code>children</code>, o conteúdo ocupa o meio da tela e os textos ficam mais abaixo, com 104px de espaço até o fim da tela.</p>
+<p>³ ⚠️ <strong>Sem <code>testid</code> padrão:</strong> o <code>LoadingScreen</code> ainda marca a tela com o atributo antigo <code>data-component-name="LoadingScreen"</code>, que foi descontinuado no Design System e trocado por <code>data-testid</code>. Para testes, passe o <code>testid</code> no <code>dataAttributes</code>.</p>
+<p>ℹ️ <strong>Entrada:</strong> a tela aparece com o fundo surgindo suavemente (0,5 s).</p>
+<p>ℹ️ <strong>Rolagem além do topo:</strong> com <code>variant="brand"</code>, a área que aparece ao puxar a página além do topo (no celular) também fica com a cor da marca.</p>
+<h5>Diferença entre LoadingScreen e BrandLoadingScreen</h5><table><thead><tr><th></th><th><code>LoadingScreen</code></th><th><code>BrandLoadingScreen</code></th></tr></thead><tbody>
+<tr><td><strong>Animação</strong></td><td>Spinner (ou conteúdo próprio, com <code>children</code>)</td><td>Animação da marca: o logo pulsando ou, nas skins da marca, a animação do mascote da marca</td></tr>
+<tr><td><strong>Fundo</strong></td><td>Escolhido com <code>variant</code> (<code>'default'</code> ou <code>'brand'</code>)</td><td>Definido pelo tema da marca (na skin padrão, a cor da marca)</td></tr>
+<tr><td><strong>Troca de textos</strong></td><td>Sem animação</td><td>Com animação de entrada e saída</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>variant</code>, <code>children</code></td><td></td></tr>
+<tr><td><strong>Quando usar</strong></td><td>Carregamentos dentro do app (ex.: buscar dados de uma tela)</td><td>Abertura do app ou momentos de marca</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes irmãos:</strong> os dois têm a mesma base e os mesmos textos, mas animação e fundo diferentes. Cada um tem seu próprio arquivo.</p>
+<h4>BrandLoadingScreen</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>title</code></td><td></td><td></td><td>Título embaixo da animação, centralizado. Não pode ser usado junto com <code>texts</code>.¹</td></tr>
+<tr><td><code>description</code></td><td></td><td></td><td>Texto embaixo do título, na cor secundária. Não pode ser usado junto com <code>texts</code>.¹</td></tr>
+<tr><td><code>texts</code></td><td></td><td></td><td>Lista de títulos e descrições que se alternam, cada um por <code>duration</code> milissegundos (padrão: 5000), com animação de entrada e saída. Depois do último, volta ao primeiro.¹</td></tr>
+<tr><td><code>isLoading</code></td><td>sim/não</td><td><code>true</code></td><td>Indica que ainda está carregando. Com <code>false</code>, a animação da marca se encerra, os textos saem com animação e, ao fim dos dois, o <code>onClose</code> é chamado.²</td></tr>
+<tr><td><code>onClose</code></td><td></td><td></td><td>Chamada quando a animação da marca e os textos terminam de sair. Use para tirar a tela de carregamento e mostrar o conteúdo.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Textos:</strong> use <strong>ou</strong> <code>title</code> e <code>description</code>, <strong>ou</strong> a lista <code>texts</code>. O título é um <code>h1</code>: a tela de carregamento é o conteúdo principal enquanto aparece.</p>
+<p>² ℹ️ <strong>Fim da animação:</strong> o encerramento espera a animação da marca terminar (o logo pulsando termina o pulso que está tocando), então a tela pode ficar mais um pouco depois do <code>isLoading={false}</code>.</p>
+<p>ℹ️ <strong>Fundo:</strong> o fundo é definido pelo tema da marca (<code>brandLoadingScreen</code> no tema). Na skin padrão e na skin Evolution, é a cor da marca.</p>
+<p>ℹ️ <strong>Logo pulsando:</strong> nas marcas sem animação própria, o logo tem 128px. Para o leitor de tela, a animação é anunciada como "Carregando" (o texto vem do tema e muda com o idioma).</p>
+<p>ℹ️ <strong>Animação do Mascote da marca:</strong> nas skins da marca, a animação é carregada à parte, só quando a tela aparece, para não pesar no resto do app.</p>
+<h5>Diferença entre LoadingScreen e BrandLoadingScreen</h5><table><thead><tr><th></th><th><code>LoadingScreen</code></th><th><code>BrandLoadingScreen</code></th></tr></thead><tbody>
+<tr><td><strong>Animação</strong></td><td>Spinner (ou conteúdo próprio, com <code>children</code>)</td><td>Animação da marca: o logo pulsando ou, nas skins da marca, a animação do mascote da marca</td></tr>
+<tr><td><strong>Fundo</strong></td><td>Escolhido com <code>variant</code> (<code>'default'</code> ou <code>'brand'</code>)</td><td>Definido pelo tema da marca (na skin padrão, a cor da marca)</td></tr>
+<tr><td><strong>Troca de textos</strong></td><td>Sem animação</td><td>Com animação de entrada e saída</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>variant</code>, <code>children</code></td><td></td></tr>
+<tr><td><strong>Quando usar</strong></td><td>Carregamentos dentro do app (ex.: buscar dados de uma tela)</td><td>Abertura do app ou momentos de marca</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes irmãos:</strong> os dois têm a mesma base e os mesmos textos, mas animação e fundo diferentes. Cada um tem seu próprio arquivo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>BrandLoadingScreen</h4><p><strong>Figma:</strong> biblioteca Desktop › Brand Loading Screen [D] · biblioteca Mobile › Brand Loading Screen</p>
+<p>ℹ️ No Figma, o Brand Loading Screen é uma tela inteira com o logo da marca e o título e a descrição embaixo. As propriedades ficam numa instância exposta (<code>.resources/Brand Loading Screen</code>). O logo é <strong>parado</strong> e de outra marca por padrão: troque pelo logo da marca.</p>
+<p>ℹ️ O Brand Loading Screen <strong>não tem Code Connect</strong> no Desktop nem no Mobile: o Dev Mode não mostra o trecho de código do <code>BrandLoadingScreen</code>.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Title</code> + camada <code>Title</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Description</code> + camada <code>Description</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>description</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Content</code></td><td><code>True</code> · <code>False</code></td><td><code>title</code> e <code>description</code></td><td>✅</td><td>Sem <code>Content</code>, só o logo.</td></tr>
+<tr><td>Logo da marca</td><td>parado (de outra marca por padrão: troque pelo da marca)</td><td>sem prop</td><td>⚠️</td><td>No código, o logo é <strong>animado</strong> e vem da marca do tema: nas skins da marca, a animação do mascote da marca; nas outras, o logo pulsando.</td></tr>
+<tr><td><code>Theme variant</code></td><td><code>inverse</code> · <code>default</code></td><td>sem prop</td><td>⚠️</td><td>No código, o fundo vem do tema da marca (<code>brandLoadingScreen</code>): na skin padrão e na skin Evolution, a cor da marca. Não dá para escolher em cada tela.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>LoadingScreen</h4><p><strong>Figma:</strong> biblioteca Desktop › Loading Screen [D] · biblioteca Mobile › Loading Screen</p>
+<p>ℹ️ No Figma, o Loading Screen é uma tela inteira com o spinner no centro e o título e a descrição embaixo. No Mobile, o frame também tem a barra de status do iOS, só como referência.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Title</code> + camada <code>Title</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Description</code> + camada <code>Description</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>description</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Content</code></td><td><code>True</code> · <code>False</code></td><td><code>title</code> e <code>description</code></td><td>✅</td><td>Sem <code>Content</code>, só o spinner: no código, sem <code>title</code> e sem <code>description</code>.</td></tr>
+<tr><td>Spinner</td><td>fixo</td><td>sem prop</td><td>✅</td><td>Fixo nos dois.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>default</code> · <code>inverse</code></td><td><code>variant</code></td><td>⚠️</td><td>O valor <code>inverse</code> do Figma é o <code>variant="brand"</code> do código: <code>inverse</code> é o nome antigo, descontinuado no Design System.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Existe componente de tela de carregamento (spinner) para evitar divergências entre jornadas? <strong>Resposta:</strong> Sim, o <strong>Loading Screen</strong> existe no Design System, inclusive na versão desktop.</p>
+<p><sub>Ref. #28 · 06/2024</sub></p>
+<hr>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

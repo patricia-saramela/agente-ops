@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text Field · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-text-field">
+<h2>Text Field</h2>
+<p class="cat">Campos de formulário</p>
+<h3>Resumo</h3>
+<h4>TextField</h4>
+<p>Campo de texto com rótulo (<code>label</code>) que sobe para o topo do campo ao digitar, texto de ajuda e mensagem de erro embaixo. Funciona sozinho ou dentro de um <code>Form</code>, que guarda o valor pelo <code>name</code> e valida ao enviar. Também tem versão de várias linhas (<code>multiline</code>), sugestões enquanto o usuário digita (<code>getSuggestions</code>) e versão menor (<code>small</code>). Para campos com formato próprio (e-mail, telefone, senha, data…), use o campo específico do Design System.</p>
+<h4>TextFieldBase</h4>
+<blockquote><p>⚠️ <strong>O <code>TextFieldBase</code> não é um componente de interface e não deve ser usado em telas.</strong> Ele é uma peça interna de desenvolvimento, usada só para <strong>criar um tipo de campo novo</strong> que o Design System não tem. Não existe no Figma e não aparece no design. Numa tela, use sempre o TextField ou o campo específico do tipo de dado (<code>EmailField</code>, <code>PasswordField</code>, <code>PhoneNumberField</code>, <code>DateField</code> etc.; ver a tabela em "Quando usar cada um").</p></blockquote>
+<p>Base visual de todos os campos de texto do Design System (<code>TextField</code>, <code>EmailField</code>, <code>PasswordField</code>, <code>DateField</code> etc.): a caixa com borda, o rótulo que sobe, o texto de ajuda e a mensagem de erro. Sozinho, não se liga ao <code>Form</code>: para criar um campo próprio que funcione com o formulário, use junto com o hook <code>useFieldProps</code> (ver hooks do Form). Para um campo de texto comum, use o TextField.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>TextField</h4><ul>
+<li>⚠️ <strong>Tipo de dado:</strong> use o componente do tipo de dado certo (Email Field, Phone Field, Date Field etc.). Se nenhum servir e o Text Field for usado, diga que dado o campo recebe.
+</li>
+<li>⚠️ <strong>Obrigatório ou opcional:</strong> diga quais campos são opcionais. No código, eles mostram "(opcional)" depois do rótulo, o que o componente do Figma não mostra.
+</li>
+<li>⚠️ <strong>Largura no desktop:</strong> o componente do Figma tem 496px, mas no código o campo tem 328px, a menos que ocupe a largura toda (<code>fullWidth</code>). Diga qual dos dois usar.
+</li>
+<li>⚠️ <strong>Erros:</strong> informe as regras de validação e o texto de cada mensagem de erro. Campo obrigatório vazio mostra "Este campo é obrigatório".
+</li>
+<li>⚠️ <strong>Estados:</strong> não precisa indicar <code>Inactive</code>, <code>Focused</code> ou <code>Activated</code>: no código, o estado muda sozinho conforme o usuário interage.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o rótulo, o texto de ajuda, o <code>Error</code>, o <code>Disabled</code>, o <code>Read only</code>, o <code>Multiline</code> e o <code>End icon</code> do design. O <code>name</code> é sempre <code>"text-field"</code> e o <code>Prefix</code> não aparece.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Campo desabilitado com foco (<code>Disabled=True</code>, <code>State=Focused</code>)</td><td>Existe no Desktop</td><td>Não existe: campo desabilitado não recebe foco. ⚠️ Diferente.</td></tr>
+<tr><td>Largura do campo no desktop</td><td>496px</td><td>328px, ou a largura toda com <code>fullWidth</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Versão menor do campo</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+<tr><td>"(opcional)" depois do rótulo</td><td>Não existe no componente</td><td>Aparece sozinho com <code>optional</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Ícone à esquerda</td><td>Não existe</td><td>Não existe no <code>TextField</code> (só no <code>TextFieldBase</code>, com <code>startIcon</code>). ✅ Igual.</td></tr>
+<tr><td>Lista de sugestões enquanto digita</td><td>Não existe no Text Field (existe o componente <strong>Autocomplete</strong>)</td><td>Existe no <code>TextField</code> (<code>getSuggestions</code>). ⚠️ Diferente.</td></tr>
+<tr><td>Placeholder (texto de exemplo)</td><td>Não existe</td><td>Aparece só com o campo em foco e vazio (<code>placeholder</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>TextField</h4><h5>Quando usar cada um</h5><p><strong>Use o <code>TextField</code> quando:</strong></p>
+<ul>
+<li>O campo recebe um texto livre, sem formato próprio: nome, endereço, complemento, número do pedido, uma mensagem (com <code>multiline</code>).
+</li>
+<li>O campo precisa sugerir opções enquanto o usuário digita (com <code>getSuggestions</code>).
+</li></ul>
+<p><strong>Use um campo específico do Design System, e não o <code>TextField</code>, quando o dado tem formato próprio.</strong> Ele já traz o teclado certo, a máscara e a validação:</p>
+<table><thead><tr><th>Dado</th><th>Campo</th></tr></thead><tbody>
+<tr><td>E-mail</td><td><code>EmailField</code></td></tr>
+<tr><td>Senha</td><td><code>PasswordField</code></td></tr>
+<tr><td>Telefone</td><td><code>PhoneNumberField</code> ou <code>PhoneNumberFieldLite</code></td></tr>
+<tr><td>Número inteiro ou decimal (ex.: quantidade, valor)</td><td><code>IntegerField</code> ou <code>DecimalField</code></td></tr>
+<tr><td>Data, mês, hora</td><td><code>DateField</code>, <code>MonthField</code>, <code>TimeField</code> ou <code>DateTimeField</code></td></tr>
+<tr><td>Busca</td><td><code>SearchField</code></td></tr>
+<tr><td>Cartão de crédito</td><td><code>CreditCardNumberField</code>, <code>CreditCardExpirationField</code> e <code>CvvField</code> (ou <code>CreditCardFields</code>)</td></tr>
+<tr><td>Código de verificação (ex.: SMS)</td><td><code>PinField</code></td></tr>
+<tr><td>Lista de opções</td><td><code>Select</code></td></tr>
+</tbody></table>
+<p><strong>⚠️ Nunca use o <code>TextFieldBase</code> numa tela.</strong> Ele não é um componente de interface, e sim uma peça de desenvolvimento:</p>
+<ul>
+<li>Serve só quando nenhum dos campos acima atende e é preciso <strong>criar um tipo de campo novo</strong>, com um comportamento que o Design System não tem (ex.: um campo de CEP com máscara própria). O <code>TextFieldBase</code> dá a aparência; o hook <code>useFieldProps</code> liga o campo ao <code>Form</code>.
+</li>
+<li>Quem desenvolve cria o campo novo uma vez, a partir do <code>TextFieldBase</code>, e é <strong>esse campo novo</strong> que vai para as telas.
+</li></ul>
+<p>ℹ️ <strong>Para quem desenha:</strong> na tela, o <code>TextField</code> e o <code>TextFieldBase</code> são iguais. No Figma, a página <strong>Input fields</strong> tem um componente para cada campo específico (Text Field, Email Field, Password Field, Phone Field etc.), mas não tem o <code>TextFieldBase</code>: ele é só uma peça do desenvolvimento. Use no design o componente do tipo de dado certo e, quando nenhum servir, use o Text Field e diga no handoff <strong>que dado o campo recebe</strong> (ex.: "CEP", "valor em reais").</p>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo. Fica dentro do campo e sobe para o topo, menor, quando o campo tem foco ou valor.</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado por quem usa o campo (atualize-o no <code>onChange</code>).</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho. Dentro de um <code>Form</code>, sem ele, usa o <code>initialValues</code>.</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento.</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada a cada mudança, com o texto digitado.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro: texto de ajuda em vermelho com um ícone de alerta, e rótulo em vermelho quando está no topo.¹</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo. Sem ela, o campo é obrigatório dentro de um <code>Form</code>.</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo, mesmo com <code>optional</code>.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Valida o valor dentro de um <code>Form</code>: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo.¹</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo (fica esmaecido). Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura: dá para selecionar o texto, mas não editar. O fundo fica cinza claro.</td></tr>
+<tr><td><code>multiline</code></td><td>sim/não</td><td><code>false</code></td><td>Campo de várias linhas (<code>textarea</code>), com 152px de altura e rolagem.²</td></tr>
+<tr><td><code>maxLength</code></td><td>número</td><td></td><td>Número máximo de caracteres. Não deixa digitar além disso e corta um <code>value</code> maior.²</td></tr>
+<tr><td><code>placeholder</code></td><td></td><td></td><td>Texto de exemplo dentro do campo, que aparece quando o campo tem foco e está vazio.</td></tr>
+<tr><td><code>prefix</code></td><td></td><td></td><td>Texto antes do valor, na cor secundária (ex.: <code>"R$"</code>). Aparece quando o campo tem foco ou valor.</td></tr>
+<tr><td><code>endIcon</code></td><td></td><td></td><td>Elemento à direita, dentro do campo (ex.: um ícone ou um <code>IconButton</code>).</td></tr>
+<tr><td><code>getSuggestions</code></td><td></td><td></td><td>Mostra uma lista de sugestões enquanto o usuário digita, a partir do texto digitado.³</td></tr>
+<tr><td><code>onPress</code></td><td></td><td></td><td>Chamada ao clicar no campo.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>autoComplete</code></td><td><code>'on' | 'off' | 'name' | 'email' | 'tel' | 'postal-code' | …</code></td><td></td><td>Tipo de preenchimento automático do navegador (ex.: <code>'name'</code> para nome completo, <code>'postal-code'</code> para CEP).</td></tr>
+<tr><td><code>inputMode</code></td><td><code>'text' | 'numeric' | 'decimal' | 'tel' | 'email' | 'url' | 'search' | 'none'</code></td><td></td><td>Teclado que aparece no celular (ex.: <code>'numeric'</code> para só números).</td></tr>
+<tr><td><code>preventCopy</code></td><td>sim/não</td><td>configuração do tema</td><td>Impede copiar e recortar o texto do campo.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Erro:</strong> o erro aparece de dois jeitos. Com <code>error</code>, o visual de erro é forçado por quem usa o campo. Dentro de um <code>Form</code>, o próprio formulário mostra o erro quando o campo obrigatório está vazio ("Este campo é obrigatório") ou quando o <code>validate</code> devolve uma mensagem. A mensagem aparece no lugar do <code>helperText</code> e é anunciada pelo leitor de tela na hora.</p>
+<p>² ℹ️ <strong>Contador de caracteres:</strong> com <code>multiline</code> e <code>maxLength</code>, aparece embaixo, à direita, um contador como <code>12/200</code>. O leitor de tela lê "12 de 200 caracteres".</p>
+<p>³ ⚠️ <strong>Sugestões só no modo controlado:</strong> com <code>getSuggestions</code>, o campo precisa de <code>value</code> e não pode ter <code>defaultValue</code>. Sem isso, o componente dá erro e não aparece. A lista abre ao focar o campo e tem a largura do campo.</p>
+<p>ℹ️ <strong>Rótulo:</strong> o rótulo fica no lugar do valor quando o campo está vazio e sem foco. Com foco ou valor, sobe e diminui. Clicar em qualquer parte do campo (no rótulo ou no prefixo) coloca o foco no texto.</p>
+<p>ℹ️ <strong>Várias linhas:</strong> com <code>multiline</code>, o campo tem altura fixa. Ao receber o foco, o cursor vai para o fim do texto; ao perder o foco, a rolagem volta para o começo.</p>
+<p>ℹ️ <strong>Cores:</strong> o campo tem sempre as cores do fundo padrão (fundo branco com borda), mesmo sobre fundos <code>brand</code> ou <code>negative</code>.</p>
+<h5>Diferença entre TextField e TextFieldBase</h5><table><thead><tr><th></th><th><code>TextField</code></th><th><code>TextFieldBase</code></th></tr></thead><tbody>
+<tr><td><strong>Para que serve</strong></td><td>Campo de texto pronto para usar</td><td>Base visual de todos os campos de texto do Design System, para montar um campo próprio</td></tr>
+<tr><td><strong>Funciona com o <code>Form</code></strong></td><td>Sim, sozinho (valor, validação, erro e estado de envio)</td><td>Não: precisa do <code>useFieldProps</code> para funcionar com o <code>Form</code></td></tr>
+<tr><td><strong>Obrigatório</strong></td><td><code>name</code> e <code>label</code></td><td>Nada</td></tr>
+<tr><td><strong>"(opcional)" no rótulo</strong></td><td>Só com <code>optional</code></td><td><strong>Aparece sempre que não houver <code>required</code></strong></td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>onChangeValue</code>, <code>onPress</code>, <code>optional</code>, <code>validate</code>, <code>validateOnBlurInsideForm</code>, <code>getSuggestions</code></td><td><code>type</code>, <code>required</code>, <code>startIcon</code>, <code>endIconOverlay</code>, <code>endIconSpaceReserved</code>, <code>shrinkLabel</code>, <code>focus</code>, <code>inputComponent</code>, <code>inputProps</code>, <code>inputRef</code>, <code>fieldRef</code>, <code>pattern</code>, <code>min</code>, <code>max</code>, <code>style</code>, <code>onClick</code>, <code>onKeyDown</code>, <code>onInput</code></td></tr>
+<tr><td><strong>Quando usar</strong></td><td>Sempre que precisar de um campo de texto</td><td>Só para criar um campo que não existe no Design System</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes irmãos:</strong> o <code>TextField</code> é o <code>TextFieldBase</code> já ligado ao <code>Form</code> (com o <code>useFieldProps</code>) e com as sugestões. A aparência é a mesma. Cada um tem seu próprio arquivo.</p>
+<h4>TextFieldBase</h4><h5>Quando usar cada um</h5><p><strong>Use o <code>TextField</code> quando:</strong></p>
+<ul>
+<li>O campo recebe um texto livre, sem formato próprio: nome, endereço, complemento, número do pedido, uma mensagem (com <code>multiline</code>).
+</li>
+<li>O campo precisa sugerir opções enquanto o usuário digita (com <code>getSuggestions</code>).
+</li></ul>
+<p><strong>Use um campo específico do Design System, e não o <code>TextField</code>, quando o dado tem formato próprio.</strong> Ele já traz o teclado certo, a máscara e a validação:</p>
+<table><thead><tr><th>Dado</th><th>Campo</th></tr></thead><tbody>
+<tr><td>E-mail</td><td><code>EmailField</code></td></tr>
+<tr><td>Senha</td><td><code>PasswordField</code></td></tr>
+<tr><td>Telefone</td><td><code>PhoneNumberField</code> ou <code>PhoneNumberFieldLite</code></td></tr>
+<tr><td>Número inteiro ou decimal (ex.: quantidade, valor)</td><td><code>IntegerField</code> ou <code>DecimalField</code></td></tr>
+<tr><td>Data, mês, hora</td><td><code>DateField</code>, <code>MonthField</code>, <code>TimeField</code> ou <code>DateTimeField</code></td></tr>
+<tr><td>Busca</td><td><code>SearchField</code></td></tr>
+<tr><td>Cartão de crédito</td><td><code>CreditCardNumberField</code>, <code>CreditCardExpirationField</code> e <code>CvvField</code> (ou <code>CreditCardFields</code>)</td></tr>
+<tr><td>Código de verificação (ex.: SMS)</td><td><code>PinField</code></td></tr>
+<tr><td>Lista de opções</td><td><code>Select</code></td></tr>
+</tbody></table>
+<p><strong>⚠️ Nunca use o <code>TextFieldBase</code> numa tela.</strong> Ele não é um componente de interface, e sim uma peça de desenvolvimento:</p>
+<ul>
+<li>Serve só quando nenhum dos campos acima atende e é preciso <strong>criar um tipo de campo novo</strong>, com um comportamento que o Design System não tem (ex.: um campo de CEP com máscara própria). O <code>TextFieldBase</code> dá a aparência; o hook <code>useFieldProps</code> liga o campo ao <code>Form</code>.
+</li>
+<li>Quem desenvolve cria o campo novo uma vez, a partir do <code>TextFieldBase</code>, e é <strong>esse campo novo</strong> que vai para as telas.
+</li></ul>
+<p>ℹ️ <strong>Para quem desenha:</strong> na tela, o <code>TextField</code> e o <code>TextFieldBase</code> são iguais. No Figma, a página <strong>Input fields</strong> tem um componente para cada campo específico (Text Field, Email Field, Password Field, Phone Field etc.), mas não tem o <code>TextFieldBase</code>: ele é só uma peça do desenvolvimento. Use no design o componente do tipo de dado certo e, quando nenhum servir, use o Text Field e diga no handoff <strong>que dado o campo recebe</strong> (ex.: "CEP", "valor em reais").</p>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code></td><td></td><td></td><td>Rótulo do campo. Fica dentro do campo e sobe para o topo, menor, quando o campo tem foco ou valor.</td></tr>
+<tr><td><code>type</code></td><td></td><td></td><td>Tipo do campo de texto (ex.: <code>'text'</code>, <code>'email'</code>, <code>'password'</code>, <code>'date'</code>).</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado por quem usa o campo.</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho.</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro: texto de ajuda em vermelho com um ícone de alerta, e rótulo em vermelho quando está no topo.</td></tr>
+<tr><td><code>required</code></td><td>sim/não</td><td></td><td>Marca o campo como obrigatório para o leitor de tela.¹</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo.¹</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo (fica esmaecido).</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo fica cinza claro.</td></tr>
+<tr><td><code>multiline</code></td><td>sim/não</td><td><code>false</code></td><td>Campo de várias linhas (<code>textarea</code>), com 152px de altura.</td></tr>
+<tr><td><code>maxLength</code></td><td>número</td><td></td><td>Número máximo de caracteres. Com <code>multiline</code>, mostra o contador (ex.: <code>12/200</code>).</td></tr>
+<tr><td><code>placeholder</code></td><td></td><td></td><td>Texto de exemplo, que aparece quando o campo tem foco e está vazio.</td></tr>
+<tr><td><code>prefix</code></td><td></td><td></td><td>Texto antes do valor, na cor secundária (ex.: <code>"R$"</code>). Aparece quando o campo tem foco ou valor.</td></tr>
+<tr><td><code>startIcon</code></td><td></td><td></td><td>Ícone à esquerda, dentro do campo (ex.: uma lupa). O rótulo e o texto começam depois dele.</td></tr>
+<tr><td><code>endIcon</code></td><td></td><td></td><td>Elemento à direita, dentro do campo (ex.: um <code>IconButton</code>).</td></tr>
+<tr><td><code>endIconOverlay</code></td><td></td><td></td><td>Elemento por cima do lado direito do campo, sem tirar espaço do texto (o texto ganha espaço à direita para não ficar embaixo dele).</td></tr>
+<tr><td><code>endIconSpaceReserved</code></td><td>sim/não</td><td></td><td>Reserva o espaço do <code>endIcon</code> mesmo sem ícone (ex.: para o texto não mudar de lugar quando o ícone aparece).</td></tr>
+<tr><td><code>shrinkLabel</code></td><td>sim/não</td><td></td><td>Deixa o rótulo sempre no topo, mesmo com o campo vazio e sem foco.</td></tr>
+<tr><td><code>focus</code></td><td>sim/não</td><td></td><td>Força o visual de foco (ou de sem foco, com <code>false</code>), para campos que não recebem o foco de verdade, como uma lista.</td></tr>
+<tr><td><code>pattern</code></td><td></td><td></td><td>Padrão de texto aceito (atributo <code>pattern</code> do <code>&lt;input&gt;</code>).</td></tr>
+<tr><td><code>min</code></td><td></td><td></td><td>Valor mínimo (em campos de número ou data).</td></tr>
+<tr><td><code>max</code></td><td></td><td></td><td>Valor máximo (em campos de número ou data).</td></tr>
+<tr><td><code>inputMode</code></td><td></td><td></td><td>Teclado que aparece no celular (ex.: <code>'numeric'</code>).</td></tr>
+<tr><td><code>autoComplete</code></td><td><code>'on' | 'off' | 'name' | 'email' | 'tel' | 'postal-code' | …</code></td><td></td><td>Tipo de preenchimento automático do navegador.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>preventCopy</code></td><td>sim/não</td><td>configuração do tema</td><td>Impede copiar e recortar o texto do campo.</td></tr>
+<tr><td><code>onClick</code></td><td></td><td></td><td>Chamada ao clicar no campo de texto.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>onKeyDown</code></td><td></td><td></td><td>Chamada a cada tecla pressionada.</td></tr>
+<tr><td><code>onInput</code></td><td></td><td></td><td>Chamada a cada mudança no texto (evento <code>input</code>).</td></tr>
+<tr><td><code>inputComponent</code></td><td></td><td></td><td>Componente usado no lugar do <code>&lt;input&gt;</code> (ex.: um campo com máscara). Recebe o <code>inputRef</code>.</td></tr>
+<tr><td><code>inputProps</code></td><td></td><td></td><td>Atributos extras para o <code>&lt;input&gt;</code>.</td></tr>
+<tr><td><code>inputRef</code></td><td></td><td></td><td>Referência ao <code>&lt;input&gt;</code>. É o que o <code>useFieldProps</code> usa para ligar o campo ao <code>Form</code>.</td></tr>
+<tr><td><code>fieldRef</code></td><td></td><td></td><td>Referência à caixa do campo (a borda).</td></tr>
+</tbody></table>
+<p>¹ ⚠️ <strong>"(opcional)" aparece sozinho:</strong> sem <code>required</code>, o <code>TextFieldBase</code> mostra "(opcional)" depois do rótulo. Para um campo obrigatório, passe <code>required</code>; para um campo opcional sem o texto, passe <code>showOptionalLabel={false}</code>. Com o <code>useFieldProps</code>, o <code>required</code> já vem certo (obrigatório, a menos que o campo tenha <code>optional</code>).</p>
+<p>⚠️ <strong>Sugestões não funcionam aqui:</strong> o tipo aceita <code>getSuggestions</code>, <code>withSuggestionsEmptyCase</code> e <code>shouldShowSuggestions</code>, mas o <code>TextFieldBase</code> exportado não mostra a lista de sugestões. Para sugestões, use o <code>TextField</code>.</p>
+<p>ℹ️ <strong>Rótulo:</strong> o rótulo fica no lugar do valor quando o campo está vazio e sem foco. Com foco, com valor ou com <code>shrinkLabel</code>, sobe e diminui. Clicar em qualquer parte do campo coloca o foco no texto.</p>
+<p>ℹ️ <strong>Cores:</strong> o campo tem sempre as cores do fundo padrão (fundo branco com borda), mesmo sobre fundos <code>brand</code> ou <code>negative</code>.</p>
+<h5>Diferença entre TextField e TextFieldBase</h5><table><thead><tr><th></th><th><code>TextField</code></th><th><code>TextFieldBase</code></th></tr></thead><tbody>
+<tr><td><strong>Para que serve</strong></td><td>Campo de texto pronto para usar</td><td>Base visual de todos os campos de texto do Design System, para montar um campo próprio</td></tr>
+<tr><td><strong>Funciona com o <code>Form</code></strong></td><td>Sim, sozinho (valor, validação, erro e estado de envio)</td><td>Não: precisa do <code>useFieldProps</code> para funcionar com o <code>Form</code></td></tr>
+<tr><td><strong>Obrigatório</strong></td><td><code>name</code> e <code>label</code></td><td>Nada</td></tr>
+<tr><td><strong>"(opcional)" no rótulo</strong></td><td>Só com <code>optional</code></td><td><strong>Aparece sempre que não houver <code>required</code></strong></td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>onChangeValue</code>, <code>onPress</code>, <code>optional</code>, <code>validate</code>, <code>validateOnBlurInsideForm</code>, <code>getSuggestions</code></td><td><code>type</code>, <code>required</code>, <code>startIcon</code>, <code>endIconOverlay</code>, <code>endIconSpaceReserved</code>, <code>shrinkLabel</code>, <code>focus</code>, <code>inputComponent</code>, <code>inputProps</code>, <code>inputRef</code>, <code>fieldRef</code>, <code>pattern</code>, <code>min</code>, <code>max</code>, <code>style</code>, <code>onClick</code>, <code>onKeyDown</code>, <code>onInput</code></td></tr>
+<tr><td><strong>Quando usar</strong></td><td>Sempre que precisar de um campo de texto</td><td>Só para criar um campo que não existe no Design System</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes irmãos:</strong> o <code>TextField</code> é o <code>TextFieldBase</code> já ligado ao <code>Form</code> (com o <code>useFieldProps</code>) e com as sugestões. A aparência é a mesma. Cada um tem seu próprio arquivo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>TextField</h4><p><strong>Figma:</strong> biblioteca Desktop › Text Field [D] · biblioteca Mobile › Text Field</p>
+<p>ℹ️ A página <strong>Input fields</strong> tem um componente para cada tipo de campo (Email Field, Password Field, Phone Field, Date Field etc.). Cada um corresponde a um componente do código. Esta comparação cobre só o Text Field.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td><code>State=Focused</code> com <code>Disabled=True</code></td><td>Existe</td><td>Não existe</td><td>Só o Desktop tem um campo desabilitado com foco, que não acontece no código (campo desabilitado não recebe foco)</td></tr>
+<tr><td>Altura da caixa do campo</td><td>48px</td><td>56px</td><td>Muda o design, igual ao código: no celular, o campo é mais alto</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td></td></tr>
+<tr><td>Valor (camada <code>Text value</code>)</td><td>texto livre</td><td><code>value</code> / <code>defaultValue</code></td><td>✅</td><td>O texto que o usuário digitou.</td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td>Dentro de um <code>Form</code>, o erro também aparece sozinho (campo obrigatório vazio ou <code>validate</code>), com a mensagem no lugar do texto de ajuda.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Multiline</code></td><td><code>False</code> · <code>True</code></td><td><code>multiline</code></td><td>✅</td><td>152px de altura nos dois.</td></tr>
+<tr><td>Contador (camada <code>Character count</code>)</td><td>texto (ex.: <code>56/200</code>)</td><td><code>maxLength</code></td><td>✅</td><td>No código, o contador aparece sozinho com <code>multiline</code> e <code>maxLength</code>, e conta os caracteres digitados.</td></tr>
+<tr><td><code>Prefix</code></td><td><code>True</code> · <code>False</code></td><td><code>prefix</code></td><td>✅</td><td></td></tr>
+<tr><td><code>End icon</code> + <code>Choose icon</code></td><td><code>True</code> · <code>False</code> + ícone</td><td><code>endIcon</code></td><td>✅</td><td></td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Inactive</code> = vazio e sem foco, <code>Focused</code> = com foco (o usuário está digitando), <code>Activated</code> = preenchido e sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o campo tem sempre fundo branco; só o texto de ajuda embaixo muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Card (Cover, Data, Media, Naked) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-card">
+<h2>Card (Cover, Data, Media, Naked)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>Card (CoverCard / DataCard / MediaCard / NakedCard)</h4>
+<p>O Card é um único componente com quatro variações: <code>CoverCard</code>, <code>DataCard</code>, <code>MediaCard</code> e <code>NakedCard</code>. Elas são muito parecidas: no código, as quatro usam a mesma base interna e compartilham a maior parte das propriedades (textos, botões, rodapé, ações no topo, clique e seleção).</p>
+<p>Por isso, as propriedades <strong>iguais em todas as variações</strong> estão documentadas uma única vez, aqui. As <strong>particularidades</strong> de cada variação (props exclusivas e props comuns que se comportam de outro jeito) ficam na documentação específica:</p>
+<table><thead><tr><th>Variação</th><th>Quando usar</th><th>Aparência</th><th>Documentação</th></tr></thead><tbody>
+<tr><td><code>CoverCard</code></td><td>Para causar impacto visual e chamar a atenção para uma imagem ou um vídeo (ex.: campanhas, ofertas em destaque).</td><td>Imagem ou vídeo ocupando todo o fundo, com o texto por cima.</td><td>cover-card</td></tr>
+<tr><td><code>MediaCard</code></td><td>Para mostrar um conteúdo em destaque, sempre acompanhado de uma imagem.</td><td>Imagem ou vídeo num bloco separado (em cima, à esquerda ou à direita) e o texto ao lado ou abaixo.</td><td>media-card</td></tr>
+<tr><td><code>DataCard</code></td><td>Para mostrar informações relevantes sobre um produto ou serviço (ex.: um serviço contratado, uma fatura, o consumo).</td><td>Só texto e um ícone ou imagem pequena.</td><td>data-card</td></tr>
+<tr><td><code>NakedCard</code></td><td>Para um conteúdo que se integra ao resto da tela, com uma aparência mais leve e minimalista que a do <code>MediaCard</code>.</td><td>Igual ao <code>MediaCard</code>, mas sem fundo, borda e cantos arredondados.</td><td>naked-card</td></tr>
+</tbody></table>
+<p>O Card também tem um subcomponente, <strong>Card actions</strong> (objetos de <code>topActions</code> e <code>CardActionSpinner</code>), usado nas ações do canto superior direito (<code>topActions</code>). Ele está documentado em card-actions.</p>
+<h4>Card actions</h4>
+<p>Subcomponente do Card, usado nas ações do canto superior direito dos cards (<code>topActions</code>).</p>
+<ul>
+<li><strong>Objetos de <code>topActions</code></strong> (tipo <code>CardAction</code>): cada objeto vira um botão de ícone no canto do card. Pode ser um botão simples (<code>Icon</code> + <code>label</code>) ou um botão de alternância, com dois estados (<code>checkedProps</code> + <code>uncheckedProps</code>), como um "favoritar".
+</li>
+<li><strong><code>CardActionSpinner</code></strong>: ícone de carregamento do tamanho certo para ser usado como <code>Icon</code> de uma ação enquanto ela processa.
+</li></ul>
+<h4>CoverCard</h4>
+<p>Card com imagem ou vídeo <strong>ocupando todo o fundo</strong> e o texto por cima. O conteúdo fica alinhado na parte de baixo do card. Usado para destaques visuais, como campanhas e ofertas. Também pode ser usado só com uma cor de fundo (<code>backgroundColor</code>), sem imagem.</p>
+<p>As propriedades comuns a todos os cards (textos, botões, rodapé, <code>topActions</code>, clique e seleção) estão em card. Aqui ficam só as particularidades do <code>CoverCard</code>: as props que só ele tem e as props comuns que funcionam de outro jeito nele.</p>
+<h4>DataCard</h4>
+<p>Card só de texto, com um ícone ou imagem pequena opcional (<code>asset</code>) no topo. Usado para mostrar informações e dados resumidos (ex.: consumo do plano, uma fatura, um serviço) e levar o usuário a mais detalhes.</p>
+<p>As propriedades comuns a todos os cards (textos, botões, rodapé, <code>topActions</code>, clique e seleção) estão em card. Aqui ficam só as particularidades do <code>DataCard</code>: as props que só ele tem e as props comuns que funcionam de outro jeito nele.</p>
+<h4>MediaCard</h4>
+<p>Card com uma imagem ou um vídeo num bloco próprio (em cima, à esquerda ou à direita) e o texto abaixo ou ao lado. Usado para conteúdos em que a imagem ajuda a entender o assunto, como produtos, notícias e serviços.</p>
+<p>As propriedades comuns a todos os cards (textos, botões, rodapé, <code>topActions</code>, clique e seleção) estão em card. Aqui ficam só as particularidades do <code>MediaCard</code>: as props que só ele tem e as props comuns que funcionam de outro jeito nele.</p>
+<h4>NakedCard</h4>
+<p>Versão "sem moldura" do <code>MediaCard</code>: mostra imagem ou vídeo e texto, mas <strong>sem fundo, borda e cantos arredondados</strong> do card, e sem espaçamento lateral no texto. Usado quando o card precisa se misturar ao fundo da página, como em listas de conteúdos e carrosséis. A cor do texto acompanha a variante do fundo onde o card está.</p>
+<p>As propriedades comuns a todos os cards (textos, botões, rodapé, <code>topActions</code>, clique e seleção) estão em card. Aqui ficam só as particularidades do <code>NakedCard</code>: as props que só ele tem e as props comuns que funcionam de outro jeito nele.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>CoverCard</h4><ul>
+<li>⚠️ <strong>Card selecionável:</strong> o código permite um card que funciona como checkbox, switch ou radio, com o controle no canto e o contorno de selecionado. O Figma não tem essa opção; desenhe à parte e indique o tipo de seleção.
+</li>
+<li>⚠️ <strong>Card clicável com botões:</strong> no código, se o card inteiro for clicável e tiver botões, os botões vão para o rodapé automaticamente.
+</li>
+<li>⚠️ <strong>Proporção:</strong> o Figma só tem a proporção 7:10. Se o design usar outra (ex.: 1:1 ou 16:9), informe no handoff.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> quando <code>Actions</code> está desligado, o trecho de código que o Figma mostra no Dev Mode transforma o card em clicável (<code>onPress</code>). Indique no handoff se o card deve mesmo ser clicável.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> com <code>Variant=Negative</code>, o trecho de código que o Figma mostra no Dev Mode não traz o <code>variant</code>, e o card sai com a cor padrão. Confira o <code>variant</code> pela propriedade do Figma.
+</li>
+<li>⚠️ <strong>Dev Mode no Mobile:</strong> o trecho de código do Figma Mobile não traz os botões, mesmo com <code>Actions</code> ligado.
+</li>
+<li>⚠️ <strong>Cor de fundo:</strong> com <code>Custom color</code>, informe a cor no handoff; o trecho do Dev Mode usa uma cor de exemplo.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td><code>Footer=true</code> sem <code>Actions</code> e sem <code>Footer slot</code></td><td>Rodapé vazio</td><td>O rodapé não aparece. ⚠️</td></tr>
+<tr><td><code>Actions</code> desligado</td><td>Card sem botões</td><td>Card sem botões. Ser clicável ou não é outra decisão (<code>onPress</code>, <code>to</code> ou <code>href</code>). ✅</td></tr>
+</tbody></table>
+<h4>DataCard</h4><ul>
+<li>⚠️ <strong>Card selecionável:</strong> o código permite um card que funciona como checkbox, switch ou radio, com o controle no canto e o contorno de selecionado. O Figma não tem essa opção; desenhe à parte e indique o tipo de seleção.
+</li>
+<li>⚠️ <strong>Card clicável com botões:</strong> no código, se o card inteiro for clicável e tiver botões, os botões vão para o rodapé automaticamente.
+</li>
+<li>⚠️ <strong>Proporção:</strong> o Figma só tem a proporção 7:10. Se o design usar outra (ex.: 1:1 ou 16:9), informe no handoff.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> quando <code>Actions</code> está desligado, o trecho de código que o Figma mostra no Dev Mode transforma o card em clicável (<code>onPress</code>). Indique no handoff se o card deve mesmo ser clicável.
+</li>
+<li>⚠️ <strong>Tamanho <code>Display</code>:</strong> no código, com <code>Size=Display</code>, o conteúdo fica alinhado na parte de baixo do card.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> com <code>Variant=Negative</code>, o trecho de código que o Figma mostra no Dev Mode não traz o <code>variant</code>, e o card sai com a cor padrão. Confira o <code>variant</code> pela propriedade do Figma.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td><code>Footer=true</code> sem <code>Actions</code> e sem <code>Footer slot</code></td><td>Rodapé vazio</td><td>O rodapé não aparece. ⚠️</td></tr>
+<tr><td><code>Actions</code> desligado</td><td>Card sem botões</td><td>Card sem botões. Ser clicável ou não é outra decisão (<code>onPress</code>, <code>to</code> ou <code>href</code>). ✅</td></tr>
+</tbody></table>
+<h4>MediaCard</h4><ul>
+<li>⚠️ <strong>Card selecionável:</strong> o código permite um card que funciona como checkbox, switch ou radio, com o controle no canto e o contorno de selecionado. O Figma não tem essa opção; desenhe à parte e indique o tipo de seleção.
+</li>
+<li>⚠️ <strong>Card clicável com botões:</strong> no código, se o card inteiro for clicável e tiver botões, os botões vão para o rodapé automaticamente.
+</li>
+<li>⚠️ <strong>Proporção:</strong> o Figma só tem a proporção 7:10. Se o design usar outra (ex.: 1:1 ou 16:9), informe no handoff.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> quando <code>Actions</code> está desligado, o trecho de código que o Figma mostra no Dev Mode transforma o card em clicável (<code>onPress</code>). Indique no handoff se o card deve mesmo ser clicável.
+</li>
+<li>⚠️ <strong>Tamanho da mídia:</strong> com a mídia em cima, o tamanho vem da proporção (<code>mediaAspectRatio</code>); com a mídia ao lado, vem da largura (<code>mediaWidth</code>).
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código que o Figma mostra no Dev Mode sempre traz uma cor de fundo de exemplo (<code>backgroundColor="#FABADA"</code>) e não traz a imagem nem a posição da mídia. Com <code>Variant=Negative</code>, também não traz o <code>variant</code>. Confira essas propriedades no Figma.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td><code>Footer=true</code> sem <code>Actions</code> e sem <code>Footer slot</code></td><td>Rodapé vazio</td><td>O rodapé não aparece. ⚠️</td></tr>
+<tr><td><code>Actions</code> desligado</td><td>Card sem botões</td><td>Card sem botões. Ser clicável ou não é outra decisão (<code>onPress</code>, <code>to</code> ou <code>href</code>). ✅</td></tr>
+</tbody></table>
+<h4>NakedCard</h4><ul>
+<li>⚠️ <strong>Card selecionável:</strong> o código permite um card que funciona como checkbox, switch ou radio, com o controle no canto e o contorno de selecionado. O Figma não tem essa opção; desenhe à parte e indique o tipo de seleção.
+</li>
+<li>⚠️ <strong>Card clicável com botões:</strong> no código, se o card inteiro for clicável e tiver botões, os botões vão para o rodapé automaticamente.
+</li>
+<li>⚠️ <strong>Proporção:</strong> o Figma só tem a proporção 7:10. Se o design usar outra (ex.: 1:1 ou 16:9), informe no handoff.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> quando <code>Actions</code> está desligado, o trecho de código que o Figma mostra no Dev Mode transforma o card em clicável (<code>onPress</code>). Indique no handoff se o card deve mesmo ser clicável.
+</li>
+<li>⚠️ <strong>Sem fundo:</strong> o Naked Card não tem fundo, borda nem cantos arredondados, no Figma e no código. As cores vêm do fundo onde ele está (<code>Theme context</code>).
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código que o Figma mostra no Dev Mode não traz a imagem, a posição da mídia nem o <code>circledImage</code>. Confira essas propriedades no Figma.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td><code>Footer=true</code> sem <code>Actions</code> e sem <code>Footer slot</code></td><td>Rodapé vazio</td><td>O rodapé não aparece. ⚠️</td></tr>
+<tr><td><code>Actions</code> desligado</td><td>Card sem botões</td><td>Card sem botões. Ser clicável ou não é outra decisão (<code>onPress</code>, <code>to</code> ou <code>href</code>). ✅</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Card (CoverCard / DataCard / MediaCard / NakedCard)</h4><h5>Propriedades comuns</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>size</code></td><td><code>'snap' | 'default' | 'display'</code></td><td><code>'default'</code></td><td>🎨 Tamanho dos textos e espaçamentos internos. <code>'snap'</code> é o mais compacto e <code>'display'</code> o maior.</td></tr>
+<tr><td><code>width</code></td><td></td><td><code>'100%'</code></td><td>🎨 Largura do card.</td></tr>
+<tr><td><code>height</code></td><td></td><td><code>'100%'</code></td><td>🎨 Altura do card.</td></tr>
+<tr><td><code>aspectRatio</code></td><td><code>'1:1' | '16:9' | '7:10' | '9:10' | 'auto' | number</code></td><td></td><td>🎨 Proporção do card. É ignorada quando <code>width</code> e <code>height</code> são passados juntos.</td></tr>
+<tr><td><code>backgroundColor</code></td><td></td><td></td><td>🎨 Cor de fundo do card. Remove a borda padrão. O efeito muda conforme o tipo de card (ver a documentação específica).</td></tr>
+<tr><td><code>asset</code></td><td></td><td></td><td>🎨 Ícone ou imagem pequena. A posição muda conforme o tipo de card (ver a documentação específica). É decorativo (não é lido pelo leitor de tela).</td></tr>
+<tr><td><code>pretitleLinesMax</code></td><td>número</td><td></td><td>🎨 Número máximo de linhas do pré-título; o excedente é cortado com reticências.</td></tr>
+<tr><td><code>titleLinesMax</code></td><td>número</td><td></td><td>🎨 Número máximo de linhas do título.</td></tr>
+<tr><td><code>subtitleLinesMax</code></td><td>número</td><td></td><td>🎨 Número máximo de linhas do subtítulo.</td></tr>
+<tr><td><code>descriptionLinesMax</code></td><td>número</td><td></td><td>🎨 Número máximo de linhas da descrição.</td></tr>
+<tr><td><code>slotAlignment</code></td><td><code>'content' | 'bottom' | 'space-between'</code></td><td><code>'content'</code></td><td>🎨 Posição do <code>slot</code> quando o card é mais alto que o conteúdo (com <code>height</code>, <code>aspectRatio</code> ou esticado num grid): <code>'content'</code> deixa o slot logo abaixo dos textos (e empurra os botões para baixo); <code>'bottom'</code> leva o slot e os botões para a parte de baixo; <code>'space-between'</code> estica o slot e distribui os elementos filhos diretos dele: o primeiro logo abaixo dos textos e o último na base (com um único elemento, fica igual a <code>'content'</code>). Sem altura sobrando, as três opções ficam iguais. Não tem efeito em alguns tipos de card (ver a documentação específica).</td></tr>
+<tr><td><code>showFooter</code></td><td>sim/não</td><td></td><td>🎨 Mostra os botões e o <code>footerSlot</code> num rodapé separado. O rodapé só aparece se tiver botões ou <code>footerSlot</code>; sem eles, <code>showFooter</code> e as outras props <code>footer*</code> não têm efeito.¹</td></tr>
+<tr><td><code>footerDivider</code></td><td>sim/não</td><td></td><td>🎨 Linha divisória acima do rodapé. Só tem efeito quando o rodapé aparece. Sem a prop, a linha aparece se o rodapé não tiver cor de fundo própria; <code>false</code> remove a linha e <code>true</code> força a linha mesmo com cor de fundo.</td></tr>
+<tr><td><code>selected</code></td><td>sim/não</td><td></td><td>🎨 Mostra o contorno de selecionado. Funciona em cards estáticos e clicáveis.</td></tr>
+<tr><td><code>headline</code></td><td></td><td></td><td>Etiqueta acima do título. Um texto vira uma <code>Tag</code> do tipo <code>promo</code>; para outro tipo, passe a <code>Tag</code> pronta.</td></tr>
+<tr><td><code>pretitle</code></td><td></td><td></td><td>Texto pequeno acima do título.</td></tr>
+<tr><td><code>title</code></td><td></td><td></td><td>Título do card.</td></tr>
+<tr><td><code>subtitle</code></td><td></td><td></td><td>Texto abaixo do título.</td></tr>
+<tr><td><code>description</code></td><td></td><td></td><td>Texto de descrição, abaixo do subtítulo.</td></tr>
+<tr><td><code>slot</code></td><td></td><td></td><td>Conteúdo livre exibido abaixo dos textos (ex.: um <code>ProgressBar</code>).</td></tr>
+<tr><td><code>buttonPrimary</code></td><td></td><td></td><td>Botão de ação principal.¹</td></tr>
+<tr><td><code>buttonSecondary</code></td><td></td><td></td><td>Botão de ação secundária.¹</td></tr>
+<tr><td><code>buttonLink</code></td><td></td><td></td><td>Link de ação.¹</td></tr>
+<tr><td><code>footerSlot</code></td><td></td><td></td><td>Conteúdo livre do rodapé, acima dos botões. Só aparece com <code>showFooter</code>.</td></tr>
+<tr><td><code>topActions</code></td><td></td><td></td><td>Botões de ícone no canto superior direito. Ver card-actions.</td></tr>
+<tr><td><code>closeButtonLabel</code></td><td></td><td></td><td>♿ Rótulo do botão de fechar. Sem ele, usa o texto do tema ou a tradução padrão (<code>'Fechar'</code> em português).</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Botões:</strong> sem rodapé, os botões aparecem no corpo do card, abaixo do conteúdo. Eles vão para o rodapé quando <code>showFooter</code> é <code>true</code> <strong>ou</strong> quando o card é clicável ou selecionável.</p>
+<p>² ℹ️ <strong>Ordem de leitura:</strong> o título e o pré-título são lidos na ordem do nível de heading (ex.: <code>titleAs="h2"</code> e <code>pretitleAs="h3"</code> lê o título primeiro). Visualmente, o pré-título sempre fica acima do título.</p>
+<p>ℹ️ Os cards não aceitam <code>children</code>: o conteúdo vem das props.</p>
+<h6>Modos de interação</h6>
+<p>O card pode estar em um destes três modos, e só um por vez:</p>
+<ul>
+<li><strong>Estático</strong>: sem ação própria (o conteúdo ainda pode ter botões).
+</li>
+<li><strong>Clicável</strong>: o card inteiro é um link ou um botão (<code>onPress</code>, <code>to</code> ou <code>href</code>).
+</li>
+<li><strong>Selecionável</strong>: o card inteiro funciona como checkbox, switch ou radio (<code>checkbox</code>, <code>switch</code> ou <code>radioValue</code>).
+</li></ul>
+<h6>Card clicável</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>touchableAriaLabel</code></td><td></td><td></td><td>♿ Texto lido pelo leitor de tela para o card clicável. Sem ele, usa <code>aria-label</code> ou, se também não houver, junta os textos do card (título, pré-título, headline, subtítulo, descrição, <code>imageAlt</code> e o texto do <code>slot</code>).</td></tr>
+<tr><td><code>segregateTouchableContent</code></td><td>sim/não</td><td><code>false</code></td><td>♿ Em vez de o card inteiro ser anunciado como um único link/botão, só um texto vira o link para o leitor de tela: o título ou o pré-título (o de nível de heading mais alto); sem eles, headline, subtítulo ou descrição. O clique continua valendo para o card inteiro. Útil quando o card tem outros elementos interativos dentro.</td></tr>
+</tbody></table>
+<p>³ ℹ️ <strong>Ação:</strong> use uma, e só uma, entre <code>onPress</code>, <code>to</code> e <code>href</code>.</p>
+<p>ℹ️ Quando o card é clicável, as props <code>aria-label</code>, <code>aria-labelledby</code>, <code>aria-description</code> e <code>aria-describedby</code> passam para o elemento clicável em vez da <code>&lt;section&gt;</code>.</p>
+<h6>Card selecionável</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>checkbox</code> (obrigatória)</td><td></td><td></td><td>O card funciona como um checkbox. <code>value</code> + <code>onChange</code> para modo controlado, <code>defaultValue</code> para não controlado.</td></tr>
+<tr><td><code>switch</code> (obrigatória)</td><td></td><td></td><td>O card funciona como um switch. Mesmos campos do <code>checkbox</code>.</td></tr>
+<tr><td><code>radioValue</code> (obrigatória)</td><td></td><td></td><td>O card funciona como uma opção de radio, com este valor. Precisa estar dentro de um <code>RadioGroup</code>.</td></tr>
+</tbody></table>
+<p>⁴ ℹ️ <strong>Controle:</strong> use uma, e só uma, entre <code>checkbox</code>, <code>switch</code> e <code>radioValue</code>. O controle aparece no canto superior direito e o card mostra o contorno de selecionado quando está marcado.</p>
+<p>⚠️ No modo selecionável o card <strong>não aceita</strong> <code>topActions</code>, <code>onClose</code> nem <code>selected</code>, e um vídeo (<code>videoSrc</code>) não é exibido.</p>
+<h5>Diferença entre CoverCard, DataCard, MediaCard e NakedCard</h5><table><thead><tr><th>Aspecto</th><th><code>CoverCard</code></th><th><code>DataCard</code></th><th><code>MediaCard</code></th><th><code>NakedCard</code></th></tr></thead><tbody>
+<tr><td><strong>Quando usar</strong></td><td>Impacto visual, chamar a atenção para uma imagem ou um vídeo.</td><td>Informações relevantes de um produto ou serviço.</td><td>Conteúdo em destaque, sempre com uma imagem.</td><td>Conteúdo integrado à tela, com aparência leve e minimalista.</td></tr>
+<tr><td><strong>Aparência</strong></td><td>Imagem/vídeo no fundo do card inteiro, texto por cima.</td><td>Só texto e asset, sobre o fundo do card.</td><td>Imagem/vídeo num bloco separado (em cima, à esquerda ou à direita) e texto abaixo/ao lado.</td><td>Igual ao <code>MediaCard</code>, mas sem fundo, borda e arredondamento do card.</td></tr>
+<tr><td><strong>Imagem/vídeo</strong></td><td>Fundo (<code>imageSrc</code>, <code>videoSrc</code>)</td><td>Não tem</td><td>Bloco de mídia (<code>imageSrc</code>, <code>videoSrc</code>)</td><td>Bloco de mídia, que pode ser redondo (<code>circledImage</code>)</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>gradientOverlayColor</code>, <code>videoRef</code></td><td></td><td><code>mediaPosition</code>, <code>mediaWidth</code>, <code>mediaAspectRatio</code>, <code>imageFit</code></td><td>Mesmas do <code>MediaCard</code>, mais <code>circledImage</code>, e sem <code>variant</code>, <code>footerVariant</code> e <code>footerBackgroundColor</code></td></tr>
+<tr><td><strong><code>variant</code> padrão</strong></td><td><code>'media'</code> com imagem/vídeo/cor de fundo; senão <code>'default'</code></td><td><code>'default'</code></td><td><code>'default'</code></td><td>Herda a variante de onde está (não aceita a prop)</td></tr>
+<tr><td><strong>Conteúdo</strong></td><td>Alinhado embaixo</td><td>No topo; com <code>size="display"</code>, alinhado embaixo</td><td>No topo, abaixo ou ao lado da mídia</td><td>No topo, abaixo ou ao lado da mídia</td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os quatro usam a mesma base interna e compartilham a maior parte das props (textos, botões, rodapé, <code>topActions</code>, interação), mas cada um tem props e aparência próprias.</p>
+<h4>Card actions</h4><h5>Propriedades</h5><h6>Objetos de <code>topActions</code></h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>🎨 Desabilita o botão.</td></tr>
+<tr><td><code>Icon</code> (obrigatória)</td><td></td><td></td><td>Ícone do botão simples.</td></tr>
+<tr><td><code>checkedProps</code> (obrigatória)</td><td><code>{Icon; label; 'aria-description'?; 'aria-describedby'?; 'aria-current'?}</code></td><td></td><td>Ícone e rótulo do botão de alternância quando <strong>marcado</strong>. Nesse estado o botão tem fundo sólido.</td></tr>
+<tr><td><code>uncheckedProps</code> (obrigatória)</td><td><code>{Icon; label; 'aria-description'?; 'aria-describedby'?; 'aria-current'?}</code></td><td></td><td>Ícone e rótulo do botão de alternância quando <strong>desmarcado</strong>. Nesse estado o botão não tem fundo.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>♿ Texto lido pelo leitor de tela (o botão não tem texto visível).</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Tipo de botão:</strong> use <code>Icon</code> + <code>label</code> para um botão simples <strong>ou</strong> <code>checkedProps</code> + <code>uncheckedProps</code> para um botão de alternância. Não misture os dois.</p>
+<p>² ℹ️ <strong>Ação:</strong> no botão simples, use uma, e só uma, entre <code>onPress</code>, <code>to</code> e <code>href</code>.</p>
+<h6>CardActionSpinner</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>color</code></td><td></td><td></td><td>🎨 Cor do spinner. Quando usado como <code>Icon</code> de uma ação, a cor é passada pelo botão.</td></tr>
+</tbody></table>
+<p>ℹ️ O tamanho do <code>CardActionSpinner</code> é fixo (16px) e ele aparece sem atraso.</p>
+<p>ℹ️ Com <code>onClose</code>, o card adiciona sozinho um botão de fechar no fim das <code>topActions</code>. Com vídeo, adiciona o botão de play/pausa antes delas.</p>
+<h4>CoverCard</h4><h5>Quando usar</h5><p>Use o <code>CoverCard</code> para <strong>causar impacto visual</strong> e chamar a atenção para uma imagem ou um vídeo, como campanhas e ofertas em destaque. Para mostrar informações de um produto ou serviço, use o DataCard; para um conteúdo com imagem num bloco separado do texto, o MediaCard.</p>
+<h5>Propriedades específicas</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>variant</code></td><td><code>'default' | 'brand' | 'negative' | 'alternative' | 'media' | 'inverse'</code></td><td></td><td>🎨 Cores do card e do texto. Sem ela, usa <code>'media'</code> (texto claro) quando há imagem, vídeo ou <code>backgroundColor</code>, e <code>'default'</code> quando não há. <code>'inverse'</code> está depreciado e é tratado igual a <code>'brand'</code>.</td></tr>
+<tr><td><code>gradientOverlayColor</code></td><td><code>'transparent' | string</code></td><td></td><td>🎨 Cor do degradê aplicado sobre a imagem/vídeo para dar contraste ao texto. Sem ela, usa a cor do tema. <code>'transparent'</code> remove o degradê.</td></tr>
+<tr><td><code>footerBackgroundColor</code></td><td></td><td></td><td>🎨 Cor de fundo do rodapé. Só tem efeito quando o rodapé aparece. Com ela, a linha divisória do rodapé deixa de aparecer sozinha.</td></tr>
+<tr><td><code>footerVariant</code></td><td><code>'default' | 'brand' | 'inverse'</code></td><td></td><td>🎨 Variante de cor do rodapé. Só tem efeito quando o rodapé aparece e quando é diferente da <code>variant</code> do card; nesse caso, a linha divisória do rodapé deixa de aparecer sozinha.</td></tr>
+<tr><td><code>imageSrc</code></td><td></td><td></td><td>Imagem de fundo do card. Com <code>videoSrc</code>, vira a imagem exibida enquanto o vídeo carrega.</td></tr>
+<tr><td><code>imageSrcSet</code></td><td></td><td></td><td>Imagens de fundo em várias resoluções (atributo <code>srcset</code>).</td></tr>
+<tr><td><code>videoSrc</code></td><td></td><td></td><td>Vídeo de fundo. O card mostra automaticamente um botão de play/pausa. Não é exibido no modo selecionável.</td></tr>
+<tr><td><code>imageAlt</code></td><td></td><td><code>''</code></td><td>♿ Texto alternativo da imagem de fundo. Vazio, a imagem é tratada como decorativa.</td></tr>
+</tbody></table>
+<h5>Props comuns com comportamento próprio</h5><ul>
+<li><strong>Conteúdo:</strong> fica sempre alinhado na parte de baixo do card, com o <code>asset</code> no topo.
+</li>
+<li><strong><code>slotAlignment</code>:</strong> não tem efeito, porque o conteúdo já fica alinhado embaixo.
+</li>
+<li><strong><code>backgroundColor</code>:</strong> é ignorada quando há imagem ou vídeo.
+</li>
+<li><strong>Textos e rodapé sobre imagem/vídeo:</strong> o texto ganha uma sombra leve e o rodapé ganha fundo desfocado, para manter a leitura.
+</li>
+<li><strong><code>dataAttributes</code>:</strong> o <code>testid</code> padrão é <code>CoverCard</code>.
+</li></ul>
+<h5>Diferença entre CoverCard, DataCard, MediaCard e NakedCard</h5><table><thead><tr><th>Aspecto</th><th><code>CoverCard</code></th><th><code>DataCard</code></th><th><code>MediaCard</code></th><th><code>NakedCard</code></th></tr></thead><tbody>
+<tr><td><strong>Quando usar</strong></td><td>Impacto visual, chamar a atenção para uma imagem ou um vídeo.</td><td>Informações relevantes de um produto ou serviço.</td><td>Conteúdo em destaque, sempre com uma imagem.</td><td>Conteúdo integrado à tela, com aparência leve e minimalista.</td></tr>
+<tr><td><strong>Aparência</strong></td><td>Imagem/vídeo no fundo do card inteiro, texto por cima.</td><td>Só texto e asset, sobre o fundo do card.</td><td>Imagem/vídeo num bloco separado (em cima, à esquerda ou à direita) e texto abaixo/ao lado.</td><td>Igual ao <code>MediaCard</code>, mas sem fundo, borda e arredondamento do card.</td></tr>
+<tr><td><strong>Imagem/vídeo</strong></td><td>Fundo (<code>imageSrc</code>, <code>videoSrc</code>)</td><td>Não tem</td><td>Bloco de mídia (<code>imageSrc</code>, <code>videoSrc</code>)</td><td>Bloco de mídia, que pode ser redondo (<code>circledImage</code>)</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>gradientOverlayColor</code>, <code>videoRef</code></td><td></td><td><code>mediaPosition</code>, <code>mediaWidth</code>, <code>mediaAspectRatio</code>, <code>imageFit</code></td><td>Mesmas do <code>MediaCard</code>, mais <code>circledImage</code>, e sem <code>variant</code>, <code>footerVariant</code> e <code>footerBackgroundColor</code></td></tr>
+<tr><td><strong><code>variant</code> padrão</strong></td><td><code>'media'</code> com imagem/vídeo/cor de fundo; senão <code>'default'</code></td><td><code>'default'</code></td><td><code>'default'</code></td><td>Herda a variante de onde está (não aceita a prop)</td></tr>
+<tr><td><strong>Conteúdo</strong></td><td>Alinhado embaixo</td><td>No topo; com <code>size="display"</code>, alinhado embaixo</td><td>No topo, abaixo ou ao lado da mídia</td><td>No topo, abaixo ou ao lado da mídia</td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os quatro usam a mesma base interna e compartilham a maior parte das props (textos, botões, rodapé, <code>topActions</code>, interação), mas cada um tem props e aparência próprias.</p>
+<h4>DataCard</h4><h5>Quando usar</h5><p>Use o <code>DataCard</code> para mostrar <strong>informações relevantes sobre um produto ou serviço</strong>, como um serviço contratado, uma fatura ou o consumo do plano. Se o conteúdo depende de uma imagem, use o MediaCard ou o CoverCard.</p>
+<h5>Propriedades específicas</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>variant</code></td><td><code>'default' | 'brand' | 'negative' | 'alternative' | 'media' | 'inverse'</code></td><td><code>'default'</code></td><td>🎨 Cores do card e do texto. <code>'inverse'</code> está depreciado e é tratado igual a <code>'brand'</code>.</td></tr>
+<tr><td><code>footerBackgroundColor</code></td><td></td><td></td><td>🎨 Cor de fundo do rodapé. Só tem efeito quando o rodapé aparece. Com ela, a linha divisória do rodapé deixa de aparecer sozinha.</td></tr>
+<tr><td><code>footerVariant</code></td><td><code>'default' | 'brand' | 'inverse'</code></td><td></td><td>🎨 Variante de cor do rodapé. Só tem efeito quando o rodapé aparece e quando é diferente da <code>variant</code> do card; nesse caso, a linha divisória do rodapé deixa de aparecer sozinha.</td></tr>
+</tbody></table>
+<p>ℹ️ O <code>DataCard</code> não tem imagem nem vídeo: não aceita <code>imageSrc</code>, <code>videoSrc</code> e as props ligadas a eles.</p>
+<h5>Props comuns com comportamento próprio</h5><ul>
+<li><strong><code>size="display"</code>:</strong> o conteúdo fica alinhado na parte de baixo do card, com o <code>asset</code> no topo, e o <code>slotAlignment</code> deixa de ter efeito.
+</li>
+<li><strong><code>asset</code>:</strong> aparece no topo do card, acima dos textos.
+</li>
+<li><strong><code>dataAttributes</code>:</strong> o <code>testid</code> padrão é <code>DataCard</code>.
+</li></ul>
+<h5>Diferença entre CoverCard, DataCard, MediaCard e NakedCard</h5><table><thead><tr><th>Aspecto</th><th><code>CoverCard</code></th><th><code>DataCard</code></th><th><code>MediaCard</code></th><th><code>NakedCard</code></th></tr></thead><tbody>
+<tr><td><strong>Quando usar</strong></td><td>Impacto visual, chamar a atenção para uma imagem ou um vídeo.</td><td>Informações relevantes de um produto ou serviço.</td><td>Conteúdo em destaque, sempre com uma imagem.</td><td>Conteúdo integrado à tela, com aparência leve e minimalista.</td></tr>
+<tr><td><strong>Aparência</strong></td><td>Imagem/vídeo no fundo do card inteiro, texto por cima.</td><td>Só texto e asset, sobre o fundo do card.</td><td>Imagem/vídeo num bloco separado (em cima, à esquerda ou à direita) e texto abaixo/ao lado.</td><td>Igual ao <code>MediaCard</code>, mas sem fundo, borda e arredondamento do card.</td></tr>
+<tr><td><strong>Imagem/vídeo</strong></td><td>Fundo (<code>imageSrc</code>, <code>videoSrc</code>)</td><td>Não tem</td><td>Bloco de mídia (<code>imageSrc</code>, <code>videoSrc</code>)</td><td>Bloco de mídia, que pode ser redondo (<code>circledImage</code>)</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>gradientOverlayColor</code>, <code>videoRef</code></td><td></td><td><code>mediaPosition</code>, <code>mediaWidth</code>, <code>mediaAspectRatio</code>, <code>imageFit</code></td><td>Mesmas do <code>MediaCard</code>, mais <code>circledImage</code>, e sem <code>variant</code>, <code>footerVariant</code> e <code>footerBackgroundColor</code></td></tr>
+<tr><td><strong><code>variant</code> padrão</strong></td><td><code>'media'</code> com imagem/vídeo/cor de fundo; senão <code>'default'</code></td><td><code>'default'</code></td><td><code>'default'</code></td><td>Herda a variante de onde está (não aceita a prop)</td></tr>
+<tr><td><strong>Conteúdo</strong></td><td>Alinhado embaixo</td><td>No topo; com <code>size="display"</code>, alinhado embaixo</td><td>No topo, abaixo ou ao lado da mídia</td><td>No topo, abaixo ou ao lado da mídia</td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os quatro usam a mesma base interna e compartilham a maior parte das props (textos, botões, rodapé, <code>topActions</code>, interação), mas cada um tem props e aparência próprias.</p>
+<h4>MediaCard</h4><h5>Quando usar</h5><p>Use o <code>MediaCard</code> para mostrar um <strong>conteúdo em destaque, sempre acompanhado de uma imagem</strong> (ou vídeo) num bloco separado do texto. Para uma aparência mais leve, sem fundo nem borda, use o NakedCard; para a imagem ocupando o card inteiro, o CoverCard.</p>
+<h5>Propriedades específicas</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>mediaPosition</code></td><td><code>'top' | 'left' | 'right'</code></td><td><code>'top'</code></td><td>🎨 Posição da imagem/vídeo em relação ao texto. Define qual prop controla o tamanho da mídia: <code>mediaAspectRatio</code> em <code>'top'</code> e <code>mediaWidth</code> em <code>'left'</code> ou <code>'right'</code>.</td></tr>
+<tr><td><code>mediaWidth</code></td><td></td><td><code>150</code></td><td>🎨 Largura da imagem/vídeo. Só funciona com <code>mediaPosition</code> <code>'left'</code> ou <code>'right'</code>; em <code>'top'</code> é ignorada (a mídia ocupa toda a largura do card).</td></tr>
+<tr><td><code>mediaAspectRatio</code></td><td><code>'1:1' | '16:9' | '7:10' | '4:3' | 'auto' | number</code></td><td><code>'auto'</code></td><td>🎨 Proporção da imagem/vídeo (largura ÷ altura). Só funciona com <code>mediaPosition="top"</code>; em <code>'left'</code> ou <code>'right'</code> é ignorada e o tamanho é definido por <code>mediaWidth</code>. <code>'auto'</code> usa a proporção original da imagem.</td></tr>
+<tr><td><code>imageFit</code></td><td><code>'fit' | 'fill' | 'fill-center'</code></td><td><code>'fill-center'</code></td><td>🎨 Como a imagem ocupa o espaço: <code>'fit'</code> mostra a imagem inteira, <code>'fill'</code> preenche alinhando pelo lado do card e <code>'fill-center'</code> preenche centralizando. Só com <code>mediaPosition</code> <code>'left'</code> ou <code>'right'</code>.</td></tr>
+<tr><td><code>variant</code></td><td><code>'default' | 'brand' | 'negative' | 'alternative' | 'media' | 'inverse'</code></td><td><code>'default'</code></td><td>🎨 Cores do card e do texto. <code>'inverse'</code> está depreciado e é tratado igual a <code>'brand'</code>.</td></tr>
+<tr><td><code>footerBackgroundColor</code></td><td></td><td></td><td>🎨 Cor de fundo do rodapé. Só tem efeito quando o rodapé aparece. Com ela, a linha divisória do rodapé deixa de aparecer sozinha.</td></tr>
+<tr><td><code>footerVariant</code></td><td><code>'default' | 'brand' | 'inverse'</code></td><td></td><td>🎨 Variante de cor do rodapé. Só tem efeito quando o rodapé aparece e quando é diferente da <code>variant</code> do card; nesse caso, a linha divisória do rodapé deixa de aparecer sozinha.</td></tr>
+<tr><td><code>imageSrc</code></td><td></td><td></td><td>Imagem do card. Com <code>videoSrc</code>, vira a imagem exibida enquanto o vídeo carrega.</td></tr>
+<tr><td><code>imageSrcSet</code></td><td></td><td></td><td>Imagens em várias resoluções (atributo <code>srcset</code>).</td></tr>
+<tr><td><code>videoSrc</code></td><td></td><td></td><td>Vídeo no lugar da imagem. O card mostra automaticamente um botão de play/pausa. Não é exibido no modo selecionável.</td></tr>
+<tr><td><code>imageAlt</code></td><td></td><td><code>''</code></td><td>♿ Texto alternativo da imagem. Vazio, a imagem é tratada como decorativa.</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Tamanho da mídia:</strong> depende da <code>mediaPosition</code>.</p>
+<table><thead><tr><th><code>mediaPosition</code></th><th>Prop que define o tamanho</th><th>Prop ignorada</th></tr></thead><tbody>
+<tr><td><code>'top'</code> (padrão)</td><td><code>mediaAspectRatio</code> (a largura é sempre a do card)</td><td><code>mediaWidth</code></td></tr>
+<tr><td><code>'left'</code> ou <code>'right'</code></td><td><code>mediaWidth</code> (a altura acompanha o card)</td><td><code>mediaAspectRatio</code></td></tr>
+</tbody></table>
+<h5>Props comuns com comportamento próprio</h5><ul>
+<li><strong><code>asset</code>:</strong> com a mídia em cima ou à esquerda, aparece sobre a imagem; com a mídia à direita ou sem mídia, aparece acima do texto.
+</li>
+<li><strong><code>topActions</code>:</strong> sobre a mídia, os botões usam as cores para fundo de imagem.
+</li>
+<li><strong><code>dataAttributes</code>:</strong> o <code>testid</code> padrão é <code>MediaCard</code>.
+</li></ul>
+<h5>Diferença entre CoverCard, DataCard, MediaCard e NakedCard</h5><table><thead><tr><th>Aspecto</th><th><code>CoverCard</code></th><th><code>DataCard</code></th><th><code>MediaCard</code></th><th><code>NakedCard</code></th></tr></thead><tbody>
+<tr><td><strong>Quando usar</strong></td><td>Impacto visual, chamar a atenção para uma imagem ou um vídeo.</td><td>Informações relevantes de um produto ou serviço.</td><td>Conteúdo em destaque, sempre com uma imagem.</td><td>Conteúdo integrado à tela, com aparência leve e minimalista.</td></tr>
+<tr><td><strong>Aparência</strong></td><td>Imagem/vídeo no fundo do card inteiro, texto por cima.</td><td>Só texto e asset, sobre o fundo do card.</td><td>Imagem/vídeo num bloco separado (em cima, à esquerda ou à direita) e texto abaixo/ao lado.</td><td>Igual ao <code>MediaCard</code>, mas sem fundo, borda e arredondamento do card.</td></tr>
+<tr><td><strong>Imagem/vídeo</strong></td><td>Fundo (<code>imageSrc</code>, <code>videoSrc</code>)</td><td>Não tem</td><td>Bloco de mídia (<code>imageSrc</code>, <code>videoSrc</code>)</td><td>Bloco de mídia, que pode ser redondo (<code>circledImage</code>)</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>gradientOverlayColor</code>, <code>videoRef</code></td><td></td><td><code>mediaPosition</code>, <code>mediaWidth</code>, <code>mediaAspectRatio</code>, <code>imageFit</code>, <code>circledImage</code></td><td>Mesmas do <code>MediaCard</code>, sem <code>variant</code>, <code>footerVariant</code> e <code>footerBackgroundColor</code></td></tr>
+<tr><td><strong><code>variant</code> padrão</strong></td><td><code>'media'</code> com imagem/vídeo/cor de fundo; senão <code>'default'</code></td><td><code>'default'</code></td><td><code>'default'</code></td><td>Herda a variante de onde está (não aceita a prop)</td></tr>
+<tr><td><strong>Conteúdo</strong></td><td>Alinhado embaixo</td><td>No topo; com <code>size="display"</code>, alinhado embaixo</td><td>No topo, abaixo ou ao lado da mídia</td><td>No topo, abaixo ou ao lado da mídia</td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os quatro usam a mesma base interna e compartilham a maior parte das props (textos, botões, rodapé, <code>topActions</code>, interação), mas cada um tem props e aparência próprias.</p>
+<h4>NakedCard</h4><h5>Quando usar</h5><p>Use o <code>NakedCard</code> quando o conteúdo deve <strong>se integrar ao resto da tela</strong>, sem fundo nem borda visíveis. Em comparação com o MediaCard, tem uma aparência mais leve e minimalista.</p>
+<h5>Propriedades específicas</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>mediaPosition</code></td><td><code>'top' | 'left' | 'right'</code></td><td><code>'top'</code></td><td>🎨 Posição da imagem/vídeo em relação ao texto. Define qual prop controla o tamanho da mídia: <code>mediaAspectRatio</code> em <code>'top'</code> e <code>mediaWidth</code> em <code>'left'</code> ou <code>'right'</code>.</td></tr>
+<tr><td><code>mediaWidth</code></td><td></td><td><code>150</code></td><td>🎨 Largura da imagem/vídeo. Só funciona com <code>mediaPosition</code> <code>'left'</code> ou <code>'right'</code>; em <code>'top'</code> é ignorada (a mídia ocupa toda a largura do card).</td></tr>
+<tr><td><code>mediaAspectRatio</code></td><td><code>'1:1' | '16:9' | '7:10' | '4:3' | 'auto' | number</code></td><td><code>'auto'</code></td><td>🎨 Proporção da imagem/vídeo (largura ÷ altura). Só funciona com <code>mediaPosition="top"</code>; em <code>'left'</code> ou <code>'right'</code> é ignorada e o tamanho é definido por <code>mediaWidth</code>. <code>'auto'</code> usa a proporção original da imagem. Com <code>circledImage</code>, é sempre <code>1:1</code>.</td></tr>
+<tr><td><code>imageFit</code></td><td><code>'fit' | 'fill' | 'fill-center'</code></td><td><code>'fill-center'</code></td><td>🎨 Como a imagem ocupa o espaço: <code>'fit'</code> mostra a imagem inteira, <code>'fill'</code> preenche alinhando pelo lado do card e <code>'fill-center'</code> preenche centralizando. Só com <code>mediaPosition</code> <code>'left'</code> ou <code>'right'</code>.</td></tr>
+<tr><td><code>circledImage</code></td><td>sim/não</td><td></td><td>🎨 Mostra a imagem em formato de círculo (proporção <code>1:1</code>).</td></tr>
+<tr><td><code>imageSrc</code></td><td></td><td></td><td>Imagem do card. Com <code>videoSrc</code>, vira a imagem exibida enquanto o vídeo carrega.</td></tr>
+<tr><td><code>imageSrcSet</code></td><td></td><td></td><td>Imagens em várias resoluções (atributo <code>srcset</code>).</td></tr>
+<tr><td><code>videoSrc</code></td><td></td><td></td><td>Vídeo no lugar da imagem. O card mostra automaticamente um botão de play/pausa. Não é exibido no modo selecionável.</td></tr>
+<tr><td><code>imageAlt</code></td><td></td><td><code>''</code></td><td>♿ Texto alternativo da imagem. Vazio, a imagem é tratada como decorativa.</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Tamanho da mídia:</strong> depende da <code>mediaPosition</code>.</p>
+<table><thead><tr><th><code>mediaPosition</code></th><th>Prop que define o tamanho</th><th>Prop ignorada</th></tr></thead><tbody>
+<tr><td><code>'top'</code> (padrão)</td><td><code>mediaAspectRatio</code> (a largura é sempre a do card)</td><td><code>mediaWidth</code></td></tr>
+<tr><td><code>'left'</code> ou <code>'right'</code></td><td><code>mediaWidth</code> (a altura acompanha o card)</td><td><code>mediaAspectRatio</code></td></tr>
+</tbody></table>
+<p>ℹ️ Não tem as props <code>variant</code>, <code>footerVariant</code> e <code>footerBackgroundColor</code>: as cores vêm do fundo onde o card está (ex.: dentro de um <code>ResponsiveLayout variant="brand"</code>, o texto fica claro).</p>
+<h5>Props comuns com comportamento próprio</h5><ul>
+<li><strong>Fundo e borda:</strong> o card não tem fundo, borda nem cantos arredondados, e o texto não tem espaçamento lateral.
+</li>
+<li><strong><code>backgroundColor</code>:</strong> não tem efeito visível, porque o card não tem fundo.
+</li>
+<li><strong><code>footerDivider</code>:</strong> sem a prop, a linha aparece sempre (o rodapé não tem cor de fundo própria); <code>false</code> remove a linha.
+</li>
+<li><strong><code>asset</code>:</strong> com a mídia em cima ou à esquerda, aparece sobre a imagem; com a mídia à direita ou sem mídia, aparece acima do texto.
+</li>
+<li><strong><code>dataAttributes</code>:</strong> o <code>testid</code> padrão é <code>NakedCard</code>.
+</li></ul>
+<h5>Diferença entre CoverCard, DataCard, MediaCard e NakedCard</h5><table><thead><tr><th>Aspecto</th><th><code>CoverCard</code></th><th><code>DataCard</code></th><th><code>MediaCard</code></th><th><code>NakedCard</code></th></tr></thead><tbody>
+<tr><td><strong>Quando usar</strong></td><td>Impacto visual, chamar a atenção para uma imagem ou um vídeo.</td><td>Informações relevantes de um produto ou serviço.</td><td>Conteúdo em destaque, sempre com uma imagem.</td><td>Conteúdo integrado à tela, com aparência leve e minimalista.</td></tr>
+<tr><td><strong>Aparência</strong></td><td>Imagem/vídeo no fundo do card inteiro, texto por cima.</td><td>Só texto e asset, sobre o fundo do card.</td><td>Imagem/vídeo num bloco separado (em cima, à esquerda ou à direita) e texto abaixo/ao lado.</td><td>Igual ao <code>MediaCard</code>, mas sem fundo, borda e arredondamento do card.</td></tr>
+<tr><td><strong>Imagem/vídeo</strong></td><td>Fundo (<code>imageSrc</code>, <code>videoSrc</code>)</td><td>Não tem</td><td>Bloco de mídia (<code>imageSrc</code>, <code>videoSrc</code>)</td><td>Bloco de mídia, que pode ser redondo (<code>circledImage</code>)</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>gradientOverlayColor</code>, <code>videoRef</code></td><td></td><td><code>mediaPosition</code>, <code>mediaWidth</code>, <code>mediaAspectRatio</code>, <code>imageFit</code></td><td>Mesmas do <code>MediaCard</code>, mais <code>circledImage</code>, e sem <code>variant</code>, <code>footerVariant</code> e <code>footerBackgroundColor</code></td></tr>
+<tr><td><strong><code>variant</code> padrão</strong></td><td><code>'media'</code> com imagem/vídeo/cor de fundo; senão <code>'default'</code></td><td><code>'default'</code></td><td><code>'default'</code></td><td>Herda a variante de onde está (não aceita a prop)</td></tr>
+<tr><td><strong>Conteúdo</strong></td><td>Alinhado embaixo</td><td>No topo; com <code>size="display"</code>, alinhado embaixo</td><td>No topo, abaixo ou ao lado da mídia</td><td>No topo, abaixo ou ao lado da mídia</td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os quatro usam a mesma base interna e compartilham a maior parte das props (textos, botões, rodapé, <code>topActions</code>, interação), mas cada um tem props e aparência próprias.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>CoverCard</h4><p><strong>Figma:</strong> biblioteca Desktop › Cover Card [D] · biblioteca Mobile › Cover Card</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Valores de <code>Aspect ratio</code></td><td><code>true</code> · <code>false</code></td><td><code>True</code> · <code>False</code></td><td>Só o nome dos valores (maiúscula)</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Size</code></td><td><code>Default</code> · <code>Snap</code> · <code>Display</code></td><td><code>size</code></td><td>✅</td><td>Padrão <code>Default</code> nos dois.</td></tr>
+<tr><td>Pré-título (<code>Pretitle</code> + camada)</td><td>ligado/desligado + texto</td><td><code>pretitle</code></td><td>✅</td><td></td></tr>
+<tr><td>Título (<code>Title</code> + camada)</td><td>ligado/desligado + texto</td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td>Subtítulo (<code>Subtitle</code> + camada)</td><td>ligado/desligado + texto</td><td><code>subtitle</code></td><td>✅</td><td></td></tr>
+<tr><td>Descrição (<code>Description</code> + camada)</td><td>ligado/desligado + texto</td><td><code>description</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Tag</code></td><td>ligado/desligado + instância</td><td><code>headline</code></td><td>✅</td><td>Etiqueta acima do título.</td></tr>
+<tr><td><code>Asset</code></td><td>ligado/desligado + instância</td><td><code>asset</code></td><td>✅</td><td>Ícone ou imagem pequena. A posição muda conforme a variação.</td></tr>
+<tr><td><code>Slot</code></td><td>ligado/desligado + instância</td><td><code>slot</code></td><td>✅</td><td>Conteúdo livre abaixo dos textos.</td></tr>
+<tr><td><code>Footer slot</code></td><td>ligado/desligado + instância</td><td><code>footerSlot</code></td><td>✅</td><td>Conteúdo livre do rodapé.</td></tr>
+<tr><td><code>Top actions</code></td><td>ligado/desligado</td><td><code>topActions</code></td><td>✅</td><td>Botões de ícone no canto superior direito.</td></tr>
+<tr><td><code>Footer</code></td><td><code>true</code> · <code>false</code></td><td><code>showFooter</code></td><td>⚠️</td><td>No código, o rodapé só aparece se tiver botões ou <code>footerSlot</code>. E, se o card for clicável e tiver botões, o rodapé aparece <strong>sozinho</strong>, mesmo sem <code>showFooter</code>.</td></tr>
+<tr><td><code>Footer divider</code></td><td>ligado/desligado</td><td><code>footerDivider</code></td><td>✅</td><td>Linha acima do rodapé. Sem a prop, o código mostra a linha sozinho quando o rodapé não tem cor de fundo própria.</td></tr>
+<tr><td><code>Aspect ratio</code></td><td><code>true</code> · <code>false</code> (Desktop) / <code>True</code> · <code>False</code> (Mobile)</td><td><code>aspectRatio</code></td><td>⚠️</td><td>No Figma, <code>true</code> é sempre a proporção 7:10. No código, <code>aspectRatio</code> aceita <code>1:1</code>, <code>16:9</code>, <code>7:10</code>, <code>9:10</code>, <code>auto</code> ou qualquer número.</td></tr>
+<tr><td><code>Actions</code></td><td>ligado/desligado</td><td><code>buttonPrimary</code>, <code>buttonSecondary</code>, <code>buttonLink</code></td><td>⚠️</td><td>No Figma, <code>Actions</code> liga os três botões juntos. No código são três props separadas e combináveis.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código o card se ajusta sozinho ao <strong>fundo onde está</strong>. O código também tem os fundos <code>Alternative</code> e <code>Media</code>, que não existem no Figma.</td></tr>
+<tr><td><code>Variant</code></td><td><code>Media</code> · <code>Default</code> · <code>Brand</code> · <code>Alternative</code> · <code>Negative</code></td><td><code>variant</code></td><td>✅</td><td>No código, sem <code>variant</code>, o card usa <code>Media</code> (texto claro) quando há imagem, vídeo ou cor de fundo, e <code>Default</code> quando não há.</td></tr>
+<tr><td><code>Background</code></td><td><code>Image</code> · <code>Custom color</code></td><td><code>imageSrc</code> / <code>backgroundColor</code></td><td>✅</td><td><code>Image</code> = imagem de fundo; <code>Custom color</code> = cor de fundo. No Figma, a imagem só aparece com <code>Variant=Media</code>, o que bate com o padrão do código.</td></tr>
+<tr><td><code>Video controls</code></td><td>ligado/desligado</td><td><code>videoSrc</code></td><td>✅</td><td>Com vídeo de fundo, o código mostra o botão de play/pausa sozinho.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>DataCard</h4><p><strong>Figma:</strong> biblioteca Desktop › Data Card [D] · biblioteca Mobile › Data Card</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Size</code></td><td><code>Default</code> · <code>Snap</code> · <code>Display</code></td><td><code>size</code></td><td>✅</td><td>Padrão <code>Default</code> nos dois.</td></tr>
+<tr><td>Pré-título (<code>Pretitle</code> + camada)</td><td>ligado/desligado + texto</td><td><code>pretitle</code></td><td>✅</td><td></td></tr>
+<tr><td>Título (<code>Title</code> + camada)</td><td>ligado/desligado + texto</td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td>Subtítulo (<code>Subtitle</code> + camada)</td><td>ligado/desligado + texto</td><td><code>subtitle</code></td><td>✅</td><td></td></tr>
+<tr><td>Descrição (<code>Description</code> + camada)</td><td>ligado/desligado + texto</td><td><code>description</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Tag</code></td><td>ligado/desligado + instância</td><td><code>headline</code></td><td>✅</td><td>Etiqueta acima do título.</td></tr>
+<tr><td><code>Asset</code></td><td>ligado/desligado + instância</td><td><code>asset</code></td><td>✅</td><td>Ícone ou imagem pequena. A posição muda conforme a variação.</td></tr>
+<tr><td><code>Slot</code></td><td>ligado/desligado + instância</td><td><code>slot</code></td><td>✅</td><td>Conteúdo livre abaixo dos textos.</td></tr>
+<tr><td><code>Footer slot</code></td><td>ligado/desligado + instância</td><td><code>footerSlot</code></td><td>✅</td><td>Conteúdo livre do rodapé.</td></tr>
+<tr><td><code>Top actions</code></td><td>ligado/desligado</td><td><code>topActions</code></td><td>✅</td><td>Botões de ícone no canto superior direito.</td></tr>
+<tr><td><code>Footer</code></td><td><code>true</code> · <code>false</code></td><td><code>showFooter</code></td><td>⚠️</td><td>No código, o rodapé só aparece se tiver botões ou <code>footerSlot</code>. E, se o card for clicável e tiver botões, o rodapé aparece <strong>sozinho</strong>, mesmo sem <code>showFooter</code>.</td></tr>
+<tr><td><code>Footer divider</code></td><td>ligado/desligado</td><td><code>footerDivider</code></td><td>✅</td><td>Linha acima do rodapé. Sem a prop, o código mostra a linha sozinho quando o rodapé não tem cor de fundo própria.</td></tr>
+<tr><td><code>Aspect ratio</code></td><td><code>true</code> · <code>false</code></td><td><code>aspectRatio</code></td><td>⚠️</td><td>No Figma, <code>true</code> é sempre a proporção 7:10. No código, <code>aspectRatio</code> aceita <code>1:1</code>, <code>16:9</code>, <code>7:10</code>, <code>9:10</code>, <code>auto</code> ou qualquer número.</td></tr>
+<tr><td><code>Actions</code></td><td>ligado/desligado</td><td><code>buttonPrimary</code>, <code>buttonSecondary</code>, <code>buttonLink</code></td><td>⚠️</td><td>No Figma, <code>Actions</code> liga os três botões juntos. No código são três props separadas e combináveis.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código o card se ajusta sozinho ao <strong>fundo onde está</strong>. O código também tem os fundos <code>Alternative</code> e <code>Media</code>, que não existem no Figma.</td></tr>
+<tr><td><code>Variant</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td><code>variant</code></td><td>⚠️</td><td>O código também tem as variantes <code>alternative</code> e <code>media</code>, que não existem no Data Card do Figma.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>MediaCard</h4><p><strong>Figma:</strong> biblioteca Desktop › Media Card [D] · biblioteca Mobile › Media Card</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Size</code></td><td><code>Default</code> · <code>Snap</code> · <code>Display</code></td><td><code>size</code></td><td>✅</td><td>Padrão <code>Default</code> nos dois.</td></tr>
+<tr><td>Pré-título (<code>Pretitle</code> + camada)</td><td>ligado/desligado + texto</td><td><code>pretitle</code></td><td>✅</td><td></td></tr>
+<tr><td>Título (<code>Title</code> + camada)</td><td>ligado/desligado + texto</td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td>Subtítulo (<code>Subtitle</code> + camada)</td><td>ligado/desligado + texto</td><td><code>subtitle</code></td><td>✅</td><td></td></tr>
+<tr><td>Descrição (<code>Description</code> + camada)</td><td>ligado/desligado + texto</td><td><code>description</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Tag</code></td><td>ligado/desligado + instância</td><td><code>headline</code></td><td>✅</td><td>Etiqueta acima do título.</td></tr>
+<tr><td><code>Slot</code></td><td>ligado/desligado + instância</td><td><code>slot</code></td><td>✅</td><td>Conteúdo livre abaixo dos textos.</td></tr>
+<tr><td><code>Footer slot</code></td><td>ligado/desligado + instância</td><td><code>footerSlot</code></td><td>✅</td><td>Conteúdo livre do rodapé.</td></tr>
+<tr><td><code>Top actions</code></td><td>ligado/desligado</td><td><code>topActions</code></td><td>✅</td><td>Botões de ícone no canto superior direito.</td></tr>
+<tr><td><code>Footer</code></td><td><code>true</code> · <code>false</code></td><td><code>showFooter</code></td><td>⚠️</td><td>No código, o rodapé só aparece se tiver botões ou <code>footerSlot</code>. E, se o card for clicável e tiver botões, o rodapé aparece <strong>sozinho</strong>, mesmo sem <code>showFooter</code>.</td></tr>
+<tr><td><code>Aspect ratio</code></td><td><code>true</code> · <code>false</code></td><td><code>aspectRatio</code></td><td>⚠️</td><td>No Figma, <code>true</code> é sempre a proporção 7:10. No código, <code>aspectRatio</code> aceita <code>1:1</code>, <code>16:9</code>, <code>7:10</code>, <code>9:10</code>, <code>auto</code> ou qualquer número.</td></tr>
+<tr><td><code>Actions</code></td><td>ligado/desligado</td><td><code>buttonPrimary</code>, <code>buttonSecondary</code>, <code>buttonLink</code></td><td>⚠️</td><td>No Figma, <code>Actions</code> liga os três botões juntos. No código são três props separadas e combináveis.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código o card se ajusta sozinho ao <strong>fundo onde está</strong>. O código também tem os fundos <code>Alternative</code> e <code>Media</code>, que não existem no Figma.</td></tr>
+<tr><td><code>Variant</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td><code>variant</code></td><td>⚠️</td><td>O código também tem as variantes <code>alternative</code> e <code>media</code>, que não existem no Media Card do Figma.</td></tr>
+<tr><td><code>Media</code></td><td><code>true</code> · <code>false</code></td><td><code>imageSrc</code> / <code>videoSrc</code></td><td>✅</td><td>Com mídia, o card mostra a imagem ou o vídeo num bloco próprio.</td></tr>
+<tr><td><code>Media position</code></td><td><code>Top</code> · <code>Left</code> · <code>Right</code> · <code>None</code></td><td><code>mediaPosition</code></td><td>✅</td><td><code>None</code> = sem mídia. Padrão <code>Top</code> no código.</td></tr>
+<tr><td><code>Video controls</code></td><td>ligado/desligado</td><td><code>videoSrc</code></td><td>✅</td><td>Com vídeo, o código mostra o botão de play/pausa sozinho.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>NakedCard</h4><p><strong>Figma:</strong> biblioteca Desktop › Naked Card [D] · biblioteca Mobile › Naked Card</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Valores de <code>Media type</code></td><td><code>Image</code> · <code>Circular image</code> · <code>None</code></td><td><code>Image</code> · <code>Circular image</code> · <code>❗ Video [Deprecated]</code> · <code>None</code></td><td>O Mobile tem um tipo de vídeo, marcado como depreciado</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Size</code></td><td><code>Default</code> · <code>Snap</code> · <code>Display</code></td><td><code>size</code></td><td>✅</td><td>Padrão <code>Default</code> nos dois.</td></tr>
+<tr><td>Pré-título (<code>Pretitle</code> + camada)</td><td>ligado/desligado + texto</td><td><code>pretitle</code></td><td>✅</td><td></td></tr>
+<tr><td>Título (<code>Title</code> + camada)</td><td>ligado/desligado + texto</td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td>Subtítulo (<code>Subtitle</code> + camada)</td><td>ligado/desligado + texto</td><td><code>subtitle</code></td><td>✅</td><td></td></tr>
+<tr><td>Descrição (<code>Description</code> + camada)</td><td>ligado/desligado + texto</td><td><code>description</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Tag</code></td><td>ligado/desligado + instância</td><td><code>headline</code></td><td>✅</td><td>Etiqueta acima do título.</td></tr>
+<tr><td><code>Slot</code></td><td>ligado/desligado + instância</td><td><code>slot</code></td><td>✅</td><td>Conteúdo livre abaixo dos textos.</td></tr>
+<tr><td><code>Footer slot</code></td><td>ligado/desligado + instância</td><td><code>footerSlot</code></td><td>✅</td><td>Conteúdo livre do rodapé.</td></tr>
+<tr><td><code>Top actions</code></td><td>ligado/desligado</td><td><code>topActions</code></td><td>✅</td><td>Botões de ícone no canto superior direito.</td></tr>
+<tr><td><code>Footer</code></td><td><code>true</code> · <code>false</code></td><td><code>showFooter</code></td><td>⚠️</td><td>No código, o rodapé só aparece se tiver botões ou <code>footerSlot</code>. E, se o card for clicável e tiver botões, o rodapé aparece <strong>sozinho</strong>, mesmo sem <code>showFooter</code>.</td></tr>
+<tr><td><code>Aspect ratio</code></td><td><code>true</code> · <code>false</code></td><td><code>aspectRatio</code></td><td>⚠️</td><td>No Figma, <code>true</code> é sempre a proporção 7:10. No código, <code>aspectRatio</code> aceita <code>1:1</code>, <code>16:9</code>, <code>7:10</code>, <code>9:10</code>, <code>auto</code> ou qualquer número.</td></tr>
+<tr><td><code>Actions</code></td><td>ligado/desligado</td><td><code>buttonPrimary</code>, <code>buttonSecondary</code>, <code>buttonLink</code></td><td>⚠️</td><td>No Figma, <code>Actions</code> liga os três botões juntos. No código são três props separadas e combináveis.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código o card se ajusta sozinho ao <strong>fundo onde está</strong>. O código também tem os fundos <code>Alternative</code> e <code>Media</code>, que não existem no Figma.</td></tr>
+<tr><td><code>Media type</code></td><td><code>Image</code> · <code>Circular image</code> · <code>None</code></td><td><code>imageSrc</code> + <code>circledImage</code></td><td>✅</td><td><code>Circular image</code> = <code>circledImage</code>, que deixa a imagem redonda (proporção 1:1). <code>None</code> = sem mídia.</td></tr>
+<tr><td><code>Media position</code></td><td><code>Top</code> · <code>Left</code> · <code>Right</code> · <code>None</code></td><td><code>mediaPosition</code></td><td>✅</td><td><code>None</code> = sem mídia. Padrão <code>Top</code> no código.</td></tr>
+<tr><td><code>Video controls</code></td><td>ligado/desligado</td><td><code>videoSrc</code></td><td>⚠️</td><td>O código aceita vídeo no Naked Card normalmente, mas no Figma Mobile o tipo de mídia de vídeo está marcado como depreciado. Confirme com o design system se o vídeo ainda deve ser usado.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Advanced Data Card + Feature List (Extended): há limite de tamanho ou de linhas? <strong>Resposta:</strong> A altura mínima do Advanced Data Card é <strong>216px</strong> e não há máxima (use bom senso; não deixe o card ocupar a tela inteira). A Feature List foi feita para um template específico da Extended; para listas variáveis, prefira <strong>Row List</strong>.</p>
+<p><sub>Ref. #50 · 10/2024</sub></p>
+<p><strong>Dúvida:</strong> Existe nova versão de Snap Card para o app? <strong>Resposta:</strong> Não há versões novas. Use os cards existentes <strong>dentro do Carousel</strong> (isso resolve as diferenças de largura) e a propriedade <strong>aspect ratio</strong> para ter outros tamanhos. Para mais flexibilidade, use o <strong>Advanced Data Card</strong> com os blocos prontos nos slots.</p>
+<p><sub>Ref. #60 · 11/2024</sub></p>
+<p><strong>Dúvida:</strong> Posso usar só um botão no footer do Advanced Data Card? <strong>Resposta:</strong> Sim, não há impedimento.</p>
+<p><sub>Ref. #86 · 12/2024</sub></p>
+<p><strong>Dúvida:</strong> Onde está o "Add Item Card"? Posso pôr um Counter no footer do Advanced Data Card e tirar o divider? <strong>Resposta:</strong> O footer do <strong>Advanced Data Card</strong> tem só 3 opções predefinidas: <strong>imagem + texto + link</strong>, <strong>botão + link</strong> e <strong>texto + link</strong> (ou desligado). <strong>Não é possível</strong> remover o divider do footer manualmente, só os dividers entre os slots. O Advanced Data Card também tem versão desktop. O <strong>Add Item Card</strong> é um componente do CMS do app: não está disponível no Design System nem na Extended, então não pode ser usado em e-commerce. Alternativas: montar o elemento de forma <strong>"atômica"</strong> com componentes do Design System (recomendado, mais rápido) ou desenvolvê-lo na Extended (mais demorado). A biblioteca <strong>Modules</strong> tem só <strong>templates para o Figma</strong>: os devs não consomem componentes dela.</p>
+<p><sub>Ref. #123 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> O Advanced Data Card só prevê duas ações. Posso usar só o Button Primary? <strong>Resposta:</strong> <strong>Sim</strong>, pode usar só o Button Primary. Ao esconder o Button Link no Figma, o botão fica centralizado; ajuste o alinhamento à esquerda nas configurações de layout do footer. Havia melhoria planejada no footer para deixar isso visível no Figma.</p>
+<p><sub>Ref. #163 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> No Advanced Data Card, a imagem fica redonda. Posso mudar o corner radius para 8? <strong>Resposta:</strong> Primeiro atualize os componentes (havia atualizações pendentes). Montando com <strong>Simple Block</strong>, o resultado sai certo com 8px sem mexer manualmente. Regra: imagens têm <strong>raio de 16px</strong>, mas quando estão <strong>dentro de um container</strong> (Row, card ou outro elemento que as englobe) o raio passa a ser <strong>8px</strong>.</p>
+<p><sub>Ref. #197 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> O Advanced Data Card tem 345px no mobile, mas algumas telas usam 284px. Há regra de largura? <strong>Resposta:</strong> Os cards são <strong>responsivos</strong> e seguem a largura do container, por isso há variação (em carousel o container é menor, então 284px). No Figma o card tem uma largura inicial, que você ajusta ao container. Teste seu conteúdo em breakpoints diferentes; não há largura fixa.</p>
+<p><sub>Ref. #405 · 07/2025</sub></p>
+<p><strong>Dúvida:</strong> No Advanced Data Card: posso colocar um componente com 3 Row Blocks num slot? Usar só um botão? Igualar a altura de cards lado a lado? <strong>Resposta:</strong> (1) Colocar um componente composto por Row Blocks no slot: <strong>ok</strong>. (2) Usar só um botão é possível no código (o app usa). Há também o <strong>Data Card</strong>, que substitui o Advanced em alguns casos e tem a opção de um só botão. (3) No app, os elementos do card são <strong>alinhados para baixo</strong> (footer e valor sempre alinhados); no desktop vale a mesma lógica. A diferença no Figma vem da construção do componente. Valide o layout com Pesquisa e Evolução.</p>
+<p><sub>Ref. #466 · 08/2025</sub></p>
+<p><strong>Dúvida:</strong> O Poster Card "7:10 [update]" da Extended sumiu. Ainda posso usar? <strong>Resposta:</strong> O Poster Card da Extended foi <strong>descontinuado</strong>. No lugar do Poster Card e do Media Card, use o <strong>Cover Card</strong> do Design System com <strong>aspect ratio</strong> ativado.</p>
+<p><sub>Ref. #468 · 08/2025</sub></p>
+<p><strong>Dúvida:</strong> A variante de vídeo do Naked Card foi descontinuada. Como fazer um carousel de vídeos? <strong>Resposta:</strong> Monte uma <strong>imagem com o ícone de play por cima</strong> e use-a no campo <strong>Image</strong> do componente.</p>
+<p><sub>Ref. #484 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> Existe um "Error state card"? <strong>Resposta:</strong> Há um template na biblioteca <strong>Modules</strong> (Empty State Card com cenário de erro). O Master segue o padrão da Modules (ícone de alerta na cor da marca). Mudar para "X" vermelho é proposta de conceito, a levar a Pesquisa e Evolução.</p>
+<p><sub>Ref. #511 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> Por que o Ticket Card (Wallet, aba Benefícios) continua na biblioteca Extended? <strong>Resposta:</strong> O <strong>Ticket Card</strong> é um componente da <strong>Extended</strong> (Design System local), criado para mostrar promoções e descontos de serviços na aba de Benefícios.</p>
+<p><sub>Ref. #514 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> No Highlighted Value Block, posso esconder o Value dos headings e mudar tokens de cor dos textos? Ou uso outro card? <strong>Resposta:</strong> O Highlighted <strong>Value</strong> Block existe para mostrar <strong>pelo menos um Value</strong>: não use sem ele. Para vitrine de produtos, o app usa o <strong>Card de Produto</strong>, um template da biblioteca <strong>Modules</strong> baseado no <strong>Media Card</strong> do Design System com slot <strong>Price</strong>, agora com versão desktop. O <strong>pretitle</strong> tem cor padrão do sistema e <strong>não pode</strong> virar textSecondary; a cor que pode mudar é a do valor no slot Price.</p>
+<p><sub>Ref. #516 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso usar o Ticket Card (Extended) no portal? Ao esticar no desktop, ele perde a proporção. <strong>Resposta:</strong> Pode usar, na versão desktop. O comportamento de largura no desktop ficou em análise para possível evolução do componente.</p>
+<p><sub>Ref. #517 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> O Poster Card do conceito não está em nenhuma biblioteca. Posso usar? <strong>Resposta:</strong> O Poster Card foi <strong>descontinuado</strong>. Use o <strong>Cover Card</strong> com a configuração equivalente (aspect ratio).</p>
+<p><sub>Ref. #579 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> No Cover Card com altura fixa (sem aspect ratio), o Body não acompanha a imagem; com Fill, o texto sobe. <strong>Resposta:</strong> Não é bug, é o comportamento do componente. Para mudar a altura mantendo o conteúdo embaixo, ative o <strong>aspect ratio 7:10 ou 9:10</strong>.</p>
+<p><sub>Ref. #660 · 11/2025</sub></p>
+<p><strong>Dúvida:</strong> Cover Card com Brand Asset no footer slot fica desproporcional no mobile, principalmente dentro do Mosaic. <strong>Resposta:</strong> Existe um <strong>template de Cover Card com Brand Asset</strong> (mobile) na biblioteca <strong>Modules</strong>, pensado para <strong>Carousel</strong>, não para Mosaic. A marca não pode ser muito reduzida. Recomendação: usar o <strong>Carousel</strong>, como no app.</p>
+<p><sub>Ref. #810 · 01/2026</sub></p>
+<p><strong>Dúvida:</strong> Como compor um card de score de crédito? <strong>Resposta:</strong> Construção <strong>atômica</strong>: componente <strong>Meter</strong> + auto layout, transformado em componente e colocado no <strong>slot do Advanced Data Card</strong>.</p>
+<p><sub>Ref. #848 · 02/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso pôr um Checkbox no Top actions do Media Card? <strong>Resposta:</strong> <strong>Não.</strong> Top actions aceita <strong>só Icon Button</strong>. Se o checkbox for o principal, use a <strong>Row</strong>, com o preço "De/Por" no slot. A Row suporta até duas ações (checkbox + uma interação).</p>
+<p><sub>Ref. #916 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Depois da atualização, o Media Card com imagem à direita sempre mostra botões. <strong>Resposta:</strong> Deixe a propriedade de botão <strong>desligada</strong> nas propriedades. A diferença entre lado direito e esquerdo ficou em investigação.</p>
+<p><sub>Ref. #943 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Para banner de oferta, Cover Card ou Boxed Row? No desktop o card fica com muito espaço. <strong>Resposta:</strong> Ambos são responsivos e ocupam a largura do container. No tablet, o card causa menos estranheza. Veja como outras jornadas tratam esse tipo de conteúdo.</p>
+<p><sub>Ref. #952 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso usar o Display Media Card no carousel no lugar do Media Card? <strong>Resposta:</strong> Sim: <strong>Display</strong> é um <strong>tamanho</strong> nas propriedades do Media Card, é o mesmo componente.</p>
+<p><sub>Ref. #953 · 04/2026</sub></p>
+<p><strong>Dúvida:</strong> Sem footer, o Advanced Data Card centraliza o conteúdo no Figma. É assim? <strong>Resposta:</strong> Isso acontece pela construção com slot. Para esse caso (só tag e title), use o <strong>Data Card</strong>, que faz quase tudo que o Advanced fazia.</p>
+<p><sub>Ref. #1031 · 05/2026</sub></p>
+<p><strong>Dúvida:</strong> O ícone do template "About" da biblioteca Modules muda de tamanho ao copiar para outro arquivo. <strong>Resposta:</strong> O tamanho correto é o original; a variação é bug do Figma. <strong>Prefira o Data Card</strong> no lugar do Advanced Data Card: ele replica o template e não quebra (os templates da Modules seriam ajustados para usar o Data Card).</p>
+<p><sub>Ref. #1098 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> O Advanced Data Card será migrado para a nova versão do app? <strong>Resposta:</strong> A orientação é <strong>usar o Data Card</strong> do Design System no lugar do Advanced Data Card.</p>
+<p><sub>Ref. #1166 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Para um card com cor de fundo customizada, imagem ou vídeo: Cover Card ou Data Card? <strong>Resposta:</strong> Use o <strong>Cover Card</strong>, que já permite <strong>imagem e custom color</strong> na estrutura.</p>
+<p><sub>Ref. #1189 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Como deixar a imagem circular do Cover Card com o mesmo tamanho do Data Card (space between 32px)? <strong>Resposta:</strong> Troque o <strong>Square pelo Image</strong> e use a propriedade do Square, como no Data Card (exemplo no arquivo). Foi pedido ao time global incluir o space between para qualquer asset.</p>
+<p><sub>Ref. #1193 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Ao tirar a imagem do Naked Card, o padding desconfigura. <strong>Resposta:</strong> Para card só com ícone e texto, use o <strong>Data Card</strong>.</p>
+<p><sub>Ref. #1229 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> No Cover Card com a faixa da marca, que informação posso pôr nessa faixa? Ela vai no topo ou no footer? <strong>Resposta:</strong> O padrão da faixa com a marca é <strong>no footer</strong> (no app, o topo foi solução temporária de código). Use o template do Cover Card com a faixa na biblioteca <strong>Modules</strong> (System Ops ia incluir versão desktop). O componente da faixa está na biblioteca <strong>Assets</strong>. A faixa pode ter <strong>só texto, texto + imagem ou só imagem</strong>, sempre com <strong>uma informação principal</strong>.</p>
+<p><sub>Ref. #1249 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> No Data Card desktop com Circle icon, o texto em duas linhas quebra o padding. <strong>Resposta:</strong> Texto em duas linhas é <strong>permitido</strong> (não se usa hífen, então palavras longas quebram). Aumente a <strong>altura do card</strong> para não faltar espaço abaixo do texto. A largura depende do container; a altura pode ser definida no handoff.</p>
+<p><sub>Ref. #1254 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> O mesmo card tem tamanhos diferentes em duas jornadas. Qual documentar no handoff? <strong>Resposta:</strong> A documentação de cards da nova versão do app <strong>não define tamanho exato</strong>, só o uso da variação <strong>Snap</strong>. O tamanho muda conforme o <strong>número de itens visíveis no carousel</strong> (3 ou 4), o conteúdo e o aspect ratio: o card mais alto (ex.: título em 2 linhas) vira referência. ⚠️ <strong>Arquivos de conceito não devem ser usados como referência de documentação</strong>: ainda não foram aprovados.</p>
+<p><sub>Ref. #1265 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Qual card usar nos snap cards? Onde alinhar a label? <strong>Resposta:</strong> A definição estava com Pesquisa e Evolução. Alinhamento fixo de texto: <strong>Data Card no topo</strong>, <strong>Cover Card embaixo</strong>. Confira também a quantidade de cards visíveis, o offset e o aspect ratio entre Figma e produção.</p>
+<p><sub>Ref. #1321 · 10/2026</sub></p>
+<p><strong>Dúvida:</strong> O dev diz que não há configuração para alinhar os dois botões no footer do Data Card como no Figma. <strong>Resposta:</strong> O Storybook mostra o alinhamento dos botões no footer; a propriedade existe.</p>
+<p><sub>Ref. #1324 · 10/2026</sub></p>
+<p><strong>Dúvida:</strong> No Data Card, os botões quebram no Figma, mas em dev ficam lado a lado com texto truncado. Qual seguir? <strong>Resposta:</strong> Siga o <strong>comportamento de dev</strong>: é como o componente deve funcionar em produção, conforme a definição atual.</p>
+<p><sub>Ref. #1325 · 10/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso pôr um menu meatball no canto do Data Card para abrir ações (web)? <strong>Resposta:</strong> Sim. No app seria um drawer; na web, faz mais sentido um <strong>menu dropdown</strong> (há exemplo no Playroom).</p>
+<p><sub>Ref. #1365 · 10/2026</sub></p>
+<p><strong>Dúvida:</strong> O Data Card snap deu problema no app. Também na web? Como seguir? <strong>Resposta:</strong> Use o <strong>Cover Card</strong> em vez do Data Card nesse tipo de construção, por causa do alinhamento de texto.</p>
+<p><sub>Ref. #1367 · 10/2026</sub></p>
+<p><strong>Dúvida:</strong> No Cover Card snap mobile, posso deixar o ícone menor, como no guia da nova versão do app? <strong>Resposta:</strong> Sim: o guia orienta configurar manualmente o asset como <strong>Square de 32px com ícone de 20px</strong>.</p>
+<p><sub>Ref. #1376 · 11/2026</sub></p>
+<p><strong>Dúvida:</strong> Qual a altura certa do Data Card? O espaçamento do meatball está certo? Posso usar Tag para indicar upload/download? <strong>Resposta:</strong> <strong>Não há altura definida</strong> para cards: fica a critério do time. O espaçamento do meatball está correto. Do lado de System não há impedimento para usar Tag nesse contexto (a definição de uso é de Pesquisa e Evolução). ⚠️ Não use componentes de bibliotecas marcadas "Não usar": puxe da biblioteca <strong>Desktop</strong> do Design System.</p>
+<p><sub>Ref. #1396 · 11/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso aumentar os snap cards de 112×112 para 124×124? <strong>Resposta:</strong> <strong>Não.</strong> O tamanho dos snaps foi definido para <strong>caber mais cards por tela</strong>. Revise o conteúdo, mas mantenha o tamanho.</p>
+<p><sub>Ref. #1397 · 11/2026</sub></p>
+<p><strong>Dúvida:</strong> Como adicionar uma linha de preço total ao Advanced Data Card (community)? <strong>Resposta:</strong> O <strong>Advanced Data Card não está mais sendo usado</strong>. Faça uma construção <strong>atômica</strong>: um <strong>Box</strong> de base com as <strong>Rows</strong> dentro, usando o divider da própria Row.</p>
+<p><sub>Ref. #1400 · 11/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

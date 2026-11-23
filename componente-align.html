@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Align · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-align">
+<h2>Align</h2>
+<p class="cat">Layout</p>
+<h3>Resumo</h3>
+<p>Bloco de layout que posiciona o conteúdo dentro de um espaço: à esquerda, no centro ou à direita (<code>x</code>), e em cima, no meio ou embaixo (<code>y</code>). Por padrão, ocupa toda a largura e a altura do espaço onde está. Use para centralizar um conteúdo numa área (ex.: um ícone no meio de uma caixa, um texto no meio de uma tela vazia).</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Align</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>x</code></td><td><code>'start' | 'center' | 'end'</code></td><td><code>'start'</code></td><td>🎨 Posição na horizontal: no começo (à esquerda), no centro ou no fim (à direita).</td></tr>
+<tr><td><code>y</code></td><td><code>'start' | 'center' | 'end'</code></td><td><code>'start'</code></td><td>🎨 Posição na vertical: em cima, no meio ou embaixo.¹</td></tr>
+<tr><td><code>width</code></td><td></td><td><code>'100%'</code></td><td>🎨 Largura do bloco (ex.: <code>200</code> ou <code>'50%'</code>).</td></tr>
+<tr><td><code>height</code></td><td></td><td><code>'100%'</code></td><td>🎨 Altura do bloco (ex.: <code>200</code> ou <code>'50vh'</code>).¹</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Conteúdo posicionado.</td></tr>
+</tbody></table>
+<p>¹ ⚠️ <strong>Alinhamento vertical precisa de altura:</strong> com o padrão <code>height: '100%'</code>, o bloco tem a altura do espaço onde está. Se esse espaço não tem uma altura definida, o bloco fica da altura do conteúdo e o <code>y</code> não tem efeito. Para centralizar na vertical, dê uma <code>height</code> ao <code>Align</code> ou ao espaço em volta.</p>
+<p>ℹ️ <strong>Vários filhos:</strong> com mais de um elemento dentro, cada um fica numa linha, um embaixo do outro, e todos seguem o mesmo <code>x</code>. A altura é dividida entre as linhas, então o <code>y</code> vale para cada elemento dentro da sua linha. Para alinhar um grupo, coloque os elementos dentro de um <code>Stack</code> ou <code>Inline</code> e o grupo dentro do <code>Align</code>.</p>
+<p>ℹ️ <strong>Figma:</strong> o <code>Align</code> não existe no Figma. No design, o mesmo resultado é feito com o <strong>auto layout</strong> do frame em volta do conteúdo: a opção de alinhamento do auto layout (os 9 pontos) equivale ao <code>x</code> e ao <code>y</code> (ex.: o ponto do meio é <code>x="center"</code> e <code>y="center"</code>), e o tamanho fixo do frame equivale ao <code>width</code> e ao <code>height</code>. No handoff, diga o alinhamento e o tamanho da área.</p>
+<p>ℹ️ <strong>Direção da escrita:</strong> <code>start</code> e <code>end</code> seguem a direção do texto. Em idiomas escritos da direita para a esquerda (ex.: árabe), <code>start</code> fica à direita.</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

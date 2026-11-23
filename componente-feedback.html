@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feedback (telas de sucesso, erro e informação) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-feedback">
+<h2>Feedback (telas de sucesso, erro e informação)</h2>
+<p class="cat">Padrões de tela</p>
+<h3>Resumo</h3>
+<p>Telas de resultado depois de uma ação (ex.: "Pagamento confirmado", "Algo deu errado"), com ícone, título, descrição e botões. No mobile, a tela ocupa a página toda e os botões ficam fixos no rodapé. No desktop, o conteúdo fica dentro de uma caixa, com os botões abaixo do texto e, opcionalmente, uma imagem à direita.</p>
+<ul>
+<li><strong><code>SuccessFeedbackScreen</code></strong>: sucesso. Ícone de sucesso, fundo de marca na skin padrão da marca e vibração de sucesso no celular.
+</li>
+<li><strong><code>ErrorFeedbackScreen</code></strong>: erro. Ícone de erro, vibração de erro e um código de referência opcional.
+</li>
+<li><strong><code>InfoFeedbackScreen</code></strong>: informação. Ícone de informação na cor da marca (ou outro ícone).
+</li>
+<li><strong><code>FeedbackScreen</code></strong>: tela genérica, com ícone, fundo e vibração escolhidos.
+</li>
+<li><strong><code>SuccessFeedback</code></strong>: sucesso dentro da página, sem botões fixos no rodapé, para usar no meio de um fluxo.
+</li></ul>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Feedback</h4><ul>
+<li>⚠️ <strong>Fundo da tela de sucesso:</strong> no Figma, o <code>Theme variant</code> está na instância interna e pode ser trocado. No código, o fundo vem do tema (na skin padrão da marca, sempre de marca). Se a tela precisar do fundo <code>default</code>, avise no handoff: o desenvolvimento vai ter que usar o <code>FeedbackScreen</code> genérico.
+</li>
+<li>⚠️ <strong>Código de referência do erro:</strong> se a tela de erro não tiver código de referência, esconda a camada <code>Error Reference</code> e avise no handoff.
+</li>
+<li>⚠️ <strong>Botões:</strong> só três botões são possíveis (principal, secundário e link). Tamanho e alinhamento não mudam no código.
+</li>
+<li>⚠️ <strong>Imagem:</strong> só aparece no desktop. Informe se a imagem deve aparecer inteira (<code>fit</code>) ou preencher o espaço (<code>fill</code>).
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código mostra só <code>title</code> e <code>description</code>, sem botões, slot ou imagem. No Mobile, só o Error Feedback Screen mostra o trecho.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Error Feedback Screen sem código de referência</td><td>Não existe: é preciso esconder a camada <code>Error Reference</code> à mão</td><td>Basta não passar <code>errorReference</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Sucesso com <code>Theme variant=default</code> na skin padrão da marca</td><td>Existe</td><td>O <code>SuccessFeedbackScreen</code> e o <code>SuccessFeedback</code> sempre usam o fundo de marca na skin padrão da marca. Só dá com o <code>FeedbackScreen</code> genérico (<code>variant="default"</code>) ou mudando o tema do app inteiro. ⚠️ Diferente.</td></tr>
+<tr><td>Error ou Info com fundo de marca</td><td>Não existe</td><td>Não existe: o <code>ErrorFeedbackScreen</code> e o <code>InfoFeedbackScreen</code> sempre usam o fundo padrão. ✅ Igual.</td></tr>
+<tr><td>Fundo <code>alternative</code></td><td>Não existe</td><td>Não existe em nenhum componente de Feedback. ✅ Igual.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Feedback (FeedbackScreen / SuccessFeedbackScreen / ErrorFeedbackScreen / InfoFeedbackScreen / SuccessFeedback)</h4><h5>Propriedades</h5><h6>Comuns a todos</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>title</code> (obrigatória)</td><td></td><td></td><td>Título.</td></tr>
+<tr><td><code>description</code></td><td></td><td></td><td>Descrição. Com uma lista, cada item vira um parágrafo.</td></tr>
+<tr><td><code>slot</code></td><td></td><td></td><td>Conteúdo extra abaixo da descrição.</td></tr>
+<tr><td><code>primaryButton</code></td><td></td><td></td><td>Botão principal.</td></tr>
+<tr><td><code>secondaryButton</code></td><td></td><td></td><td>Botão secundário.</td></tr>
+<tr><td><code>link</code></td><td></td><td></td><td>Link.</td></tr>
+</tbody></table>
+<h6>Específicas</h6>
+<table><thead><tr><th>Componente</th><th>Prop</th><th>Tipo</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>FeedbackScreen</code></td><td><code>variant</code></td><td><code>'default' | 'brand'</code></td><td><code>'default'</code></td><td>🎨 Fundo padrão ou de marca.</td></tr>
+<tr><td><code>FeedbackScreen</code>, <code>SuccessFeedbackScreen</code>, <code>SuccessFeedback</code></td><td><code>imageFit</code></td><td><code>'fit' | 'fill'</code></td><td><code>'fill'</code></td><td>🎨 Como a imagem ocupa o espaço: inteira, alinhada embaixo à direita (<code>'fit'</code>), ou preenchendo o espaço (<code>'fill'</code>).</td></tr>
+<tr><td><code>FeedbackScreen</code>, <code>SuccessFeedbackScreen</code>, <code>SuccessFeedback</code></td><td><code>imageUrl</code></td><td><code>string</code></td><td></td><td>Imagem à direita do conteúdo. Só aparece no desktop.</td></tr>
+<tr><td><code>FeedbackScreen</code></td><td><code>asset</code></td><td><code>React.ReactNode</code></td><td></td><td>Ícone ou imagem acima do título.</td></tr>
+<tr><td><code>FeedbackScreen</code></td><td><code>animateText</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Anima a entrada do texto.</td></tr>
+<tr><td><code>ErrorFeedbackScreen</code></td><td><code>errorReference</code></td><td><code>string</code></td><td></td><td>Código de referência do erro, em cor secundária, abaixo do slot (ex.: "Erro 1234").</td></tr>
+<tr><td><code>InfoFeedbackScreen</code></td><td><code>Icon</code></td><td><code>(props: IconProps) =&gt; JSX.Element</code></td><td>ícone de informação</td><td>Ícone no lugar do padrão.</td></tr>
+<tr><td><code>FeedbackScreen</code></td><td><code>hapticFeedback</code></td><td><code>'success' | 'error'</code></td><td></td><td>🔧 Vibração no celular ao abrir a tela.</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Ícones e vibração prontos:</strong> o <code>SuccessFeedbackScreen</code> e o <code>SuccessFeedback</code> usam o ícone de sucesso e vibram ao abrir. O <code>ErrorFeedbackScreen</code> usa o ícone de erro e vibra. O <code>InfoFeedbackScreen</code> não vibra. Nesses componentes, ícone e vibração não podem ser trocados (só o ícone do <code>InfoFeedbackScreen</code>).</p>
+<p>ℹ️ <strong>Ícones por tema:</strong> os ícones de sucesso, erro e informação vêm do tema. A skin padrão e a skin Evolution têm ícones próprios. Na skin padrão, os ícones são animados; na skin Evolution, são <strong>estáticos</strong> (sem animação).</p>
+<p>ℹ️ <strong>Textos e espaços:</strong> o tamanho e o peso do título e da descrição vêm do tema (na skin padrão, título de 24px no celular e 32px no desktop; descrição de 16px no celular e 18px no desktop). Há 40px entre o ícone e o título.</p>
+<p>ℹ️ <strong>Fundo de marca:</strong> na skin padrão da marca, o <code>SuccessFeedbackScreen</code> e o <code>SuccessFeedback</code> usam o fundo de marca. Os demais usam o fundo padrão (no <code>FeedbackScreen</code>, escolha com <code>variant</code>).</p>
+<p>ℹ️ A prop <code>unstable_inlineInDesktop</code> é experimental e não foi documentada.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Feedback</h4><p><strong>Figma:</strong></p>
+<ul>
+<li>Success Feedback Screen: biblioteca Desktop › Success Feedback Screen [D] · biblioteca Mobile › Success Feedback Screen
+</li>
+<li>Error Feedback Screen: biblioteca Desktop › Error Feedback Screen [D] · biblioteca Mobile › Error Feedback Screen
+</li>
+<li>Info Feedback Screen: biblioteca Desktop › Info Feedback Screen [D] · biblioteca Mobile › Info Feedback Screen
+</li>
+<li>Success Feedback: biblioteca Desktop › Success Feedback [D] · biblioteca Mobile › Success Feedback
+</li></ul>
+<p>ℹ️ No Figma, o <strong>Success Feedback Screen</strong> e o <strong>Success Feedback</strong> não têm propriedades no painel principal: tudo fica na instância interna <strong>.resources/success-feedback-screen</strong> (Desktop) ou <strong>.resources/Success feedback variants</strong> e <strong>.resources/Success Feedback</strong> (Mobile). Para trocar o <code>Theme variant</code>, o slot ou a imagem, selecione essa instância interna. Os botões ficam na instância <strong>Button Group (internal use) [D]</strong> (Desktop) ou <strong>Button Fixed Footer Layout</strong> (Mobile), e o ícone na instância <strong>Asset</strong>.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Botões (telas)</td><td><code>Button Group (internal use) [D]</code>, com <code>Variant</code>, <code>Small</code> e <code>Alignment</code></td><td><code>Button Fixed Footer Layout</code>, com <code>Secondary</code>, <code>Add link</code> e <code>Shadow</code></td><td>Muda o design: no Mobile os botões ficam fixos no rodapé da tela, como no código</td></tr>
+<tr><td><code>Show Image</code> (Success Feedback Screen)</td><td>Existe</td><td>Não existe</td><td>Só no Desktop. No código a imagem também só aparece no desktop</td></tr>
+<tr><td><code>Slot</code> e <code>Show Image</code> (Success Feedback)</td><td>Existem</td><td>Não existem</td><td>O Success Feedback do Mobile não tem slot nem imagem; no código os dois existem</td></tr>
+<tr><td><code>Slot →</code> (troca do conteúdo do slot)</td><td>Não existe: troque a camada <code>REPLACE ME!</code> à mão</td><td>Existe no Info Feedback Screen e no Success Feedback Screen</td><td>Muda só a forma de preencher o slot no painel</td></tr>
+<tr><td>Info Feedback Screen, Success Feedback Screen e Success Feedback</td><td>Existem</td><td>Sem ligação de código</td><td>No Mobile, só o Error Feedback Screen está ligado ao código</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Título (camada <code>Title</code>)</td><td>texto livre</td><td><code>title</code></td><td>✅</td><td>Obrigatório no código.</td></tr>
+<tr><td>Descrição (camada <code>Description</code>)</td><td>texto livre</td><td><code>description</code></td><td>✅</td><td>No código, uma lista de textos vira vários parágrafos.</td></tr>
+<tr><td><code>Slot</code></td><td><code>True</code> · <code>False</code></td><td><code>slot</code></td><td>✅</td><td>Conteúdo extra abaixo da descrição.</td></tr>
+<tr><td><code>Variant</code> (Button Group) / <code>Secondary</code> + <code>Add link</code> (Button Fixed Footer Layout)</td><td><code>Primary</code>, <code>Secondary</code>, <code>Link</code> e combinações</td><td><code>primaryButton</code>, <code>secondaryButton</code>, <code>link</code></td><td>✅</td><td>Cada botão vira uma prop. Sem a prop, o botão não aparece.</td></tr>
+<tr><td><code>Small</code>, <code>Alignment</code> e <code>Theme context</code> (Button Group)</td><td><code>True</code> · <code>False</code> / <code>Left</code> · <code>Space between</code> / <code>Default</code> · <code>Brand</code> · <code>Negative</code> · <code>Media</code></td><td>sem prop</td><td>⚠️</td><td>No código não dá para escolher: os botões têm tamanho e alinhamento fixos, e a cor acompanha o fundo da tela.</td></tr>
+<tr><td><code>Choose icon</code> (Info Feedback Screen)</td><td>ícone</td><td><code>Icon</code></td><td>✅</td><td>O ícone fica na cor da marca nos dois.</td></tr>
+<tr><td><code>Brand</code> (instância <code>Asset</code>)</td><td>a marca (e outras marcas do grupo)</td><td>sem prop</td><td>⚠️</td><td>No código o ícone vem da marca do tema: a skin padrão e a skin Evolution têm ícones próprios de sucesso, erro e informação (na skin Evolution, sem animação). Escolha no Figma a marca do produto.</td></tr>
+<tr><td><code>Error Reference</code> (camada, Error Feedback Screen)</td><td>texto livre</td><td><code>errorReference</code></td><td>⚠️</td><td>No Figma a camada está sempre visível. No código ela é opcional: sem <code>errorReference</code>, o texto não aparece.</td></tr>
+<tr><td><code>Theme variant</code> (Success Feedback Screen e Success Feedback)</td><td><code>inverse</code> · <code>default</code></td><td>sem prop</td><td>⚠️</td><td>No código não é uma prop: o fundo vem do tema. Na skin padrão da marca é sempre o fundo de marca (<code>inverse</code>). Para ter o fundo <code>default</code> numa tela de sucesso, o código precisa usar o <code>FeedbackScreen</code> genérico com <code>variant="default"</code>. Não existe <code>alternative</code>.</td></tr>
+<tr><td><code>Show Image</code> (Success Feedback Screen)</td><td><code>True</code> · <code>False</code></td><td><code>imageUrl</code></td><td>✅</td><td>Imagem à direita do conteúdo, só no desktop.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Na tela de Error Feedback, posso manter o header com Progress Bar e o footer da tela anterior? <strong>Resposta:</strong> É uma decisão de padrão de jornada (lead + time de Pesquisa e Evolução). No caso relatado, ficou definido manter header e footer só no MVP e, como evolução, <strong>remover o Progress Bar do header e o footer</strong>, para ficar consistente com as outras telas de Feedback.</p>
+<p><sub>Ref. #118 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> Como montar a tela de Feedback Screen (Success, Info, Error) no desktop? Mantém o header? <strong>Resposta:</strong> Há exemplos no <strong>Playroom</strong> em 360, 768 e 1024px. O posicionamento e o header fazem parte da composição da tela: alinhe com o lead e use os arquivos de referência do conceito.</p>
+<p><sub>Ref. #119 · 01/2025</sub></p>
+<p><strong>Dúvida:</strong> Onde está a tela de sucesso intermediária (fundo branco) para jornadas secundárias (biometria, eSIM, cartão)? <strong>Resposta:</strong> Essa tela intermediária é uma <strong>exceção só do fluxo de biometria</strong>; o Master documenta o uso fora disso como <strong>incorreto</strong>. Para outros casos, alinhe com Pesquisa e Evolução (responsáveis pelo Master).</p>
+<p><sub>Ref. #392 · 07/2025</sub></p>
+<p><strong>Dúvida:</strong> De onde vem o ícone de check redondo usado numa tela de sucesso? <strong>Resposta:</strong> Ele vem por padrão nas telas de Sucesso da marca. As telas de sucesso intermediárias (fundo branco) são exceção do fluxo de biometria. No caso relatado, a orientação foi usar o <strong>ícone padrão da tela de Info</strong>.</p>
+<p><sub>Ref. #413 · 07/2025</sub></p>
+<p><strong>Dúvida:</strong> Telas de erro do portal podem ter conteúdo em bullets e passar do limite de caracteres? <strong>Resposta:</strong> <strong>Não.</strong> O limite de caracteres e a proibição de bullets nas telas de erro são diretrizes do time de conteúdo e <strong>valem também para o portal</strong>.</p>
+<p><sub>Ref. #429 · 07/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso usar Info Feedback Screen sem nenhum botão? <strong>Resposta:</strong> <strong>Não.</strong> As ações nas telas de Info Feedback são <strong>obrigatórias</strong>, e não é recomendado deixar a pessoa sem saída (parece que algo travou). Use o texto e o CTA para reforçar o aviso; o time de conteúdo pode ajudar com o texto.</p>
+<p><sub>Ref. #432 · 08/2025</sub></p>
+<p><strong>Dúvida:</strong> Telas de feedback finais de fluxo devem ter botão voltar? <strong>Resposta:</strong> O Master não prevê <strong>voltar</strong> como parte da estrutura das telas de feedback. Para exceções, consulte Pesquisa e Evolução.</p>
+<p><sub>Ref. #536 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> O ícone da Info Feedback é estático? <strong>Resposta:</strong> <strong>Sim.</strong> Só as telas de <strong>Error</strong> e <strong>Success</strong> Feedback têm animação.</p>
+<p><sub>Ref. #760 · 01/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso pôr um Data Card no slot da Info Feedback Screen? <strong>Resposta:</strong> Sim, desde que o card <strong>não seja interativo</strong>: a interação fica só nos botões da tela.</p>
+<p><sub>Ref. #1046 · 05/2026</sub></p>
+<p><strong>Dúvida:</strong> Posso usar um Advanced Data Card (benefícios e logos) no slot da Info Feedback Screen? <strong>Resposta:</strong> Pode, desde que o card <strong>não tenha ação</strong>.</p>
+<p><sub>Ref. #1076 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> Na tela de erro, há regra de número de tentativas? Posso deixar só o botão primário? <strong>Resposta:</strong> O número de tentativas é <strong>regra de negócio/produto</strong>. Pode tirar o botão secundário, principalmente se o primário for "Tentar de novo" com boa chance de sucesso. ⚠️ O <strong>ícone de erro não pode ser retirado</strong>.</p>
+<p><sub>Ref. #1125 · 06/2026</sub></p>
+<p><strong>Dúvida:</strong> A Information Screen no desktop ocupa toda a área do grid. Está certo? <strong>Resposta:</strong> Sim, ela segue a largura do container.</p>
+<p><sub>Ref. #1191 · 07/2026</sub></p>
+<p><strong>Dúvida:</strong> Que template usar para a tela de permissões do primeiro acesso ao app, na nova versão? <strong>Resposta:</strong> Mantenha o <strong>design atual</strong>, só adaptando à nova versão. Mudanças de design dessa tela-chave passam por Pesquisa e Evolução. Use as <strong>Rows do Design System</strong> (não as do conceito), respeitando tokens e estrutura, com título e descrição distintos.</p>
+<p><sub>Ref. #1288 · 09/2026</sub></p>
+<p><strong>Dúvida:</strong> Telas de resumo e conclusão seguindo o padrão da nova versão do app: com boxes ou com dividers? <strong>Resposta:</strong> Questão de padrão de produto, encaminhada a Pesquisa e Evolução. No caso, seguiu-se o padrão já entregue em outras telas do mesmo fluxo, ajustando depois se necessário.</p>
+<p><sub>Ref. #1294 · 09/2026</sub></p>
+<p><strong>Dúvida:</strong> Na nova tela de feedback, a description fica abaixo do título ou embaixo, como antes? <strong>Resposta:</strong> Sempre consulte o <strong>Guia de Padrões</strong> da nova versão do app (não bibliotecas marcadas como "não usar"). O documentado é a <strong>description logo abaixo do Title</strong>. Antes, o texto era adicionado via slot e a description do componente ficava vazia. A biblioteca Modules seria ajustada.</p>
+<p><sub>Ref. #1393 · 11/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

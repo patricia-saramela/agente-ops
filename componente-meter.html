@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meter (Data Visualizations) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-meter">
+<h2>Meter (Data Visualizations)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Indicador gráfico de proporção: mostra um ou mais valores percentuais como trechos coloridos de uma barra, de um semicírculo ou de um círculo. Cada valor vira um segmento com cor própria, um depois do outro. Usado para visualizar consumo e distribuição (ex.: franquia de dados usada, divisão do consumo por app).</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Data Visualizations (Meter)</h4><ul>
+<li>⚠️ <strong>Valores:</strong> informe o valor de cada segmento em porcentagem. A soma não pode passar de 100%.
+</li>
+<li>⚠️ <strong>Mais de 5 segmentos:</strong> com a paleta padrão, as cores se repetem a partir do 6º segmento. Se o design usar 6 a 8 segmentos com cores diferentes, informe as cores.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código que o Figma mostra no Dev Mode é sempre um exemplo fixo (3 segmentos, 50%, 30% e 20%, no tipo padrão), qualquer que seja a variante escolhida. Só o <code>Reverse</code> acompanha a variante.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Data Visualizations (Meter)</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>type</code></td><td><code>'angular' | 'circular' | 'linear'</code></td><td><code>'angular'</code></td><td>🎨 Formato: <code>'angular'</code> é um semicírculo, <code>'circular'</code> é um círculo completo e <code>'linear'</code> é uma barra horizontal.</td></tr>
+<tr><td><code>width</code></td><td></td><td><code>'100%'</code></td><td>🎨 Largura do meter. A altura acompanha o formato: metade da largura no <code>'angular'</code>, igual à largura no <code>'circular'</code> e 6px no <code>'linear'</code>.</td></tr>
+<tr><td><code>colors</code></td><td></td><td></td><td>🎨 Cor de cada segmento, na ordem de <code>values</code>. Sem ela, usa a paleta do tema (cor de controle ativado, aviso, sucesso, destaque e promo). Se houver mais segmentos que cores, as cores se repetem.</td></tr>
+<tr><td><code>values</code> (obrigatória)</td><td></td><td></td><td>Valores de cada segmento, em porcentagem (0 a 100). Os segmentos são desenhados em sequência, então <strong>a soma não pode passar de 100</strong>.</td></tr>
+<tr><td><code>slot</code></td><td></td><td></td><td>Conteúdo livre exibido junto do gráfico: no centro do semicírculo/círculo, ou abaixo da barra no <code>'linear'</code> (ex.: o total em texto).</td></tr>
+<tr><td><code>reverse</code></td><td>sim/não</td><td><code>false</code></td><td>Inverte a animação de entrada: em vez de os segmentos crescerem a partir do zero, eles diminuem a partir do gráfico cheio.</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Animação:</strong> os segmentos são animados ao aparecer e quando <code>values</code> muda, um após o outro. A animação não acontece se o sistema do usuário pedir menos animações (<code>prefers-reduced-motion</code>). Mudar <code>type</code>, <code>reverse</code> ou a quantidade de valores reinicia o componente e a animação.</p>
+<p>ℹ️ <strong>Leitor de tela:</strong> o meter tem <code>role="meter"</code>, com o total (soma dos valores) como valor atual, de 0 a 100. A descrição de cada seção é sempre informada, mesmo com <code>aria-label</code>.</p>
+<p>ℹ️ <strong>Cores e fundo:</strong> sobre fundo <code>brand</code>, <code>media</code> ou <code>negative</code>, a primeira cor da paleta padrão e a cor da trilha (a parte não preenchida) mudam para manter o contraste. As pontas dos segmentos ficam arredondadas ou retas conforme o tema.</p>
+<p>ℹ️ O componente não aceita <code>children</code>: o conteúdo extra vai no <code>slot</code>.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Data Visualizations (Meter)</h4><p><strong>Figma:</strong> biblioteca Desktop › Meter [D] · biblioteca Mobile › Meter</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Type</code></td><td><code>Angular</code> · <code>Circular</code> · <code>Linear</code></td><td><code>type</code></td><td>✅</td><td>Semicírculo, círculo completo ou barra. No código, o padrão é <code>Angular</code>.</td></tr>
+<tr><td><code>Segments</code></td><td><code>1</code> a <code>8</code></td><td>quantidade de itens em <code>values</code></td><td>⚠️</td><td>No código, cada valor da lista vira um segmento, <strong>sem limite</strong>. A paleta padrão do código tem <strong>5 cores</strong>: do 6º segmento em diante, as cores se repetem (o 6º usa a cor do 1º, e assim por diante).</td></tr>
+<tr><td><code>Total value</code></td><td><code>0%</code> · <code>25%</code> · <code>50%</code> · <code>75%</code> · <code>100%</code></td><td>soma dos itens em <code>values</code></td><td>⚠️</td><td>No código, o total é a soma dos valores e pode ser <strong>qualquer porcentagem</strong> até 100%, não só os passos de 25% do Figma.</td></tr>
+<tr><td><code>Reverse</code></td><td>ligado/desligado</td><td><code>reverse</code></td><td>⚠️</td><td>No código, <code>reverse</code> só muda a <strong>animação de entrada</strong> (os segmentos diminuem a partir do gráfico cheio em vez de crescer do zero). O desenho final é o mesmo.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Alternative</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código o meter muda de cor sozinho conforme o <strong>fundo onde está</strong>. O código também tem o fundo <code>Media</code>, que não existe no Figma.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

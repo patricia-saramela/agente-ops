@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-image">
+<h2>Image</h2>
+<p class="cat">Primitivos</p>
+<h3>Resumo</h3>
+<p>Mostra uma imagem com os cantos arredondados do tema. Pode ter uma proporção fixa (<code>aspectRatio</code>, ex.: <code>'16:9'</code>), ser redonda (<code>circular</code>) ou ter largura e altura definidas. Enquanto carrega, mostra um esqueleto animado; se a imagem não carregar, mostra uma caixa cinza com um ícone de imagem quebrada. Os cards, o Hero e outros componentes do Design System usam o <code>Image</code> por dentro.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Image</h4><ul>
+<li>⚠️ <strong>Proporção:</strong> o trecho do Dev Mode <strong>não leva a proporção</strong> nem o tamanho. Informe a proporção (ex.: <code>16:9</code>) ou a largura e a altura. Sem isso, a imagem aparece com a proporção original e a largura toda.
+</li>
+<li>⚠️ <strong>Texto alternativo:</strong> se a imagem passa uma informação (ex.: a foto de um aparelho à venda), informe o texto que o leitor de tela deve ler. Se é decorativa, diga isso.
+</li>
+<li>⚠️ <strong>Proporção <code>21:9</code>:</strong> funciona no código, mas não é uma opção pronta. Informe para o time de desenvolvimento passar o número.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o <code>Type</code> (só o <code>Circular</code>), o <code>Border radius</code> e o <code>Border</code> do design. O endereço da imagem é sempre um exemplo.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Carregando (esqueleto animado)</td><td>Não existe</td><td>Existe: aparece enquanto a imagem carrega. ⚠️ Diferente.</td></tr>
+<tr><td>Caixa de erro na imagem livre só com largura ou só com altura</td><td>Existe (<code>Type=Free</code>, 96 × 96)</td><td>Não existe: sem tamanho conhecido antes de carregar, a caixa de erro não aparece. ⚠️ Diferente.</td></tr>
+<tr><td>Caixa de erro sobre fundo <code>alternative</code> ou <code>media</code></td><td>Não existe</td><td>Existe: <code>alternative</code> usa as cores do <code>Default</code>; <code>media</code> usa as do <code>Brand</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Imagem redonda sem cantos arredondados</td><td>Não existe</td><td>Não existe: <code>circular</code> é sempre redonda. Igual.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Image</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>width</code></td><td></td><td><code>'100%'</code> sem <code>width</code> e sem <code>height</code></td><td>🎨 Largura da imagem (ex.: <code>120</code> ou <code>'50%'</code>).¹</td></tr>
+<tr><td><code>height</code></td><td></td><td></td><td>🎨 Altura da imagem.¹</td></tr>
+<tr><td><code>aspectRatio</code></td><td><code>'1:1' | '16:9' | '7:10' | '4:3' | number</code></td><td><code>0</code> (proporção original da imagem)</td><td>🎨 Proporção da imagem (largura ÷ altura). Com <code>width</code> e <code>height</code> juntos, é ignorada.¹</td></tr>
+<tr><td><code>circular</code></td><td>sim/não</td><td></td><td>🎨 Imagem redonda (proporção 1:1). Use com <code>width</code> <strong>ou</strong> <code>height</code>, não os dois. Não pode ser usada com <code>aspectRatio</code>.</td></tr>
+<tr><td><code>noBorderRadius</code></td><td>sim/não</td><td></td><td>🎨 Cantos retos. Com <code>false</code> explícito, força os cantos arredondados do tema, mesmo dentro de um componente que os tira.²</td></tr>
+<tr><td><code>border</code></td><td>sim/não</td><td></td><td>🎨 Borda de 1px, na cor de borda clara do tema.</td></tr>
+<tr><td><code>objectFit</code></td><td><code>'contain' | 'cover' | 'fill' | 'none'</code></td><td><code>'cover'</code> (ou <code>'contain'</code> com só <code>width</code> ou só <code>height</code>)</td><td>🎨 Como a imagem ocupa o espaço: <code>'cover'</code> preenche tudo e corta as sobras; <code>'contain'</code> mostra a imagem inteira, sem cortar.</td></tr>
+<tr><td><code>objectPosition</code></td><td><code>'center' | 'top' | 'bottom' | 'left' | 'right' | string</code></td><td></td><td>🎨 Parte da imagem que fica à vista quando ela é cortada (ex.: <code>'top'</code> para não cortar o rosto numa foto).</td></tr>
+<tr><td><code>src</code> (obrigatória)</td><td></td><td></td><td>Endereço da imagem. Vazio, mostra a caixa de erro.</td></tr>
+<tr><td><code>srcSet</code></td><td></td><td></td><td>Versões da imagem em tamanhos diferentes, para o navegador escolher a melhor para a tela.</td></tr>
+<tr><td><code>loadingFallback</code></td><td>sim/não</td><td><code>true</code></td><td>Mostra um esqueleto animado enquanto a imagem carrega. Ao terminar, a imagem aparece com um efeito suave (0,3 s).³</td></tr>
+<tr><td><code>errorFallback</code></td><td>sim/não</td><td><code>true</code></td><td>Mostra uma caixa cinza com um ícone de imagem quebrada quando a imagem não carrega.³</td></tr>
+<tr><td><code>onLoad</code></td><td></td><td></td><td>Chamada quando a imagem termina de carregar.</td></tr>
+<tr><td><code>onError</code></td><td></td><td></td><td>Chamada quando a imagem não carrega.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+<tr><td><code>alt</code></td><td></td><td><code>''</code></td><td>♿ Descrição da imagem para o leitor de tela. Vazio, a imagem é tratada como decorativa e o leitor de tela a ignora.⁴</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Tamanho:</strong> sem <code>width</code> e sem <code>height</code>, a imagem ocupa a largura toda do espaço onde está. Com só um dos dois e uma proporção (<code>aspectRatio</code>), o outro é calculado. Com só um dos dois e sem proporção, a imagem mantém a proporção original e aparece inteira (<code>objectFit: 'contain'</code>). Com os dois, a imagem tem esse tamanho exato e é cortada para preencher (<code>objectFit: 'cover'</code>).</p>
+<p>² ℹ️ <strong>Cantos:</strong> por padrão, os cantos usam o raio de contêiner do tema. Dentro de alguns componentes do Design System (como cards), o raio segue o que o componente define. Com <code>circular</code>, a imagem é sempre redonda.</p>
+<p>³ ⚠️ <strong>Esqueleto e erro só com tamanho conhecido:</strong> o esqueleto de carregamento e a caixa de erro só aparecem quando o tamanho da imagem é conhecido antes de carregar: com <code>aspectRatio</code>, com <code>circular</code> ou com <code>width</code> e <code>height</code> juntos. Sem isso, a imagem simplesmente não aparece enquanto carrega ou se der erro. A caixa de erro muda de cor com o fundo (<code>brand</code>, <code>negative</code> etc.) e, nas skins da marca, usa um ícone próprio.</p>
+<p>⁴ ⚠️ <strong>Texto alternativo:</strong> o <code>alt</code> vazio é o padrão. Se a imagem passa uma informação (ex.: a foto de um aparelho à venda), preencha o <code>alt</code> com o que a imagem mostra.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Image</h4><p><strong>Figma:</strong> biblioteca Desktop › Image [D] · biblioteca Mobile › Image</p>
+<p>ℹ️ No Figma, o Image tem três tipos (com proporção, redondo e livre), o estado de erro (<code>Fallback state</code>) e as opções de cantos e borda.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de proporção</td><td><code>Aspect ratio</code></td><td><code>Aspect Ratio</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Type</code></td><td><code>Aspect Ratio</code> · <code>Circular</code> · <code>Free</code></td><td><code>aspectRatio</code> · <code>circular</code> · <code>width</code> e <code>height</code></td><td>✅</td><td><code>Free</code> é a imagem com largura e altura definidas (96 × 96 no Figma).</td></tr>
+<tr><td><code>Aspect ratio</code></td><td><code>1:1</code> · <code>4:3</code> · <code>7:10</code> · <code>16:9</code> · <code>21:9</code></td><td><code>aspectRatio</code></td><td>✅</td><td>No código, <code>21:9</code> não é uma opção pronta, mas funciona como número: <code>aspectRatio={21 / 9}</code>.</td></tr>
+<tr><td><code>Fallback state</code></td><td><code>False</code> · <code>True</code></td><td><code>errorFallback</code></td><td>✅</td><td>No código, a caixa de erro aparece sozinha quando a imagem não carrega (<code>errorFallback</code> vem ligado).</td></tr>
+<tr><td><code>Border radius</code></td><td><code>True</code> · <code>False</code></td><td><code>noBorderRadius</code></td><td>✅</td><td>Ao contrário: <code>Border radius=False</code> é <code>noBorderRadius</code>.</td></tr>
+<tr><td><code>Border</code></td><td><code>True</code> · <code>False</code></td><td><code>border</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Theme context</code></td><td><code>—</code> · <code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>Só muda a cor da caixa de erro. No código, a cor vem do fundo onde a imagem está.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

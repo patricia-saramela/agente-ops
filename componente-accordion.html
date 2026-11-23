@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accordion (Accordion, Boxed Accordion) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-accordion">
+<h2>Accordion (Accordion, Boxed Accordion)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>Accordion / BoxedAccordion</h4>
+<p>Contêiner que agrupa itens expansíveis (<code>AccordionItem</code> / <code>BoxedAccordionItem</code>). Usado quando houver uma lista de seções que o usuário pode abrir e fechar para ver mais conteúdo, economizando espaço na tela.</p>
+<ul>
+<li><strong><code>Accordion</code></strong>: os itens ficam separados por um <code>Divider</code>.
+</li>
+<li><strong><code>BoxedAccordion</code></strong>: os itens ficam empilhados em caixas, com espaçamento de 16 (<code>Stack</code>).
+</li></ul>
+<h4>AccordionItem / BoxedAccordionItem</h4>
+<p>Item expansível de um accordion. Tem um cabeçalho clicável (título, subtítulo, asset, detalhe e um chevron) que mostra ou esconde o conteúdo. É usado dentro de um componente <code>Accordion</code> (<code>AccordionItem</code>) ou de um <code>BoxedAccordion</code> (<code>BoxedAccordionItem</code>).</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Accordion</h4><ul>
+<li>⚠️ <strong><code>Small</code> e <code>Auto collapse</code> valem para o grupo:</strong> no código, todos os itens de um mesmo accordion são compactos ou não, e o <code>Auto collapse</code> vale para o grupo inteiro. No Figma, mantenha esses valores iguais em todos os itens do mesmo accordion.
+</li>
+<li>⚠️ <strong>Itens abertos:</strong> indique no handoff quais itens começam abertos. No código isso é definido no contêiner, pela posição do item.
+</li>
+<li>⚠️ <strong>Accordion e Boxed Accordion não se misturam:</strong> use só itens de um tipo em cada grupo.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código que o Figma mostra no Dev Mode não inclui <code>small</code> nem os itens abertos, mesmo quando a variante usa <code>Small</code> ou <code>Open</code>.
+</li>
+<li>⚠️ <strong>Boxed Accordion no Mobile:</strong> o Design System só tem ligação de código (Code Connect) para o Boxed Accordion do Desktop. Se ele existir no biblioteca Mobile, o Dev Mode não mostra o trecho de código para ele.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código. O <code>Custom content</code> só existe com <code>Open</code> ligado, o que é coerente: o conteúdo só aparece com o item aberto.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Accordion / BoxedAccordion</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td><code>false</code></td><td>🎨 Ativa (ou não) a versão compacta.</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Os itens que vão aparecer dentro do accordion.(AccordionItem)</td></tr>
+</tbody></table>
+<p>O <code>index</code> de cada item é calculado pela posição dele no DOM dentro do accordion. Você não passa um índice para o item: o primeiro é <code>0</code>, o segundo é <code>1</code>, e assim por diante.</p>
+<h5>Diferença entre Accordion e BoxedAccordion</h5><table><thead><tr><th></th><th><code>Accordion</code> / <code>AccordionItem</code></th><th><code>BoxedAccordion</code> / <code>BoxedAccordionItem</code></th></tr></thead><tbody>
+<tr><td><strong>Aparência</strong></td><td>Itens separados por uma linha (<code>Divider</code>)</td><td>Cada item em uma caixa, com espaço de 16 entre elas</td></tr>
+<tr><td><strong>Props</strong></td><td>Iguais</td><td>Iguais, mais <code>variant</code> no item (<code>'default'</code> ou <code>'brand'</code>)</td></tr>
+<tr><td><strong><code>ref</code> do item</strong></td><td>Vai para a área clicável</td><td>Vai para a caixa</td></tr>
+</tbody></table>
+<p>ℹ️ São duas versões do mesmo componente: muda só a aparência.</p>
+<p>ℹ️ Use sempre o par certo: <code>AccordionItem</code> dentro de <code>Accordion</code>, e <code>BoxedAccordionItem</code> dentro de <code>BoxedAccordion</code>.</p>
+<h4>AccordionItem / BoxedAccordionItem</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>title</code> (obrigatória)</td><td></td><td></td><td>🎨 Título do cabeçalho.</td></tr>
+<tr><td><code>content</code> (obrigatória)</td><td></td><td></td><td>🎨 Conteúdo que aparece quando o item está expandido.(pode ser desde um texto simples até um bloco de conteúdo).</td></tr>
+<tr><td><code>subtitle</code></td><td></td><td></td><td>🎨 Subtítulo no cabeçalho.</td></tr>
+<tr><td><code>detail</code></td><td></td><td></td><td>🎨 Texto de detalhe no lado direito do cabeçalho.</td></tr>
+<tr><td><code>asset</code></td><td></td><td></td><td>🎨 Ícone ou imagem à esquerda.</td></tr>
+<tr><td><code>right</code></td><td></td><td></td><td>🎨 Conteúdo extra à direita, antes do chevron.</td></tr>
+<tr><td><code>variant</code></td><td><code>'default' | 'brand'</code></td><td><code>'default'</code></td><td>🎨 Altera o estilo do item. Essa propriedade só funciona no <code>BoxedAccordionItem</code>.</td></tr>
+<tr><td><code>titleAs</code></td><td></td><td></td><td>Tag HTML do título, por exemplo <code>'h3'</code>.</td></tr>
+</tbody></table>
+<p>O componente <strong>não aceita <code>children</code></strong>. O conteúdo vai sempre na prop <code>content</code>.</p>
+<h5>Diferença entre Accordion e BoxedAccordion</h5><table><thead><tr><th></th><th><code>Accordion</code> / <code>AccordionItem</code></th><th><code>BoxedAccordion</code> / <code>BoxedAccordionItem</code></th></tr></thead><tbody>
+<tr><td><strong>Aparência</strong></td><td>Itens separados por uma linha (<code>Divider</code>)</td><td>Cada item em uma caixa, com espaço de 16 entre elas</td></tr>
+<tr><td><strong>Props</strong></td><td>Iguais</td><td>Iguais, mais <code>variant</code> no item (<code>'default'</code> ou <code>'brand'</code>)</td></tr>
+<tr><td><strong><code>ref</code> do item</strong></td><td>Vai para a área clicável</td><td>Vai para a caixa</td></tr>
+</tbody></table>
+<p>ℹ️ São duas versões do mesmo componente: muda só a aparência.</p>
+<p>ℹ️ Use sempre o par certo: <code>AccordionItem</code> dentro de <code>Accordion</code>, e <code>BoxedAccordionItem</code> dentro de <code>BoxedAccordion</code>.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Accordion</h4><p><strong>Figma:</strong></p>
+<ul>
+<li>Accordion: biblioteca Desktop › Accordion [D] · biblioteca Mobile › Accordion
+</li>
+<li>Boxed Accordion: biblioteca Desktop › Boxed Accordion [D]
+</li></ul>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td><code>Open</code></td><td><code>On</code> · <code>Off</code></td><td><code>True</code> · <code>False</code></td><td>Só o nome dos valores</td></tr>
+<tr><td><code>Negative box</code></td><td>Não existe</td><td><code>True</code> · <code>False</code></td><td>Só o Mobile tem (ver tabela abaixo)</td></tr>
+<tr><td>Boxed Accordion</td><td>Existe</td><td>Sem ligação de código</td><td>O Design System só liga ao código o Boxed Accordion do Desktop</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Estrutura diferente:</strong> no Figma, cada instância de Accordion é <strong>um item</strong>. No código há duas partes: o contêiner (<code>Accordion</code> / <code>BoxedAccordion</code>), que agrupa os itens, e o item (<code>AccordionItem</code> / <code>BoxedAccordionItem</code>). Algumas propriedades que no Figma ficam no item, no código ficam no contêiner e valem para todos os itens juntos (ver tabela).</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Título (camada <code>Title</code>)</td><td>texto livre</td><td><code>title</code> (item)</td><td>✅</td><td></td></tr>
+<tr><td><code>Subtitle</code> + camada <code>Subtitle</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>subtitle</code> (item)</td><td>✅</td><td></td></tr>
+<tr><td>Conteúdo (camada <code>Body content</code>)</td><td>texto livre</td><td><code>content</code> (item)</td><td>✅</td><td>No código, <code>content</code> aceita texto ou qualquer bloco de conteúdo.</td></tr>
+<tr><td><code>Custom content</code></td><td><code>True</code> · <code>False</code></td><td><code>content</code> (item)</td><td>✅</td><td>Com <code>True</code>, o conteúdo é um bloco livre em vez de texto. No código é a mesma prop <code>content</code>.</td></tr>
+<tr><td><code>Detail</code> + camada <code>Detail</code></td><td>ligado/desligado + texto</td><td><code>detail</code> (item)</td><td>✅</td><td>Texto à direita do cabeçalho.</td></tr>
+<tr><td><code>Asset</code></td><td>ligado/desligado + instância</td><td><code>asset</code> (item)</td><td>✅</td><td>Ícone ou imagem à esquerda.</td></tr>
+<tr><td><code>Right slot</code> + <code>🔄 Replace right slot</code></td><td>ligado/desligado + instância</td><td><code>right</code> (item)</td><td>✅</td><td>Conteúdo à direita, antes da seta.</td></tr>
+<tr><td><code>Variant</code></td><td><code>Default</code> · <code>Brand</code></td><td><code>variant</code> (item)</td><td>✅</td><td>Só no <strong>Boxed Accordion</strong>, nos dois. Pode ser diferente em cada item.</td></tr>
+<tr><td><code>Auto collapse</code></td><td>ligado/desligado</td><td><code>singleOpen</code> (contêiner)</td><td>⚠️</td><td>Só um item aberto por vez. No código vale para <strong>todos os itens</strong> do accordion, não para um item só.</td></tr>
+<tr><td><code>Small</code></td><td><code>True</code> · <code>False</code></td><td><code>small</code> (contêiner)</td><td>⚠️</td><td>No código vale para <strong>todos os itens</strong> do accordion. Não dá para misturar itens normais e compactos no mesmo accordion.</td></tr>
+<tr><td><code>Open</code></td><td><code>On</code> · <code>Off</code></td><td><code>defaultIndex</code> / <code>index</code> (contêiner)</td><td>⚠️</td><td>Não é prop do item: o contêiner recebe <strong>quais itens</strong> começam abertos, pela posição (o primeiro é <code>0</code>).</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código o accordion muda de cor sozinho conforme o <strong>fundo onde está</strong>. O código também tem os fundos <code>Alternative</code> e <code>Media</code>, que não existem no Figma (o <code>Media</code> usa as cores do <code>Brand</code>).</td></tr>
+<tr><td><code>Negative box</code></td><td><code>True</code> · <code>False</code></td><td>sem prop</td><td>⚠️</td><td>Só no <strong>Mobile</strong>. Pelo nome, corresponde ao componente <code>NegativeBox</code> em volta do accordion, que remove a margem lateral de 16px para o item encostar nas bordas da tela. Confirme com quem desenvolve.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Rows dentro do slot do Accordion levam padding lateral ou se alinham com Negative Box? <strong>Resposta:</strong> Alinhe com <strong>Negative Box</strong>. Dentro de um Drawer, pode haver dois Negative Box: o externo remove o espaçamento lateral do Drawer e o interno remove o padding do conteúdo do Accordion. Cada um deve compensar só o padding do <strong>seu container imediato</strong>.</p>
+<p><sub>Ref. #1205 · 08/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

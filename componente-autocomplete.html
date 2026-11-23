@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autocomplete · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-autocomplete">
+<h2>Autocomplete</h2>
+<p class="cat">Campos de formulário</p>
+<h3>Resumo</h3>
+<p>Campo de texto em que o usuário digita e <strong>escolhe uma opção de uma lista</strong>, que vai sendo filtrada enquanto ele digita (ex.: escolher a cidade ou o banco). É um campo de escolha com busca: o valor final precisa ser uma das opções da lista. Tem o mesmo visual do TextField e funciona sozinho ou dentro de um <code>Form</code>.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Autocomplete</h4><ul>
+<li>⚠️ <strong>Lista de opções:</strong> diga de onde vêm as opções e como são filtradas (ex.: "cidades que contêm o texto digitado") e quantas aparecem no máximo. No código, a lista não tem rolagem e cresce com todas as opções.
+</li>
+<li>⚠️ <strong>Só opções da lista:</strong> o valor final precisa ser uma das opções. Se o usuário puder digitar qualquer texto, o componente certo é o Text Field com sugestões.
+</li>
+<li>⚠️ <strong>Conteúdo livre na lista:</strong> não use o <code>Slot</code> da lista esperando esse conteúdo no código: cada opção é só um texto.
+</li>
+<li>⚠️ <strong>Lista vazia:</strong> escreva o texto do estado vazio (ex.: "Nenhuma cidade encontrada"). Sem ele, o código mostra "Sem opções".
+</li>
+<li>⚠️ <strong>Largura no desktop:</strong> diga se o campo ocupa a largura toda (<code>fullWidth</code>). Sem isso, o campo tem 328px e a lista pode ficar mais larga que ele.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> no Desktop, o trecho de código segue o rótulo, o texto de ajuda, o <code>Error</code>, o <code>Disabled</code> e o <code>Read only</code>, mas sempre com <code>value=""</code> e <code>getSuggestions</code> vazio: as opções do design não aparecem. No Mobile, não há trecho de código.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Lista com mais de 5 opções</td><td>Não existe</td><td>Existe, sem rolagem: a lista cresce com todas as opções. ⚠️ Diferente.</td></tr>
+<tr><td>Lista acima do campo</td><td>Não existe</td><td>Existe: abre acima quando não cabe embaixo. ⚠️ Diferente.</td></tr>
+<tr><td>Lista com a largura do campo</td><td>Existe (496px, a mesma do campo)</td><td>Só quando o campo ocupa a largura do espaço (<code>fullWidth</code>). Sem <code>fullWidth</code>, no desktop o campo tem 328px e a lista pode ficar mais larga. ⚠️ Diferente.</td></tr>
+<tr><td>Texto digitado que não é uma das opções</td><td>Dá para mostrar no campo</td><td>É apagado quando o usuário sai do campo. ⚠️ Diferente.</td></tr>
+<tr><td>Distância entre o campo e a lista, e altura das opções</td><td>8px e 48px</td><td>8px e 48px. ✅ Igual.</td></tr>
+<tr><td>Versão menor do campo</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Autocomplete</h4><h5>Quando usar</h5><ul>
+<li><strong>Use o <code>Autocomplete</code></strong> quando o usuário precisa escolher <strong>uma opção de uma lista longa</strong>, e digitar parte do nome ajuda a encontrar (ex.: cidades, bancos, modelos de aparelho).
+</li>
+<li><strong>Use o <code>Select</code></strong> quando a lista é curta e dá para escolher só olhando, sem digitar.
+</li>
+<li><strong>Use o <code>TextField</code> com <code>getSuggestions</code></strong> quando as opções são só sugestões e o usuário pode digitar <strong>qualquer texto</strong> (o Autocomplete apaga o que não for uma das opções).
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto do campo e da lista em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.¹</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo. Também é o nome da lista para o leitor de tela.</td></tr>
+<tr><td><code>value</code> (obrigatória)</td><td></td><td></td><td>Valor do campo. O Autocomplete é sempre controlado: guarde o valor e atualize-o no <code>onChangeValue</code>.</td></tr>
+<tr><td><code>onChangeValue</code> (obrigatória)</td><td></td><td></td><td>Chamada a cada mudança: quando o usuário digita, escolhe uma opção ou quando o valor é apagado.²</td></tr>
+<tr><td><code>getSuggestions</code> (obrigatória)</td><td></td><td></td><td>Recebe o texto digitado e devolve as opções da lista, já filtradas (ex.: as cidades que começam com o texto).</td></tr>
+<tr><td><code>suggestionEmptyCase</code></td><td></td><td>"Sem opções"</td><td>Texto mostrado na lista quando nenhuma opção corresponde ao texto digitado.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo.</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Valida o valor dentro de um <code>Form</code>: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo.</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. A lista não abre.</td></tr>
+<tr><td><code>maxLength</code></td><td>número</td><td></td><td>Número máximo de caracteres.</td></tr>
+<tr><td><code>placeholder</code></td><td></td><td></td><td>Texto de exemplo, que aparece quando o campo tem foco e está vazio.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela (e abre a lista).</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada quando o usuário digita, com o evento.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>preventCopy</code></td><td>sim/não</td><td>configuração do tema</td><td>Impede copiar e recortar o texto do campo.</td></tr>
+<tr><td><code>autoComplete</code></td><td></td><td></td><td>Não aceita: o preenchimento automático do navegador fica sempre desligado.</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Não aceita: use <code>value</code>.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ⚠️ <strong>Largura da lista:</strong> a lista de opções tem a largura do espaço onde o Autocomplete está, e não a do campo. No desktop, sem <code>fullWidth</code>, o campo tem 328px, mas a lista pode ficar mais larga que ele. Use <code>fullWidth</code> ou coloque o Autocomplete num espaço com a largura do campo.</p>
+<p>² ⚠️ <strong>O valor precisa ser uma opção da lista:</strong> se o usuário digitar um texto que não é uma das opções e sair do campo (clicando fora ou com a tecla Tab), <strong>o valor é apagado</strong>. Dentro de um <code>Form</code>, o campo vazio e obrigatório mostra "Este campo é obrigatório". Para aceitar qualquer texto, use o <code>TextField</code> com <code>getSuggestions</code>.</p>
+<p>³ ℹ️ <strong><code>testid</code>:</strong> o Autocomplete usa o <code>TextField</code> por dentro, então o <code>testid</code> padrão do campo é <code>TextField</code>.</p>
+<p>ℹ️ <strong>Lista de opções:</strong></p>
+<ul>
+<li>Abre quando o campo recebe o foco e enquanto o usuário digita. Fecha ao escolher uma opção, ao clicar fora ou com a tecla Esc.
+</li>
+<li>Fica 8px abaixo do campo ou, se não couber na tela, 8px acima.
+</li>
+<li>Cada opção tem 48px de altura. A lista não tem altura máxima: mostra todas as opções que o <code>getSuggestions</code> devolver. Limite a quantidade de opções no <code>getSuggestions</code>.
+</li>
+<li>Fundo branco com sombra, sempre com as cores do fundo padrão.
+</li></ul>
+<p>ℹ️ <strong>Teclado:</strong></p>
+<table><thead><tr><th>Tecla</th><th>Lista fechada</th><th>Lista aberta</th></tr></thead><tbody>
+<tr><td>↓ / ↑</td><td>Abre a lista</td><td>Passa para a opção seguinte ou anterior (da última volta para a primeira)</td></tr>
+<tr><td>Enter</td><td>Nada</td><td>Escolhe a opção destacada</td></tr>
+<tr><td>Tab</td><td>Sai do campo (apaga o valor se não for uma opção)</td><td>Escolhe a opção destacada e sai do campo</td></tr>
+<tr><td>Esc</td><td><strong>Apaga o valor</strong></td><td>Fecha a lista</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Leitor de tela:</strong> o campo é anunciado como uma caixa de combinação com lista. A opção destacada pelas setas é lida, e "Sem opções" é anunciado quando nada corresponde ao texto.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Autocomplete</h4><p><strong>Figma:</strong> biblioteca Desktop › Autocomplete [D] · biblioteca Mobile › Autocomplete</p>
+<p>ℹ️ No Figma, a lista de opções é a instância <strong>_Resources/optionsList</strong>, ligada pela propriedade <code>Suggestions</code>. Ela tem até 5 opções (<code>Option 1</code> a <code>Option 5</code>), cada uma um <strong>_Resources/optionItem</strong>, e um estado vazio. No código, as opções vêm do <code>getSuggestions</code> e a lista abre sozinha quando o usuário toca no campo ou digita.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td>Autocomplete</td><td>Existe</td><td>Sem ligação de código</td><td>No Mobile, o Autocomplete não está ligado ao código: o Dev Mode não mostra o trecho do <code>Autocomplete</code></td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td></td></tr>
+<tr><td>Valor (camada <code>Input Text</code>)</td><td>texto livre</td><td><code>value</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td>Nos dois, a lista não abre no campo só para leitura.</td></tr>
+<tr><td><code>Option 1</code> a <code>Option 5</code> (optionsList)</td><td><code>True</code> · <code>False</code> + texto de cada opção</td><td><code>getSuggestions</code></td><td>⚠️</td><td>No Figma, até 5 opções, escritas à mão. No código, as opções vêm do <code>getSuggestions</code>, sem limite de quantidade, e a lista não tem rolagem.</td></tr>
+<tr><td><code>Empty state</code> + <code>Empty default text</code> (optionsList)</td><td><code>False</code> · <code>True</code> + texto</td><td><code>suggestionEmptyCase</code></td><td>✅</td><td>No código, o texto padrão é "Sem opções".</td></tr>
+<tr><td><code>Slot</code> + <code>🔄 Replace Slot</code> (optionsList)</td><td><code>True</code> · <code>False</code> + qualquer conteúdo</td><td>sem prop</td><td>⚠️</td><td>O código não aceita conteúdo livre na lista: cada opção é só um texto.</td></tr>
+<tr><td><code>State</code> (optionItem)</td><td><code>Default</code> · <code>Hover</code> · <code>Pressed</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado da opção muda sozinho com o mouse e o toque. A opção destacada pelas setas do teclado também fica com o fundo de <code>Hover</code>.</td></tr>
+<tr><td><code>Suggestions</code></td><td><code>True</code> · <code>False</code></td><td>sem prop</td><td>⚠️</td><td>No código, a lista abre sozinha quando o campo recebe o foco ou o usuário digita, e fecha ao escolher uma opção, ao clicar fora ou com Esc.</td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Inactive</code> = vazio e sem foco, <code>Focused</code> = com foco, <code>Activated</code> = preenchido e sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o campo e a lista têm sempre fundo branco; só o texto de ajuda muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

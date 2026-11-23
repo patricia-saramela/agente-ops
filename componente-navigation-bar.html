@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Navigation bar (Main, Funnel, Navigation Bar) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-navigation-bar">
+<h2>Navigation bar (Main, Funnel, Navigation Bar)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>NavigationBar</h4>
+<p>Barra simples no topo da página, com botão de voltar, título e ações à direita. Use em telas internas, como o detalhe de um pedido. No Figma, é o <strong>Navigation Bar</strong>.</p>
+<h4>FunnelNavigationBar</h4>
+<p>Barra de navegação simplificada, no topo da página, só com o logo e ações à direita. Use em fluxos em que o usuário não deve se distrair com o resto do site, como uma compra ou um cadastro. No Figma, é o <strong>Funnel Navigation Bar</strong>.</p>
+<h4>MainNavigationBar</h4>
+<p>Barra de navegação principal do site, no topo da página: logo, seções do site e ações à direita (ex.: busca, conta). No desktop, as seções aparecem na barra e podem abrir menus; no celular e no tablet, ficam num menu hambúrguer. No Figma, é o <strong>Main Navigation Bar</strong>.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>FunnelNavigationBar</h4><ul>
+<li>⚠️ <strong>Dev Mode errado no Mobile:</strong> o Web/Funnel Navigation Bar está ligado ao código do <code>NavigationBar</code>, então o Dev Mode mostra <code>&lt;NavigationBar title="Title" /&gt;</code>. O componente certo é o <code>FunnelNavigationBar</code>. No Desktop, o Funnel Navigation Bar não tem trecho de código.
+</li>
+<li>⚠️ <strong>Largura do conteúdo:</strong> no desktop, o código coloca o logo e as ações numa faixa central de 10 das 12 colunas, mais estreita que nas outras barras. Confira se o design segue essa largura.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td><code>Theme variant=Brand</code> com linha embaixo</td><td>Existe</td><td>A linha nunca aparece. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>MainNavigationBar</h4><ul>
+<li>⚠️ <strong>Sem ligação de código:</strong> o Dev Mode não mostra trecho de código para o Main Navigation Bar, nem no Desktop nem no Mobile.
+</li>
+<li>⚠️ <strong>Seções:</strong> informe quais seções têm menu, se o menu é por colunas (título + links) ou um conteúdo livre, e se a própria seção também leva a uma página.
+</li>
+<li>⚠️ <strong>Ícone nas abas:</strong> o código não aceita ícone nas seções. Evite usar o <code>Icon</code> da aba.
+</li>
+<li>⚠️ <strong>Celular com uma seção:</strong> no código, o menu hambúrguer não aparece com uma seção só.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Menu hambúrguer com uma seção só</td><td>O Mobile sempre mostra o ícone de menu</td><td>O botão de menu só aparece com mais de uma seção. ⚠️ Diferente.</td></tr>
+<tr><td>Seção com ícone</td><td>Existe (<code>Icon</code>)</td><td>Não existe. ⚠️ Diferente.</td></tr>
+<tr><td><code>Theme variant=Brand</code> com linha embaixo</td><td>Existe</td><td>A linha nunca aparece. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>NavigationBar</h4><ul>
+<li>⚠️ <strong>Dev Mode no Mobile:</strong> o Web/Navigation Bar não tem trecho de código, porque a ligação do Mobile aponta para o Web/Funnel Navigation Bar. No Desktop, o trecho mostra <code>title</code>, <code>onBack</code> e <code>wide</code> conforme o design, mas não as ações da direita.
+</li>
+<li>⚠️ <strong>Título longo:</strong> o código não quebra o título em duas linhas. Evite títulos longos.
+</li>
+<li>⚠️ <strong>Barra não fixa:</strong> se a barra não for fixa no topo, informe as margens laterais desejadas: o código tira as margens nesse caso.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td><code>Theme variant=Brand</code> com linha embaixo</td><td>Existe</td><td>A linha nunca aparece. ⚠️ Diferente.</td></tr>
+<tr><td>Barra sem título</td><td>Dá para apagar o texto</td><td>Existe: <code>title</code> é opcional. ✅ Igual.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>NavigationBar</h4><h5>Propriedades</h5><h6>NavigationBar</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>variant</code></td><td><code>'default' | 'brand' | 'negative' | 'alternative' | 'media'</code></td><td><code>'default'</code></td><td>🎨 Cor de fundo da barra.¹</td></tr>
+<tr><td><code>withBorder</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Linha embaixo da barra. Nunca aparece com <code>variant</code> <code>'brand'</code> ou <code>'negative'</code> (fora do tema escuro).</td></tr>
+<tr><td><code>wide</code></td><td></td><td><code>false</code></td><td>🎨 A barra ocupa a largura toda da tela, com margens laterais de 16px (celular) e 24px (tablet e desktop), em vez de seguir a largura do layout. Com <code>{paddingX}</code>, as margens são as indicadas.²</td></tr>
+<tr><td><code>title</code></td><td></td><td></td><td>Título, em uma linha (o excedente é cortado com reticências).</td></tr>
+<tr><td><code>onBack</code></td><td></td><td></td><td>Função do botão voltar (‹). <strong>Sem ela, o botão não aparece.</strong></td></tr>
+<tr><td><code>right</code></td><td></td><td></td><td>Conteúdo à direita, normalmente um <code>NavigationBarActionGroup</code>.</td></tr>
+<tr><td><code>topFixed</code></td><td>sim/não</td><td><code>true</code></td><td>Barra fixa no topo durante a rolagem. Reserva o espaço dela no início da página.²</td></tr>
+<tr><td><code>titleAs</code></td><td></td><td></td><td>♿ Nível de título do HTML (<code>h1</code> a <code>h6</code>) usado no título. Não muda a aparência.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Fundo:</strong> <code>'default'</code> usa o fundo padrão; <code>'brand'</code> e <code>'media'</code>, a cor de navegação da marca; <code>'negative'</code>, o fundo negativo; <code>'alternative'</code>, o fundo alternativo. O conteúdo da barra (título, voltar e ações) ajusta a cor sozinho.</p>
+<p>² ⚠️ <strong>Barra não fixa (<code>topFixed={false}</code>):</strong> a barra perde as margens laterais do layout e o conteúdo encosta nas bordas. Só um <code>wide</code> com <code>{paddingX}</code> devolve margens; <code>wide={true}</code> não tem efeito nesse caso.</p>
+<p>ℹ️ <strong>Altura:</strong> 56px no celular e 80px no desktop.</p>
+<p>ℹ️ O <code>NavigationBar</code> não aceita <code>children</code>. A prop <code>variant="inverse"</code> está depreciada e não foi documentada; use <code>'brand'</code>.</p>
+<h5>Ações à direita</h5><p><code>NavigationBarActionGroup</code> e <code>NavigationBarAction</code> montam as ações da prop <code>right</code> (ex.: compartilhar, editar).</p>
+<h6>NavigationBarActionGroup</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>As ações, lado a lado, com 24px entre elas.</td></tr>
+</tbody></table>
+<h6>NavigationBarAction</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>children</code></td><td></td><td></td><td>Conteúdo da ação: ícone, texto ou os dois (16px entre eles). Textos ficam no tamanho padrão e na cor da barra.</td></tr>
+<tr><td><code>onPress</code></td><td></td><td></td><td>Função executada no clique.</td></tr>
+<tr><td><code>href</code></td><td></td><td></td><td>Link para uma URL.</td></tr>
+<tr><td><code>to</code></td><td></td><td></td><td>Navegação interna.</td></tr>
+<tr><td><code>newTab</code></td><td>sim/não</td><td></td><td>Abre o link em nova aba.</td></tr>
+</tbody></table>
+<p>³ ⚠️ <strong><code>dataAttributes</code>:</strong> o <code>NavigationBarAction</code> aceita as props do <code>Touchable</code> (as principais estão acima), mas sempre substitui o <code>dataAttributes</code> pelo <code>testid</code> <code>NavigationBarAction</code>. Para localizar uma ação em testes, use um elemento em volta dela.</p>
+<h5>Diferença entre MainNavigationBar, FunnelNavigationBar e NavigationBar</h5><table><thead><tr><th></th><th><code>MainNavigationBar</code></th><th><code>FunnelNavigationBar</code></th><th><code>NavigationBar</code></th></tr></thead><tbody>
+<tr><td><strong>Para que serve</strong></td><td>Navegação principal do site</td><td>Fluxos em que o usuário não deve se distrair (ex.: compra)</td><td>Telas internas, com título e voltar</td></tr>
+<tr><td><strong>Esquerda</strong></td><td>Logo (e menu hambúrguer no celular)</td><td>Logo</td><td>Botão voltar (com <code>onBack</code>) e título</td></tr>
+<tr><td><strong>Seções e menus</strong></td><td>Sim</td><td>Não</td><td>Não</td></tr>
+<tr><td><strong>Direita</strong></td><td><code>right</code></td><td><code>right</code></td><td><code>right</code></td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>sections</code>, <code>selectedIndex</code>, <code>large</code>, <code>desktopLargeMenu</code>, <code>topSlot</code>, <code>topSlotBackgroundColor</code>, <code>burgerMenuSlot</code></td><td></td><td><code>onBack</code>, <code>title</code>, <code>titleAs</code></td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os três usam a mesma barra (fundo, borda, fixação no topo e margens), mas têm conteúdo e props diferentes. Cada um tem seu arquivo.</p>
+<h4>FunnelNavigationBar</h4><h5>Propriedades</h5><h6>FunnelNavigationBar</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>variant</code></td><td><code>'default' | 'brand' | 'negative' | 'alternative' | 'media'</code></td><td><code>'default'</code></td><td>🎨 Cor de fundo da barra.¹</td></tr>
+<tr><td><code>withBorder</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Linha embaixo da barra. Nunca aparece com <code>variant</code> <code>'brand'</code> ou <code>'negative'</code> (fora do tema escuro).</td></tr>
+<tr><td><code>wide</code></td><td></td><td><code>false</code></td><td>🎨 A barra ocupa a largura toda da tela, com margens laterais de 16px (celular) e 24px (tablet e desktop), em vez de seguir a largura do layout. Com <code>{paddingX}</code>, as margens são as indicadas.</td></tr>
+<tr><td><code>logo</code></td><td></td><td><code>&lt;Logo&gt;</code> da marca do tema (40px no celular, 48px no desktop)</td><td>Logo à esquerda.</td></tr>
+<tr><td><code>right</code></td><td></td><td></td><td>Conteúdo à direita, normalmente um <code>NavigationBarActionGroup</code>.</td></tr>
+<tr><td><code>topFixed</code></td><td>sim/não</td><td><code>true</code></td><td>Barra fixa no topo durante a rolagem. Reserva o espaço dela no início da página.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Fundo:</strong> <code>'default'</code> usa o fundo padrão; <code>'brand'</code> e <code>'media'</code>, a cor de navegação da marca; <code>'negative'</code>, o fundo negativo; <code>'alternative'</code>, o fundo alternativo. O conteúdo da barra (logo, textos e ações) ajusta a cor sozinho.</p>
+<p>ℹ️ <strong>Largura do conteúdo:</strong> no desktop, o logo e as ações ficam numa faixa central de 10 das 12 colunas do layout, mais estreita que nas outras barras.</p>
+<p>ℹ️ <strong>Altura:</strong> 56px no celular e 80px no desktop.</p>
+<p>ℹ️ O <code>FunnelNavigationBar</code> não aceita <code>children</code>. A prop <code>variant="inverse"</code> está depreciada e não foi documentada; use <code>'brand'</code>.</p>
+<h5>Ações à direita</h5><p><code>NavigationBarActionGroup</code> e <code>NavigationBarAction</code> montam as ações da prop <code>right</code> (ex.: ajuda, sair).</p>
+<h6>NavigationBarActionGroup</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>As ações, lado a lado, com 24px entre elas.</td></tr>
+</tbody></table>
+<h6>NavigationBarAction</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>children</code></td><td></td><td></td><td>Conteúdo da ação: ícone, texto ou os dois (16px entre eles). Textos ficam no tamanho padrão e na cor da barra.</td></tr>
+<tr><td><code>onPress</code></td><td></td><td></td><td>Função executada no clique.</td></tr>
+<tr><td><code>href</code></td><td></td><td></td><td>Link para uma URL.</td></tr>
+<tr><td><code>to</code></td><td></td><td></td><td>Navegação interna.</td></tr>
+<tr><td><code>newTab</code></td><td>sim/não</td><td></td><td>Abre o link em nova aba.</td></tr>
+</tbody></table>
+<p>² ⚠️ <strong><code>dataAttributes</code>:</strong> o <code>NavigationBarAction</code> aceita as props do <code>Touchable</code> (as principais estão acima), mas sempre substitui o <code>dataAttributes</code> pelo <code>testid</code> <code>NavigationBarAction</code>. Para localizar uma ação em testes, use um elemento em volta dela.</p>
+<h5>Diferença entre MainNavigationBar, FunnelNavigationBar e NavigationBar</h5><table><thead><tr><th></th><th><code>MainNavigationBar</code></th><th><code>FunnelNavigationBar</code></th><th><code>NavigationBar</code></th></tr></thead><tbody>
+<tr><td><strong>Para que serve</strong></td><td>Navegação principal do site</td><td>Fluxos em que o usuário não deve se distrair (ex.: compra)</td><td>Telas internas, com título e voltar</td></tr>
+<tr><td><strong>Esquerda</strong></td><td>Logo (e menu hambúrguer no celular)</td><td>Logo</td><td>Botão voltar (com <code>onBack</code>) e título</td></tr>
+<tr><td><strong>Seções e menus</strong></td><td>Sim</td><td>Não</td><td>Não</td></tr>
+<tr><td><strong>Direita</strong></td><td><code>right</code></td><td><code>right</code></td><td><code>right</code></td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>sections</code>, <code>selectedIndex</code>, <code>large</code>, <code>desktopLargeMenu</code>, <code>topSlot</code>, <code>topSlotBackgroundColor</code>, <code>burgerMenuSlot</code></td><td></td><td><code>onBack</code>, <code>title</code>, <code>titleAs</code></td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os três usam a mesma barra (fundo, borda, fixação no topo e margens), mas têm conteúdo e props diferentes. Cada um tem seu arquivo.</p>
+<h4>MainNavigationBar</h4><h5>Propriedades</h5><h6>MainNavigationBar</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>variant</code></td><td><code>'default' | 'brand' | 'negative' | 'alternative' | 'media'</code></td><td><code>'default'</code></td><td>🎨 Cor de fundo da barra.¹</td></tr>
+<tr><td><code>withBorder</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Linha embaixo da barra. Nunca aparece com <code>variant</code> <code>'brand'</code> ou <code>'negative'</code> (fora do tema escuro).</td></tr>
+<tr><td><code>large</code></td><td>sim/não</td><td><code>false</code></td><td>🎨 No desktop, as seções vão para uma segunda linha, abaixo do logo (a barra passa de 80px para 160px). Só tem efeito com <code>sections</code>.</td></tr>
+<tr><td><code>desktopLargeMenu</code></td><td>sim/não</td><td><code>false</code></td><td>🎨 No desktop, os menus das seções abrem na largura toda da tela, no lugar de uma caixa de 184px abaixo da seção.</td></tr>
+<tr><td><code>wide</code></td><td></td><td><code>false</code></td><td>🎨 A barra ocupa a largura toda da tela, com margens laterais de 16px (celular) e 24px (tablet e desktop), em vez de seguir a largura do layout. Com <code>{paddingX}</code>, as margens são as indicadas.</td></tr>
+<tr><td><code>topSlotBackgroundColor</code></td><td></td><td></td><td>🎨 Cor de fundo do <code>topSlot</code>.</td></tr>
+<tr><td><code>sections</code></td><td></td><td><code>[]</code></td><td>Seções do site (ver "Section").²</td></tr>
+<tr><td><code>selectedIndex</code></td><td>número</td><td></td><td>Índice da seção atual, destacada na barra.</td></tr>
+<tr><td><code>logo</code></td><td></td><td><code>&lt;Logo&gt;</code> da marca do tema (40px no celular, 48px no desktop)</td><td>Logo à esquerda.</td></tr>
+<tr><td><code>right</code></td><td></td><td></td><td>Conteúdo à direita, normalmente um <code>NavigationBarActionGroup</code>.</td></tr>
+<tr><td><code>topSlot</code></td><td></td><td></td><td>Faixa acima da barra (ex.: aviso ou seletor de perfil).</td></tr>
+<tr><td><code>burgerMenuSlot</code></td><td></td><td></td><td>Conteúdo extra no menu hambúrguer, abaixo das seções (celular e tablet).</td></tr>
+<tr><td><code>topFixed</code></td><td>sim/não</td><td><code>true</code></td><td>Barra fixa no topo durante a rolagem. Reserva o espaço dela no início da página.</td></tr>
+</tbody></table>
+<h6>Section</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>title</code> (obrigatória)</td><td></td><td></td><td>Nome da seção.</td></tr>
+<tr><td><code>menu</code></td><td></td><td></td><td>Menu da seção. <code>columns</code> são colunas com título e links (<code>items</code>: <code>{title, href | to | onPress}</code>); <code>content</code> é um conteúdo livre (pode ser uma função que recebe <code>closeMenu</code>).</td></tr>
+<tr><td><code>href</code></td><td></td><td></td><td>Link da seção para uma URL.</td></tr>
+<tr><td><code>to</code></td><td></td><td></td><td>Navegação interna.</td></tr>
+<tr><td><code>onPress</code></td><td></td><td></td><td>Função executada no clique da seção.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Fundo:</strong> <code>'default'</code> usa o fundo padrão; <code>'brand'</code> e <code>'media'</code>, a cor de navegação da marca; <code>'negative'</code>, o fundo negativo; <code>'alternative'</code>, o fundo alternativo. O conteúdo da barra (logo, textos e ações) ajusta a cor sozinho.</p>
+<p>² ℹ️ <strong>Seções e menus:</strong></p>
+<table><thead><tr><th></th><th>Desktop</th><th>Celular e tablet</th></tr></thead><tbody>
+<tr><td>Onde ficam</td><td>Na barra, ao lado do logo (ou na segunda linha, com <code>large</code>)</td><td>No menu hambúrguer, que só aparece com <strong>mais de uma</strong> seção</td></tr>
+<tr><td>Como o menu abre</td><td>Passando o mouse sobre a seção (depois de 120ms), clicando nela ou com a seta ↓ do teclado; Esc ou ↑ fecha</td><td>Tocando na seção, que abre uma segunda tela com botão de voltar</td></tr>
+<tr><td>Seção com link e menu</td><td>O clique navega; o menu abre com o mouse ou por uma seta que aparece ao focar pelo teclado</td><td>O toque abre o menu; ao lado do título da seção aparece um link "Ver tudo"</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Altura:</strong> 56px no celular e 80px no desktop (160px com <code>large</code>). Clicar num link do menu fecha o menu.</p>
+<p>ℹ️ O <code>MainNavigationBar</code> não aceita <code>children</code>. A prop <code>variant="inverse"</code> está depreciada e não foi documentada; use <code>'brand'</code>.</p>
+<h5>Ações à direita</h5><p><code>NavigationBarActionGroup</code> e <code>NavigationBarAction</code> montam as ações da prop <code>right</code> (ex.: busca, carrinho, conta).</p>
+<h6>NavigationBarActionGroup</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>As ações, lado a lado, com 24px entre elas.</td></tr>
+</tbody></table>
+<h6>NavigationBarAction</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>children</code></td><td></td><td></td><td>Conteúdo da ação: ícone, texto ou os dois (16px entre eles). Textos ficam no tamanho padrão e na cor da barra.</td></tr>
+<tr><td><code>onPress</code></td><td></td><td></td><td>Função executada no clique.</td></tr>
+<tr><td><code>href</code></td><td></td><td></td><td>Link para uma URL.</td></tr>
+<tr><td><code>to</code></td><td></td><td></td><td>Navegação interna.</td></tr>
+<tr><td><code>newTab</code></td><td>sim/não</td><td></td><td>Abre o link em nova aba.</td></tr>
+</tbody></table>
+<p>³ ⚠️ <strong><code>dataAttributes</code>:</strong> o <code>NavigationBarAction</code> aceita as props do <code>Touchable</code> (as principais estão acima), mas sempre substitui o <code>dataAttributes</code> pelo <code>testid</code> <code>NavigationBarAction</code>. Para localizar uma ação em testes, use um elemento em volta dela.</p>
+<h5>Diferença entre MainNavigationBar, FunnelNavigationBar e NavigationBar</h5><table><thead><tr><th></th><th><code>MainNavigationBar</code></th><th><code>FunnelNavigationBar</code></th><th><code>NavigationBar</code></th></tr></thead><tbody>
+<tr><td><strong>Para que serve</strong></td><td>Navegação principal do site</td><td>Fluxos em que o usuário não deve se distrair (ex.: compra)</td><td>Telas internas, com título e voltar</td></tr>
+<tr><td><strong>Esquerda</strong></td><td>Logo (e menu hambúrguer no celular)</td><td>Logo</td><td>Botão voltar (com <code>onBack</code>) e título</td></tr>
+<tr><td><strong>Seções e menus</strong></td><td>Sim</td><td>Não</td><td>Não</td></tr>
+<tr><td><strong>Direita</strong></td><td><code>right</code></td><td><code>right</code></td><td><code>right</code></td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>sections</code>, <code>selectedIndex</code>, <code>large</code>, <code>desktopLargeMenu</code>, <code>topSlot</code>, <code>topSlotBackgroundColor</code>, <code>burgerMenuSlot</code></td><td></td><td><code>onBack</code>, <code>title</code>, <code>titleAs</code></td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os três usam a mesma barra (fundo, borda, fixação no topo e margens), mas têm conteúdo e props diferentes. Cada um tem seu arquivo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>FunnelNavigationBar</h4><p><strong>Figma:</strong> biblioteca Desktop › Funnel Navigation Bar [D] · biblioteca Mobile › Web/Funnel Navigation Bar</p>
+<p>ℹ️ As ações à direita são instâncias de <code>_resources/item</code> no Desktop e camadas fixas no Mobile, ligadas por <code>Item 1</code> a <code>Item 3</code> nos dois.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td><code>Wide</code></td><td><code>true</code> · <code>false</code></td><td>Não existe</td><td>No código, <code>wide</code> também vale no celular (margens de 16px)</td></tr>
+<tr><td><code>Slot</code></td><td>Booleano (<code>True</code> · <code>False</code>) + <code>🔄 Replace Slot</code></td><td>Variante (<code>Yes</code> · <code>No</code>)</td><td>Só o nome dos valores, e no Mobile não há como trocar o conteúdo pelo painel</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Theme variant</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code> · <code>Alternative</code></td><td><code>variant</code></td><td>✅</td><td>O código também tem <code>'media'</code>, com as mesmas cores do <code>'brand'</code>.</td></tr>
+<tr><td><code>Wide</code></td><td><code>true</code> · <code>false</code></td><td><code>wide</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Item 1</code> a <code>Item 3</code></td><td><code>True</code> · <code>False</code></td><td><code>right</code> com <code>NavigationBarAction</code></td><td>✅</td><td>Cada item vira um <code>NavigationBarAction</code> dentro de um <code>NavigationBarActionGroup</code>.</td></tr>
+<tr><td><code>Slot</code> + <code>🔄 Replace Slot</code></td><td><code>True</code> · <code>False</code> + instância</td><td><code>right</code></td><td>✅</td><td>Conteúdo livre à direita.</td></tr>
+<tr><td>Linha embaixo da barra (<code>Divider</code>)</td><td>sempre visível</td><td><code>withBorder</code></td><td>⚠️</td><td>No Figma não dá para tirar a linha. No código, <code>withBorder={false}</code> tira, e com fundo <code>Brand</code> ou <code>Negative</code> ela nunca aparece.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>MainNavigationBar</h4><p><strong>Figma:</strong> biblioteca Desktop › Main Navigation Bar [D] · biblioteca Mobile › Web/Main Navigation Bar</p>
+<p>ℹ️ No Desktop, as seções são as abas <strong>Tab 1</strong> a <strong>Tab 9</strong> (instâncias de <code>_resources/NavigationTab</code>; 5 visíveis por padrão) e as ações à direita são instâncias de <code>_resources/item</code>. No Mobile, as ações à direita são fixas no componente. O Design System não liga o Main Navigation Bar ao código em nenhum dos dois.</p>
+<p>ℹ️ No Mobile, a página também tem barras nativas (<strong>iOS/Navigation Bar</strong>, <strong>Android/Navigation Bar</strong> e outras), que não existem no código do Design System e não entram nesta comparação.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td><code>Large Navigation Bar</code></td><td><code>False</code> · <code>True</code></td><td>Não existe</td><td>Igual ao código: a barra grande só existe no desktop</td></tr>
+<tr><td><code>Large Menu</code></td><td><code>True</code> · <code>False</code></td><td>Não existe</td><td>Igual ao código: o menu largo só existe no desktop</td></tr>
+<tr><td><code>Wide</code></td><td><code>true</code> · <code>false</code></td><td>Não existe</td><td>No código, <code>wide</code> também vale no celular (margens de 16px)</td></tr>
+<tr><td><code>Menu</code></td><td>Não existe</td><td><code>True</code> · <code>False</code></td><td>O Mobile mostra o menu hambúrguer aberto ou fechado</td></tr>
+<tr><td>Ações à direita</td><td><code>Item 1</code>, <code>Item 2</code> e <code>Avatar</code> (liga/desliga)</td><td>Fixas no componente</td><td>No Mobile não dá para ligar ou desligar as ações pelo painel</td></tr>
+<tr><td>Slot à direita</td><td><code>NavBar Slot</code> + <code>🔄 Replace Slot</code></td><td><code>Slot →</code></td><td>Só o nome das propriedades</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Theme variant</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code> · <code>Alternative</code></td><td><code>variant</code></td><td>✅</td><td>O código também tem <code>'media'</code>, com as mesmas cores do <code>'brand'</code>.</td></tr>
+<tr><td><code>Large Navigation Bar</code></td><td><code>False</code> · <code>True</code></td><td><code>large</code></td><td>✅</td><td>Seções numa segunda linha, no desktop.</td></tr>
+<tr><td><code>Wide</code></td><td><code>true</code> · <code>false</code></td><td><code>wide</code></td><td>✅</td><td></td></tr>
+<tr><td>Abas (<code>Tab 1</code> a <code>Tab 9</code>)</td><td>visível ou escondida</td><td><code>sections</code></td><td>✅</td><td>Cada aba é uma seção. No código não há limite de seções.</td></tr>
+<tr><td><code>Checked</code> (aba)</td><td><code>On</code> · <code>Off</code></td><td><code>selectedIndex</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Menu</code> (aba)</td><td><code>True</code> · <code>False</code></td><td><code>menu</code> da seção</td><td>✅</td><td>Mostra o menu aberto, uma caixa de 184px abaixo da aba, igual ao código.</td></tr>
+<tr><td><code>Icon</code> (aba)</td><td><code>True</code> · <code>False</code></td><td>sem prop</td><td>⚠️</td><td>No código, a seção só tem texto: não aceita ícone.</td></tr>
+<tr><td><code>Large Menu</code></td><td><code>True</code> · <code>False</code></td><td><code>desktopLargeMenu</code></td><td>✅</td><td>Menu aberto na largura toda.</td></tr>
+<tr><td><code>Item 1</code>, <code>Item 2</code>, <code>Avatar</code></td><td><code>True</code> · <code>False</code></td><td><code>right</code> com <code>NavigationBarAction</code></td><td>✅</td><td>Cada item vira um <code>NavigationBarAction</code> dentro de um <code>NavigationBarActionGroup</code>.</td></tr>
+<tr><td><code>Asset</code>, <code>Label</code>, <code>Choose icon</code>, <code>Asset position</code>, <code>Avatar</code> (<code>_resources/item</code>)</td><td>liga/desliga + ícone + <code>Left</code> · <code>Right</code></td><td><code>children</code> do <code>NavigationBarAction</code></td><td>✅</td><td>Ícone e texto são filhos da ação; a posição do ícone segue a ordem em que são escritos.</td></tr>
+<tr><td><code>NavBar Slot</code> + <code>🔄 Replace Slot</code></td><td><code>True</code> · <code>False</code> + instância</td><td><code>right</code></td><td>✅</td><td>Conteúdo livre à direita.</td></tr>
+<tr><td><code>Show top slot</code> + <code>Top slot</code></td><td><code>True</code> · <code>False</code> + conteúdo</td><td><code>topSlot</code></td><td>✅</td><td>Faixa acima da barra.</td></tr>
+<tr><td>Linha embaixo da barra (<code>Divider</code>)</td><td>sempre visível</td><td><code>withBorder</code></td><td>⚠️</td><td>No Figma não dá para tirar a linha. No código, <code>withBorder={false}</code> tira, e com fundo <code>Brand</code> ou <code>Negative</code> ela nunca aparece.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>NavigationBar</h4><p><strong>Figma:</strong> biblioteca Desktop › Navigation Bar [D] · biblioteca Mobile › Web/Navigation Bar</p>
+<p>ℹ️ As ações à direita são instâncias de <code>_resources/item</code> no Desktop e camadas fixas no Mobile, ligadas por <code>Item 1</code> a <code>Item 3</code> nos dois. No Mobile, a página também tem barras nativas (<strong>iOS/Navigation Bar</strong>, <strong>Android/Navigation Bar</strong> e outras), que não existem no código do Design System e não entram nesta comparação.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Valor de fundo de marca no <code>Theme variant</code></td><td><code>Brand</code></td><td><code>Inverse</code></td><td>Só o nome do valor (<code>Inverse</code> é o nome antigo de <code>Brand</code>)</td></tr>
+<tr><td><code>Back</code></td><td>Booleano (<code>True</code> · <code>False</code>)</td><td>Variante (<code>Yes</code> · <code>No</code>)</td><td>Só o nome dos valores</td></tr>
+<tr><td><code>Slot</code></td><td>Booleano (<code>True</code> · <code>False</code>) + <code>🔄 Replace Slot</code></td><td>Variante (<code>Yes</code> · <code>No</code>)</td><td>Só o nome dos valores, e no Mobile não há como trocar o conteúdo pelo painel</td></tr>
+<tr><td><code>Wide</code></td><td><code>true</code> · <code>false</code></td><td>Não existe</td><td>No código, <code>wide</code> também vale no celular (margens de 16px)</td></tr>
+<tr><td>Navigation Bar</td><td>Existe</td><td>Sem ligação de código</td><td>A ligação do Mobile aponta para o Web/Funnel Navigation Bar</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Theme variant</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code> · <code>Alternative</code></td><td><code>variant</code></td><td>✅</td><td>O código também tem <code>'media'</code>, com as mesmas cores do <code>'brand'</code>.</td></tr>
+<tr><td><code>Back</code></td><td><code>True</code> · <code>False</code></td><td><code>onBack</code></td><td>✅</td><td>O botão voltar aparece quando há <code>onBack</code>.</td></tr>
+<tr><td>Título (camada <code>Title</code>)</td><td>texto livre</td><td><code>title</code></td><td>✅</td><td>No código, o título fica em uma linha só; o excedente é cortado com reticências.</td></tr>
+<tr><td><code>Wide</code></td><td><code>true</code> · <code>false</code></td><td><code>wide</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Item 1</code> a <code>Item 3</code></td><td><code>True</code> · <code>False</code></td><td><code>right</code> com <code>NavigationBarAction</code></td><td>✅</td><td>Cada item vira um <code>NavigationBarAction</code> dentro de um <code>NavigationBarActionGroup</code>.</td></tr>
+<tr><td><code>Slot</code> + <code>🔄 Replace Slot</code></td><td><code>True</code> · <code>False</code> + instância</td><td><code>right</code></td><td>✅</td><td>Conteúdo livre à direita.</td></tr>
+<tr><td>Linha embaixo da barra (<code>Divider</code>)</td><td>sempre visível</td><td><code>withBorder</code></td><td>⚠️</td><td>No Figma não dá para tirar a linha. No código, <code>withBorder={false}</code> tira, e com fundo <code>Brand</code> ou <code>Negative</code> ela nunca aparece.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Há regra de quando exibir a Tab Bar no app (ex.: some a partir do 3º nível)? <strong>Resposta:</strong> A regra está no arquivo <strong>Master B2C</strong>, na página "Navegação e comportamentos" (Guias e Referências de uso).</p>
+<p><sub>Ref. #78 · 12/2024</sub></p>
+<p><strong>Dúvida:</strong> No header do e-commerce, o Funnel Navigation desalinha logo e progress bar. Troco pelo Main Navigation? <strong>Resposta:</strong> Continue com o <strong>Funnel Navigation</strong>, que é o indicado para fluxos de funil. O desalinhamento foi reportado ao time global para correção, e a correção chega pela atualização.</p>
+<p><sub>Ref. #218 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> No header (Android), o título grande fica cortado com reticências. Qual a aplicação correta? <strong>Resposta:</strong> No caso, era uma <strong>Nav Bar</strong>, não o componente Header. Consulte o guia de fundamentos (navegação e comportamentos, com diferenças entre Android e iOS) e os templates de Nav Bar da biblioteca <strong>Modules</strong>. A opção <strong>close</strong> da Nav Bar continua válida.</p>
+<p><sub>Ref. #252 · 04/2025</sub></p>
+<p><strong>Dúvida:</strong> O Funnel Navigation Bar mobile não tem no Figma a propriedade para esconder os ícones da direita (que existe no código e no desktop). <strong>Resposta:</strong> Correção pedida ao time global. Enquanto isso, ajustar manualmente o alinhamento à esquerda é aceitável até a correção. Uso: o <strong>Funnel</strong> é para fluxos de <strong>transição/funil</strong> (ex.: web ou fluxo aberto a partir do app); num fluxo totalmente dentro do app, a <strong>Navigation Bar</strong> comum resolve.</p>
+<p><sub>Ref. #346 · 06/2025</sub></p>
+<p><strong>Dúvida:</strong> No Main Navigation Bar em 1024px, as categorias não cabem. Vira menu hambúrguer? <strong>Resposta:</strong> No código, as palavras <strong>quebram de linha</strong> para caber. A recomendação é evitar títulos longos no menu. É possível forçar o menu hambúrguer em 1024px no código.</p>
+<p><sub>Ref. #774 · 01/2026</sub></p>
+<p><strong>Dúvida:</strong> O Main Navigation em telas de 1920px fica com padding de 252px; precisamos de 120px. <strong>Resposta:</strong> Não ajuste manualmente: a correção vem com o novo breakpoint <strong>Extra Large Desktop</strong> no Responsive Layout (pedido ao time global), que deixará o padding correto.</p>
+<p><sub>Ref. #779 · 01/2026 · ⚠️ limitação atual</sub></p>
+<p><strong>Dúvida:</strong> A Nav Bar customizada tem 20px de padding inferior. Pode, se sempre usamos múltiplos de 8? <strong>Resposta:</strong> O Design System <strong>não tem regra rígida</strong> de múltiplos de 4/8, embora os siga na maioria dos casos. Os 20px foram escolhidos pelo efeito de gradiente translúcido com blur e por casos extremos (ex.: título longo). No caso relatado, combinou-se 20px da nav até o primeiro item, totalizando 40px.</p>
+<p><sub>Ref. #1306 · 09/2026</sub></p>
+<p><strong>Dúvida:</strong> Como fazer o header com seletor de perfil (segmented control) sem o componente pronto no Figma? <strong>Resposta:</strong> O componente entra pelo <strong>topSlot</strong> do <strong>Main Navigation Bar</strong> (já existe no código, ainda não no Figma). No Figma, crie um frame com <strong>16px de padding lateral</strong> e coloque o componente nele. No handoff, oriente o dev a ativar o topSlot.</p>
+<p><sub>Ref. #1326 · 10/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

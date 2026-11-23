@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parte 3 · Respostas rápidas · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<h1>Parte 3 · Respostas rápidas: regras que não aparecem no Figma</h1>
+<p>Cada linha resume uma regra. O detalhe está no componente, na Parte 5.</p>
+<h2>Tempo, animação e atraso</h2>
+<table><thead><tr><th>Pergunta</th><th>Resposta</th></tr></thead><tbody>
+<tr><td>Quanto tempo o <strong>Snackbar</strong> fica na tela?</td><td><strong>5 segundos</strong> sem botão de ação; <strong>10 segundos</strong> com botão de ação; ou <strong>persistente</strong> (<code>Duration=Infinite</code>), até o usuário fechar. Não existe outro tempo.</td></tr>
+<tr><td>Dois <strong>Snackbars</strong> ao mesmo tempo?</td><td>Não. Se um novo abrir com outro na tela, o atual fecha e o novo aparece em seguida.</td></tr>
+<tr><td>O <strong>Spinner</strong> aparece na hora?</td><td>Não: só depois de <strong>500ms</strong>, para não piscar em carregamentos rápidos. Se precisar aparecer na hora, informe no handoff.</td></tr>
+<tr><td>O <strong>Tooltip</strong> aparece na hora?</td><td>Por padrão, espera <strong>500ms</strong> antes de abrir (dá para tirar o atraso no código). Some sozinho quando o mouse ou o foco saem.</td></tr>
+<tr><td>O <strong>Popover</strong> fecha sozinho?</td><td>Não. Só pelo <strong>X</strong> ou clicando no alvo de novo. Clicar fora ou Esc não fecha.</td></tr>
+<tr><td><strong>Carousel</strong> com autoplay: quanto tempo por página?</td><td><strong>5 segundos</strong> por padrão (o tempo pode ser outro: informe). Pausa sozinho quando o carrossel sai da tela; <strong>para de vez</strong> quando o usuário clica nas setas, arrasta ou usa o teclado; não inicia se o sistema pede menos animações; sem "loop", para na última página.</td></tr>
+<tr><td><strong>Centered Carousel</strong> passa sozinho?</td><td>Não, nunca. Para passar sozinho, use Carousel ou Slideshow.</td></tr>
+<tr><td>Animação da troca de <strong>Tabs</strong>?</td><td>A linha desliza em <strong>300ms</strong>; cliques durante esse tempo são ignorados.</td></tr>
+<tr><td>Menu do <strong>Main Navigation Bar</strong> no desktop</td><td>Abre passando o mouse sobre a seção (depois de <strong>120ms</strong>), clicando ou com a seta ↓.</td></tr>
+<tr><td><strong>Skeleton</strong> fica parado?</td><td>Não: no código os skeletons <strong>sempre piscam</strong> (animação). O Design System não define tempo; boa prática: mostrar só se o carregamento passar de ~100–200ms e, acima de 8–10 segundos, trocar por Spinner, Progress Bar ou tela de Feedback.</td></tr>
+<tr><td><strong>Loading Bar</strong></td><td>A faixa corre sem parar, <strong>fixa no topo da janela</strong>, por cima de tudo (inclusive do cabeçalho).</td></tr>
+<tr><td><strong>Timer</strong> no fim da contagem</td><td>Para e mostra tudo <strong>zerado</strong>; não some sozinho. Diga no handoff o que acontece depois.</td></tr>
+<tr><td>Botão com carregamento</td><td>O botão mostra o <strong>spinner sozinho</strong> enquanto a ação está em andamento e fica desabilitado. Dentro de um formulário, <strong>todos</strong> os botões ficam desabilitados durante o envio. Reticências no texto ("Enviando...") não são obrigatórias.</td></tr>
+<tr><td><strong>Vídeo</strong> com autoplay</td><td>No código, vídeo vem com som desligado, repetindo e começando sozinho. Diga sempre se tem som, se repete e se começa sozinho. Vídeo que toca sozinho por <strong>mais de 5 segundos</strong> precisa de botão de pausa (sem controles, o limite é 5s; com controles, não há limite).</td></tr>
+<tr><td>Telas de <strong>Feedback</strong></td><td>Success e Error <strong>vibram</strong> no celular ao abrir; Info não vibra. Na skin padrão os ícones são animados; na <strong>skin Evolution, estáticos</strong>. O ícone da Info é sempre estático.</td></tr>
+</tbody></table>
+<h2>Como os botões se organizam</h2>
+<table><thead><tr><th>Onde</th><th>Celular e tablet</th><th>Desktop</th></tr></thead><tbody>
+<tr><td><strong>Button Fixed Footer Layout</strong> (rodapé fixo)</td><td>Botões na <strong>largura toda, um embaixo do outro</strong> (primário em cima). Rodapé <strong>fixo</strong> na parte de baixo.</td><td>Botões <strong>lado a lado, alinhados à esquerda</strong>, logo depois do conteúdo (<strong>não fica fixo</strong>, sem sombra).</td></tr>
+<tr><td><strong>Dialog / Confirm</strong> (modais)</td><td>Largura toda, <strong>um embaixo do outro</strong>.</td><td><strong>Lado a lado</strong>, Aceitar primeiro.</td></tr>
+<tr><td><strong>Drawer</strong></td><td>Largura toda, <strong>um embaixo do outro</strong>.</td><td><strong>Lado a lado</strong>.</td></tr>
+<tr><td><strong>Sheet</strong> (Actions e Slot)</td><td>Largura toda, um embaixo do outro.</td><td>Lado a lado.</td></tr>
+<tr><td><strong>Telas de Feedback</strong> (Success/Error/Info Screen)</td><td><strong>Fixos no rodapé</strong>, largura toda, empilhados.</td><td><strong>Abaixo do texto</strong>, lado a lado.</td></tr>
+<tr><td><strong>Button Group</strong> (dentro de cards, Callout, Empty State)</td><td><strong>Lado a lado</strong>; se não couberem, quebram para a linha de baixo.</td><td>Lado a lado.</td></tr>
+<tr><td><strong>Button Layout</strong> com alinhamento à direita</td><td>Ordem invertida: <strong>secundário antes do primário</strong> (padrão "Cancelar | Confirmar").</td><td>Idem.</td></tr>
+</tbody></table>
+<p>Regras gerais dos grupos de botões:</p>
+<ul>
+<li><strong>Ordem:</strong> primário → secundário → link. Espaço de <strong>16px</strong> entre os botões.
+</li>
+<li><strong>Link (Button Link):</strong> com <strong>um</strong> botão, fica na mesma linha; com <strong>dois</strong> botões (ou nenhum), vai para uma <strong>linha própria</strong>.
+</li>
+<li>Máximo de <strong>três ações</strong> num grupo: um primário, um secundário e um link. O primário pode ser um <strong>botão de perigo</strong> (Danger): indique no handoff.
+</li>
+<li><strong>Texto do botão não quebra linha:</strong> o excedente vira reticências. Use textos curtos.
+</li>
+<li>O alinhamento <strong>Space between</strong> do Figma <strong>não existe</strong> no código (botões ficam à esquerda).
+</li>
+<li>Botões dentro do Button Fixed Footer Layout <strong>nunca</strong> levam chevron (›). No Button Link, o chevron é <strong>só para navegação</strong>, nunca para ações como "Cancelar".
+</li>
+<li><strong>Hero</strong> aceita só botão principal + link (sem secundário). Para dois botões, <strong>Cover Hero</strong>.
+</li>
+<li><strong>Empty State:</strong> um botão (primário <strong>ou</strong> secundário) + link. <strong>Empty State Card:</strong> primário, secundário e link, todos <strong>pequenos</strong>.
+</li>
+<li><strong>Cards:</strong> sem rodapé, os botões ficam no corpo, abaixo do conteúdo. Vão para o <strong>rodapé</strong> quando o rodapé está ligado <strong>ou</strong> quando o card inteiro é clicável ou selecionável.
+</li>
+<li>Side Drawer no celular: combinações permitidas são Primary; Primary + Secondary; Primary + Link; Secondary; Secondary + Link; Link. No desktop, as três hierarquias.
+</li>
+<li><strong>Hierarquia:</strong> escolha pela importância da ação, não pela aparência: primário para a ação principal/transacional; secundário para menor ênfase; Button Link para consulta ou navegação. Não iguale botões de ações diferentes só para ficarem iguais.
+</li></ul>
+<h2>Tamanhos, larguras e posições</h2>
+<table><thead><tr><th>Componente</th><th>Regra</th></tr></thead><tbody>
+<tr><td><strong>Snackbar</strong></td><td>Celular: largura toda, colado na parte de baixo (pode subir se houver elemento fixo embaixo). Desktop: largura acompanha o texto, de <strong>360px a 800px</strong>, centralizado, <strong>40px acima da borda inferior do navegador</strong>. Botão de ação longo (mais de 128px no celular ou 160px no desktop) vai para <strong>baixo da mensagem</strong> sozinho.</td></tr>
+<tr><td><strong>Dialog / Alert / Confirm</strong></td><td>Desktop: <strong>680px</strong> de largura. Celular: largura da tela menos <strong>24px de cada lado</strong>. Conteúdo alto ganha rolagem na mensagem. Padding de 24px não muda.</td></tr>
+<tr><td><strong>Sheet</strong></td><td>Celular: sobe de baixo, largura da tela, altura acompanha o conteúdo. Desktop: janela no centro com <strong>680px</strong> de largura e até <strong>560px</strong> de altura. Título e botões fixos; o meio rola.</td></tr>
+<tr><td><strong>Drawer</strong></td><td>Celular: sobe de baixo e ocupa a <strong>tela inteira</strong> (para celular, recomenda-se modal no lugar). <strong>Tablet e desktop: entra pela direita</strong>, altura toda, largura mínima de 388px + margens, máxima = tela − 40px. (Uma resposta antiga do suporte, Ref. #1077 · 06/2026, dizia que no tablet ele abre de baixo; vale o código: pela direita.)</td></tr>
+<tr><td><strong>Menu</strong></td><td>Largura entre <strong>136px e 280px</strong>. Troca de lado sozinho quando não há espaço.</td></tr>
+<tr><td><strong>Tooltip / Popover</strong></td><td>Largura máxima <strong>496px</strong> (ou a da tela). Abrem do lado oposto se não houver espaço.</td></tr>
+<tr><td><strong>Navigation Bar / Main Navigation Bar</strong></td><td>Altura <strong>56px</strong> no celular e <strong>80px</strong> no desktop (Main com <code>large</code>: 160px). Título da Navigation Bar em <strong>uma linha</strong>. Ações à direita com <strong>24px</strong> entre elas.</td></tr>
+<tr><td><strong>Fixed Footer</strong></td><td>Só fica fixo no celular e tablet. Se sobrarem <strong>menos de 200px</strong> acima do rodapé, ele deixa de ser fixo. Respeita a área segura do iPhone. Sombra opcional quando há conteúdo rolando por trás (recomendação de UX).</td></tr>
+<tr><td><strong>Text Field e campos</strong></td><td>Desktop: <strong>328px</strong> por padrão (Figma: 496px) ou largura toda. Campo opcional mostra "(opcional)" depois do rótulo no código.</td></tr>
+<tr><td><strong>Select</strong></td><td>Mesma regra de largura dos campos (328px ou largura toda).</td></tr>
+<tr><td><strong>Credit Card Fields</strong></td><td>Validade 60% e CVV 40%; bloco de 328px no desktop.</td></tr>
+<tr><td><strong>Progress Bar</strong></td><td>Ocupa toda a largura do elemento em que está (Figma: 600px).</td></tr>
+<tr><td><strong>Table</strong></td><td>Todas as linhas têm divisória, menos a última. Muitas linhas: a tabela ganha rolagem (cabeçalho fixo só no modo <code>boxed</code>). Celular: rola para o lado ou vira cards.</td></tr>
+<tr><td><strong>Tabs</strong></td><td>Cada aba tem <strong>no mínimo 80px e no máximo 284px</strong>; texto maior quebra linha. Celular: até 3 abas dividem a largura toda; com 4 ou mais, cada aba tem a largura do texto e a barra rola para o lado.</td></tr>
+<tr><td><strong>Timeline horizontal</strong></td><td>Cada etapa precisa de pelo menos <strong>240px</strong>. No celular, prefira a vertical.</td></tr>
+<tr><td><strong>Avatar</strong></td><td>Qualquer tamanho; texto e ícone mudam nos limites de 40px e 64px. Iniciais: no máximo 2 letras, em maiúsculas.</td></tr>
+<tr><td><strong>Stacking Group</strong></td><td>Itens de <strong>24px a 128px</strong>. "+N" calculado sozinho (com limite 4 e 6 itens: 3 itens e "+3").</td></tr>
+<tr><td><strong>Dialog asset</strong></td><td>40px no celular, 64px no desktop.</td></tr>
+<tr><td><strong>Empty State</strong></td><td>Imagem pequena: 112px de altura (celular/tablet) e 128px (desktop); ícone em espaço de 64px / 80px; imagem grande 16:9. Celular: sem caixa, conteúdo com no máximo 368px.</td></tr>
+<tr><td><strong>Empty State Card</strong></td><td>Imagem 64px / 80px; ícone 48px / 56px; desktop: conteúdo com no máximo 392px.</td></tr>
+<tr><td><strong>Header (celular)</strong></td><td>16px de margem + 16px de margem interna do texto (no Figma aparece como 32px à direita): correto, não altere.</td></tr>
+<tr><td><strong>Callout</strong></td><td>Padding externo de <strong>24px</strong> (some ao espaçamento até o próximo elemento). Sem regra de largura.</td></tr>
+<tr><td><strong>Row</strong></td><td>Icon Button fica a 28px da margem final; Radio/Checkbox a 16px (área de toque de 48px). Detail (seção C) não deve passar de 40% da largura da linha.</td></tr>
+<tr><td><strong>Cards</strong></td><td>Responsivos: seguem a largura do container (não há largura nem altura fixa). Snap cards: <strong>112×112</strong>, não aumente. Advanced Data Card: altura mínima 216px.</td></tr>
+<tr><td><strong>Carousel</strong></td><td>Itens por página padrão: <strong>1</strong> no celular, <strong>2</strong> no tablet, <strong>1 a 3</strong> no desktop conforme a largura da coluna (até 5 colunas: 1; 6 a 9: 2; 10 ou mais: 3). No celular, a ponta do próximo item aparece (64px com offset grande). Celular e tablet: <strong>sem setas</strong>.</td></tr>
+<tr><td><strong>Centered Carousel</strong></td><td>Fixo: <strong>1 item</strong> no celular e tablet, <strong>3</strong> no desktop.</td></tr>
+<tr><td><strong>Slideshow</strong></td><td>Sempre <strong>1 item</strong> na largura toda; no celular e tablet <strong>encosta nas bordas</strong> da tela (sem margem). Setas e bullets ficam sobre o item.</td></tr>
+<tr><td><strong>Hero</strong></td><td>Celular e tablet: mídia em cima, largura toda, encostando nas bordas. Desktop: mídia e texto lado a lado. Altura pode mudar; largura é sempre responsiva.</td></tr>
+</tbody></table>
+<h2>Limites de quantidade e de texto</h2>
+<table><thead><tr><th>Componente</th><th>Limite</th></tr></thead><tbody>
+<tr><td>Carousel</td><td>Recomendado <strong>até 5</strong> páginas/itens (sem limite técnico). Uma página só: setas e bullets somem.</td></tr>
+<tr><td>Chip</td><td>Texto <strong>não quebra linha</strong>. Em carousel, até 5 recomendado (datas podem ter mais).</td></tr>
+<tr><td>Tag</td><td>Uma linha; texto longo vira reticências. Guia de conteúdo: <strong>24 caracteres</strong> com espaços. Badge numérico acima de 9 mostra "+9".</td></tr>
+<tr><td>Badge</td><td>Não é lido pelo leitor de tela: informe o texto de acessibilidade.</td></tr>
+<tr><td>Breadcrumbs</td><td>Figma tem até 4 níveis; código aceita mais. Página atual é sempre o último item, sem link.</td></tr>
+<tr><td>Counter</td><td>Padrão: mínimo <strong>0</strong>, máximo <strong>999</strong>. Não dá para digitar o número, só − e +. Lixeira só aparece no valor mínimo.</td></tr>
+<tr><td>Meter</td><td>Soma dos segmentos <strong>até 100%</strong>. Cores se repetem a partir do 6º segmento.</td></tr>
+<tr><td>Tabs</td><td>Só <strong>uma</strong> aba selecionada.</td></tr>
+<tr><td>Radio</td><td>Só <strong>uma</strong> opção marcada por grupo; só dá para desabilitar o <strong>grupo inteiro</strong>.</td></tr>
+<tr><td>Stepper</td><td>Uma etapa ativa; nomes das etapas <strong>não aparecem no celular e tablet</strong>.</td></tr>
+<tr><td>Pin Field</td><td><strong>Só números</strong> (sem letras). Sem rótulo próprio.</td></tr>
+<tr><td>Text Field (helper)</td><td>Sem limite definido; time de conteúdo recomenda <strong>~60 caracteres</strong>. Quebra naturalmente.</td></tr>
+<tr><td>Sheet</td><td>Título em <strong>uma linha</strong> (reticências; dá para tirar no código).</td></tr>
+<tr><td>Navigation Bar</td><td>Título em <strong>uma linha</strong>.</td></tr>
+<tr><td>Sidenav</td><td>Texto do item em uma linha, com reticências.</td></tr>
+<tr><td>Select</td><td>Opções <strong>sem descrição</strong>. Fechado: reticências; aberto: quebra linha.</td></tr>
+<tr><td>Autocomplete / Search Field</td><td>Cada sugestão é <strong>só texto</strong> (sem ícones/imagens). Lista do Autocomplete não tem rolagem.</td></tr>
+<tr><td>Dialog</td><td>Não existe dialog <strong>sem mensagem</strong>.</td></tr>
+<tr><td>Info Feedback Screen</td><td>Ações <strong>obrigatórias</strong> (não pode ficar sem botão). Ícone de erro do Error Feedback não pode ser retirado.</td></tr>
+<tr><td>Mosaic</td><td>Código aceita mais células do que o Figma (ex.: Horizontal com 9).</td></tr>
+<tr><td>Main Navigation Bar</td><td>Menu hambúrguer só aparece com <strong>mais de uma</strong> seção. Seções sem ícone.</td></tr>
+<tr><td>Ícones novos</td><td>Precisam vir em 3 pesos: regular, light e filled.</td></tr>
+</tbody></table>
+<h2>Como abre e como fecha</h2>
+<table><thead><tr><th>Componente</th><th>X</th><th>Clique fora</th><th>Esc</th><th>Arrastar</th><th>Outros</th></tr></thead><tbody>
+<tr><td>Alert</td><td>Não tem</td><td>Não fecha</td><td>Fecha (conta como <strong>aceitar</strong>)</td><td>—</td><td>Navegar para outra página fecha</td></tr>
+<tr><td>Confirm</td><td>Não tem</td><td>Não fecha</td><td>Fecha (cancela)</td><td>—</td><td>—</td></tr>
+<tr><td>Dialog</td><td>Sempre tem</td><td>Fecha (cancela)</td><td>Fecha (cancela)</td><td>—</td><td>—</td></tr>
+<tr><td>Sheet</td><td>Tem</td><td>Fecha</td><td><strong>Não fecha</strong></td><td>Celular: arrastar para baixo fecha</td><td>Botões do Sheet montado à mão não fecham sozinhos</td></tr>
+<tr><td>Drawer</td><td>Só se for permitido fechar sem escolher ação</td><td>Idem</td><td><strong>Sempre fecha</strong></td><td>—</td><td>Botão do rodapé fecha</td></tr>
+<tr><td>Popover</td><td>Sempre tem</td><td>Não fecha</td><td>Não fecha</td><td>—</td><td>Clicar no alvo de novo fecha</td></tr>
+<tr><td>Tooltip</td><td>Não tem</td><td>—</td><td>Fecha</td><td>—</td><td>Fecha quando mouse/foco saem; no celular, toque fora</td></tr>
+<tr><td>Menu</td><td>—</td><td>Fecha</td><td>Fecha</td><td>—</td><td>Teclado: setas navegam, Enter/Espaço escolhem</td></tr>
+<tr><td>Snackbar</td><td>Opcional (aparece sozinho se persistente sem botão)</td><td>—</td><td>—</td><td>—</td><td>Tempo (5s/10s) ou botão de ação</td></tr>
+<tr><td>Callout</td><td>Opcional</td><td>—</td><td>—</td><td>—</td><td>Clicar no X <strong>não esconde</strong> o callout sozinho: diga o que acontece</td></tr>
+</tbody></table>
+<p>Só <strong>um modal</strong> (alert, confirm ou dialog) aberto por vez; só <strong>um Popover/Tooltip</strong> aberto por vez; só <strong>um Snackbar</strong> por vez.</p>
+<h2>App × web</h2>
+<table><thead><tr><th>Situação</th><th>Regra</th></tr></thead><tbody>
+<tr><td>Sheet com conteúdo livre (<code>Slot (Only web)</code>)</td><td><strong>Só na web.</strong> No app, use só os tipos prontos (Single selection, Action list, Informative, Actions), que aparecem com visual nativo.</td></tr>
+<tr><td>Campo de texto dentro de bottom sheet</td><td><strong>Só na web</strong> (no app o teclado sobrepõe). Deixe o campo fora do sheet.</td></tr>
+<tr><td>Ícones no Action list do Sheet (app)</td><td>Não aceita ícones da biblioteca; só imagens redondas por endereço.</td></tr>
+<tr><td>Sheet por cima da barra de navegação do app</td><td>O Sheet web fica <strong>por baixo</strong> da nav bar e tab bar nativas; no app, usa-se o sheet da bridge nativa.</td></tr>
+<tr><td>Alert e Confirm no app</td><td>Viram alerta nativo do sistema (desenhe com os componentes iOS/Android). No Alert nativo, botão de perigo não aparece.</td></tr>
+<tr><td>Dialog no app</td><td>Mantém o visual do Design System.</td></tr>
+<tr><td>Snackbar no app</td><td>Mostrado pelo próprio app, com a aparência do app.</td></tr>
+<tr><td>Select no app</td><td>Lista nativa do sistema (no iOS, abre num sheet com radios). Na web, a lista segue o navegador.</td></tr>
+<tr><td>Date/Time/Month Field</td><td>O seletor (calendário) é <strong>sempre o do sistema</strong>. O formato da data na tela muda entre iOS e Android. Não dá para desabilitar fins de semana ou feriados (só mínimo e máximo).</td></tr>
+<tr><td>Checkbox, Radio, Switch, Slider</td><td>Em aparelhos iOS, visual do sistema automaticamente.</td></tr>
+<tr><td>Drawer no celular</td><td>Recomendado usar modal no lugar.</td></tr>
+<tr><td>Fixed Footer</td><td>Fixo só no celular/tablet.</td></tr>
+<tr><td>Hover</td><td>Não existe no toque: não conte com hover para mostrar informação no celular.</td></tr>
+</tbody></table>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text (tipografia) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-text">
+<h2>Text (tipografia)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>Text</h4>
+<p>Texto com tamanho, altura da linha e peso definidos à mão. É a base dos estilos <code>Text1</code> a <code>Text10</code> e só deve ser usado quando nenhum desses estilos serve (ver Text1 … Text10).</p>
+<h4>Text1 / Text2 / Text3 / Text4 / Text5 / Text6 / Text7 / Text8 / Text9 / Text10</h4>
+<p>Textos com os estilos tipográficos do tema (tamanho, altura da linha e, nos maiores, o peso). É a forma recomendada de escrever texto na tela: cada número é um estilo, do menor (<code>Text1</code>) ao maior (<code>Text10</code>), e o tamanho muda sozinho entre o celular e o desktop.</p>
+<ul>
+<li><strong><code>Text1</code> a <code>Text4</code>:</strong> textos de corpo. O peso é escolhido por quem usa (<code>regular</code>, <code>medium</code>, <code>bold</code> e, no <code>Text3</code> e <code>Text4</code>, também <code>light</code>).
+</li>
+<li><strong><code>Text5</code> a <code>Text10</code>:</strong> títulos e números grandes. O peso vem do tema e não pode ser trocado.
+</li></ul>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Text</h4><ul>
+<li>⚠️ <strong>Use as variáveis:</strong> um texto sem as variáveis <code>textN</code> vira um <code>Text</code> com tamanho à mão no código, fora da tipografia do design system. Use sempre um dos estilos.
+</li>
+<li>⚠️ <strong>Peso:</strong> no <code>text1</code> e no <code>text2</code>, não use <code>Light</code>; do <code>text5</code> ao <code>text10</code>, não troque o peso da variável. O código não tem essas combinações.
+</li>
+<li>⚠️ <strong>Títulos:</strong> diga quais textos são títulos e de que nível (<code>h1</code>, <code>h2</code>…). A aparência não muda, mas o leitor de tela depende disso.
+</li>
+<li>⚠️ <strong>Celular e desktop:</strong> desenhe com a variável da tela certa (<code>mobile</code> no Mobile, <code>desktop</code> no Desktop). Se um texto precisar do tamanho do celular no desktop, avise.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> não há Code Connect para texto. O Dev Mode mostra o tamanho e a variável, e o desenvolvimento escolhe o <code>TextN</code> correspondente pelo número da variável.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Tamanho do celular no desktop</td><td>Dá para usar a variável <code>mobile</code> numa tela de desktop</td><td>Existe (<code>forceMobileSizes</code>). ✅ Igual.</td></tr>
+<tr><td><code>Light</code> no <code>text1</code> ou <code>text2</code></td><td>Dá para escolher o estilo da fonte à mão</td><td>Não existe: o <code>Text1</code> e o <code>Text2</code> só aceitam <code>regular</code>, <code>medium</code> e <code>bold</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Outro peso no <code>text5</code> a <code>text10</code></td><td>Dá para trocar o estilo da fonte à mão</td><td>Não existe: o peso vem do tema. ⚠️ Diferente.</td></tr>
+<tr><td>Texto cortado com reticências</td><td>Opção de truncar texto da camada</td><td>Existe (<code>truncate</code>, com uma ou mais linhas). ✅ Igual.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Text</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>size</code></td><td>número</td><td></td><td>🎨 Tamanho da fonte em px (convertido para <code>rem</code>), no celular e no desktop.</td></tr>
+<tr><td><code>mobileSize</code></td><td>número</td><td>valor de <code>size</code></td><td>🎨 Tamanho da fonte no celular e no tablet, em px.</td></tr>
+<tr><td><code>desktopSize</code></td><td>número</td><td>valor de <code>size</code></td><td>🎨 Tamanho da fonte no desktop, em px.</td></tr>
+<tr><td><code>lineHeight</code></td><td></td><td></td><td>🎨 Altura da linha em px, no celular e no desktop.</td></tr>
+<tr><td><code>mobileLineHeight</code></td><td></td><td>valor de <code>lineHeight</code></td><td>🎨 Altura da linha no celular e no tablet, em px.</td></tr>
+<tr><td><code>desktopLineHeight</code></td><td></td><td>valor de <code>lineHeight</code></td><td>🎨 Altura da linha no desktop, em px.</td></tr>
+<tr><td><code>weight</code></td><td><code>'light' | 'regular' | 'medium' | 'bold'</code></td><td></td><td>🎨 Peso da fonte. Sem ele, o texto herda o peso do elemento pai.</td></tr>
+<tr><td><code>letterSpacing</code></td><td>número</td><td></td><td>🎨 Espaço entre as letras, em px.</td></tr>
+<tr><td><code>color</code></td><td></td><td>cor de texto principal</td><td>🎨 Cor do texto (ex.: <code>skinVars.colors.textSecondary</code>). As cores de texto do tema se ajustam sozinhas ao fundo.¹</td></tr>
+<tr><td><code>decoration</code></td><td><code>'underline' | 'line-through' | 'inherit' | 'none'</code></td><td></td><td>🎨 Sublinhado ou riscado.</td></tr>
+<tr><td><code>transform</code></td><td><code>'uppercase' | 'capitalize' | 'lowercase' | 'inherit' | 'none'</code></td><td></td><td>🎨 Letras maiúsculas, minúsculas ou com a primeira letra maiúscula.</td></tr>
+<tr><td><code>textAlign</code></td><td><code>'center' | 'right' | 'left'</code></td><td></td><td>🎨 Alinhamento do texto.</td></tr>
+<tr><td><code>textShadow</code></td><td></td><td></td><td>🎨 Sombra do texto, em CSS (ex.: <code>'0 1px 2px rgba(0,0,0,.5)'</code>).</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Conteúdo do texto. Quebras de linha (<code>\n</code>) são mantidas. Sem conteúdo, nada aparece (o número <code>0</code> aparece).²</td></tr>
+<tr><td><code>truncate</code></td><td></td><td></td><td>Corta o texto com reticências: <code>true</code> em 1 linha, um número em até essa quantidade de linhas.</td></tr>
+<tr><td><code>wordBreak</code></td><td>sim/não</td><td><code>true</code></td><td>Quebra palavras longas (ex.: links e e-mails) para não passarem da largura. Com <code>false</code>, a palavra não é quebrada.</td></tr>
+<tr><td><code>hyphens</code></td><td><code>'auto' | 'manual' | 'none'</code></td><td><code>'auto'</code></td><td>Hifenização: <code>'auto'</code> deixa o navegador separar palavras com hífen no fim da linha.</td></tr>
+<tr><td><code>as</code></td><td></td><td><code>'span'</code></td><td>Elemento HTML do texto (ex.: <code>'h1'</code>, <code>'p'</code>, <code>'div'</code>). Use os de título (<code>'h1'</code> a <code>'h6'</code>) para os títulos da página. A margem padrão do navegador é removida.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Cor conforme o fundo:</strong> sobre fundo <code>brand</code>, <code>media</code> ou <code>negative</code>, as cores de texto principal, secundário, de link e de erro do tema (<code>textPrimary</code>, <code>textSecondary</code>, <code>textLink</code> e <code>textError</code>) trocam sozinhas pela versão daquele fundo. Outras cores ficam iguais em qualquer fundo.</p>
+<p>² ℹ️ <strong>Mascote da marca:</strong> na skin padrão e na skin Evolution, o caractere <code>Ħ</code> no texto vira o ícone do mascote da marca, e o leitor de tela lê o nome da marca.</p>
+<p>ℹ️ <strong>Sem tamanho:</strong> sem <code>size</code> (nem <code>mobileSize</code>/<code>desktopSize</code>), o texto herda o tamanho e a altura da linha do elemento pai.</p>
+<p>⚠️ <strong><code>forceMobileSizes</code> não funciona no <code>Text</code>:</strong> o tipo aceita a prop, mas ela só tem efeito nos <code>Text1</code> a <code>Text10</code>. No <code>Text</code>, use <code>size</code> para ter o mesmo tamanho em todas as telas.</p>
+<h5>Diferença entre <code>Text1</code>…<code>Text10</code> e <code>Text</code></h5><table><thead><tr><th></th><th><code>Text1</code> … <code>Text10</code></th><th><code>Text</code></th></tr></thead><tbody>
+<tr><td><strong>Tamanho</strong></td><td>Vem do tema (um estilo por número) e muda sozinho entre celular e desktop</td><td>Definido à mão, em px (<code>size</code>, <code>mobileSize</code>, <code>desktopSize</code>)</td></tr>
+<tr><td><strong>Altura da linha</strong></td><td>Vem do tema</td><td>Definida à mão (<code>lineHeight</code>, <code>mobileLineHeight</code>, <code>desktopLineHeight</code>)</td></tr>
+<tr><td><strong>Peso</strong></td><td>Escolhido (<code>Text1</code> a <code>Text4</code>) ou do tema (<code>Text5</code> a <code>Text10</code>)</td><td><code>weight</code>, opcional (sem ele, herda do elemento pai)</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>light</code>, <code>regular</code>, <code>medium</code>, <code>bold</code>, <code>forceMobileSizes</code></td><td><code>size</code>, <code>mobileSize</code>, <code>desktopSize</code>, <code>lineHeight</code>, <code>mobileLineHeight</code>, <code>desktopLineHeight</code>, <code>letterSpacing</code></td></tr>
+<tr><td><strong>Quando usar</strong></td><td>Sempre que possível: seguem a tipografia do design system</td><td>Só quando nenhum estilo do tema serve</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes irmãos:</strong> os <code>Text1</code>…<code>Text10</code> são o <code>Text</code> com o tamanho, a altura da linha e o peso do tema já aplicados. As outras props são iguais.</p>
+<h4>Text1 / Text2 / Text3 / Text4 / Text5 / Text6 / Text7 / Text8 / Text9 / Text10</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>color</code></td><td></td><td>cor de texto principal</td><td>🎨 Cor do texto (ex.: <code>skinVars.colors.textSecondary</code>). As cores de texto do tema se ajustam sozinhas ao fundo.¹</td></tr>
+<tr><td><code>decoration</code></td><td><code>'underline' | 'line-through' | 'inherit' | 'none'</code></td><td></td><td>🎨 Sublinhado ou riscado.</td></tr>
+<tr><td><code>transform</code></td><td><code>'uppercase' | 'capitalize' | 'lowercase' | 'inherit' | 'none'</code></td><td></td><td>🎨 Letras maiúsculas, minúsculas ou com a primeira letra maiúscula.</td></tr>
+<tr><td><code>textAlign</code></td><td><code>'center' | 'right' | 'left'</code></td><td></td><td>🎨 Alinhamento do texto.</td></tr>
+<tr><td><code>textShadow</code></td><td></td><td></td><td>🎨 Sombra do texto, em CSS (ex.: <code>'0 1px 2px rgba(0,0,0,.5)'</code>).</td></tr>
+<tr><td><code>forceMobileSizes</code></td><td>sim/não</td><td></td><td>🎨 Usa o tamanho do celular também no desktop.</td></tr>
+<tr><td><code>light</code> / <code>regular</code> / <code>medium</code> / <code>bold</code> (obrigatória)</td><td>sim/não</td><td></td><td><strong>Só no <code>Text1</code> a <code>Text4</code>.</strong> Peso da fonte. <code>light</code> só existe no <code>Text3</code> e no <code>Text4</code>.</td></tr>
+<tr><td><code>weight</code> (obrigatória)</td><td><code>'light' | 'regular' | 'medium' | 'bold'</code></td><td></td><td><strong>Só no <code>Text1</code> a <code>Text4</code>.</strong> Peso da fonte, como texto (útil quando o peso vem de uma variável). <code>'light'</code> só no <code>Text3</code> e no <code>Text4</code>.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Conteúdo do texto. Quebras de linha (<code>\n</code>) são mantidas. Sem conteúdo, nada aparece (o número <code>0</code> aparece).³</td></tr>
+<tr><td><code>truncate</code></td><td></td><td></td><td>Corta o texto com reticências: <code>true</code> em 1 linha, um número em até essa quantidade de linhas.</td></tr>
+<tr><td><code>wordBreak</code></td><td>sim/não</td><td><code>true</code></td><td>Quebra palavras longas (ex.: links e e-mails) para não passarem da largura. Com <code>false</code>, a palavra não é quebrada.</td></tr>
+<tr><td><code>hyphens</code></td><td><code>'auto' | 'manual' | 'none'</code></td><td><code>'auto'</code></td><td>Hifenização: <code>'auto'</code> deixa o navegador separar palavras com hífen no fim da linha.</td></tr>
+<tr><td><code>as</code></td><td></td><td><code>'span'</code></td><td>Elemento HTML do texto (ex.: <code>'h1'</code>, <code>'p'</code>, <code>'div'</code>). Use os de título (<code>'h1'</code> a <code>'h6'</code>) para os títulos da página. A margem padrão do navegador é removida.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Cor conforme o fundo:</strong> sobre fundo <code>brand</code>, <code>media</code> ou <code>negative</code>, as cores de texto principal, secundário, de link e de erro do tema (<code>textPrimary</code>, <code>textSecondary</code>, <code>textLink</code> e <code>textError</code>) trocam sozinhas pela versão daquele fundo. Outras cores ficam iguais em qualquer fundo.</p>
+<p>² ℹ️ <strong>Peso no <code>Text1</code> a <code>Text4</code>:</strong> passe um, e só um, entre <code>light</code>, <code>regular</code>, <code>medium</code>, <code>bold</code> e <code>weight</code>. Sem nenhum, ou com mais de um, dá erro de TypeScript. No <code>Text5</code> a <code>Text10</code>, essas props não existem: o peso é o do tema.</p>
+<p>³ ℹ️ <strong>Mascote da marca:</strong> na skin padrão e na skin Evolution, o caractere <code>Ħ</code> no texto vira o ícone do mascote da marca, e o leitor de tela lê o nome da marca.</p>
+<p>ℹ️ <strong>Tamanhos na skin padrão e na skin Evolution</strong> (celular e tablet → desktop, em px). Hoje os valores são iguais nas duas skins:</p>
+<table><thead><tr><th>Componente</th><th>Tamanho (skin padrão)</th><th>Tamanho (skin Evolution)</th><th>Altura da linha (skin padrão)</th><th>Altura da linha (skin Evolution)</th><th>Peso (skin padrão)</th><th>Peso (skin Evolution)</th></tr></thead><tbody>
+<tr><td><code>Text1</code></td><td>12 → 14</td><td>12 → 14</td><td>16 → 20</td><td>16 → 20</td><td>escolhido</td><td>escolhido</td></tr>
+<tr><td><code>Text2</code></td><td>14 → 16</td><td>14 → 16</td><td>20 → 24</td><td>20 → 24</td><td>escolhido</td><td>escolhido</td></tr>
+<tr><td><code>Text3</code></td><td>16 → 18</td><td>16 → 18</td><td>24 → 24</td><td>24 → 24</td><td>escolhido</td><td>escolhido</td></tr>
+<tr><td><code>Text4</code></td><td>18 → 24</td><td>18 → 24</td><td>24 → 28</td><td>24 → 28</td><td>escolhido</td><td>escolhido</td></tr>
+<tr><td><code>Text5</code></td><td>20 → 28</td><td>20 → 28</td><td>24 → 32</td><td>24 → 32</td><td>medium</td><td>medium</td></tr>
+<tr><td><code>Text6</code></td><td>24 → 32</td><td>24 → 32</td><td>32 → 40</td><td>32 → 40</td><td>medium</td><td>medium</td></tr>
+<tr><td><code>Text7</code></td><td>28 → 40</td><td>28 → 40</td><td>32 → 48</td><td>32 → 48</td><td>medium</td><td>medium</td></tr>
+<tr><td><code>Text8</code></td><td>32 → 48</td><td>32 → 48</td><td>40 → 56</td><td>40 → 56</td><td>regular</td><td>regular</td></tr>
+<tr><td><code>Text9</code></td><td>40 → 56</td><td>40 → 56</td><td>48 → 64</td><td>48 → 64</td><td>regular</td><td>regular</td></tr>
+<tr><td><code>Text10</code></td><td>48 → 64</td><td>48 → 64</td><td>56 → 72</td><td>56 → 72</td><td>regular</td><td>regular</td></tr>
+</tbody></table>
+<p>Os tamanhos e pesos vêm do tema e mudam de uma skin para outra. Os tamanhos ficam em <code>rem</code>, então acompanham o tamanho de fonte escolhido pelo usuário no navegador.</p>
+<p>⚠️ <strong>Título de verdade:</strong> o <code>Text</code> muda só a aparência. Para o leitor de tela entender que é um título, use <code>as="h1"</code> (ou <code>h2</code>…<code>h6</code>).</p>
+<h5>Diferença entre <code>Text1</code>…<code>Text10</code> e <code>Text</code></h5><table><thead><tr><th></th><th><code>Text1</code> … <code>Text10</code></th><th><code>Text</code></th></tr></thead><tbody>
+<tr><td><strong>Tamanho</strong></td><td>Vem do tema (um estilo por número) e muda sozinho entre celular e desktop</td><td>Definido à mão, em px (<code>size</code>, <code>mobileSize</code>, <code>desktopSize</code>)</td></tr>
+<tr><td><strong>Altura da linha</strong></td><td>Vem do tema</td><td>Definida à mão (<code>lineHeight</code>, <code>mobileLineHeight</code>, <code>desktopLineHeight</code>)</td></tr>
+<tr><td><strong>Peso</strong></td><td>Escolhido (<code>Text1</code> a <code>Text4</code>) ou do tema (<code>Text5</code> a <code>Text10</code>)</td><td><code>weight</code>, opcional (sem ele, herda do elemento pai)</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>light</code>, <code>regular</code>, <code>medium</code>, <code>bold</code>, <code>forceMobileSizes</code></td><td><code>size</code>, <code>mobileSize</code>, <code>desktopSize</code>, <code>lineHeight</code>, <code>mobileLineHeight</code>, <code>desktopLineHeight</code>, <code>letterSpacing</code></td></tr>
+<tr><td><strong>Quando usar</strong></td><td>Sempre que possível: seguem a tipografia do design system</td><td>Só quando nenhum estilo do tema serve</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes irmãos:</strong> os <code>Text1</code>…<code>Text10</code> são o <code>Text</code> com o tamanho, a altura da linha e o peso do tema já aplicados. As outras props são iguais.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Text</h4><p><strong>Figma:</strong> não há componente de texto nem estilos de texto. A tipografia é feita com <strong>variáveis</strong> da biblioteca <strong>Design System Skins</strong> (coleção <strong>Brand</strong>), aplicadas direto nas camadas de texto. A coleção tem um modo por skin, entre eles <strong>marca</strong> e <strong>skin Evolution</strong>.</p>
+<p>ℹ️ Cada estilo tem quatro variáveis: <code>fontSize/mobile/textN</code>, <code>fontSize/desktop/textN</code>, <code>lineHeight/mobile/textN</code> e <code>lineHeight/desktop/textN</code>. Do <code>text5</code> ao <code>text10</code>, há também <code>fontWeight/textN</code>. A fonte vem de <code>fontFamily/fontFamily</code> (<strong>fonte da marca</strong> nas duas skins).</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Variáveis de tamanho e altura da linha</td><td><code>fontSize/desktop/textN</code> e <code>lineHeight/desktop/textN</code></td><td><code>fontSize/mobile/textN</code> e <code>lineHeight/mobile/textN</code></td><td>Muda o design, igual ao código: cada biblioteca usa os tamanhos da sua tela</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>fontSize/mobile/textN</code> e <code>fontSize/desktop/textN</code></td><td>um par por estilo, do <code>text1</code> ao <code>text10</code></td><td><code>Text1</code> a <code>Text10</code></td><td>✅</td><td>Os valores da marca e da skin Evolution são os mesmos do código (ver tabela abaixo). No código, o componente troca sozinho entre o tamanho do celular e o do desktop.</td></tr>
+<tr><td><code>lineHeight/mobile/textN</code> e <code>lineHeight/desktop/textN</code></td><td>um par por estilo, do <code>text1</code> ao <code>text10</code></td><td><code>Text1</code> a <code>Text10</code></td><td>✅</td><td>Iguais ao código.</td></tr>
+<tr><td><code>fontWeight/textN</code></td><td><code>text5</code> a <code>text10</code></td><td>peso fixo do <code>Text5</code> a <code>Text10</code></td><td>✅</td><td>Iguais ao código: <code>medium</code> no <code>text5</code> a <code>text7</code> e <code>regular</code> no <code>text8</code> (ver tabela abaixo).</td></tr>
+<tr><td>Peso do <code>text1</code> ao <code>text4</code> (estilo da fonte na camada)</td><td><code>Light</code> · <code>Regular</code> · <code>Medium</code> · <code>Bold</code></td><td><code>light</code> / <code>regular</code> / <code>medium</code> / <code>bold</code></td><td>✅</td><td>Não há variável de peso para esses estilos: o peso é escolhido na camada, como no código. <code>Light</code> só existe no <code>Text3</code> e no <code>Text4</code>.</td></tr>
+<tr><td><code>fontFamily/fontFamily</code></td><td><code>fonte da marca</code> (skin padrão e skin Evolution)</td><td>sem prop</td><td>✅</td><td>No código, a fonte vem do tema.</td></tr>
+<tr><td>Modo da coleção (skin)</td><td><code>marca</code> · <code>skin Evolution</code> · outras skins</td><td>sem prop</td><td>✅</td><td>No código, a skin vem do tema do app (<code>ThemeContextProvider</code>), não do texto.</td></tr>
+<tr><td>Tamanho fora dos estilos (sem variável)</td><td>qualquer valor</td><td><code>Text</code> com <code>size</code> / <code>mobileSize</code> / <code>desktopSize</code></td><td>⚠️</td><td>No Figma, é só não usar a variável. No código, isso exige o <code>Text</code>, que deve ser exceção.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<p>ℹ️ <strong>Valores das variáveis nas skins da marca</strong> (celular → desktop, em px), lidos no Figma e comparados com o código:</p>
+<table><thead><tr><th>Estilo</th><th>Tamanho (skin padrão)</th><th>Tamanho (skin Evolution)</th><th>Altura da linha (skin padrão)</th><th>Altura da linha (skin Evolution)</th><th>Peso (skin padrão)</th><th>Peso (skin Evolution)</th><th>Código</th></tr></thead><tbody>
+<tr><td><code>text1</code></td><td>12 → 14</td><td>12 → 14</td><td>16 → 20</td><td>16 → 20</td><td>escolhido</td><td>escolhido</td><td>✅ Igual</td></tr>
+<tr><td><code>text2</code></td><td>14 → 16</td><td>14 → 16</td><td>20 → 24</td><td>20 → 24</td><td>escolhido</td><td>escolhido</td><td>✅ Igual</td></tr>
+<tr><td><code>text3</code></td><td>16 → 18</td><td>16 → 18</td><td>24 → 24</td><td>24 → 24</td><td>escolhido</td><td>escolhido</td><td>✅ Igual</td></tr>
+<tr><td><code>text4</code></td><td>18 → 24</td><td>18 → 24</td><td>24 → 28</td><td>24 → 28</td><td>escolhido</td><td>escolhido</td><td>✅ Igual</td></tr>
+<tr><td><code>text5</code></td><td>20 → 28</td><td>20 → 28</td><td>24 → 32</td><td>24 → 32</td><td>medium</td><td>medium</td><td>✅ Igual</td></tr>
+<tr><td><code>text6</code></td><td>24 → 32</td><td>24 → 32</td><td>32 → 40</td><td>32 → 40</td><td>medium</td><td>medium</td><td>✅ Igual</td></tr>
+<tr><td><code>text7</code></td><td>28 → 40</td><td>28 → 40</td><td>32 → 48</td><td>32 → 48</td><td>medium</td><td>medium</td><td>✅ Igual</td></tr>
+<tr><td><code>text8</code></td><td>32 → 48</td><td>32 → 48</td><td>40 → 56</td><td>40 → 56</td><td>regular</td><td>regular</td><td>✅ Igual</td></tr>
+<tr><td><code>text9</code></td><td>não lido</td><td>não lido</td><td>não lido</td><td>não lido</td><td>não lido</td><td>não lido</td><td>Não comparado¹</td></tr>
+<tr><td><code>text10</code></td><td>não lido</td><td>não lido</td><td>não lido</td><td>não lido</td><td>não lido</td><td>não lido</td><td>Não comparado¹</td></tr>
+</tbody></table>
+<p>¹ ⚠️ As variáveis do <code>text9</code> e do <code>text10</code> existem na biblioteca, mas não são usadas em nenhum componente dos arquivos Desktop e Mobile, então os valores não puderam ser lidos daqui. No código, são 40 → 56 / 48 → 64 (tamanho), 48 → 64 / 56 → 72 (altura da linha) e <code>regular</code> (peso), nas duas skins. Confira na biblioteca Design System Skins.</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

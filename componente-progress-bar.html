@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progress bar (Progress Bar, Stepped) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-progress-bar">
+<h2>Progress bar (Progress Bar, Stepped)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>ProgressBar</h4>
+<p>Barra fina (4px) que mostra quanto de algo já foi concluído, em porcentagem, como o consumo do pacote de dados ou o andamento de um envio. Ocupa toda a largura do elemento em que está.</p>
+<h4>ProgressBarStepped</h4>
+<p>Barra fina (4px) dividida em segmentos, um por etapa, que mostra em que ponto de um fluxo o usuário está, como "etapa 2 de 4" de um cadastro. Os segmentos das etapas concluídas ficam preenchidos. Ocupa toda a largura do elemento em que está.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>ProgressBarStepped</h4><ul>
+<li>⚠️ <strong>Etapa atual:</strong> <code>Current step</code> conta as etapas preenchidas. Se a etapa em que o usuário está deve aparecer preenchida, use o número dela (ex.: na etapa 2, <code>Current step=2</code>). Se só as concluídas devem ficar preenchidas, use o número anterior.
+</li>
+<li>⚠️ <strong>Nome para o leitor de tela:</strong> informe o texto que descreve a barra (ex.: "Cadastro"). Sem ele, o código não dá nome à barra.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> no Mobile, o Progress Bar Stepped não tem trecho de código. No Desktop, o trecho mostra <code>steps</code> e <code>currentStep</code> conforme o design.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Nenhum segmento preenchido</td><td>Não existe</td><td>Existe (<code>currentStep={0}</code>, o padrão). ⚠️ Diferente.</td></tr>
+<tr><td>Mais de 6 etapas</td><td>Não existe</td><td>Existe. ⚠️ Diferente.</td></tr>
+<tr><td>Segmentos com cor personalizada</td><td>Não existe</td><td>Existe, com <code>color</code>. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>ProgressBar</h4><ul>
+<li>⚠️ <strong>Valor exato:</strong> o Figma só tem valores de 10 em 10. Informe o valor real ou como ele é calculado (ex.: GB usados ÷ GB do plano).
+</li>
+<li>⚠️ <strong>Largura:</strong> no Figma, a barra tem 600px. No código, ocupa toda a largura do elemento em que está.
+</li>
+<li>⚠️ <strong>Nome para o leitor de tela:</strong> informe o texto que descreve a barra (ex.: "Consumo de internet"). Sem ele, o código usa "Carregando".
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Valor fora dos múltiplos de 10 (ex.: 62%)</td><td>Não existe</td><td>Existe. ⚠️ Diferente.</td></tr>
+<tr><td>Barra com cor personalizada</td><td>Não existe</td><td>Existe, com <code>color</code>. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>ProgressBar</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>color</code></td><td></td><td></td><td>🎨 Cor da parte preenchida. Sem ela, usa a cor de controle ativo, ajustada ao fundo (<code>ThemeVariant</code>).</td></tr>
+<tr><td><code>reverse</code></td><td>sim/não</td><td><code>false</code></td><td>🎨 Muda a animação de entrada: a barra começa cheia e diminui até o valor, em vez de crescer a partir do zero.</td></tr>
+<tr><td><code>progressPercent</code> (obrigatória)</td><td>número</td><td></td><td>Porcentagem preenchida, de 0 a 100. Valores fora disso são ajustados para 0 ou 100.</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Leitor de tela:</strong> a barra é lida como uma barra de progresso, com o valor no formato "40.0% concluído".</p>
+<p>ℹ️ <strong>Animação:</strong> a barra anima ao aparecer e quando o valor muda (1s). Com a opção de reduzir movimento do sistema, não há animação.</p>
+<p>ℹ️ <strong>Cores do fundo:</strong> a parte vazia (trilho) e a parte preenchida mudam sozinhas conforme o fundo (<code>default</code>, <code>brand</code>, <code>negative</code>…).</p>
+<p>ℹ️ O <code>ProgressBar</code> não aceita <code>children</code>.</p>
+<h5>Diferença entre ProgressBar e ProgressBarStepped</h5><table><thead><tr><th></th><th><code>ProgressBar</code></th><th><code>ProgressBarStepped</code></th></tr></thead><tbody>
+<tr><td><strong>Aparência</strong></td><td>Uma barra contínua</td><td>Uma barra dividida em segmentos, com 8px entre eles</td></tr>
+<tr><td><strong>Valor</strong></td><td>Porcentagem (<code>progressPercent</code>, de 0 a 100)</td><td>Etapas concluídas (<code>currentStep</code>) de um total (<code>steps</code>)</td></tr>
+<tr><td><strong>Uso típico</strong></td><td>Consumo, download, envio</td><td>Fluxos com etapas, como um cadastro</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>progressPercent</code>, <code>reverse</code></td><td><code>steps</code>, <code>currentStep</code></td></tr>
+<tr><td><strong><code>aria-label</code> padrão</strong></td><td>"Carregando"</td><td>Nenhum</td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os dois mostram progresso com a mesma barra de 4px e as mesmas cores, mas um usa porcentagem e o outro, etapas. Cada um tem seu arquivo.</p>
+<h4>ProgressBarStepped</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>color</code></td><td></td><td></td><td>🎨 Cor dos segmentos preenchidos. Sem ela, usa a cor de controle ativo, ajustada ao fundo (<code>ThemeVariant</code>).</td></tr>
+<tr><td><code>steps</code> (obrigatória)</td><td>número</td><td></td><td>Quantidade de etapas (segmentos).</td></tr>
+<tr><td><code>currentStep</code></td><td>número</td><td><code>0</code></td><td>Quantas etapas estão concluídas (preenchidas). Com <code>0</code>, nenhum segmento fica preenchido; com o valor de <code>steps</code>, todos. Valores com decimais são arredondados para cima.¹</td></tr>
+</tbody></table>
+<p>¹ ⚠️ <strong><code>currentStep</code> conta etapas concluídas:</strong> com <code>steps={4}</code> e <code>currentStep={2}</code>, os <strong>dois primeiros</strong> segmentos ficam preenchidos. O leitor de tela lê "Etapa 2 de 4". Para destacar a etapa em que o usuário está agora, some 1.</p>
+<p>ℹ️ <strong>Animação:</strong> ao avançar, o segmento da etapa recém-concluída se preenche (1s); ao voltar, o segmento se esvazia. Com a opção de reduzir movimento do sistema, não há animação.</p>
+<p>ℹ️ <strong>Leitor de tela:</strong> sem <code>aria-label</code> nem <code>aria-labelledby</code>, a barra não tem nome; só a etapa é lida. Dê um nome a ela (ex.: "Cadastro").</p>
+<p>ℹ️ <strong>Cores do fundo:</strong> o trilho e os segmentos preenchidos mudam sozinhos conforme o fundo (<code>default</code>, <code>brand</code>, <code>negative</code>…).</p>
+<h5>Diferença entre ProgressBar e ProgressBarStepped</h5><table><thead><tr><th></th><th><code>ProgressBar</code></th><th><code>ProgressBarStepped</code></th></tr></thead><tbody>
+<tr><td><strong>Aparência</strong></td><td>Uma barra contínua</td><td>Uma barra dividida em segmentos, com 8px entre eles</td></tr>
+<tr><td><strong>Valor</strong></td><td>Porcentagem (<code>progressPercent</code>, de 0 a 100)</td><td>Etapas concluídas (<code>currentStep</code>) de um total (<code>steps</code>)</td></tr>
+<tr><td><strong>Uso típico</strong></td><td>Consumo, download, envio</td><td>Fluxos com etapas, como um cadastro</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>progressPercent</code>, <code>reverse</code></td><td><code>steps</code>, <code>currentStep</code></td></tr>
+<tr><td><strong><code>aria-label</code> padrão</strong></td><td>"Carregando"</td><td>Nenhum</td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os dois mostram progresso com a mesma barra de 4px e as mesmas cores, mas um usa porcentagem e o outro, etapas. Cada um tem seu arquivo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>ProgressBarStepped</h4><p><strong>Figma:</strong> biblioteca Desktop › Progress Bar Stepped [D] · biblioteca Mobile › Progress Bar Stepped</p>
+<p>ℹ️ Cada segmento é uma instância de <strong>_resources/step</strong>, preenchida (<code>Active=True</code>) ou vazia.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Progress Bar Stepped</td><td>Existe</td><td>Sem ligação de código</td><td>O Design System só liga ao código o Progress Bar Stepped do Desktop</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Steps</code></td><td><code>2</code> a <code>6</code></td><td><code>steps</code></td><td>⚠️</td><td>No código não há limite: a barra pode ter mais de 6 segmentos.</td></tr>
+<tr><td><code>Current step</code></td><td><code>1</code> a <code>6</code></td><td><code>currentStep</code></td><td>✅</td><td>Nos dois, o valor é a quantidade de segmentos preenchidos (com <code>3</code>, os três primeiros). O código também aceita <code>0</code>, com todos vazios.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, as cores do trilho e dos segmentos mudam sozinhas conforme o fundo onde a barra está.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>ProgressBar</h4><p><strong>Figma:</strong> biblioteca Desktop › Progress Bar [D] · biblioteca Mobile › Progress Bar</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Progress</code></td><td><code>0%</code> a <code>100%</code>, de 10 em 10</td><td><code>progressPercent</code></td><td>✅</td><td>No código, aceita qualquer valor de 0 a 100 (ex.: <code>62</code>).</td></tr>
+<tr><td><code>Reverse</code></td><td><code>True</code> · <code>False</code></td><td><code>reverse</code></td><td>✅</td><td>Só muda a animação de entrada (a barra começa cheia e diminui). No Figma, liga uma marcação escondida de animação; o visual parado é o mesmo.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, as cores do trilho e da barra mudam sozinhas conforme o fundo onde a barra está.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Como representar erro no Progress Bar? <strong>Resposta:</strong> Para estado de erro, use o <strong>Empty State Card</strong>, conforme a recomendação do arquivo Master.</p>
+<p><sub>Ref. #39 · 10/2024</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

@@ -2,645 +2,133 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>Design System — base de conhecimento</title>
-<meta name="description" content="Índice da base de conhecimento do Design System: componentes e props, Figma × código e dúvidas do suporte.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Base de conhecimento do Design System para agentes de Design · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
 </head>
 <body>
-<h1>Design System — base de conhecimento</h1>
-<p>Base de conhecimento do Design System da empresa, organizada em três páginas.</p>
-<ul>
-<li><a href="ds-componentes-props.html">Design System — componentes e props</a>: Props, tipos, valores padrão, comportamento e exemplos de cada componente.</li>
-<li><a href="ds-figma-x-codigo.html">Design System — Figma × código</a>: Comparação entre as bibliotecas Desktop e Mobile do Figma e o código, com pontos de atenção no handoff.</li>
-<li><a href="ds-duvidas-suporte.html">Design System — dúvidas do suporte</a>: Guias, processos e dúvidas de uso respondidas pelo time de System Ops.</li>
+
+<h1>Base de conhecimento do Design System para agentes de Design</h1>
+<div class="meta"><p>Base de conhecimento sobre os componentes do Design System, para agentes que atendem designers: regras que não aparecem no Figma, comportamento real no código, variáveis da marca e orientações do suporte. Esta página é o índice: o conteúdo está nas páginas ligadas abaixo.</p><p><strong>Atualizado em:</strong> 23/11/2026. <strong>Código de referência:</strong> versão 18.0.0 do código do Design System. <strong>Regra geral:</strong> em divergência sobre o comportamento de um componente, vale o código.</p></div>
+<h2>Partes gerais</h2><ul>
+<li><a href="fundamentos.html">Parte 1 · Fundamentos</a> <span class="desc">— Tamanhos de tela, grid e margens, fundos (Theme context), web × webview × app, app 5.0 × versão atual, bibliotecas do Figma e princípios de uso.</span></li>
+<li><a href="variaveis-da-marca.html">Parte 2 · Variáveis da marca (skin padrão e skin Evolution)</a> <span class="desc">— Valores das variáveis da marca nas duas skins: cores (claro e escuro), raios, tipografia, espaçamentos e configurações.</span></li>
+<li><a href="respostas-rapidas.html">Parte 3 · Respostas rápidas</a> <span class="desc">— Regras que não aparecem no Figma: tempo e animação, como os botões se organizam, tamanhos e posições, limites, como abre e fecha, app × web.</span></li>
+<li><a href="da-para-fazer.html">Parte 4 · Dá para fazer com o Design System?</a> <span class="desc">— Catálogo visual para reconhecer componentes numa imagem, receitas de construção atômica, o que não existe (e a alternativa) e sinais de alerta.</span></li>
+</ul><h2>Parte 5 · Referência por componente</h2><p>Uma página por componente (ou família de componentes), com regras, comportamento no código, propriedades do Figma e dúvidas do suporte.</p>
+<h3>Componentes</h3><ul>
+<li><a href="componente-accordion.html">Accordion (Accordion, Boxed Accordion)</a> <span class="desc">— Contêiner que agrupa itens expansíveis (AccordionItem / BoxedAccordionItem).</span></li>
+<li><a href="componente-avatar.html">Avatar</a> <span class="desc">— Círculo que representa uma pessoa ou entidade.</span></li>
+<li><a href="componente-badge.html">Badge</a> <span class="desc">— Indicador de notificação: um ponto ou um número em um círculo.</span></li>
+<li><a href="componente-breadcrumbs.html">Breadcrumbs</a> <span class="desc">— Componente de navegação que mostra onde a página atual está dentro da hierarquia do site (ex.: Início / Seção / Subseção).</span></li>
+<li><a href="componente-button.html">Button (Button, Button Link, Icon Button, Toggle Icon Button)</a> <span class="desc">— Botões de ação com texto.</span></li>
+<li><a href="componente-buttons-layout.html">Buttons layout (Button Layout, Button Group, Fixed Footer)</a> <span class="desc">— Organiza até três ações (um botão primário, um secundário e um link) com o espaçamento e o alinhamento padrão do Design System.</span></li>
+<li><a href="componente-callout.html">Callout</a> <span class="desc">— Caixa de destaque que chama a atenção para uma informação importante ou uma sugestão dentro da página, sem interromper o fluxo do usuário.</span></li>
+<li><a href="componente-card.html">Card (Cover, Data, Media, Naked)</a> <span class="desc">— O Card é um único componente com quatro variações: CoverCard, DataCard, MediaCard e NakedCard.</span></li>
+<li><a href="componente-carousel.html">Carousel (Carousel, Centered Carousel, Slideshow)</a> <span class="desc">— Lista horizontal de itens (geralmente cards) que o usuário percorre arrastando ou pelas setas.</span></li>
+<li><a href="componente-checkbox.html">Checkbox</a> <span class="desc">— Caixa de seleção que o usuário marca ou desmarca, com um texto ao lado.</span></li>
+<li><a href="componente-chip.html">Chip</a> <span class="desc">— Etiqueta compacta e arredondada com um texto curto, e opcionalmente um ícone e um badge.</span></li>
+<li><a href="componente-counter.html">Counter</a> <span class="desc">— Seletor de quantidade com um botão de diminuir (−), o valor atual e um botão de aumentar (+).</span></li>
+<li><a href="componente-divider.html">Divider</a> <span class="desc">— Linha horizontal fina (1px) que separa visualmente blocos de conteúdo, como itens de uma lista ou seções de uma página.</span></li>
+<li><a href="componente-drawer.html">Drawer</a> <span class="desc">— Painel que abre por cima da tela, com o fundo escurecido: no celular, sobe a partir da parte de baixo e ocupa a tela inteira; no tablet e no desktop, entra pela direita, ocupa a altura toda e tem os cantos da esquerda…</span></li>
+<li><a href="componente-header.html">Header (Header, Main Section Header)</a> <span class="desc">— Cabeçalho do topo de uma página, com pré-título, título e descrição.</span></li>
+<li><a href="componente-hero.html">Hero (Hero, Cover Hero)</a> <span class="desc">— Bloco de destaque com uma imagem ou um vídeo grande e um texto ao lado, com título, descrição e botões.</span></li>
+<li><a href="componente-list.html">List (Row, Boxed Row, listas)</a> <span class="desc">— Linha de lista com título e, opcionalmente, ícone ou imagem à esquerda, textos secundários, detalhe, badge e um controle à direita (seta, switch, checkbox, radio ou botão de ícone).</span></li>
+<li><a href="componente-loading-bar.html">Loading Bar</a> <span class="desc">— Barra fina (4px) fixa no topo da tela, com uma faixa animada que corre da esquerda para a direita sem parar.</span></li>
+<li><a href="componente-logo.html">Logo</a> <span class="desc">— Logotipo da marca, nos formatos símbolo, símbolo com nome ou vertical.</span></li>
+<li><a href="componente-menu.html">Menu</a> <span class="desc">— Menu suspenso que abre a partir de um elemento (ex.: um botão de ícone &quot;mais opções&quot;) e mostra uma lista de opções.</span></li>
+<li><a href="componente-meter.html">Meter (Data Visualizations)</a> <span class="desc">— Indicador gráfico de proporção: mostra um ou mais valores percentuais como trechos coloridos de uma barra, de um semicírculo ou de um círculo.</span></li>
+<li><a href="componente-modals.html">Modals (Alert, Confirm, Dialog)</a> <span class="desc">— Janelas modais com fundo escurecido: Alert (um botão), Confirm (dois botões) e Dialog (completo, com X, imagem, conteúdo extra e link).</span></li>
+<li><a href="componente-mosaic.html">Mosaic (Horizontal, Vertical)</a> <span class="desc">— Carrossel em que cada página é um mosaico de até 4 itens de tamanhos diferentes (largos e quadrados), como uma vitrine de ofertas com cards.</span></li>
+<li><a href="componente-navigation-bar.html">Navigation bar (Main, Funnel, Navigation Bar)</a> <span class="desc">— Barras do topo da página: Main Navigation Bar (site, com seções e menus), Funnel Navigation Bar (fluxos de compra/cadastro) e Navigation Bar (voltar + título).</span></li>
+<li><a href="componente-pagination.html">Pagination</a> <span class="desc">— Navegação entre páginas de um conteúdo dividido, como uma lista de faturas ou resultados de busca.</span></li>
+<li><a href="componente-popover.html">Popover</a> <span class="desc">— Balão que abre ao clicar num elemento da tela (o alvo), com uma seta apontando para ele.</span></li>
+<li><a href="componente-progress-bar.html">Progress bar (Progress Bar, Stepped)</a> <span class="desc">— Barra fina (4px) que mostra quanto de algo já foi concluído, em porcentagem, como o consumo do pacote de dados ou o andamento de um envio.</span></li>
+<li><a href="componente-radio-button.html">Radio Button</a> <span class="desc">— Grupo de opções em que o usuário escolhe uma só, como a forma de entrega.</span></li>
+<li><a href="componente-rating.html">Rating (Rating, Info Rating)</a> <span class="desc">— Avaliação em que o usuário escolhe uma nota tocando num ícone, como &quot;Como foi seu atendimento?&quot;.</span></li>
+<li><a href="componente-select.html">Select</a> <span class="desc">— Campo de formulário em que o usuário escolhe uma opção numa lista que abre ao tocar, como &quot;Estado&quot; ou &quot;Tipo de documento&quot;.</span></li>
+<li><a href="componente-sheet.html">Sheet</a> <span class="desc">— Painel que sobe de baixo no celular e abre no centro no desktop. Tipos prontos (seleção única, lista de ações, informativo, ações) e um tipo com conteúdo livre, só na web.</span></li>
+<li><a href="componente-sidenav.html">Sidenav</a> <span class="desc">— Menu de navegação lateral, fixo à esquerda da página, com logo no topo, itens agrupados em seções e uma área no rodapé.</span></li>
+<li><a href="componente-skeletons.html">Skeletons</a> <span class="desc">— Formas cinzas que piscam devagar no lugar do conteúdo enquanto ele carrega, desenhando o formato do que vai aparecer (texto, imagem, linha de lista).</span></li>
+<li><a href="componente-skip-link.html">Skip Link</a> <span class="desc">— Link de acesso rápido para quem navega pelo teclado: fica escondido e só aparece quando recebe o foco com a tecla Tab, no canto superior esquerdo.</span></li>
+<li><a href="componente-slider.html">Slider</a> <span class="desc">— Barra com um controle que o usuário arrasta para escolher um valor dentro de um intervalo, como o valor de uma recarga ou a quantidade de GB de um plano.</span></li>
+<li><a href="componente-snackbar.html">Snackbar</a> <span class="desc">— Mensagem curta e temporária que aparece na parte de baixo da tela para informar o resultado de uma ação (ex.: &quot;Plano alterado com sucesso&quot;).</span></li>
+<li><a href="componente-spinner.html">Spinner</a> <span class="desc">— Indicador de carregamento animado, um círculo que gira (ou, no iOS, raios no estilo do sistema).</span></li>
+<li><a href="componente-stacking-group.html">Stacking Group</a> <span class="desc">— Grupo de avatares ou imagens pequenas lado a lado, sobrepostos ou separados, que pode resumir os que sobram num contador &quot;+N&quot;.</span></li>
+<li><a href="componente-stepper.html">Stepper</a> <span class="desc">— Indicador das etapas de um fluxo, como &quot;Dados pessoais → Endereço → Pagamento&quot;.</span></li>
+<li><a href="componente-switch.html">Switch</a> <span class="desc">— Chave de liga/desliga com um texto ao lado, para ativar ou desativar uma opção na hora, como &quot;Receber notificações&quot;.</span></li>
+<li><a href="componente-table.html">Table</a> <span class="desc">— Tabela de dados com cabeçalho e linhas, como a lista de faturas com data, valor e status.</span></li>
+<li><a href="componente-tabs.html">Tabs</a> <span class="desc">— Abas para alternar entre conteúdos da mesma tela, como &quot;Faturas&quot;, &quot;Consumo&quot; e &quot;Plano&quot;.</span></li>
+<li><a href="componente-tag.html">Tag</a> <span class="desc">— Etiqueta curta e colorida para destacar um status ou uma informação, como &quot;Novo&quot;, &quot;Paga&quot; ou &quot;Em aberto&quot;.</span></li>
+<li><a href="componente-text.html">Text (tipografia)</a> <span class="desc">— Texto com tamanho, altura da linha e peso definidos à mão.</span></li>
+<li><a href="componente-text-link.html">Text Link</a> <span class="desc">— Link dentro de um texto, como &quot;Leia os [termos de uso]&quot; ou &quot;Esqueceu a senha?</span></li>
+<li><a href="componente-timeline.html">Timeline</a> <span class="desc">— Linha do tempo com etapas, como o andamento de um pedido (&quot;Pedido recebido&quot;, &quot;Em separação&quot;, &quot;Saiu para entrega&quot;).</span></li>
+<li><a href="componente-timer.html">Timer (Timer, Text Timer)</a> <span class="desc">— Contagem regressiva em destaque, com números grandes e o nome da unidade embaixo (ex.: 02 dias · 10 horas · 35 min · 08 seg), como numa oferta que acaba em breve.</span></li>
+<li><a href="componente-title.html">Title (Title1 a Title4)</a> <span class="desc">— Títulos de seção, com o estilo de título do tema, como &quot;Meus serviços&quot; acima de uma lista.</span></li>
+<li><a href="componente-tooltip.html">Tooltip</a> <span class="desc">— Balão pequeno que aparece ao passar o mouse sobre um elemento da tela (o alvo), com uma seta apontando para ele.</span></li>
 </ul>
-<h2><a href="ds-componentes-props.html">Design System — componentes e props</a></h2>
-<ul>
-<li><a href="ds-componentes-props.html#como-usar-esta-base-instruções-para-o-agente">Como usar esta base (instruções para o agente)</a>
-</li>
-<li><a href="ds-componentes-props.html#legenda-das-propriedades">Legenda das propriedades</a>
-</li>
-<li><a href="ds-componentes-props.html#legenda-de-origem">Legenda de origem</a>
-</li>
-<li><a href="ds-componentes-props.html#tamanhos-de-tela">Tamanhos de tela</a>
-</li>
-<li><a href="ds-componentes-props.html#índice-de-famílias-e-componentes">Índice de famílias e componentes</a>
-</li>
-<li><a href="ds-componentes-props.html#componentes_1">Componentes</a>
-<ul>
-<li><a href="ds-componentes-props.html#accordionitem-boxedaccordionitem">AccordionItem / BoxedAccordionItem</a>
-</li>
-<li><a href="ds-componentes-props.html#accordion-boxedaccordion">Accordion / BoxedAccordion</a>
-</li>
-<li><a href="ds-componentes-props.html#avatar">Avatar</a>
-</li>
-<li><a href="ds-componentes-props.html#badge">Badge</a>
-</li>
-<li><a href="ds-componentes-props.html#navigationbreadcrumbs">NavigationBreadcrumbs</a>
-</li>
-<li><a href="ds-componentes-props.html#buttonlink">ButtonLink</a>
-</li>
-<li><a href="ds-componentes-props.html#buttonprimary-buttonsecondary-buttondanger">ButtonPrimary / ButtonSecondary / ButtonDanger</a>
-</li>
-<li><a href="ds-componentes-props.html#iconbutton">IconButton</a>
-</li>
-<li><a href="ds-componentes-props.html#toggleiconbutton">ToggleIconButton</a>
-</li>
-<li><a href="ds-componentes-props.html#buttonfixedfooterlayout">ButtonFixedFooterLayout</a>
-</li>
-<li><a href="ds-componentes-props.html#buttongroup">ButtonGroup</a>
-</li>
-<li><a href="ds-componentes-props.html#buttonlayout">ButtonLayout</a>
-</li>
-<li><a href="ds-componentes-props.html#fixedfooterlayout">FixedFooterLayout</a>
-</li>
-<li><a href="ds-componentes-props.html#callout">Callout</a>
-</li>
-<li><a href="ds-componentes-props.html#card-actions">Card actions</a>
-</li>
-<li><a href="ds-componentes-props.html#card-covercard-datacard-mediacard-nakedcard">Card (CoverCard / DataCard / MediaCard / NakedCard)</a>
-</li>
-<li><a href="ds-componentes-props.html#covercard">CoverCard</a>
-</li>
-<li><a href="ds-componentes-props.html#datacard">DataCard</a>
-</li>
-<li><a href="ds-componentes-props.html#mediacard">MediaCard</a>
-</li>
-<li><a href="ds-componentes-props.html#nakedcard">NakedCard</a>
-</li>
-<li><a href="ds-componentes-props.html#controles-do-carousel-pagebullets-carouselpagecontrols-carouselautoplaycontrol-carouselcontextprovider">Controles do Carousel (PageBullets / CarouselPageControls / CarouselAutoplayControl / CarouselContextProvider)</a>
-</li>
-<li><a href="ds-componentes-props.html#carousel">Carousel</a>
-</li>
-<li><a href="ds-componentes-props.html#centeredcarousel">CenteredCarousel</a>
-</li>
-<li><a href="ds-componentes-props.html#slideshow">Slideshow</a>
-</li>
-<li><a href="ds-componentes-props.html#checkbox">Checkbox</a>
-</li>
-<li><a href="ds-componentes-props.html#chip">Chip</a>
-</li>
-<li><a href="ds-componentes-props.html#counter">Counter</a>
-</li>
-<li><a href="ds-componentes-props.html#divider">Divider</a>
-</li>
-<li><a href="ds-componentes-props.html#drawer">Drawer</a>
-</li>
-<li><a href="ds-componentes-props.html#header-headerlayout">Header / HeaderLayout</a>
-</li>
-<li><a href="ds-componentes-props.html#mainsectionheader-mainsectionheaderlayout">MainSectionHeader / MainSectionHeaderLayout</a>
-</li>
-<li><a href="ds-componentes-props.html#coverhero">CoverHero</a>
-</li>
-<li><a href="ds-componentes-props.html#hero">Hero</a>
-</li>
-<li><a href="ds-componentes-props.html#rowlist-boxedrowlist">RowList / BoxedRowList</a>
-</li>
-<li><a href="ds-componentes-props.html#row-boxedrow">Row / BoxedRow</a>
-</li>
-<li><a href="ds-componentes-props.html#unorderedlist-orderedlist-listitem">UnorderedList / OrderedList / ListItem</a>
-</li>
-<li><a href="ds-componentes-props.html#loadingbar">LoadingBar</a>
-</li>
-<li><a href="ds-componentes-props.html#logo-logos-por-marca">Logo / logos por marca</a>
-</li>
-<li><a href="ds-componentes-props.html#menu-menuitem-menusection">Menu / MenuItem / MenuSection</a>
-</li>
-<li><a href="ds-componentes-props.html#data-visualizations-meter">Data Visualizations (Meter)</a>
-</li>
-<li><a href="ds-componentes-props.html#alert">Alert</a>
-</li>
-<li><a href="ds-componentes-props.html#confirm">Confirm</a>
-</li>
-<li><a href="ds-componentes-props.html#dialog">Dialog</a>
-</li>
-<li><a href="ds-componentes-props.html#horizontalmosaic">HorizontalMosaic</a>
-</li>
-<li><a href="ds-componentes-props.html#verticalmosaic">VerticalMosaic</a>
-</li>
-<li><a href="ds-componentes-props.html#funnelnavigationbar">FunnelNavigationBar</a>
-</li>
-<li><a href="ds-componentes-props.html#mainnavigationbar">MainNavigationBar</a>
-</li>
-<li><a href="ds-componentes-props.html#navigationbar">NavigationBar</a>
-</li>
-<li><a href="ds-componentes-props.html#pagination">Pagination</a>
-</li>
-<li><a href="ds-componentes-props.html#popover">Popover</a>
-</li>
-<li><a href="ds-componentes-props.html#progressbarstepped">ProgressBarStepped</a>
-</li>
-<li><a href="ds-componentes-props.html#progressbar">ProgressBar</a>
-</li>
-<li><a href="ds-componentes-props.html#radiobutton-radiogroup">RadioButton / RadioGroup</a>
-</li>
-<li><a href="ds-componentes-props.html#inforating">InfoRating</a>
-</li>
-<li><a href="ds-componentes-props.html#rating">Rating</a>
-</li>
-<li><a href="ds-componentes-props.html#select">Select</a>
-</li>
-<li><a href="ds-componentes-props.html#sheet-action-list-actions_list">Sheet: Action list (ACTIONS_LIST)</a>
-</li>
-<li><a href="ds-componentes-props.html#sheet-actions-actions">Sheet: Actions (ACTIONS)</a>
-</li>
-<li><a href="ds-componentes-props.html#sheet-informative-info">Sheet: Informative (INFO)</a>
-</li>
-<li><a href="ds-componentes-props.html#sheet-single-selection-radio_list">Sheet: Single selection (RADIO_LIST)</a>
-</li>
-<li><a href="ds-componentes-props.html#sheet-sheetbody-sheetroot-slot-only-web">Sheet / SheetBody / SheetRoot: Slot (Only web)</a>
-</li>
-<li><a href="ds-componentes-props.html#sidenavbar">SidenavBar</a>
-</li>
-<li><a href="ds-componentes-props.html#sidenavlayout">SidenavLayout</a>
-</li>
-<li><a href="ds-componentes-props.html#skeletonline-skeletontext-skeletoncircle-skeletonrow-skeletonrectangle">SkeletonLine / SkeletonText / SkeletonCircle / SkeletonRow / SkeletonRectangle</a>
-</li>
-<li><a href="ds-componentes-props.html#skiplink-skiplinknav">SkipLink / SkipLinkNav</a>
-</li>
-<li><a href="ds-componentes-props.html#slider">Slider</a>
-</li>
-<li><a href="ds-componentes-props.html#snackbar-usesnackbar">Snackbar / useSnackbar</a>
-</li>
-<li><a href="ds-componentes-props.html#spinner">Spinner</a>
-</li>
-<li><a href="ds-componentes-props.html#stackinggroup">StackingGroup</a>
-</li>
-<li><a href="ds-componentes-props.html#stepper">Stepper</a>
-</li>
-<li><a href="ds-componentes-props.html#switch">Switch</a>
-</li>
-<li><a href="ds-componentes-props.html#table">Table</a>
-</li>
-<li><a href="ds-componentes-props.html#tabs">Tabs</a>
-</li>
-<li><a href="ds-componentes-props.html#tag">Tag</a>
-</li>
-<li><a href="ds-componentes-props.html#text1-text2-text3-text4-text5-text6-text7-text8-text9-text10">Text1 / Text2 / Text3 / Text4 / Text5 / Text6 / Text7 / Text8 / Text9 / Text10</a>
-</li>
-<li><a href="ds-componentes-props.html#text">Text</a>
-</li>
-<li><a href="ds-componentes-props.html#textlink">TextLink</a>
-</li>
-<li><a href="ds-componentes-props.html#timelineitem">TimelineItem</a>
-</li>
-<li><a href="ds-componentes-props.html#timeline">Timeline</a>
-</li>
-<li><a href="ds-componentes-props.html#texttimer">TextTimer</a>
-</li>
-<li><a href="ds-componentes-props.html#timer">Timer</a>
-</li>
-<li><a href="ds-componentes-props.html#title1-title2-title3-title4">Title1 / Title2 / Title3 / Title4</a>
-</li>
-<li><a href="ds-componentes-props.html#tooltip">Tooltip</a>
-</li>
+<h3>Campos de formulário</h3><ul>
+<li><a href="componente-autocomplete.html">Autocomplete</a> <span class="desc">— Campo de texto em que o usuário digita e escolhe uma opção de uma lista, que vai sendo filtrada enquanto ele digita (ex.: escolher a cidade ou o banco).</span></li>
+<li><a href="componente-credit-card.html">Cartão de crédito (número, validade, CVV)</a> <span class="desc">— Bloco pronto com os três campos do cartão de crédito: o número em cima e, embaixo, a validade e o CVV lado a lado.</span></li>
+<li><a href="componente-date.html">Data e hora (Date, Date Time, Month, Time)</a> <span class="desc">— Campo para escolher uma data (dia, mês e ano), como a data de nascimento ou a data de um agendamento.</span></li>
+<li><a href="componente-decimal.html">Decimal Field</a> <span class="desc">— Campo para números com casas decimais, como um valor em dinheiro, um peso ou uma medida.</span></li>
+<li><a href="componente-email.html">Email Field</a> <span class="desc">— Campo para o usuário digitar um e-mail.</span></li>
+<li><a href="componente-file-upload.html">File Upload</a> <span class="desc">— Componente para o usuário escolher um ou mais arquivos do aparelho (documentos, fotos, vídeos).</span></li>
+<li><a href="componente-iban.html">IBAN Field</a> <span class="desc">— Campo para o usuário digitar um IBAN, o número internacional de conta bancária (ex.: ES79 2100 0813 6101 2345 6789).</span></li>
+<li><a href="componente-integer.html">Integer Field</a> <span class="desc">— Campo para números inteiros, sem casas decimais, como uma quantidade ou um número de parcelas.</span></li>
+<li><a href="componente-password.html">Password Field</a> <span class="desc">— Campo para o usuário digitar uma senha.</span></li>
+<li><a href="componente-phone-number.html">Phone Number Field</a> <span class="desc">— Campo para o usuário digitar um número de telefone.</span></li>
+<li><a href="componente-pin.html">Pin Field</a> <span class="desc">— Campo para o usuário digitar um código curto, um algarismo em cada caixinha (ex.: o código de 6 dígitos recebido por SMS).</span></li>
+<li><a href="componente-search.html">Search Field</a> <span class="desc">— Campo de busca.</span></li>
+<li><a href="componente-text-field.html">Text Field</a> <span class="desc">— Campo de texto com rótulo (label) que sobe para o topo do campo ao digitar, texto de ajuda e mensagem de erro embaixo.</span></li>
 </ul>
-</li>
-<li><a href="ds-componentes-props.html#campos-de-formulário_1">Campos de formulário</a>
-<ul>
-<li><a href="ds-componentes-props.html#autocomplete">Autocomplete</a>
-</li>
-<li><a href="ds-componentes-props.html#creditcardexpirationfield">CreditCardExpirationField</a>
-</li>
-<li><a href="ds-componentes-props.html#creditcardfields">CreditCardFields</a>
-</li>
-<li><a href="ds-componentes-props.html#creditcardnumberfield">CreditCardNumberField</a>
-</li>
-<li><a href="ds-componentes-props.html#cvvfield">CvvField</a>
-</li>
-<li><a href="ds-componentes-props.html#datefield">DateField</a>
-</li>
-<li><a href="ds-componentes-props.html#datetimefield">DateTimeField</a>
-</li>
-<li><a href="ds-componentes-props.html#monthfield">MonthField</a>
-</li>
-<li><a href="ds-componentes-props.html#timefield">TimeField</a>
-</li>
-<li><a href="ds-componentes-props.html#decimalfield">DecimalField</a>
-</li>
-<li><a href="ds-componentes-props.html#emailfield">EmailField</a>
-</li>
-<li><a href="ds-componentes-props.html#fileitem">FileItem</a>
-</li>
-<li><a href="ds-componentes-props.html#fileupload">FileUpload</a>
-</li>
-<li><a href="ds-componentes-props.html#ibanfield">IbanField</a>
-</li>
-<li><a href="ds-componentes-props.html#integerfield">IntegerField</a>
-</li>
-<li><a href="ds-componentes-props.html#passwordfield">PasswordField</a>
-</li>
-<li><a href="ds-componentes-props.html#phonenumberfieldlite-formatphonelite">PhoneNumberFieldLite / formatPhoneLite</a>
-</li>
-<li><a href="ds-componentes-props.html#phonenumberfield">PhoneNumberField</a>
-</li>
-<li><a href="ds-componentes-props.html#pinfield">PinField</a>
-</li>
-<li><a href="ds-componentes-props.html#searchfield">SearchField</a>
-</li>
-<li><a href="ds-componentes-props.html#textfieldbase">TextFieldBase</a>
-</li>
-<li><a href="ds-componentes-props.html#textfield">TextField</a>
-</li>
+<h3>Padrões de tela</h3><ul>
+<li><a href="componente-empty-state.html">Empty State</a> <span class="desc">— Tela ou seção de estado vazio: aparece quando não há conteúdo para mostrar (ex.: nenhuma fatura ainda, nenhum resultado na busca, carrinho vazio).</span></li>
+<li><a href="componente-empty-state-card.html">Empty State Card</a> <span class="desc">— Card de estado vazio, para usar no meio de outros conteúdos quando uma parte da tela não tem o que mostrar (ex.: &quot;Nenhum serviço adicional contratado&quot; num painel com outros cards).</span></li>
+<li><a href="componente-feedback.html">Feedback (telas de sucesso, erro e informação)</a> <span class="desc">— Telas de resultado depois de uma ação (ex.: &quot;Pagamento confirmado&quot;, &quot;Algo deu errado&quot;), com ícone, título, descrição e botões.</span></li>
+<li><a href="componente-form.html">Form</a> <span class="desc">— Formulário que junta os campos do Design System (TextField, EmailField, Select, Checkbox, Switch etc.), guarda os valores de cada um pelo name, valida tudo ao enviar e mostra os erros embaixo de cada campo.</span></li>
+<li><a href="componente-loading-screen.html">Loading Screen</a> <span class="desc">— Tela de carregamento: ocupa no mínimo a altura toda da tela, com um indicador de carregamento (spinner) no centro e, embaixo dele, um título e uma descrição (ex.: &quot;Estamos preparando sua fatura&quot;).</span></li>
 </ul>
-</li>
-<li><a href="ds-componentes-props.html#primitivos_1">Primitivos</a>
-<ul>
-<li><a href="ds-componentes-props.html#circle">Circle</a>
-</li>
-<li><a href="ds-componentes-props.html#image">Image</a>
-</li>
-<li><a href="ds-componentes-props.html#placeholder">Placeholder</a>
-</li>
-<li><a href="ds-componentes-props.html#square">Square</a>
-</li>
-<li><a href="ds-componentes-props.html#touchable">Touchable</a>
-</li>
-<li><a href="ds-componentes-props.html#video">Video</a>
-</li>
+<h3>Comunidade (componentes da marca no Design System)</h3><ul>
+<li><a href="componente-advanced-data-card.html">Advanced Data Card (Community)</a> <span class="desc">— Card de dados com mais estrutura que o DataCard: além dos textos (chamada, pré-título, título, subtítulo e descrição), tem uma área de blocos (slot) para mostrar valores, progresso e informações em seções separadas por…</span></li>
+<li><a href="componente-ai-card.html">AI Card (Community)</a> <span class="desc">— Cartão de uma linha com um texto fixo seguido de palavras que aparecem sendo digitadas, uma de cada vez, como numa sugestão de um assistente de IA (ex.: &quot;Pergunte sobre &quot; + &quot;sua fatura&quot;, &quot;seu plano&quot;, &quot;roaming&quot;).</span></li>
+<li><a href="componente-blocks.html">Blocks (Community)</a> <span class="desc">— Blocos de conteúdo para a área de blocos (slot) do CommunityAdvancedDataCard.</span></li>
 </ul>
-</li>
-<li><a href="ds-componentes-props.html#layout_1">Layout</a>
-<ul>
-<li><a href="ds-componentes-props.html#align">Align</a>
-</li>
-<li><a href="ds-componentes-props.html#doublefield">DoubleField</a>
-</li>
-<li><a href="ds-componentes-props.html#gridlayout">GridLayout</a>
-</li>
-<li><a href="ds-componentes-props.html#grid-griditem">Grid / GridItem</a>
-</li>
-<li><a href="ds-componentes-props.html#horizontalscroll">HorizontalScroll</a>
-</li>
-<li><a href="ds-componentes-props.html#inline">Inline</a>
-</li>
-<li><a href="ds-componentes-props.html#masterdetaillayout">MasterDetailLayout</a>
-</li>
-<li><a href="ds-componentes-props.html#negativebox">NegativeBox</a>
-</li>
-<li><a href="ds-componentes-props.html#responsivelayout">ResponsiveLayout</a>
-</li>
-<li><a href="ds-componentes-props.html#stack">Stack</a>
-</li>
+<h3>Layout</h3><ul>
+<li><a href="componente-align.html">Align</a> <span class="desc">— Bloco de layout que posiciona o conteúdo dentro de um espaço: à esquerda, no centro ou à direita (x), e em cima, no meio ou embaixo (y).</span></li>
+<li><a href="componente-double-field.html">DoubleField</a> <span class="desc">— Coloca dois campos de formulário lado a lado, na mesma linha (ex.: validade e CVV do cartão, DDD e telefone).</span></li>
+<li><a href="componente-grid-layout.html">GridLayout</a> <span class="desc">— Grade de 12 colunas da página, usada para dividir uma tela em uma ou duas colunas de conteúdo.</span></li>
+<li><a href="componente-grid.html">Grid / GridItem</a> <span class="desc">— Grade para organizar conteúdos em linhas e colunas, com espaço entre eles (ex.: uma vitrine de produtos, uma galeria de fotos, um painel com cartões de tamanhos diferentes).</span></li>
+<li><a href="componente-horizontal-scroll.html">HorizontalScroll</a> <span class="desc">— Faixa com rolagem na horizontal: os itens ficam lado a lado, numa linha só, e o que não cabe na tela é visto arrastando para o lado (ex.: uma fileira de chips de filtro, uma linha de cards de ofertas).</span></li>
+<li><a href="componente-inline.html">Inline</a> <span class="desc">— Coloca elementos lado a lado, na mesma linha, com um espaço fixo entre eles (ex.: botões, chips, um ícone e um texto).</span></li>
+<li><a href="componente-master-detail-layout.html">MasterDetailLayout</a> <span class="desc">— Layout de tela com uma lista (master) e o detalhe do item escolhido (detail), como uma caixa de e-mail ou uma lista de faturas com a fatura aberta ao lado.</span></li>
+<li><a href="componente-negative-box.html">NegativeBox</a> <span class="desc">— Puxa o conteúdo 16px para fora dos lados, avançando sobre a margem ou o espaço interno de onde ele está.</span></li>
+<li><a href="componente-responsive-layout.html">ResponsiveLayout</a> <span class="desc">— Dá as margens laterais da página, que mudam com o tamanho da tela: o conteúdo nunca encosta nas bordas e, em telas muito largas, fica centralizado com uma largura máxima.</span></li>
+<li><a href="componente-stack.html">Stack</a> <span class="desc">— Empilha elementos na vertical, um embaixo do outro, com um espaço fixo entre eles (ex.: um título, um texto e um botão).</span></li>
 </ul>
-</li>
-<li><a href="ds-componentes-props.html#customização_1">Customização</a>
-<ul>
-<li><a href="ds-componentes-props.html#box">Box</a>
-</li>
-<li><a href="ds-componentes-props.html#boxed">Boxed</a>
-</li>
+<h3>Customização</h3><ul>
+<li><a href="componente-box.html">Box</a> <span class="desc">— Contêiner usado para adicionar espaçamento interno (padding) em volta do conteúdo.</span></li>
+<li><a href="componente-boxed.html">Boxed</a> <span class="desc">— Caixa com fundo e cantos arredondados que agrupa conteúdo.</span></li>
 </ul>
-</li>
-<li><a href="ds-componentes-props.html#padrões_1">Padrões</a>
-<ul>
-<li><a href="ds-componentes-props.html#emptystate">EmptyState</a>
-</li>
-<li><a href="ds-componentes-props.html#emptystatecard">EmptyStateCard</a>
-</li>
-<li><a href="ds-componentes-props.html#feedback-feedbackscreen-successfeedbackscreen-errorfeedbackscreen-infofeedbackscreen-successfeedback">Feedback (FeedbackScreen / SuccessFeedbackScreen / ErrorFeedbackScreen / InfoFeedbackScreen / SuccessFeedback)</a>
-</li>
-<li><a href="ds-componentes-props.html#useform-usefieldprops">useForm / useFieldProps</a>
-</li>
-<li><a href="ds-componentes-props.html#form">Form</a>
-</li>
-<li><a href="ds-componentes-props.html#brandloadingscreen">BrandLoadingScreen</a>
-</li>
-<li><a href="ds-componentes-props.html#loadingscreen">LoadingScreen</a>
-</li>
+<h3>Primitivos</h3><ul>
+<li><a href="componente-circle.html">Circle</a> <span class="desc">— Forma redonda que serve de fundo para outro conteúdo: uma cor, uma imagem ou um ícone centralizado (ex.: um ícone dentro de um círculo colorido).</span></li>
+<li><a href="componente-image.html">Image</a> <span class="desc">— Mostra uma imagem com os cantos arredondados do tema.</span></li>
+<li><a href="componente-square.html">Square</a> <span class="desc">— Forma quadrada, com cantos arredondados, que serve de fundo para outro conteúdo: uma cor, uma imagem ou um ícone centralizado (ex.: o logo de um app num quadrado).</span></li>
+<li><a href="componente-video.html">Video</a> <span class="desc">— Mostra um vídeo com os cantos arredondados do tema.</span></li>
 </ul>
-</li>
-<li><a href="ds-componentes-props.html#utilitários_1">Utilitários</a>
-<ul>
-<li><a href="ds-componentes-props.html#fadein">FadeIn</a>
-</li>
-<li><a href="ds-componentes-props.html#fadeout">FadeOut</a>
-</li>
-<li><a href="ds-componentes-props.html#fixedtotop-topdistancecontext">FixedToTop / TopDistanceContext</a>
-</li>
-<li><a href="ds-componentes-props.html#focustrap">FocusTrap</a>
-</li>
-<li><a href="ds-componentes-props.html#overlay">Overlay</a>
-</li>
-<li><a href="ds-componentes-props.html#overscrollcolorprovider-usesetoverscrollcolor">OverscrollColorProvider / useSetOverscrollColor</a>
-</li>
-<li><a href="ds-componentes-props.html#portal">Portal</a>
-</li>
-<li><a href="ds-componentes-props.html#screenreaderonly">ScreenReaderOnly</a>
-</li>
-<li><a href="ds-componentes-props.html#themecontextprovider">ThemeContextProvider</a>
-</li>
-<li><a href="ds-componentes-props.html#themevariant-usethemevariant">ThemeVariant / useThemeVariant</a>
-</li>
+<h3>Utilitários</h3><ul>
+<li><a href="componente-theme-variant.html">Theme Variant (fundo e cores)</a> <span class="desc">— Informa aos componentes de dentro qual é o fundo onde eles estão, para que ajustem as cores sozinhos (ex.: um botão sobre fundo da marca usa as cores próprias para esse fundo).</span></li>
 </ul>
-</li>
-<li><a href="ds-componentes-props.html#comunidade-community">Comunidade (Community)</a>
-<ul>
-<li><a href="ds-componentes-props.html#communityadvanceddatacard">CommunityAdvancedDataCard</a>
-</li>
-<li><a href="ds-componentes-props.html#communityaicard">CommunityAiCard</a>
-</li>
-<li><a href="ds-componentes-props.html#communityblocks">CommunityBlocks</a>
-</li>
-</ul>
-</li>
-</ul>
-<h2><a href="ds-figma-x-codigo.html">Design System — Figma × código</a></h2>
-<ul>
-<li><a href="ds-figma-x-codigo.html#como-usar-esta-base-instruções-para-o-agente">Como usar esta base (instruções para o agente)</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#como-o-score-é-calculado">Como o score é calculado</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#code-connect">Code Connect</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#resumo-de-todos-os-componentes">Resumo de todos os componentes</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#componentes">Componentes</a>
-<ul>
-<li><a href="ds-figma-x-codigo.html#accordion-figma-código">Accordion: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#avatar-figma-código">Avatar: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#badge-figma-código">Badge: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#breadcrumbs-figma-código">Breadcrumbs: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#buttonlink-figma-código">ButtonLink: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#button-figma-código">Button: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#iconbutton-figma-código">IconButton: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#toggleiconbutton-figma-código">ToggleIconButton: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#buttonfixedfooterlayout-figma-código">ButtonFixedFooterLayout: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#buttongroup-figma-código">ButtonGroup: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#buttonlayout-figma-código">ButtonLayout: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#fixedfooterlayout-figma-código">FixedFooterLayout: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#callout-figma-código">Callout: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#covercard-figma-código">CoverCard: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#datacard-figma-código">DataCard: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#mediacard-figma-código">MediaCard: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#nakedcard-figma-código">NakedCard: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#carousel-figma-código">Carousel: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#centeredcarousel-figma-código">CenteredCarousel: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#slideshow-figma-código">Slideshow: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#checkbox-figma-código">Checkbox: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#chip-figma-código">Chip: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#counter-figma-código">Counter: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#divider-figma-código">Divider: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#drawer-figma-código">Drawer: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#header-figma-código">Header: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#mainsectionheader-figma-código">MainSectionHeader: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#coverhero-figma-código">CoverHero: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#hero-figma-código">Hero: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#row-figma-código">Row: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#unorderedlist-orderedlist-figma-código">UnorderedList / OrderedList: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#loadingbar-figma-código">LoadingBar: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#logo-figma-código">Logo: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#menu-figma-código">Menu: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#data-visualizations-meter-figma-código">Data Visualizations (Meter): Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#alert-figma-código">Alert: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#confirm-figma-código">Confirm: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#dialog-figma-código">Dialog: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#mosaic-figma-código">Mosaic: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#funnelnavigationbar-figma-código">FunnelNavigationBar: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#mainnavigationbar-figma-código">MainNavigationBar: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#navigationbar-figma-código">NavigationBar: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#pagination-figma-código">Pagination: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#popover-figma-código">Popover: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#progressbarstepped-figma-código">ProgressBarStepped: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#progressbar-figma-código">ProgressBar: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#radiobutton-figma-código">RadioButton: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#inforating-figma-código">InfoRating: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#rating-figma-código">Rating: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#select-figma-código">Select: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#sheet-figma-código">Sheet: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#sidenavbar-figma-código">SidenavBar: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#skeletons-figma-código">Skeletons: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#skiplink-figma-código">SkipLink: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#slider-figma-código">Slider: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#snackbar-figma-código">Snackbar: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#spinner-figma-código">Spinner: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#stackinggroup-figma-código">StackingGroup: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#stepper-figma-código">Stepper: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#switch-figma-código">Switch: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#table-figma-código">Table: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#tabs-figma-código">Tabs: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#tag-figma-código">Tag: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#text-figma-código">Text: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#textlink-figma-código">TextLink: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#timeline-figma-código">Timeline: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#texttimer-figma-código">TextTimer: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#timer-figma-código">Timer: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#title-figma-código">Title: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#tooltip-figma-código">Tooltip: Figma × código</a>
-</li>
-</ul>
-</li>
-<li><a href="ds-figma-x-codigo.html#campos-de-formulário">Campos de formulário</a>
-<ul>
-<li><a href="ds-figma-x-codigo.html#autocomplete-figma-código">Autocomplete: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#creditcardexpirationfield-figma-código">CreditCardExpirationField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#creditcardfields-figma-código">CreditCardFields: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#creditcardnumberfield-figma-código">CreditCardNumberField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#cvvfield-figma-código">CvvField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#datefield-figma-código">DateField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#datetimefield-figma-código">DateTimeField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#monthfield-figma-código">MonthField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#timefield-figma-código">TimeField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#decimalfield-figma-código">DecimalField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#emailfield-figma-código">EmailField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#fileitem-figma-código">FileItem: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#fileupload-figma-código">FileUpload: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#ibanfield-figma-código">IbanField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#integerfield-figma-código">IntegerField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#passwordfield-figma-código">PasswordField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#phonenumberfield-figma-código">PhoneNumberField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#pinfield-figma-código">PinField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#searchfield-figma-código">SearchField: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#textfield-figma-código">TextField: Figma × código</a>
-</li>
-</ul>
-</li>
-<li><a href="ds-figma-x-codigo.html#primitivos">Primitivos</a>
-<ul>
-<li><a href="ds-figma-x-codigo.html#circle-figma-código">Circle: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#image-figma-código">Image: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#square-figma-código">Square: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#video-figma-código">Video: Figma × código</a>
-</li>
-</ul>
-</li>
-<li><a href="ds-figma-x-codigo.html#layout">Layout</a>
-<ul>
-<li><a href="ds-figma-x-codigo.html#doublefield-figma-código">DoubleField: Figma × código</a>
-</li>
-</ul>
-</li>
-<li><a href="ds-figma-x-codigo.html#customização">Customização</a>
-<ul>
-<li><a href="ds-figma-x-codigo.html#boxed-figma-código">Boxed: Figma × código</a>
-</li>
-</ul>
-</li>
-<li><a href="ds-figma-x-codigo.html#padrões">Padrões</a>
-<ul>
-<li><a href="ds-figma-x-codigo.html#emptystate-figma-código">EmptyState: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#emptystatecard-figma-código">EmptyStateCard: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#feedback-figma-código">Feedback: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#brandloadingscreen-figma-código">BrandLoadingScreen: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#loadingscreen-figma-código">LoadingScreen: Figma × código</a>
-</li>
-</ul>
-</li>
-<li><a href="ds-figma-x-codigo.html#comunidade-community">Comunidade (Community)</a>
-<ul>
-<li><a href="ds-figma-x-codigo.html#communityadvanceddatacard-figma-código">CommunityAdvancedDataCard: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#communityaicard-figma-código">CommunityAiCard: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#communityhighlightedvalueblock-figma-código">CommunityHighlightedValueBlock: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#communityinformationblock-figma-código">CommunityInformationBlock: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#communityprogressblock-figma-código">CommunityProgressBlock: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#communityrowblock-figma-código">CommunityRowBlock: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#communitysimpleblock-figma-código">CommunitySimpleBlock: Figma × código</a>
-</li>
-<li><a href="ds-figma-x-codigo.html#communityvalueblock-figma-código">CommunityValueBlock: Figma × código</a>
-</li>
-</ul>
-</li>
-</ul>
-<h2><a href="ds-duvidas-suporte.html">Design System — dúvidas do suporte</a></h2>
-<ul>
-<li><a href="ds-duvidas-suporte.html#como-usar-esta-base-instruções-para-o-agente">Como usar esta base (instruções para o agente)</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#princípios-que-se-repetem-nas-respostas">Princípios que se repetem nas respostas</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#guias-e-processos">Guias e processos</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#dúvidas-por-tema">Dúvidas por tema</a>
-<ul>
-<li><a href="ds-duvidas-suporte.html#regras-gerais-de-uso">Regras gerais de uso</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#processo-de-evolução-de-componentes">Processo de evolução de componentes</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#validação-de-jornadas">Validação de jornadas</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#canal-de-suporte">Canal de suporte</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#bibliotecas-e-arquivos">Bibliotecas e arquivos</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#layout-e-grid">Layout e grid</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#tipografia">Tipografia</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#tokens-e-cores">Tokens e cores</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#ícones-e-ilustrações">Ícones e ilustrações</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#acessibilidade">Acessibilidade</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#componentes">Componentes</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#input-fields">Input fields</a>
-</li>
-<li><a href="ds-duvidas-suporte.html#patterns">Patterns</a>
-</li>
-</ul>
-</li>
-<li><a href="ds-duvidas-suporte.html#bugs-e-pendências-registrados-sem-conclusão">Bugs e pendências registrados (sem conclusão)</a>
-</li>
-</ul>
-</body>
-</html>
+<h2>Partes 6 e 7 · Suporte</h2><ul><li><a href="suporte-guias-e-duvidas.html">Parte 6 · Guias, processos e dúvidas gerais do suporte</a> <span class="desc">— validação de jornadas, bibliotecas, layout e grid, tipografia, cores, ícones, acessibilidade, campos de formulário.</span></li><li><a href="bugs-conhecidos.html">Parte 7 · Bugs e pendências conhecidos</a> <span class="desc">— problemas já reportados, sem solução registrada.</span></li></ul>
+
+</body></html>

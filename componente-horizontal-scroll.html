@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HorizontalScroll · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-horizontal-scroll">
+<h2>HorizontalScroll</h2>
+<p class="cat">Layout</p>
+<h3>Resumo</h3>
+<p>Faixa com rolagem na horizontal: os itens ficam lado a lado, numa linha só, e o que não cabe na tela é visto arrastando para o lado (ex.: uma fileira de chips de filtro, uma linha de cards de ofertas). Dentro de um <code>ResponsiveLayout</code>, a faixa vai de uma borda à outra da tela, mas o primeiro e o último item ficam alinhados com o resto do conteúdo da página.</p>
+<p>ℹ️ <strong>Tipo de layout:</strong> o Design System tem dois tipos de componentes de layout. Os <strong>orientados à página</strong> (<code>ResponsiveLayout</code> e <code>GridLayout</code>) montam a estrutura da tela: margens e colunas da página. Os <strong>orientados a componentes</strong> (<code>Grid</code> e <code>HorizontalScroll</code>) organizam um grupo de itens dentro dessa estrutura. O <code>HorizontalScroll</code> é do segundo tipo.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>HorizontalScroll</h4><h5>Quando usar</h5><ul>
+<li><strong>Use o <code>HorizontalScroll</code></strong> para uma fileira de itens com rolagem livre, sem paginação (ex.: chips de filtro, atalhos).
+</li>
+<li><strong>Use o <code>Carousel</code></strong> quando os itens devem ser vistos em páginas, com marcadores de posição e botões de anterior e próximo.
+</li>
+<li><strong>Use o <code>Grid</code></strong> quando todos os itens devem aparecer, quebrando em várias linhas.
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>noScrollbar</code></td><td>sim/não</td><td></td><td>🎨 Esconde a barra de rolagem em todos os aparelhos. Sem ela, a barra fica escondida só em telas de toque (celulares e tablets) e aparece com mouse.¹</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Itens da faixa, lado a lado.²</td></tr>
+</tbody></table>
+<p>¹ ⚠️ <strong>Barra de rolagem escondida:</strong> com mouse e sem a barra, o usuário pode não perceber que há mais itens. Use <code>noScrollbar</code> só quando outro sinal mostrar que a faixa rola (ex.: o último item cortado na borda da tela).</p>
+<p>² ⚠️ <strong>Sem espaço entre os itens:</strong> o <code>HorizontalScroll</code> não coloca espaço entre os itens, e nenhum deles encolhe para caber. Para espaçar, coloque os itens dentro de um <code>Inline</code> (ex.: <code>&lt;Inline space={8}&gt;</code>).</p>
+<p>ℹ️ <strong>Margens da página:</strong> dentro de um <code>ResponsiveLayout</code>, a faixa avança sobre as margens laterais da página, para os itens rolarem até a borda da tela. No começo e no fim, ela reserva um espaço do tamanho da margem, para o primeiro e o último item ficarem alinhados com o conteúdo. Fora de um <code>ResponsiveLayout</code>, a faixa fica do tamanho do espaço onde está.</p>
+<p>ℹ️ <strong>Rolagem só na horizontal:</strong> o conteúdo que passar da altura da faixa é cortado (ex.: uma sombra grande ou um menu que abre para baixo).</p>
+<p>ℹ️ <strong>Figma:</strong> o <code>HorizontalScroll</code> não existe no Figma (nem nas bibliotecas Desktop e Mobile, nem na página <strong>Layouts</strong>). No design, o equivalente é um frame com <strong>auto layout horizontal</strong> e o conteúdo cortado (<strong>Clip content</strong>), mostrando o último item cortado na borda da tela. No protótipo, a rolagem é feita com <strong>Overflow scrolling: Horizontal</strong>. No handoff, diga quais itens entram na faixa e o espaço entre eles. Para uma fileira com páginas e marcadores, use o componente Carousel do Figma.</p>
+<p>ℹ️ <strong>Sem identificação para testes:</strong> o <code>HorizontalScroll</code> não aceita <code>dataAttributes</code>.</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

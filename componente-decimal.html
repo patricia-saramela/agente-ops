@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decimal Field · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-decimal">
+<h2>Decimal Field</h2>
+<p class="cat">Campos de formulário</p>
+<h3>Resumo</h3>
+<p>Campo para números com casas decimais, como um valor em dinheiro, um peso ou uma medida. Só aceita algarismos e um separador decimal, abre o teclado numérico no celular e troca o separador pelo do idioma do usuário (no Brasil, a vírgula). Pode limitar o número de casas decimais (<code>maxDecimals</code>) e ter um prefixo (ex.: <code>"R$"</code>). Tem o mesmo visual do TextField e funciona sozinho ou dentro de um <code>Form</code>.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>DecimalField</h4><ul>
+<li>⚠️ <strong>Casas decimais:</strong> diga quantas casas decimais o campo aceita (ex.: "2, para valores em reais"). Sem isso, o código aceita quantas o usuário digitar.
+</li>
+<li>⚠️ <strong>Formato do número:</strong> use no design só algarismos e a vírgula (ex.: <code>25,90</code>). O campo não mostra separador de milhares, não completa os zeros (<code>25</code> fica <code>25</code>) e não aceita números negativos.
+</li>
+<li>⚠️ <strong>Prefixo:</strong> use o <code>Prefix</code> para a unidade antes do número (ex.: <code>R$</code>). Não escreva a unidade dentro do valor, porque o campo apaga letras e símbolos.
+</li>
+<li>⚠️ <strong>Valores permitidos:</strong> diga se há valor mínimo ou máximo e qual a mensagem de erro (ex.: "O valor mínimo é R$ 15,00"). O código não tem limite de valor pronto: ele é feito com o <code>validate</code>.
+</li>
+<li>⚠️ <strong>Teclado:</strong> no celular, o campo abre o teclado numérico com separador decimal. Não é preciso desenhar o teclado.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o rótulo, o texto de ajuda, o prefixo, o <code>Error</code>, o <code>Disabled</code> e o <code>Read only</code> do design. O <code>name</code> é sempre <code>"decimal-field"</code>, e o <code>maxDecimals</code> não aparece.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Ícone à direita</td><td>Existe uma camada <code>Right icon</code>, escondida e sem propriedade</td><td>Não existe: o <code>DecimalField</code> não aceita ícone. ⚠️ Diferente.</td></tr>
+<tr><td>Número negativo</td><td>Dá para escrever no texto</td><td>Não existe: o campo não aceita o sinal de menos. ⚠️ Diferente.</td></tr>
+<tr><td>Número com separador de milhares (ex.: <code>1.250,00</code>)</td><td>Dá para escrever no texto</td><td>Não existe: o campo não formata milhares e aceita só um separador. ⚠️ Diferente.</td></tr>
+<tr><td>Campo desabilitado com foco (<code>Disabled=True</code>, <code>State=Focused</code>)</td><td>Existe no Desktop</td><td>Não existe: campo desabilitado não recebe foco. ⚠️ Diferente.</td></tr>
+<tr><td>Largura do campo no desktop</td><td>496px</td><td>328px, ou a largura toda com <code>fullWidth</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Versão menor do campo</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>DecimalField</h4><h5>Quando usar</h5><ul>
+<li><strong>Use o <code>DecimalField</code></strong> quando o número pode ter casas decimais (ex.: valor de uma recarga, consumo em GB).
+</li>
+<li><strong>Use o <code>IntegerField</code></strong> quando o número é sempre inteiro (ex.: quantidade de linhas).
+</li>
+<li><strong>Use o <code>TextField</code></strong> quando o dado tem números mas não é uma quantidade (ex.: número do pedido, CEP).
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo (ex.: "Valor da recarga").</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado, como texto (ex.: <code>'25,90'</code>).¹</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho. Dentro de um <code>Form</code>, sem ele, usa o <code>initialValues</code>.</td></tr>
+<tr><td><code>maxDecimals</code></td><td>número</td><td><code>Infinity</code></td><td>Número máximo de casas decimais. O que passar disso não é digitado. Com <code>0</code>, o separador é descartado e o campo só aceita inteiros.²</td></tr>
+<tr><td><code>prefix</code></td><td></td><td></td><td>Texto antes do valor, na cor secundária (ex.: <code>"R$"</code>). Aparece quando o campo tem foco ou valor.</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada a cada mudança. <code>value</code> é o texto sem espaços nas pontas e <code>rawValue</code> é o texto como está no campo.¹</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Valida o valor dentro de um <code>Form</code>: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo (ex.: valor mínimo).</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo. Sem ela, o campo é obrigatório dentro de um <code>Form</code>.</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo, mesmo com <code>optional</code>.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo fica cinza claro.</td></tr>
+<tr><td><code>maxLength</code></td><td>número</td><td></td><td>Número máximo de caracteres, contando o separador.</td></tr>
+<tr><td><code>placeholder</code></td><td></td><td></td><td>Texto de exemplo dentro do campo, que aparece quando o campo tem foco e está vazio (ex.: <code>"0,00"</code>).</td></tr>
+<tr><td><code>getSuggestions</code></td><td></td><td></td><td>Mostra uma lista de sugestões enquanto o usuário digita. Só funciona com <code>value</code> e sem <code>defaultValue</code>.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>autoComplete</code></td><td></td><td></td><td>Tipo de preenchimento automático do navegador.</td></tr>
+<tr><td><code>preventCopy</code></td><td>sim/não</td><td>configuração do tema</td><td>Impede copiar e recortar o texto do campo.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ⚠️ <strong>O valor é texto, não número:</strong> o valor guardado (no <code>value</code>, no <code>onChangeValue</code> e no <code>onSubmit</code> do <code>Form</code>) é um <code>string</code> com o separador do idioma do usuário, por exemplo <code>'25,90'</code> em português e <code>'25.90'</code> em inglês. Para fazer contas, converta antes (ex.: <code>Number(valor.replace(',', '.'))</code>). O campo não formata milhares (<code>1.250,00</code>) nem completa casas decimais (<code>25</code> não vira <code>25,00</code>).</p>
+<p>² ℹ️ <strong>Casas decimais:</strong> com <code>maxDecimals={2}</code>, digitar <code>123.4567</code> resulta em <code>123,45</code>. Com <code>maxDecimals={0}</code>, digitar <code>123.45</code> resulta em <code>12345</code>, porque o separador é descartado.</p>
+<p>ℹ️ <strong>O que pode ser digitado:</strong> só algarismos e um separador decimal. Ponto e vírgula funcionam e viram o separador do idioma; um segundo separador é ignorado. Letras, espaços e o sinal de menos (<code>-</code>) não entram, então o campo não aceita números negativos. Colar um texto com outros caracteres mantém só os algarismos e o separador.</p>
+<p>ℹ️ <strong>Teclado:</strong> no celular, o campo abre o teclado numérico com separador decimal (<code>inputMode="decimal"</code>). Em versões antigas do iOS (antes da 12.2), abre o teclado comum.</p>
+<p>ℹ️ <strong>Dois campos lado a lado:</strong> o <code>DecimalField</code> pode ser usado dentro de um <code>DoubleField</code>.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>DecimalField</h4><p><strong>Figma:</strong> biblioteca Desktop › Decimal Field [D] · biblioteca Mobile › Decimal Field</p>
+<p>ℹ️ No Figma, o Decimal Field tem o mesmo desenho do Text Field, com um número de exemplo (<code>1,22</code>). O que faz dele um campo decimal (teclado numérico, separador do idioma, limite de casas decimais) só existe no código.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td><code>State=Focused</code> com <code>Disabled=True</code></td><td>Existe</td><td>Não existe</td><td>Só o Desktop tem um campo desabilitado com foco, que não acontece no código (campo desabilitado não recebe foco)</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td></td></tr>
+<tr><td>Valor (camada <code>Text value</code>)</td><td>texto livre</td><td><code>value</code> / <code>defaultValue</code></td><td>⚠️</td><td>No código, o campo só aceita algarismos e um separador decimal, que vira o do idioma do usuário (no Brasil, a vírgula). Não formata milhares (<code>1.250,00</code>) nem completa casas decimais (<code>25</code> não vira <code>25,00</code>).</td></tr>
+<tr><td><code>Prefix</code> + camada <code>Prefix</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>prefix</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td>No código, o erro também aparece sozinho dentro de um <code>Form</code>: campo obrigatório vazio ou regra do <code>validate</code>.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td></td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Inactive</code> = vazio e sem foco, <code>Focused</code> = com foco, <code>Activated</code> = preenchido e sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o campo tem sempre fundo branco; só o texto de ajuda muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

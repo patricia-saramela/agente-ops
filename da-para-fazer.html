@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parte 4 · Dá para fazer com o Design System? · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<h1>Parte 4 · Dá para fazer com o Design System?</h1>
+<h2>Catálogo visual: como reconhecer cada componente</h2>
+<table><thead><tr><th>O que aparece na imagem</th><th>Componente do Design System</th><th>Pistas e variações</th></tr></thead><tbody>
+<tr><td>Barra no topo com seta de voltar e título</td><td><strong>Navigation Bar</strong></td><td>Ações à direita (ícones/texto). Título em uma linha.</td></tr>
+<tr><td>Barra no topo com logo, seções/links e ícones (busca, conta)</td><td><strong>Main Navigation Bar</strong></td><td>No celular, seções num menu hambúrguer. Pode ter faixa acima (topSlot) e menus das seções.</td></tr>
+<tr><td>Barra com logo e poucas ações, num fluxo de compra/cadastro</td><td><strong>Funnel Navigation Bar</strong></td><td>Sem seções; foco no fluxo.</td></tr>
+<tr><td>Menu lateral fixo à esquerda (desktop)</td><td><strong>Sidenav Bar</strong></td><td>No celular/tablet vira barra no topo com hambúrguer.</td></tr>
+<tr><td>Trilha "Início › Seção › Página"</td><td><strong>Breadcrumbs</strong></td><td>Último item sem link.</td></tr>
+<tr><td>Título grande de página com pré-título/descrição</td><td><strong>Header</strong> (+ Header Layout)</td><td>Fundo normal ou de marca; pode ter slot abaixo (ou ao lado, no desktop).</td></tr>
+<tr><td>Título principal de seção com botão</td><td><strong>Main Section Header</strong></td><td>No desktop, conteúdo na metade esquerda.</td></tr>
+<tr><td>Título de seção pequeno, com ou sem link à direita</td><td><strong>Title</strong> (Title1 a Title4)</td><td>Nível de heading definido à parte.</td></tr>
+<tr><td>Bloco grande com imagem ao lado do texto e botão</td><td><strong>Hero</strong></td><td>Celular: imagem em cima. Só botão principal + link.</td></tr>
+<tr><td>Banner com imagem/vídeo/cor no <strong>fundo inteiro</strong> e texto por cima</td><td><strong>Cover Hero</strong></td><td>Pode ter dois botões e conteúdo ao lado (sideSlot).</td></tr>
+<tr><td>Vários banners que passam um por vez, largura toda, bullets sobre a imagem</td><td><strong>Slideshow</strong></td><td>Com Hero/Cover Hero dentro.</td></tr>
+<tr><td>Card com imagem no <strong>fundo</strong> e texto por cima</td><td><strong>Cover Card</strong></td><td>Conteúdo alinhado embaixo. Proporções (7:10, 9:10 etc.), cor customizada.</td></tr>
+<tr><td>Card com imagem num <strong>bloco separado</strong> (em cima ou ao lado) e texto</td><td><strong>Media Card</strong></td><td>Tamanho Display é do mesmo componente.</td></tr>
+<tr><td>Card só com texto e um ícone/imagem pequena (ex.: serviço, fatura, consumo)</td><td><strong>Data Card</strong></td><td>Pode ter slot (ex.: Progress Bar, Meter), tag, botões.</td></tr>
+<tr><td>Card sem fundo nem borda, imagem + texto</td><td><strong>Naked Card</strong></td><td>Imagem pode ser redonda.</td></tr>
+<tr><td>Card com ações no canto superior direito (favoritar, fechar, ⋯)</td><td>Card com <strong>top actions</strong></td><td>Top actions aceita <strong>só Icon Button</strong>.</td></tr>
+<tr><td>Card com checkbox/switch/radio no canto e contorno de selecionado</td><td>Card <strong>selecionável</strong></td><td>Existe no código, <strong>não no Figma</strong>: desenhe à parte e indique.</td></tr>
+<tr><td>Caixa de aviso/dica com ícone, título, texto e botões</td><td><strong>Callout</strong></td><td>Um Callout por tela.</td></tr>
+<tr><td>Faixa de status curta e colorida ("Novo", "Paga")</td><td><strong>Tag</strong></td><td>7 tipos de cor; ícone opcional; não clicável.</td></tr>
+<tr><td>Bolinha vermelha ou número sobre ícone/avatar</td><td><strong>Badge</strong></td><td></td></tr>
+<tr><td>Lista de linhas com ícone/imagem à esquerda, título, subtítulo e seta/switch/checkbox à direita</td><td><strong>Row</strong> (em <strong>Row List</strong>)</td><td>Separadas por divisória (sem divisória na última).</td></tr>
+<tr><td>Mesmas linhas, cada uma numa caixa com espaço entre elas</td><td><strong>Boxed Row</strong> (em <strong>Boxed Row List</strong>)</td><td>16px entre as caixas.</td></tr>
+<tr><td>Lista com marcadores (bullets) ou números</td><td><strong>Unordered List / Ordered List</strong></td><td>Até 3 níveis.</td></tr>
+<tr><td>Seções que abrem e fecham com seta</td><td><strong>Accordion</strong> (com divisórias) ou <strong>Boxed Accordion</strong> (em caixas)</td><td></td></tr>
+<tr><td>Caixa branca genérica agrupando conteúdo</td><td><strong>Boxed</strong></td><td>Com Box/Rows dentro (atômico).</td></tr>
+<tr><td>Linha separadora horizontal</td><td><strong>Divider</strong></td><td>Só horizontal.</td></tr>
+<tr><td>Grade de imagens de tamanhos diferentes (largo, quadrado, alto)</td><td><strong>Horizontal Mosaic / Vertical Mosaic</strong></td><td></td></tr>
+<tr><td>Itens lado a lado que deslizam, com bullets/setas</td><td><strong>Carousel</strong></td><td>Ponta do próximo item no celular.</td></tr>
+<tr><td>Item central em destaque com vizinhos cortados dos dois lados</td><td><strong>Centered Carousel</strong></td><td></td></tr>
+<tr><td>Linha de pílulas selecionáveis/filtros</td><td><strong>Chip</strong></td><td>Rola para o lado; seleção única ou múltipla.</td></tr>
+<tr><td>Abas com linha embaixo da selecionada</td><td><strong>Tabs</strong></td><td></td></tr>
+<tr><td>Seletor segmentado (ex.: "Pessoa física | Empresa") no topo</td><td>Não há componente de segmented control no Figma: entra pelo <strong>topSlot do Main Navigation Bar</strong> (ver receitas)</td><td></td></tr>
+<tr><td>Círculos numerados ligados por linha (etapas do fluxo)</td><td><strong>Stepper</strong></td><td></td></tr>
+<tr><td>Barra segmentada de etapas</td><td><strong>Progress Bar Stepped</strong></td><td></td></tr>
+<tr><td>Barra de progresso contínua</td><td><strong>Progress Bar</strong></td><td></td></tr>
+<tr><td>Semicírculo, círculo ou barra com segmentos coloridos (consumo)</td><td><strong>Meter</strong></td><td></td></tr>
+<tr><td>Etapas com pontos/ícones ligados por linha (andamento de pedido)</td><td><strong>Timeline</strong></td><td>Vertical ou horizontal.</td></tr>
+<tr><td>− valor + (quantidade)</td><td><strong>Counter</strong></td><td>Lixeira no mínimo.</td></tr>
+<tr><td>Estrelas de avaliação</td><td><strong>Rating</strong> (interativo) ou <strong>Info Rating</strong> (só mostra a nota)</td><td></td></tr>
+<tr><td>Barra com bolinha arrastável</td><td><strong>Slider</strong></td><td></td></tr>
+<tr><td>Interruptor liga/desliga</td><td><strong>Switch</strong></td><td>Com texto à direita; com título e descrição use Row/Boxed Row com switch.</td></tr>
+<tr><td>Caixa de marcar</td><td><strong>Checkbox</strong></td><td></td></tr>
+<tr><td>Bolinha de opção única</td><td><strong>Radio Button</strong></td><td></td></tr>
+<tr><td>Campo com rótulo flutuante</td><td><strong>Text Field</strong> e campos específicos (Email, Password, Phone Number, Date, Month, Time, Date Time, Integer, Decimal, Credit Card, CVV, IBAN, Search, Autocomplete, Select)</td><td></td></tr>
+<tr><td>Caixinhas de código (SMS)</td><td><strong>Pin Field</strong></td><td>Só números.</td></tr>
+<tr><td>Área de upload de arquivo / arquivo anexado</td><td><strong>File Upload / File Item</strong></td><td></td></tr>
+<tr><td>Dois campos lado a lado</td><td><strong>Double Field</strong></td><td></td></tr>
+<tr><td>Janela no centro com fundo escurecido</td><td><strong>Alert / Confirm / Dialog</strong></td><td>Alert: 1 botão; Confirm: 2 botões; Dialog: X, imagem, slot, link.</td></tr>
+<tr><td>Painel que sobe de baixo (celular) com lista de opções/ações</td><td><strong>Sheet</strong> (Single selection, Action list, Informative, Actions, Slot)</td><td></td></tr>
+<tr><td>Painel lateral que entra pela direita (desktop)</td><td><strong>Drawer</strong></td><td></td></tr>
+<tr><td>Lista suspensa de opções a partir de um botão (⋯)</td><td><strong>Menu</strong></td><td>Web. No app, ações de card usam Sheet Action list.</td></tr>
+<tr><td>Balão com seta e X, abre no clique</td><td><strong>Popover</strong></td><td></td></tr>
+<tr><td>Balão pequeno sem X, no hover</td><td><strong>Tooltip</strong></td><td></td></tr>
+<tr><td>Mensagem curta na parte de baixo, temporária</td><td><strong>Snackbar</strong></td><td>Informative ou Critical.</td></tr>
+<tr><td>Barra fina animada no topo da janela</td><td><strong>Loading Bar</strong></td><td></td></tr>
+<tr><td>Círculo girando</td><td><strong>Spinner</strong></td><td></td></tr>
+<tr><td>Formas cinzas no lugar do conteúdo carregando</td><td><strong>Skeletons</strong> (Circle, Line, Rectangle, Row, Text)</td><td></td></tr>
+<tr><td>Tela inteira de carregamento com logo animado/textos</td><td><strong>Loading Screen / Brand Loading Screen</strong></td><td></td></tr>
+<tr><td>Tela de resultado (sucesso, erro, informação) com ícone grande</td><td><strong>Success / Error / Info Feedback Screen</strong></td><td>Sucesso em fundo da marca.</td></tr>
+<tr><td>Sucesso no meio da página, sem botões fixos</td><td><strong>Success Feedback</strong></td><td></td></tr>
+<tr><td>Estado vazio de tela/seção (ilustração + título + botão)</td><td><strong>Empty State</strong></td><td></td></tr>
+<tr><td>Estado vazio dentro de um card</td><td><strong>Empty State Card</strong></td><td>Também usado para erro de carregamento de bloco.</td></tr>
+<tr><td>Tabela com cabeçalho e linhas</td><td><strong>Table</strong></td><td></td></tr>
+<tr><td>Paginação 1 2 3 …</td><td><strong>Pagination</strong></td><td></td></tr>
+<tr><td>Contagem regressiva em caixas</td><td><strong>Timer</strong></td><td></td></tr>
+<tr><td>Contagem regressiva dentro de uma frase</td><td><strong>Text Timer</strong></td><td></td></tr>
+<tr><td>Avatares/logos sobrepostos com "+N"</td><td><strong>Stacking Group</strong></td><td></td></tr>
+<tr><td>Foto/iniciais em círculo</td><td><strong>Avatar</strong></td><td></td></tr>
+<tr><td>Ícone dentro de círculo/quadrado colorido</td><td><strong>Circle / Square</strong></td><td></td></tr>
+<tr><td>Link dentro de um parágrafo</td><td><strong>Text Link</strong></td><td>Link solto ("Ver todos") = Button Link.</td></tr>
+<tr><td>Botão só com ícone</td><td><strong>Icon Button</strong> (ou <strong>Toggle Icon Button</strong>, com dois estados)</td><td></td></tr>
+<tr><td>Link de texto com seta ›</td><td><strong>Button Link</strong> (com navegação)</td><td></td></tr>
+<tr><td>Rodapé com botões fixos na parte de baixo</td><td><strong>Button Fixed Footer Layout</strong></td><td></td></tr>
+<tr><td>Link "Pular para o conteúdo" que aparece com Tab</td><td><strong>Skip Link</strong></td><td></td></tr>
+<tr><td>Card rico de dados (blocos de valor, progresso, linhas)</td><td><strong>Advanced Data Card</strong> (Community) com <strong>Blocks</strong></td><td>⚠️ Orientação atual: preferir <strong>Data Card</strong> (o Advanced Data Card não está mais sendo usado).</td></tr>
+<tr><td>Cartão de IA com texto animado ("Pergunte sobre…")</td><td><strong>AI Card</strong> (Community)</td><td></td></tr>
+</tbody></table>
+<h2>Receitas de construção atômica já orientadas pelo suporte</h2>
+<table><thead><tr><th>Necessidade</th><th>Como montar</th></tr></thead><tbody>
+<tr><td>Card de score de crédito</td><td><strong>Meter</strong> + auto layout, transformado em componente, no <strong>slot</strong> de um card. O suporte citou o Advanced Data Card (Ref. #848 · 02/2026); a orientação mais recente é usar o <strong>Data Card</strong> no lugar dele (Ref. #1166 · 07/2026).</td></tr>
+<tr><td>"Número grande" (ex.: código enviado) com tempo</td><td><strong>Circle</strong> com slot + <strong>Text Timer</strong>.</td></tr>
+<tr><td>Botão flutuante com notificação (ex.: chat minimizado)</td><td><strong>Icon Button + Badge</strong>, atômico (o Icon Button não aceita Badge nativamente). Validar com Pesquisa e Evolução.</td></tr>
+<tr><td>Seletor de perfil/segmented control no topo</td><td>Pelo <strong>topSlot do Main Navigation Bar</strong> (existe no código, ainda não no Figma). No Figma: frame com 16px de padding lateral e o componente dentro; no handoff, peça para ativar o topSlot.</td></tr>
+<tr><td>Ranking/tabela de avaliações sem interação</td><td><strong>Slot do Boxed</strong> com Rating e textos.</td></tr>
+<tr><td>Linha de preço total / resumo de valores</td><td><strong>Box</strong> de base com <strong>Rows</strong> dentro (divider da própria Row).</td></tr>
+<tr><td>Preço "De/Por" numa Row</td><td>Frame com "De/Por" no <strong>slot</strong> da Row, desligando subtitle e description. Não coloque botão no slot.</td></tr>
+<tr><td>Conteúdo que expande "ver mais" (ex.: tabela técnica)</td><td>Conteúdo (ou Table) <strong>dentro do slot de um Accordion</strong>.</td></tr>
+<tr><td>Tabela com "carregar mais"</td><td><strong>Table + Button Layout com Button Link</strong>.</td></tr>
+<tr><td>Anexar arquivos num chat web</td><td><strong>Sheet</strong> com <code>Slot</code> (só web) e componente local com 2 Rows (no celular, Sheet; na web, modal).</td></tr>
+<tr><td>Cadastro de cartão num painel</td><td><strong>Drawer</strong> (Sheet é só para ações rápidas e, no app, não tem slot).</td></tr>
+<tr><td>Ações de um card (⋯)</td><td>Web: <strong>Menu</strong>. App: <strong>Sheet</strong> Action list.</td></tr>
+<tr><td>Carrossel de vídeos</td><td>Imagem com ícone de play por cima, no campo Image do card.</td></tr>
+<tr><td>Fotos de produto, uma por vez sem pedaço do próximo</td><td><strong>Slideshow</strong> (não desligue o "peek" do Carousel).</td></tr>
+<tr><td>Modal com imagem em tela cheia</td><td><strong>Image + Icon Button</strong>, atômico (decisão de produto).</td></tr>
+<tr><td>Vários itens num slot (ex.: 7 Boxed Rows no Drawer)</td><td>Componente/template local com os itens, aplicado como slot.</td></tr>
+<tr><td>Bandeira de país</td><td>Elemento customizado (não é componente); sugestão: formato circular, como o Circle com ícone.</td></tr>
+<tr><td>Card de produto com preço</td><td>Template <strong>Card de Produto</strong> da Modules (baseado no Media Card com slot Price).</td></tr>
+<tr><td>Ícone com fundo quadrado (estilo nova versão do app) na web</td><td>No Mobile: icon background <strong>Squared</strong>, corner <code>mediaSmall</code>, tokens <code>neutralLow</code> (fundo) e <code>neutralHigh</code> (ícone). Row desktop: Circled Icon com esses tokens + nota no handoff.</td></tr>
+<tr><td>Ícone menor no Cover Card snap (mobile)</td><td>Asset como <strong>Square de 32px com ícone de 20px</strong>.</td></tr>
+<tr><td>Erro em grupo de Radio obrigatório</td><td><strong>Helper text de erro</strong> abaixo do grupo.</td></tr>
+<tr><td>Aviso de aceite obrigatório dos termos</td><td>Snackbar, ou texto de erro com ícone (avaliar se o botão desabilitado já resolve).</td></tr>
+<tr><td>Info Feedback Screen com card</td><td>Data Card ou Advanced Data Card no slot, <strong>sem interação</strong> no card.</td></tr>
+</tbody></table>
+<h2>O que NÃO existe ou não funciona (e a alternativa)</h2>
+<table><thead><tr><th>Pedido na imagem</th><th>Situação</th><th>Alternativa</th></tr></thead><tbody>
+<tr><td>Snackbar com tempo personalizado (ex.: 3s, 8s)</td><td>❌ Só 5s, 10s ou persistente</td><td>Escolher um dos tempos existentes.</td></tr>
+<tr><td>Dois snackbars empilhados</td><td>❌ Um por vez</td><td>Uma mensagem só.</td></tr>
+<tr><td>Checkbox indeterminado (traço de "selecionar todos")</td><td>❌ Nem no Figma nem no código</td><td>Solicitação de melhoria.</td></tr>
+<tr><td>Uma opção de Radio desabilitada no meio das outras</td><td>❌ Só desabilita o grupo</td><td>Tirar a opção ou explicar ao lado por que não está disponível.</td></tr>
+<tr><td>Botão com ícone antes <strong>e</strong> depois do texto</td><td>⚠️ Figma só tem um ícone por vez</td><td>Desenhar à parte e indicar no handoff.</td></tr>
+<tr><td>Texto de botão em duas linhas</td><td>❌ Botão não quebra (reticências)</td><td>Texto mais curto.</td></tr>
+<tr><td>Divider vertical</td><td>❌ Só horizontal</td><td>—</td></tr>
+<tr><td>Chip com texto em duas linhas</td><td>❌ Não quebra</td><td>Texto curto.</td></tr>
+<tr><td>Chip usado como aba</td><td>❌ Uso incorreto</td><td><strong>Tabs</strong>.</td></tr>
+<tr><td>Trocar o ícone de fechar do Chip por chevron</td><td>❌</td><td>Ícone no início do Chip ou Button Secondary.</td></tr>
+<tr><td>Select com descrição nas opções / visual próprio da lista aberta</td><td>❌ Lista é do navegador/sistema</td><td>Sheet Single selection, Row com radio.</td></tr>
+<tr><td>Counter em que se digita o número</td><td>❌ Só − e +</td><td>—</td></tr>
+<tr><td>Lixeira do Counter desabilitada</td><td>❌</td><td>Usar valor mínimo sem lixeira.</td></tr>
+<tr><td>Pin Field com letras</td><td>❌ ⚠️ limitação atual (02/2026)</td><td>Text Field.</td></tr>
+<tr><td>Calendário com fins de semana/feriados desabilitados</td><td>❌ Só mínimo e máximo</td><td>Validação com mensagem de erro; date picker da <strong>Extended</strong> (calendário não nativo, se a jornada não for CMS).</td></tr>
+<tr><td>Calendário desenhado à mão</td><td>❌ Seletor é do sistema</td><td>Usar o Date Field e não desenhar o calendário.</td></tr>
+<tr><td>Bandeiras de cartão além de Visa, Mastercard e Amex (ex.: Elo, Hipercard)</td><td>❌ Não reconhecidas pelo código</td><td>Avisar antes do desenvolvimento.</td></tr>
+<tr><td>Tabela que colapsa/expande</td><td>❌</td><td>Table dentro do slot de um Accordion.</td></tr>
+<tr><td>Galeria com miniaturas embaixo / zoom de imagem</td><td>❌ ⚠️ limitação atual (05/2026)</td><td>Slideshow ou Carousel; zoom é feito no código.</td></tr>
+<tr><td>Banner de imagem que expande na página</td><td>❌ ⚠️ limitação atual (04/2026)</td><td>Cover Card com botão.</td></tr>
+<tr><td>Seletor de cor com bolinhas</td><td>❌</td><td>Select (como no app).</td></tr>
+<tr><td>Footer de portal</td><td>⚠️ Sem documentação/template oficial (09/2025)</td><td>Consultar System Ops; Footer (ext) é da Extended.</td></tr>
+<tr><td>Botão flutuante (FAB)</td><td>❌ Não existe na biblioteca</td><td>Construção atômica; posição definida pelo time.</td></tr>
+<tr><td>Card selecionável (checkbox no card)</td><td>⚠️ Existe no código, não no Figma</td><td>Desenhar à parte e indicar o tipo de seleção.</td></tr>
+<tr><td>Checkbox no top actions do card</td><td>❌ Top actions só aceita Icon Button</td><td>Row com checkbox; Media Card selecionável.</td></tr>
+<tr><td>Rows lado a lado</td><td>❌ Row só em lista</td><td>Media Card (ex.: lado a lado com seleção).</td></tr>
+<tr><td>Botão dentro do slot da Row</td><td>❌ Conflita com o clique da linha</td><td>Usar a área clicável da Row ou Icon Button à direita (2 interações no máximo).</td></tr>
+<tr><td>Quebra de linha manual na Row / trocar cor do subtitle</td><td>❌</td><td>Slot com frame próprio.</td></tr>
+<tr><td>Ícone da biblioteca no Sheet Action list (app)</td><td>❌ ⚠️ limitação atual</td><td>Menu (web) ou Sheet com slot (só web).</td></tr>
+<tr><td>Slot/conteúdo livre no Sheet dentro do app</td><td>❌ ⚠️ limitação atual</td><td>Tipos prontos do Sheet; Drawer; tela inteira.</td></tr>
+<tr><td>Filtros no Sheet (Single/Multiple filter)</td><td>❌ Não existe no código</td><td>Sheet com slot (só web).</td></tr>
+<tr><td>Tabs com 4+ abas dividindo a largura no celular</td><td>❌</td><td>Com 4+ abas, largura do texto e rolagem.</td></tr>
+<tr><td>Duas abas selecionadas</td><td>❌</td><td>—</td></tr>
+<tr><td>Stepper com nomes das etapas no celular</td><td>❌ Nomes só no desktop</td><td>Mostrar o nome da etapa no título.</td></tr>
+<tr><td>Tooltip com informação essencial</td><td>⚠️ Leitor de tela não lê</td><td>Repetir em texto visível.</td></tr>
+<tr><td>Popover que fecha clicando fora</td><td>❌</td><td>—</td></tr>
+<tr><td>Alert sem botão / Dialog sem mensagem</td><td>❌</td><td>—</td></tr>
+<tr><td>Info Feedback Screen sem botão</td><td>❌</td><td>Pelo menos uma ação.</td></tr>
+<tr><td>Navigation Bar com título em duas linhas</td><td>❌ Uma linha</td><td>Título curto.</td></tr>
+<tr><td>Ícone nas seções do Main Navigation Bar</td><td>❌</td><td>—</td></tr>
+<tr><td>Hambúrguer do Main Navigation Bar para outro conteúdo</td><td>❌ Só para as seções</td><td>Drawer acionado por outro elemento.</td></tr>
+<tr><td>Hero com dois botões</td><td>❌ Só principal + link</td><td>Cover Hero.</td></tr>
+<tr><td>Empty State com dois botões</td><td>❌</td><td>Empty State Card.</td></tr>
+<tr><td>Switch Material 3</td><td>❌ Não existe no código</td><td>Switch padrão.</td></tr>
+<tr><td>Avaliação positivo/negativo (joinha)</td><td>⚠️ Não existe no Figma</td><td>Trocar ícones e informar no handoff.</td></tr>
+<tr><td>Text Link com cor preta (textPrimary)</td><td>❌ Cor da marca é fixa</td><td>Proposta de Footer via melhoria.</td></tr>
+<tr><td>Variável com opacidade personalizada (ex.: <code>background</code> a 3%)</td><td>❌</td><td>Usar as variáveis existentes.</td></tr>
+<tr><td>Marca "Tu"</td><td>❌ Existe no Figma, não no código</td><td>—</td></tr>
+<tr><td>Badge no Snap Card</td><td>⚠️ Não previsto</td><td>Validar com Pesquisa e Evolução.</td></tr>
+<tr><td>Snap card maior que 112×112</td><td>❌</td><td>Revisar o conteúdo.</td></tr>
+<tr><td>Mais de um Callout na mesma tela</td><td>❌ Erro comum na validação</td><td>Um só.</td></tr>
+<tr><td>Contorno de foco desenhado no Figma</td><td>— Depende do sistema operacional</td><td>Não precisa desenhar.</td></tr>
+</tbody></table>
+<h2>Sinais de alerta numa imagem (verifique sempre)</h2>
+<ul>
+<li><strong>Botões lado a lado no rodapé fixo do celular</strong> → no código ficam um embaixo do outro, na largura toda.
+</li>
+<li><strong>Botões em modal/drawer/sheet no celular lado a lado</strong> → empilhados na largura toda.
+</li>
+<li><strong>Rodapé fixo no desktop</strong> → no desktop ele não fica fixo.
+</li>
+<li><strong>Textos cortados com reticências</strong> (Row, título) → evitar; preferir textos curtos.
+</li>
+<li><strong>Títulos de Navigation Bar, Sheet, Tag, Chip em duas linhas</strong> → não quebram.
+</li>
+<li><strong>Duas snackbars, dois modais, duas abas selecionadas, dois títulos h1</strong> → não é possível / incorreto.
+</li>
+<li><strong>Snackbar mal posicionada</strong> → celular: colada embaixo na largura toda; desktop: centralizada, 40px acima da borda.
+</li>
+<li><strong>Mais de um Callout</strong> na mesma tela.
+</li>
+<li><strong>Divider na última Row</strong> da lista.
+</li>
+<li><strong>Drawer no celular</strong> → recomendado modal.
+</li>
+<li><strong>Campo de texto dentro de bottom sheet no app.</strong>
+</li>
+<li><strong>Ícones da biblioteca num Action list do app.</strong>
+</li>
+<li><strong>Hover como única forma de ver uma informação</strong> (não existe no toque).
+</li>
+<li><strong>Opção desabilitada isolada</strong> em grupo de radios.
+</li>
+<li><strong>Select/Table/Tag com cores de fundo de marca ou negativo</strong> → no código ficam com as cores do fundo padrão.
+</li>
+<li><strong>Carousel com setas no celular</strong> → no celular e tablet não há setas.
+</li>
+<li><strong>Mais de 5 itens</strong> num Carousel → fora da recomendação.
+</li>
+<li><strong>Imagem encostando na borda</strong> sem ser componente de borda a borda (Slideshow, Hero no celular).
+</li>
+<li><strong>Mistura de componentes Desktop e Mobile</strong> na mesma tela.
+</li>
+<li><strong>Cores e fontes fora da Skins</strong> (hexadecimal direto).
+</li></ul>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

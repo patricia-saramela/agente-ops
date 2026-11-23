@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-video">
+<h2>Video</h2>
+<p class="cat">Primitivos</p>
+<h3>Resumo</h3>
+<p>Mostra um vídeo com os cantos arredondados do tema. Por padrão, o vídeo começa sozinho quando carrega, sem som e em repetição, como um fundo animado. <strong>Não tem controles na tela</strong> (play, pausa, volume): quem usa o componente controla o vídeo pela <code>ref</code>. Enquanto carrega, mostra uma imagem de capa (<code>poster</code>); se o vídeo não carregar, mostra uma caixa cinza com um ícone. O Hero e os cards do Design System usam o <code>Video</code> por dentro.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Video</h4><ul>
+<li>⚠️ <strong>Som, repetição e início:</strong> os padrões do Figma e do código são diferentes. Diga sempre se o vídeo tem som, se repete e se começa sozinho. Vídeos com som que começam sozinhos costumam ser bloqueados pelo navegador.
+</li>
+<li>⚠️ <strong>Pausa:</strong> um vídeo que toca sozinho por mais de 5 segundos precisa de um botão de pausa (acessibilidade). Desenhe esse botão.
+</li>
+<li>⚠️ <strong>Cantos retos:</strong> não use <code>Border radius=False</code>: no código, o vídeo tem sempre cantos arredondados.
+</li>
+<li>⚠️ <strong>Capa:</strong> informe a imagem de capa, que aparece enquanto o vídeo carrega e se ele não carregar.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código só escreve <code>loop</code>, <code>muted</code> e <code>autoPlay</code> quando estão ligados no design. Como no código os três já vêm ligados, <strong>desligar no Figma não muda nada no trecho</strong>: informe no handoff quando algum deles deve ficar desligado. O trecho também não leva a proporção, e o endereço do vídeo é sempre um exemplo.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Vídeo com cantos retos (<code>Border radius=False</code>)</td><td>Existe</td><td>Não existe. ⚠️ Diferente.</td></tr>
+<tr><td>Carregando ou com erro (caixa cinza com ícone)</td><td>Não existe</td><td>Existe. ⚠️ Diferente.</td></tr>
+<tr><td>Vídeo com som tocando sozinho</td><td>Existe (<code>Autoplay=True</code>, <code>Muted=False</code>)</td><td>Pode não funcionar: os navegadores costumam bloquear vídeos com som que começam sozinhos. ⚠️ Diferente.</td></tr>
+<tr><td>Controles (play, pausa)</td><td>Não existe no componente</td><td>Não existe: os controles são feitos à parte, pela <code>ref</code>. Igual.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Video</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>width</code></td><td></td><td><code>'100%'</code> sem <code>width</code> e sem <code>height</code></td><td>🎨 Largura do vídeo.¹</td></tr>
+<tr><td><code>height</code></td><td></td><td></td><td>🎨 Altura do vídeo.¹</td></tr>
+<tr><td><code>aspectRatio</code></td><td><code>'1:1' | '16:9' | '4:3' | number</code></td><td><code>0</code> (proporção original do vídeo)</td><td>🎨 Proporção do vídeo (largura ÷ altura). Com <code>width</code> e <code>height</code> juntos, é ignorada.¹</td></tr>
+<tr><td><code>src</code> (obrigatória)</td><td></td><td></td><td>Endereço do vídeo. Aceita vários formatos do mesmo vídeo (ex.: WebM e MP4); o navegador usa o primeiro que conseguir tocar.</td></tr>
+<tr><td><code>poster</code></td><td></td><td></td><td>Imagem de capa, mostrada enquanto o vídeo carrega, antes de tocar, depois de parar (<code>stop</code>) e quando dá erro.²</td></tr>
+<tr><td><code>autoPlay</code></td><td><code>boolean | 'streaming' | 'when-loaded'</code></td><td><code>'when-loaded'</code></td><td>Quando o vídeo começa sozinho: <code>'when-loaded'</code> (ou <code>true</code>) depois de carregar o suficiente para tocar sem parar; <code>'streaming'</code> assim que dá para começar; <code>false</code> não começa sozinho.</td></tr>
+<tr><td><code>muted</code></td><td>sim/não</td><td><code>true</code></td><td>Vídeo sem som.</td></tr>
+<tr><td><code>loop</code></td><td>sim/não</td><td><code>true</code></td><td>Volta ao começo quando termina.</td></tr>
+<tr><td><code>preload</code></td><td><code>'none' | 'metadata' | 'auto'</code></td><td><code>'none'</code></td><td>Quanto do vídeo o navegador baixa antes de tocar.</td></tr>
+<tr><td><code>loadingTimeout</code></td><td>número</td><td><code>10000</code></td><td>Tempo máximo de carregamento, em milissegundos. Depois disso, o vídeo é tratado como erro.</td></tr>
+<tr><td><code>tracks</code></td><td></td><td></td><td>Legendas: cada uma com <code>src</code>, <code>kind</code> (<code>'subtitles'</code> ou <code>'captions'</code>), <code>srcLang</code> (ex.: <code>'pt-BR'</code>), <code>label</code> e <code>default</code>.</td></tr>
+<tr><td><code>onLoad</code></td><td></td><td></td><td>Chamada quando o vídeo termina de carregar.</td></tr>
+<tr><td><code>onPlay</code></td><td></td><td></td><td>Chamada quando o vídeo começa a tocar.</td></tr>
+<tr><td><code>onPause</code></td><td></td><td></td><td>Chamada quando o vídeo pausa.</td></tr>
+<tr><td><code>onError</code></td><td></td><td></td><td>Chamada quando o vídeo não carrega (inclusive depois do <code>loadingTimeout</code>).</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Tamanho:</strong> sem <code>width</code> e sem <code>height</code>, o vídeo ocupa a largura toda do espaço onde está. Com só um dos dois e uma proporção, o outro é calculado. Com os dois, o vídeo tem esse tamanho exato.</p>
+<p>² ℹ️ <strong>Capa e erro:</strong> sem <code>poster</code>, enquanto o vídeo carrega aparece uma caixa cinza; se der erro, a caixa ganha um ícone. A caixa só aparece quando o tamanho é conhecido antes de carregar (com <code>aspectRatio</code> ou com <code>width</code> e <code>height</code> juntos).</p>
+<p>³ ℹ️ <strong>Comandos pela <code>ref</code>:</strong> <code>play()</code>, <code>pause()</code>, <code>stop()</code> (para e volta a mostrar a capa), <code>load()</code> (recarrega), <code>setCurrentTime(segundos)</code>, <code>getCurrentTime()</code>, <code>getDuration()</code> e <code>setTrackMode(índice, 'showing' | 'disabled')</code> (liga ou desliga uma legenda). Use esses comandos com botões próprios para criar os controles.</p>
+<p>⚠️ <strong>Sem controles na tela:</strong> o vídeo não tem botão de play, pausa nem volume. Um vídeo que toca sozinho por mais de 5 segundos precisa de um jeito de ser pausado (regra de acessibilidade WCAG 2.2.2): coloque um botão de pausa que use o <code>pause()</code> da <code>ref</code>.</p>
+<p>ℹ️ <strong>No celular:</strong> o vídeo toca dentro da página, sem abrir em tela cheia. O modo picture-in-picture e o envio para outra tela (ex.: Chromecast) ficam desligados.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Video</h4><p><strong>Figma:</strong> biblioteca Desktop › Video [D] · biblioteca Mobile › Video</p>
+<p>ℹ️ No Figma, o Video é um quadro com uma imagem (a capa) e as opções de proporção, cantos e reprodução (<code>Loop</code>, <code>Muted</code> e <code>Autoplay</code>). Como no código, não tem controles na tela.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de proporção</td><td><code>Image Fill</code></td><td><code>Aspect Ratio</code></td><td>Só o nome da propriedade</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Type</code></td><td><code>Aspect Ratio</code> · <code>Free</code></td><td><code>aspectRatio</code> · <code>width</code> e <code>height</code></td><td>✅</td><td><code>Free</code> é o vídeo com largura e altura definidas (96 × 96 no Figma).</td></tr>
+<tr><td><code>Image Fill</code></td><td><code>16:9</code> · <code>1:1</code> · <code>4:3</code> · <code>21:9</code></td><td><code>aspectRatio</code></td><td>✅</td><td>No código, <code>21:9</code> não é uma opção pronta, mas funciona como número: <code>aspectRatio={21 / 9}</code>. O código também não tem <code>7:10</code>, que existe no Image.</td></tr>
+<tr><td><code>Border radius</code></td><td><code>True</code> · <code>False</code></td><td>sem prop</td><td>⚠️</td><td>No código, o vídeo tem sempre os cantos arredondados do tema. Não há como deixar os cantos retos.</td></tr>
+<tr><td><code>Autoplay</code></td><td><code>True</code> · <code>False</code></td><td><code>autoPlay</code></td><td>✅</td><td>Ligado por padrão nos dois.</td></tr>
+<tr><td><code>Loop</code></td><td><code>True</code> · <code>False</code></td><td><code>loop</code></td><td>⚠️</td><td>O padrão é o contrário: desligado no Figma, ligado no código.</td></tr>
+<tr><td><code>Muted</code></td><td><code>True</code> · <code>False</code></td><td><code>muted</code></td><td>⚠️</td><td>O padrão é o contrário: desligado no Figma (com som), ligado no código (sem som).</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

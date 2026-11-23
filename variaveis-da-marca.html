@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parte 2 · Variáveis da marca (skin padrão e skin Evolution) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<section id="p2"><h1>Parte 2 · Variáveis da marca (skin padrão e skin Evolution)</h1>
+<p>Valores das variáveis da marca (variables do Figma, biblioteca Skins) nas duas skins: a <strong>skin padrão</strong> e a <strong>skin Evolution</strong> (usada no app 5.0). Os nomes das variáveis são os mesmos no Figma e no código.</p>
+<h2>Cores</h2><p>Modo claro e modo escuro de cada skin. "com N% de opacidade" indica cor com transparência embutida.</p>
+<table><thead><tr><th>Variável</th><th>Skin padrão: claro</th><th>Skin padrão: escuro</th><th>Skin Evolution: claro</th><th>Skin Evolution: escuro</th></tr></thead><tbody>
+<tr><td><code>background</code></td><td>#FFFFFF</td><td>#191919</td><td>#FFFFFF</td><td>#16131E</td></tr>
+<tr><td><code>backgroundAlternative</code></td><td>#F6F6F6</td><td>#191919</td><td>#F1EFF6</td><td>#16131E</td></tr>
+<tr><td><code>backgroundSelected</code></td><td>#660099 com 8% de opacidade</td><td>#8433AD com 18% de opacidade</td><td>#660099 com 8% de opacidade</td><td>#7A2FB3 com 18% de opacidade</td></tr>
+<tr><td><code>backgroundSelectedHover</code></td><td>#660099 com 12% de opacidade</td><td>#8433AD com 25% de opacidade</td><td>#660099 com 12% de opacidade</td><td>#7A2FB3 com 25% de opacidade</td></tr>
+<tr><td><code>backgroundSelectedPressed</code></td><td>#660099 com 16% de opacidade</td><td>#8433AD com 33% de opacidade</td><td>#660099 com 16% de opacidade</td><td>#7A2FB3 com 33% de opacidade</td></tr>
+<tr><td><code>backgroundSelectedBrand</code></td><td>#191919 com 16% de opacidade</td><td>#8433AD com 18% de opacidade</td><td>#16131E com 16% de opacidade</td><td>#7A2FB3 com 18% de opacidade</td></tr>
+<tr><td><code>backgroundSelectedBrandHover</code></td><td>#191919 com 24% de opacidade</td><td>#8433AD com 25% de opacidade</td><td>#16131E com 24% de opacidade</td><td>#7A2FB3 com 25% de opacidade</td></tr>
+<tr><td><code>backgroundSelectedBrandPressed</code></td><td>#191919 com 32% de opacidade</td><td>#8433AD com 33% de opacidade</td><td>#16131E com 32% de opacidade</td><td>#7A2FB3 com 33% de opacidade</td></tr>
+<tr><td><code>backgroundSelectedNegative</code></td><td>#FFFFFF com 20% de opacidade</td><td>#8433AD com 18% de opacidade</td><td>#FFFFFF com 20% de opacidade</td><td>#7A2FB3 com 18% de opacidade</td></tr>
+<tr><td><code>backgroundSelectedNegativeHover</code></td><td>#FFFFFF com 28% de opacidade</td><td>#8433AD com 25% de opacidade</td><td>#FFFFFF com 28% de opacidade</td><td>#7A2FB3 com 25% de opacidade</td></tr>
+<tr><td><code>backgroundSelectedNegativePressed</code></td><td>#FFFFFF com 35% de opacidade</td><td>#8433AD com 33% de opacidade</td><td>#FFFFFF com 35% de opacidade</td><td>#7A2FB3 com 33% de opacidade</td></tr>
+<tr><td><code>backgroundBrand</code></td><td>#660099</td><td>#191919</td><td>#660099</td><td>#16131E</td></tr>
+<tr><td><code>backgroundNegative</code></td><td>#461E5F</td><td>#191919</td><td>#380057</td><td>#16131E</td></tr>
+<tr><td><code>backgroundBrandSecondary</code></td><td>#8433AD</td><td>#191919</td><td>#7A2FB3</td><td>#16131E</td></tr>
+<tr><td><code>backgroundContainer</code></td><td>#FFFFFF</td><td>#242424</td><td>#FFFFFF</td><td>#252233</td></tr>
+<tr><td><code>backgroundContainerError</code></td><td>#FCE4EF</td><td>#242424</td><td>#FCE4EF</td><td>#252233</td></tr>
+<tr><td><code>backgroundContainerHover</code></td><td>#191919 com 5% de opacidade</td><td>#FFFFFF com 5% de opacidade</td><td>#16131E com 5% de opacidade</td><td>#FFFFFF com 5% de opacidade</td></tr>
+<tr><td><code>backgroundContainerPressed</code></td><td>#191919 com 8% de opacidade</td><td>#FFFFFF com 8% de opacidade</td><td>#16131E com 8% de opacidade</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>backgroundContainerBrand</code></td><td>#660099</td><td>#242424</td><td>#660099</td><td>#252233</td></tr>
+<tr><td><code>backgroundContainerBrandHover</code></td><td>#191919 com 20% de opacidade</td><td>#FFFFFF com 3% de opacidade</td><td>#16131E com 20% de opacidade</td><td>#FFFFFF com 3% de opacidade</td></tr>
+<tr><td><code>backgroundContainerBrandPressed</code></td><td>#191919 com 40% de opacidade</td><td>#FFFFFF com 5% de opacidade</td><td>#16131E com 40% de opacidade</td><td>#FFFFFF com 5% de opacidade</td></tr>
+<tr><td><code>backgroundContainerBrandOverInverse</code></td><td>#461E5F</td><td>#242424</td><td>#380057</td><td>#252233</td></tr>
+<tr><td><code>backgroundContainerNegative</code></td><td>#191919 com 40% de opacidade</td><td>#242424</td><td>#16131E com 40% de opacidade</td><td>#252233</td></tr>
+<tr><td><code>backgroundContainerBrandOverBrand</code></td><td>#461E5F</td><td>#242424</td><td>#7020A6</td><td>#252233</td></tr>
+<tr><td><code>backgroundContainerAlternative</code></td><td>#F6F6F6</td><td>#242424</td><td>#F1EFF6</td><td>#252233</td></tr>
+<tr><td><code>backgroundContainerAlternativeOverAlternative</code></td><td>#FFFFFF</td><td>#242424</td><td>#E3DEEB</td><td>#E3DEEB</td></tr>
+<tr><td><code>backgroundContainerAlternativeOverBrand</code></td><td>#461E5F</td><td>#242424</td><td>#4F007A</td><td>#4F007A</td></tr>
+<tr><td><code>backgroundOverlay</code></td><td>#000000 com 60% de opacidade</td><td>#242424 com 80% de opacidade</td><td>#0E0C14 com 60% de opacidade</td><td>#252233 com 80% de opacidade</td></tr>
+<tr><td><code>backgroundSkeleton</code></td><td>#DDDDDD</td><td>#313235</td><td>#DCD8E5</td><td>#2D2A3D</td></tr>
+<tr><td><code>backgroundSkeletonInverse</code></td><td>#461E5F</td><td>#313235</td><td>#380057</td><td>#2D2A3D</td></tr>
+<tr><td><code>backgroundSkeletonNegative</code></td><td>#000000 com 20% de opacidade</td><td>#313235</td><td>#0E0C14 com 20% de opacidade</td><td>#2D2A3D</td></tr>
+<tr><td><code>backgroundSkeletonBrand</code></td><td>#461E5F</td><td>#313235</td><td>#380057</td><td>#2D2A3D</td></tr>
+<tr><td><code>backgroundBrandTop</code></td><td>#660099</td><td>#191919</td><td>#660099</td><td>#16131E</td></tr>
+<tr><td><code>backgroundBrandBottom</code></td><td>#660099</td><td>#191919</td><td>#660099</td><td>#16131E</td></tr>
+<tr><td><code>appBarBackground</code></td><td>#FFFFFF</td><td>#242424</td><td>#FFFFFF</td><td>#252233</td></tr>
+<tr><td><code>navigationBarBackground</code></td><td>#660099</td><td>#191919</td><td>#660099</td><td>#16131E</td></tr>
+<tr><td><code>backgroundDropZoneHover</code></td><td>#660099 com 6% de opacidade</td><td>#FFFFFF com 5% de opacidade</td><td>#660099 com 6% de opacidade</td><td>#FFFFFF com 5% de opacidade</td></tr>
+<tr><td><code>backgroundDropZoneDragover</code></td><td>#EFE5F4</td><td>#FFFFFF com 8% de opacidade</td><td>#EEE7F3</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>backgroundDropZoneBrandHover</code></td><td>#461E5F com 30% de opacidade</td><td>#FFFFFF com 3% de opacidade</td><td>#380057 com 30% de opacidade</td><td>#FFFFFF com 3% de opacidade</td></tr>
+<tr><td><code>backgroundDropZoneBrandDragover</code></td><td>#461E5F com 50% de opacidade</td><td>#FFFFFF com 5% de opacidade</td><td>#380057 com 50% de opacidade</td><td>#FFFFFF com 5% de opacidade</td></tr>
+<tr><td><code>backgroundDropZoneNegativeHover</code></td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 3% de opacidade</td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 3% de opacidade</td></tr>
+<tr><td><code>backgroundDropZoneNegativeDragover</code></td><td>#FFFFFF com 17% de opacidade</td><td>#FFFFFF com 5% de opacidade</td><td>#FFFFFF com 17% de opacidade</td><td>#FFFFFF com 5% de opacidade</td></tr>
+<tr><td><code>backgroundDropZoneMediaHover</code></td><td>#461E5F com 30% de opacidade</td><td>#FFFFFF com 3% de opacidade</td><td>#380057 com 30% de opacidade</td><td>#FFFFFF com 3% de opacidade</td></tr>
+<tr><td><code>backgroundDropZoneMediaDragover</code></td><td>#461E5F com 50% de opacidade</td><td>#FFFFFF com 5% de opacidade</td><td>#380057 com 50% de opacidade</td><td>#FFFFFF com 5% de opacidade</td></tr>
+<tr><td><code>skeletonWave</code></td><td>#EEEEEE</td><td>#666666</td><td>#EAE6F0</td><td>#665D7A</td></tr>
+<tr><td><code>borderLow</code></td><td>#F6F6F6</td><td>#191919</td><td>#F1EFF6</td><td>#16131E</td></tr>
+<tr><td><code>border</code></td><td>#DDDDDD</td><td>#242424</td><td>#DCD8E5</td><td>#252233</td></tr>
+<tr><td><code>borderHigh</code></td><td>#666666</td><td>#666666</td><td>#665D7A</td><td>#665D7A</td></tr>
+<tr><td><code>borderSelected</code></td><td>#660099</td><td>#660099</td><td>#660099</td><td>#660099</td></tr>
+<tr><td><code>coverBackgroundHover</code></td><td>#191919 com 25% de opacidade</td><td>#191919 com 25% de opacidade</td><td>#16131E com 25% de opacidade</td><td>#16131E com 25% de opacidade</td></tr>
+<tr><td><code>coverBackgroundPressed</code></td><td>#191919 com 35% de opacidade</td><td>#191919 com 35% de opacidade</td><td>#16131E com 35% de opacidade</td><td>#16131E com 35% de opacidade</td></tr>
+<tr><td><code>buttonDangerBackground</code></td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td></tr>
+<tr><td><code>buttonDangerBackgroundPressed</code></td><td>#B71D63</td><td>#B71D63</td><td>#B71D63</td><td>#B71D63</td></tr>
+<tr><td><code>buttonDangerBackgroundHover</code></td><td>#B71D63</td><td>#B71D63</td><td>#B71D63</td><td>#B71D63</td></tr>
+<tr><td><code>buttonLinkDangerBackgroundInverse</code></td><td>#FFFFFF</td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF</td><td>#FFFFFF com 0% de opacidade</td></tr>
+<tr><td><code>buttonLinkDangerBackgroundNegative</code></td><td>#FFFFFF</td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF</td><td>#FFFFFF com 0% de opacidade</td></tr>
+<tr><td><code>buttonLinkDangerBackgroundBrand</code></td><td>#FFFFFF</td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF</td><td>#FFFFFF com 0% de opacidade</td></tr>
+<tr><td><code>buttonLinkDangerBackgroundMedia</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>buttonLinkDangerBackgroundPressed</code></td><td>#FCE4EF</td><td>#FFFFFF com 8% de opacidade</td><td>#FCE4EF</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>buttonLinkDangerBackgroundInversePressed</code></td><td>#FCE4EF</td><td>#FFFFFF com 8% de opacidade</td><td>#FCE4EF</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>buttonLinkDangerBackgroundNegativePressed</code></td><td>#FCE4EF</td><td>#FFFFFF com 8% de opacidade</td><td>#FCE4EF</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>buttonLinkDangerBackgroundBrandPressed</code></td><td>#FCE4EF</td><td>#FFFFFF com 8% de opacidade</td><td>#FCE4EF</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>buttonLinkDangerBackgroundMediaPressed</code></td><td>#FCE4EF</td><td>#FCE4EF</td><td>#FCE4EF</td><td>#FCE4EF</td></tr>
+<tr><td><code>buttonLinkBackgroundPressed</code></td><td>#EFE5F4</td><td>#FFFFFF com 8% de opacidade</td><td>#EEE7F3</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>buttonLinkBackgroundInversePressed</code></td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 8% de opacidade</td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>buttonLinkBackgroundNegativePressed</code></td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 8% de opacidade</td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>buttonLinkBackgroundBrandPressed</code></td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 8% de opacidade</td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>buttonLinkBackgroundMediaPressed</code></td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 10% de opacidade</td></tr>
+<tr><td><code>buttonLinkNeutralBackgroundPressed</code></td><td>#EEEEEE</td><td>#FFFFFF com 8% de opacidade</td><td>#EAE6F0</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>buttonLinkNeutralBackgroundBrand</code></td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF com 0% de opacidade</td></tr>
+<tr><td><code>buttonLinkNeutralBackgroundBrandPressed</code></td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 8% de opacidade</td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>buttonLinkNeutralBackgroundNegative</code></td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF com 0% de opacidade</td></tr>
+<tr><td><code>buttonLinkNeutralBackgroundNegativePressed</code></td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 8% de opacidade</td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>buttonLinkNeutralBackgroundMedia</code></td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF com 0% de opacidade</td></tr>
+<tr><td><code>buttonLinkNeutralBackgroundMediaPressed</code></td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 8% de opacidade</td><td>#FFFFFF com 10% de opacidade</td><td>#FFFFFF com 8% de opacidade</td></tr>
+<tr><td><code>buttonPrimaryBackground</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>buttonPrimaryBackgroundInverse</code></td><td>#FFFFFF</td><td>#8433AD</td><td>#FFFFFF</td><td>#7A2FB3</td></tr>
+<tr><td><code>buttonPrimaryBackgroundNegative</code></td><td>#FFFFFF</td><td>#8433AD</td><td>#FFFFFF</td><td>#7A2FB3</td></tr>
+<tr><td><code>buttonPrimaryBackgroundBrand</code></td><td>#FFFFFF</td><td>#8433AD</td><td>#FFFFFF</td><td>#7A2FB3</td></tr>
+<tr><td><code>buttonPrimaryBackgroundMedia</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>buttonPrimaryBackgroundHover</code></td><td>#461E5F</td><td>#461E5F</td><td>#380057</td><td>#380057</td></tr>
+<tr><td><code>buttonPrimaryBackgroundInverseHover</code></td><td>#EFE5F4</td><td>#461E5F</td><td>#EEE7F3</td><td>#380057</td></tr>
+<tr><td><code>buttonPrimaryBackgroundNegativeHover</code></td><td>#EFE5F4</td><td>#461E5F</td><td>#EEE7F3</td><td>#380057</td></tr>
+<tr><td><code>buttonPrimaryBackgroundBrandHover</code></td><td>#EFE5F4</td><td>#461E5F</td><td>#EEE7F3</td><td>#380057</td></tr>
+<tr><td><code>buttonPrimaryBackgroundMediaHover</code></td><td>#EFE5F4</td><td>#EFE5F4</td><td>#EEE7F3</td><td>#EEE7F3</td></tr>
+<tr><td><code>buttonPrimaryBackgroundPressed</code></td><td>#461E5F</td><td>#461E5F</td><td>#380057</td><td>#380057</td></tr>
+<tr><td><code>buttonPrimaryBackgroundInversePressed</code></td><td>#E0CCEB</td><td>#461E5F</td><td>#DCC3EA</td><td>#380057</td></tr>
+<tr><td><code>buttonPrimaryBackgroundNegativePressed</code></td><td>#E0CCEB</td><td>#461E5F</td><td>#DCC3EA</td><td>#380057</td></tr>
+<tr><td><code>buttonPrimaryBackgroundBrandPressed</code></td><td>#E0CCEB</td><td>#461E5F</td><td>#DCC3EA</td><td>#380057</td></tr>
+<tr><td><code>buttonPrimaryBackgroundMediaPressed</code></td><td>#E0CCEB</td><td>#E0CCEB</td><td>#DCC3EA</td><td>#DCC3EA</td></tr>
+<tr><td><code>buttonSecondaryBackgroundBrand</code></td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF com 0% de opacidade</td><td>#FFFFFF com 0% de opacidade</td></tr>
+<tr><td><code>buttonSecondaryBorder</code></td><td>#660099</td><td>#FFFFFF</td><td>#660099</td><td>#FFFFFF</td></tr>
+<tr><td><code>buttonSecondaryBorderInverse</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>buttonSecondaryBorderNegative</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>buttonSecondaryBorderBrand</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>buttonSecondaryBorderMedia</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>buttonSecondaryBorderPressed</code></td><td>#461E5F</td><td>#FFFFFF</td><td>#380057</td><td>#FFFFFF</td></tr>
+<tr><td><code>buttonSecondaryBorderInversePressed</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>buttonSecondaryBorderNegativePressed</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>buttonSecondaryBorderBrandPressed</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>buttonSecondaryBorderMediaPressed</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>buttonSecondaryBackgroundHover</code></td><td>#EFE5F4</td><td>#FFFFFF com 15% de opacidade</td><td>#EEE7F3</td><td>#FFFFFF com 15% de opacidade</td></tr>
+<tr><td><code>buttonSecondaryBackgroundInverseHover</code></td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td></tr>
+<tr><td><code>buttonSecondaryBackgroundNegativeHover</code></td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td></tr>
+<tr><td><code>buttonSecondaryBackgroundBrandHover</code></td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td></tr>
+<tr><td><code>buttonSecondaryBackgroundMediaHover</code></td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td></tr>
+<tr><td><code>buttonSecondaryBackgroundPressed</code></td><td>#EFE5F4</td><td>#FFFFFF com 15% de opacidade</td><td>#EEE7F3</td><td>#FFFFFF com 15% de opacidade</td></tr>
+<tr><td><code>buttonSecondaryBackgroundInversePressed</code></td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td></tr>
+<tr><td><code>buttonSecondaryBackgroundNegativePressed</code></td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td></tr>
+<tr><td><code>buttonSecondaryBackgroundBrandPressed</code></td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td></tr>
+<tr><td><code>buttonSecondaryBackgroundMediaPressed</code></td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td><td>#FFFFFF com 15% de opacidade</td></tr>
+<tr><td><code>textButtonPrimary</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonPrimaryInverse</code></td><td>#660099</td><td>#EEEEEE</td><td>#660099</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonPrimaryNegative</code></td><td>#660099</td><td>#EEEEEE</td><td>#660099</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonPrimaryBrand</code></td><td>#660099</td><td>#EEEEEE</td><td>#660099</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonPrimaryMedia</code></td><td>#660099</td><td>#660099</td><td>#660099</td><td>#660099</td></tr>
+<tr><td><code>textButtonPrimaryInversePressed</code></td><td>#660099</td><td>#EEEEEE</td><td>#660099</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonPrimaryNegativePressed</code></td><td>#660099</td><td>#EEEEEE</td><td>#660099</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonPrimaryBrandPressed</code></td><td>#660099</td><td>#EEEEEE</td><td>#660099</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonPrimaryMediaPressed</code></td><td>#660099</td><td>#660099</td><td>#660099</td><td>#660099</td></tr>
+<tr><td><code>textButtonSecondary</code></td><td>#660099</td><td>#EEEEEE</td><td>#660099</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonSecondaryInverse</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonSecondaryNegative</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonSecondaryBrand</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonSecondaryMedia</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>textButtonSecondaryPressed</code></td><td>#461E5F</td><td>#EEEEEE</td><td>#380057</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonSecondaryInversePressed</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonSecondaryNegativePressed</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonSecondaryBrandPressed</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textButtonSecondaryMediaPressed</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>textLink</code></td><td>#660099</td><td>#B280CC</td><td>#660099</td><td>#B77DDB</td></tr>
+<tr><td><code>textLinkInverse</code></td><td>#FFFFFF</td><td>#B280CC</td><td>#FFFFFF</td><td>#B77DDB</td></tr>
+<tr><td><code>textLinkNegative</code></td><td>#FFFFFF</td><td>#B280CC</td><td>#FFFFFF</td><td>#B77DDB</td></tr>
+<tr><td><code>textLinkBrand</code></td><td>#FFFFFF</td><td>#B280CC</td><td>#FFFFFF</td><td>#B77DDB</td></tr>
+<tr><td><code>textLinkMedia</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>textLinkDanger</code></td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td></tr>
+<tr><td><code>textLinkDangerMedia</code></td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td></tr>
+<tr><td><code>textLinkSnackbar</code></td><td>#E0CCEB</td><td>#B280CC</td><td>#DCC3EA</td><td>#B77DDB</td></tr>
+<tr><td><code>textLinkNeutral</code></td><td>#000000</td><td>#EEEEEE</td><td>#0E0C14</td><td>#EAE6F0</td></tr>
+<tr><td><code>textLinkNeutralBrand</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textLinkNeutralNegative</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textLinkNeutralAlternative</code></td><td>#000000</td><td>#EEEEEE</td><td>#0E0C14</td><td>#EAE6F0</td></tr>
+<tr><td><code>textLinkNeutralMedia</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>textActivated</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>textBrand</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>inputBorder</code></td><td>#8A8C90</td><td>#6D7D88</td><td>#9187A8</td><td>#665D7A</td></tr>
+<tr><td><code>inputBorderInverse</code></td><td>#FFFFFF</td><td>#6D7D88</td><td>#FFFFFF</td><td>#665D7A</td></tr>
+<tr><td><code>inputBorderNegative</code></td><td>#FFFFFF</td><td>#6D7D88</td><td>#FFFFFF</td><td>#665D7A</td></tr>
+<tr><td><code>inputBorderBrand</code></td><td>#FFFFFF</td><td>#6D7D88</td><td>#FFFFFF</td><td>#665D7A</td></tr>
+<tr><td><code>completedStep</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>completedStepInverse</code></td><td>#461E5F</td><td>#8433AD</td><td>#380057</td><td>#7A2FB3</td></tr>
+<tr><td><code>completedStepNegative</code></td><td>#461E5F</td><td>#8433AD</td><td>#380057</td><td>#7A2FB3</td></tr>
+<tr><td><code>completedStepBrand</code></td><td>#461E5F</td><td>#8433AD</td><td>#380057</td><td>#7A2FB3</td></tr>
+<tr><td><code>control</code></td><td>#8A8C90</td><td>#313235</td><td>#9187A8</td><td>#2D2A3D</td></tr>
+<tr><td><code>controlActivated</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>controlInverse</code></td><td>#B280CC</td><td>#313235</td><td>#B77DDB</td><td>#2D2A3D</td></tr>
+<tr><td><code>controlNegative</code></td><td>#B280CC</td><td>#313235</td><td>#B77DDB</td><td>#2D2A3D</td></tr>
+<tr><td><code>controlBrand</code></td><td>#B280CC</td><td>#313235</td><td>#B77DDB</td><td>#2D2A3D</td></tr>
+<tr><td><code>controlActivatedInverse</code></td><td>#FFFFFF</td><td>#8433AD</td><td>#FFFFFF</td><td>#7A2FB3</td></tr>
+<tr><td><code>controlActivatedNegative</code></td><td>#FFFFFF</td><td>#8433AD</td><td>#FFFFFF</td><td>#7A2FB3</td></tr>
+<tr><td><code>controlActivatedBrand</code></td><td>#FFFFFF</td><td>#8433AD</td><td>#FFFFFF</td><td>#7A2FB3</td></tr>
+<tr><td><code>controlError</code></td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td></tr>
+<tr><td><code>chevronIndicator</code></td><td>#666666</td><td>#666666</td><td>#665D7A</td><td>#665D7A</td></tr>
+<tr><td><code>barTrack</code></td><td>#DDDDDD</td><td>#313235</td><td>#DCD8E5</td><td>#2D2A3D</td></tr>
+<tr><td><code>barTrackInverse</code></td><td>#FFFFFF com 50% de opacidade</td><td>#313235</td><td>#FFFFFF com 50% de opacidade</td><td>#2D2A3D</td></tr>
+<tr><td><code>barTrackNegative</code></td><td>#FFFFFF com 50% de opacidade</td><td>#313235</td><td>#FFFFFF com 50% de opacidade</td><td>#2D2A3D</td></tr>
+<tr><td><code>barTrackBrand</code></td><td>#FFFFFF com 50% de opacidade</td><td>#313235</td><td>#FFFFFF com 50% de opacidade</td><td>#2D2A3D</td></tr>
+<tr><td><code>loadingBar</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>loadingBarBackground</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>toggleAndroidInactive</code></td><td>#EEEEEE</td><td>#8A8C90</td><td>#EAE6F0</td><td>#9187A8</td></tr>
+<tr><td><code>toggleAndroidBackgroundActive</code></td><td>#E0CCEB</td><td>#B280CC</td><td>#DCC3EA</td><td>#B77DDB</td></tr>
+<tr><td><code>toggleAndroidActiveBrand</code></td><td>#FFFFFF</td><td>#8433AD</td><td>#FFFFFF</td><td>#7A2FB3</td></tr>
+<tr><td><code>toggleAndroidInactiveBrand</code></td><td>#EEEEEE</td><td>#8A8C90</td><td>#EAE6F0</td><td>#9187A8</td></tr>
+<tr><td><code>toggleAndroidBackgroundActiveBrand</code></td><td>#E0CCEB</td><td>#B280CC</td><td>#DCC3EA</td><td>#B77DDB</td></tr>
+<tr><td><code>toggleAndroidBackgroundInactiveBrand</code></td><td>#B280CC</td><td>#313235</td><td>#B77DDB</td><td>#2D2A3D</td></tr>
+<tr><td><code>iosControlKnob</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>controlKnobInverse</code></td><td>#660099</td><td>#EEEEEE</td><td>#660099</td><td>#EAE6F0</td></tr>
+<tr><td><code>controlKnobNegative</code></td><td>#660099</td><td>#EEEEEE</td><td>#660099</td><td>#EAE6F0</td></tr>
+<tr><td><code>controlKnobBrand</code></td><td>#660099</td><td>#EEEEEE</td><td>#660099</td><td>#EAE6F0</td></tr>
+<tr><td><code>divider</code></td><td>#DDDDDD</td><td>#FFFFFF com 5% de opacidade</td><td>#DCD8E5</td><td>#FFFFFF com 5% de opacidade</td></tr>
+<tr><td><code>dividerInverse</code></td><td>#FFFFFF com 20% de opacidade</td><td>#FFFFFF com 5% de opacidade</td><td>#FFFFFF com 20% de opacidade</td><td>#FFFFFF com 5% de opacidade</td></tr>
+<tr><td><code>dividerNegative</code></td><td>#FFFFFF com 20% de opacidade</td><td>#FFFFFF com 5% de opacidade</td><td>#FFFFFF com 20% de opacidade</td><td>#FFFFFF com 5% de opacidade</td></tr>
+<tr><td><code>dividerBrand</code></td><td>#FFFFFF com 20% de opacidade</td><td>#FFFFFF com 5% de opacidade</td><td>#FFFFFF com 20% de opacidade</td><td>#FFFFFF com 5% de opacidade</td></tr>
+<tr><td><code>navigationBarDivider</code></td><td>#660099</td><td>#191919</td><td>#660099</td><td>#16131E</td></tr>
+<tr><td><code>badge</code></td><td>#B71D63</td><td>#B71D63</td><td>#B71D63</td><td>#B71D63</td></tr>
+<tr><td><code>feedbackErrorBackground</code></td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td></tr>
+<tr><td><code>feedbackInfoBackground</code></td><td>#461E5F</td><td>#000000</td><td>#380057</td><td>#0E0C14</td></tr>
+<tr><td><code>brand</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>brandHigh</code></td><td>#461E5F</td><td>#FFFFFF com 5% de opacidade</td><td>#380057</td><td>#FFFFFF com 5% de opacidade</td></tr>
+<tr><td><code>inverse</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>negative</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>neutralHigh</code></td><td>#000000</td><td>#EEEEEE</td><td>#0E0C14</td><td>#EAE6F0</td></tr>
+<tr><td><code>neutralHighNegative</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>neutralHighBrand</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>neutralMedium</code></td><td>#666666</td><td>#666666</td><td>#665D7A</td><td>#665D7A</td></tr>
+<tr><td><code>neutralMediumInverse</code></td><td>#666666</td><td>#666666</td><td>#665D7A</td><td>#665D7A</td></tr>
+<tr><td><code>neutralMediumNegative</code></td><td>#666666</td><td>#666666</td><td>#665D7A</td><td>#665D7A</td></tr>
+<tr><td><code>neutralMediumBrand</code></td><td>#666666</td><td>#666666</td><td>#665D7A</td><td>#665D7A</td></tr>
+<tr><td><code>neutralLow</code></td><td>#F6F6F6</td><td>#313235</td><td>#F1EFF6</td><td>#2D2A3D</td></tr>
+<tr><td><code>neutralLowAlternative</code></td><td>#EEEEEE</td><td>#313235</td><td>#EAE6F0</td><td>#2D2A3D</td></tr>
+<tr><td><code>textPrimary</code></td><td>#000000</td><td>#EEEEEE</td><td>#0E0C14</td><td>#EAE6F0</td></tr>
+<tr><td><code>textPrimaryInverse</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textPrimaryNegative</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textPrimaryBrand</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textPrimaryMedia</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>textSecondary</code></td><td>#666666</td><td>#DDDDDD</td><td>#665D7A</td><td>#DCD8E5</td></tr>
+<tr><td><code>textSecondaryInverse</code></td><td>#E0CCEB</td><td>#DDDDDD</td><td>#DCC3EA</td><td>#DCD8E5</td></tr>
+<tr><td><code>textSecondaryNegative</code></td><td>#E0CCEB</td><td>#DDDDDD</td><td>#DCC3EA</td><td>#DCD8E5</td></tr>
+<tr><td><code>textSecondaryBrand</code></td><td>#E0CCEB</td><td>#DDDDDD</td><td>#DCC3EA</td><td>#DCD8E5</td></tr>
+<tr><td><code>textSecondaryMedia</code></td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td><td>#FFFFFF</td></tr>
+<tr><td><code>success</code></td><td>#99CC33</td><td>#99CC33</td><td>#99CC33</td><td>#99CC33</td></tr>
+<tr><td><code>warning</code></td><td>#FF9900</td><td>#FF9900</td><td>#FF9900</td><td>#FF9900</td></tr>
+<tr><td><code>error</code></td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td></tr>
+<tr><td><code>textError</code></td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td><td>#CC1F59</td></tr>
+<tr><td><code>textErrorInverse</code></td><td>#FFFFFF</td><td>#CC1F59</td><td>#FFFFFF</td><td>#CC1F59</td></tr>
+<tr><td><code>textErrorNegative</code></td><td>#FFFFFF</td><td>#CC1F59</td><td>#FFFFFF</td><td>#CC1F59</td></tr>
+<tr><td><code>textErrorBrand</code></td><td>#FFFFFF</td><td>#CC1F59</td><td>#FFFFFF</td><td>#CC1F59</td></tr>
+<tr><td><code>promo</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>highlight</code></td><td>#EB3D7D</td><td>#EB3D7D</td><td>#D64578</td><td>#D64578</td></tr>
+<tr><td><code>successLow</code></td><td>#EDF8E8</td><td>#313235</td><td>#EDF8E8</td><td>#2D2A3D</td></tr>
+<tr><td><code>warningLow</code></td><td>#FFEFE1</td><td>#313235</td><td>#FFEFE1</td><td>#2D2A3D</td></tr>
+<tr><td><code>errorLow</code></td><td>#FCE4EF</td><td>#313235</td><td>#FCE4EF</td><td>#2D2A3D</td></tr>
+<tr><td><code>promoLow</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>brandLow</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>successHigh</code></td><td>#225C3D</td><td>#91AE9E</td><td>#225C3D</td><td>#7FB029</td></tr>
+<tr><td><code>warningHigh</code></td><td>#972A1D</td><td>#FFB84C</td><td>#972A1D</td><td>#FFC266</td></tr>
+<tr><td><code>errorHigh</code></td><td>#8F2052</td><td>#DB628B</td><td>#8F2052</td><td>#DB628B</td></tr>
+<tr><td><code>promoHigh</code></td><td>#660099</td><td>#B280CC</td><td>#660099</td><td>#B77DDB</td></tr>
+<tr><td><code>successHighInverse</code></td><td>#225C3D</td><td>#225C3D</td><td>#225C3D</td><td>#225C3D</td></tr>
+<tr><td><code>successHighNegative</code></td><td>#225C3D</td><td>#225C3D</td><td>#225C3D</td><td>#225C3D</td></tr>
+<tr><td><code>successHighBrand</code></td><td>#225C3D</td><td>#225C3D</td><td>#225C3D</td><td>#225C3D</td></tr>
+<tr><td><code>warningHighInverse</code></td><td>#972A1D</td><td>#972A1D</td><td>#972A1D</td><td>#972A1D</td></tr>
+<tr><td><code>warningHighNegative</code></td><td>#972A1D</td><td>#972A1D</td><td>#972A1D</td><td>#972A1D</td></tr>
+<tr><td><code>warningHighBrand</code></td><td>#972A1D</td><td>#972A1D</td><td>#972A1D</td><td>#972A1D</td></tr>
+<tr><td><code>errorHighInverse</code></td><td>#8F2052</td><td>#8F2052</td><td>#8F2052</td><td>#8F2052</td></tr>
+<tr><td><code>errorHighNegative</code></td><td>#8F2052</td><td>#8F2052</td><td>#8F2052</td><td>#8F2052</td></tr>
+<tr><td><code>errorHighBrand</code></td><td>#8F2052</td><td>#8F2052</td><td>#8F2052</td><td>#8F2052</td></tr>
+<tr><td><code>promoHighInverse</code></td><td>#660099</td><td>#660099</td><td>#660099</td><td>#660099</td></tr>
+<tr><td><code>promoHighNegative</code></td><td>#660099</td><td>#660099</td><td>#660099</td><td>#660099</td></tr>
+<tr><td><code>promoHighBrand</code></td><td>#660099</td><td>#660099</td><td>#660099</td><td>#660099</td></tr>
+<tr><td><code>textNavigationBarPrimary</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textNavigationBarSecondary</code></td><td>#B280CC</td><td>#8A8C90</td><td>#B77DDB</td><td>#9187A8</td></tr>
+<tr><td><code>textNavigationSearchBarHint</code></td><td>#B280CC</td><td>#8A8C90</td><td>#B77DDB</td><td>#9187A8</td></tr>
+<tr><td><code>textNavigationSearchBarText</code></td><td>#FFFFFF</td><td>#EEEEEE</td><td>#FFFFFF</td><td>#EAE6F0</td></tr>
+<tr><td><code>textAppBar</code></td><td>#666666</td><td>#666666</td><td>#665D7A</td><td>#665D7A</td></tr>
+<tr><td><code>textAppBarSelected</code></td><td>#660099</td><td>#EEEEEE</td><td>#660099</td><td>#EAE6F0</td></tr>
+<tr><td><code>iosGlassAppBar</code></td><td>#000000</td><td>#FFFFFF</td><td>#0E0C14</td><td>#FFFFFF</td></tr>
+<tr><td><code>iosGlassAppBarSelected</code></td><td>#660099</td><td>#E0CCEB</td><td>#660099</td><td>#DCC3EA</td></tr>
+<tr><td><code>customTabsBackground</code></td><td>#FFFFFF</td><td>#191919</td><td>#FFFFFF</td><td>#16131E</td></tr>
+<tr><td><code>tagTextPromo</code></td><td>#660099</td><td>#B280CC</td><td>#660099</td><td>#B77DDB</td></tr>
+<tr><td><code>tagTextActive</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>tagTextInactive</code></td><td>#666666</td><td>#666666</td><td>#665D7A</td><td>#665D7A</td></tr>
+<tr><td><code>tagTextInfo</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>tagTextSuccess</code></td><td>#225C3D</td><td>#91AE9E</td><td>#225C3D</td><td>#7FB029</td></tr>
+<tr><td><code>tagTextWarning</code></td><td>#972A1D</td><td>#FFB84C</td><td>#972A1D</td><td>#FFC266</td></tr>
+<tr><td><code>tagTextError</code></td><td>#8F2052</td><td>#DB628B</td><td>#8F2052</td><td>#DB628B</td></tr>
+<tr><td><code>tagBackgroundPromo</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundActive</code></td><td>#F6F6F6</td><td>#313235</td><td>#F1EFF6</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundInactive</code></td><td>#F6F6F6</td><td>#313235</td><td>#F1EFF6</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundInfo</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundSuccess</code></td><td>#EDF8E8</td><td>#313235</td><td>#EDF8E8</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundWarning</code></td><td>#FFEFE1</td><td>#313235</td><td>#FFEFE1</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundError</code></td><td>#FCE4EF</td><td>#313235</td><td>#FCE4EF</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagTextPromoInverse</code></td><td>#660099</td><td>#B280CC</td><td>#660099</td><td>#B77DDB</td></tr>
+<tr><td><code>tagTextPromoNegative</code></td><td>#660099</td><td>#B280CC</td><td>#660099</td><td>#B77DDB</td></tr>
+<tr><td><code>tagTextPromoBrand</code></td><td>#660099</td><td>#B280CC</td><td>#660099</td><td>#B77DDB</td></tr>
+<tr><td><code>tagTextActiveInverse</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>tagTextActiveNegative</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>tagTextActiveBrand</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>tagTextInactiveInverse</code></td><td>#666666</td><td>#666666</td><td>#665D7A</td><td>#665D7A</td></tr>
+<tr><td><code>tagTextInactiveNegative</code></td><td>#666666</td><td>#666666</td><td>#665D7A</td><td>#665D7A</td></tr>
+<tr><td><code>tagTextInactiveBrand</code></td><td>#666666</td><td>#666666</td><td>#665D7A</td><td>#665D7A</td></tr>
+<tr><td><code>tagTextInfoInverse</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>tagTextInfoNegative</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>tagTextInfoBrand</code></td><td>#660099</td><td>#8433AD</td><td>#660099</td><td>#7A2FB3</td></tr>
+<tr><td><code>tagTextSuccessInverse</code></td><td>#225C3D</td><td>#91AE9E</td><td>#225C3D</td><td>#7FB029</td></tr>
+<tr><td><code>tagTextSuccessNegative</code></td><td>#225C3D</td><td>#91AE9E</td><td>#225C3D</td><td>#7FB029</td></tr>
+<tr><td><code>tagTextSuccessBrand</code></td><td>#225C3D</td><td>#91AE9E</td><td>#225C3D</td><td>#7FB029</td></tr>
+<tr><td><code>tagTextWarningInverse</code></td><td>#972A1D</td><td>#FFB84C</td><td>#972A1D</td><td>#FFC266</td></tr>
+<tr><td><code>tagTextWarningNegative</code></td><td>#972A1D</td><td>#FFB84C</td><td>#972A1D</td><td>#FFC266</td></tr>
+<tr><td><code>tagTextWarningBrand</code></td><td>#972A1D</td><td>#FFB84C</td><td>#972A1D</td><td>#FFC266</td></tr>
+<tr><td><code>tagTextErrorInverse</code></td><td>#8F2052</td><td>#DB628B</td><td>#8F2052</td><td>#DB628B</td></tr>
+<tr><td><code>tagTextErrorNegative</code></td><td>#8F2052</td><td>#DB628B</td><td>#8F2052</td><td>#DB628B</td></tr>
+<tr><td><code>tagTextErrorBrand</code></td><td>#8F2052</td><td>#DB628B</td><td>#8F2052</td><td>#DB628B</td></tr>
+<tr><td><code>tagBackgroundPromoInverse</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundPromoNegative</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundPromoBrand</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundActiveInverse</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundActiveNegative</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundActiveBrand</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundInactiveInverse</code></td><td>#F6F6F6</td><td>#313235</td><td>#F1EFF6</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundInactiveNegative</code></td><td>#F6F6F6</td><td>#313235</td><td>#F1EFF6</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundInactiveBrand</code></td><td>#F6F6F6</td><td>#313235</td><td>#F1EFF6</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundInfoInverse</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundInfoNegative</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundInfoBrand</code></td><td>#EFE5F4</td><td>#313235</td><td>#EEE7F3</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundSuccessInverse</code></td><td>#EDF8E8</td><td>#313235</td><td>#EDF8E8</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundSuccessNegative</code></td><td>#EDF8E8</td><td>#313235</td><td>#EDF8E8</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundSuccessBrand</code></td><td>#EDF8E8</td><td>#313235</td><td>#EDF8E8</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundWarningInverse</code></td><td>#FFEFE1</td><td>#313235</td><td>#FFEFE1</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundWarningNegative</code></td><td>#FFEFE1</td><td>#313235</td><td>#FFEFE1</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundWarningBrand</code></td><td>#FFEFE1</td><td>#313235</td><td>#FFEFE1</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundErrorInverse</code></td><td>#FCE4EF</td><td>#313235</td><td>#FCE4EF</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundErrorNegative</code></td><td>#FCE4EF</td><td>#313235</td><td>#FCE4EF</td><td>#2D2A3D</td></tr>
+<tr><td><code>tagBackgroundErrorBrand</code></td><td>#FCE4EF</td><td>#313235</td><td>#FCE4EF</td><td>#2D2A3D</td></tr>
+<tr><td><code>cardContentOverlay</code></td><td>degradê 180°: #000000 com 0% de opacidade em 0%, #000000 com 40% de opacidade em 30%, #000000 com 70% de opacidade em 100%</td><td>degradê 180°: #000000 com 0% de opacidade em 0%, #000000 com 40% de opacidade em 30%, #000000 com 70% de opacidade em 100%</td><td>degradê 180°: #0E0C14 com 0% de opacidade em 0%, #0E0C14 com 40% de opacidade em 30%, #0E0C14 com 70% de opacidade em 100%</td><td>degradê 180°: #0E0C14 com 0% de opacidade em 0%, #0E0C14 com 40% de opacidade em 30%, #0E0C14 com 70% de opacidade em 100%</td></tr>
+<tr><td><code>cardFooterOverlay</code></td><td>#000000 com 70% de opacidade</td><td>#000000 com 70% de opacidade</td><td>#0E0C14 com 70% de opacidade</td><td>#0E0C14 com 70% de opacidade</td></tr></tbody></table>
+<h2>Raios (border radius)</h2><p>Valores em px. "circle" = totalmente redondo; 999 = pílula.</p>
+<table><thead><tr><th>Variável</th><th>Skin padrão</th><th>Skin Evolution</th></tr></thead><tbody>
+<tr><td><code>avatar</code></td><td>circle</td><td>circle</td></tr>
+<tr><td><code>bar</code></td><td>999</td><td>999</td></tr>
+<tr><td><code>button</code></td><td>32</td><td>32</td></tr>
+<tr><td><code>checkbox</code></td><td>4</td><td>4</td></tr>
+<tr><td><code>container</code></td><td>24</td><td>24</td></tr>
+<tr><td><code>indicator</code></td><td>24</td><td>24</td></tr>
+<tr><td><code>chip</code></td><td>24</td><td>24</td></tr>
+<tr><td><code>tag</code></td><td>10</td><td>8</td></tr>
+<tr><td><code>input</code></td><td>16</td><td>16</td></tr>
+<tr><td><code>popup</code></td><td>16</td><td>16</td></tr>
+<tr><td><code>sheet</code></td><td>24</td><td>24</td></tr>
+<tr><td><code>mediaSmall</code></td><td>12</td><td>12</td></tr>
+<tr><td><code>snackbar</code></td><td>16</td><td>24</td></tr></tbody></table>
+<h2>Tipografia</h2><p>Tamanho e altura de linha em px, no formato <strong>celular / desktop</strong>. Peso: regular, medium, bold, light.</p>
+<table><thead><tr><th>Estilo</th><th>Skin padrão: tamanho</th><th>Skin padrão: altura de linha</th><th>Skin padrão: peso</th><th>Skin Evolution: tamanho</th><th>Skin Evolution: altura de linha</th><th>Skin Evolution: peso</th></tr></thead><tbody>
+<tr><td><code>drawerTitle</code></td><td>20 / 28</td><td>24 / 32</td><td>medium</td><td>20 / 28</td><td>24 / 32</td><td>medium</td></tr>
+<tr><td><code>cardPretitleSnap</code></td><td>14 / 16</td><td>20 / 24</td><td>—</td><td>12 / 14</td><td>20 / 24</td><td>—</td></tr>
+<tr><td><code>cardTitleSnap</code></td><td>14 / 16</td><td>20 / 24</td><td>—</td><td>14 / 18</td><td>20 / 24</td><td>—</td></tr>
+<tr><td><code>cardSubtitleSnap</code></td><td>14 / 16</td><td>20 / 24</td><td>—</td><td>12 / 14</td><td>20 / 24</td><td>—</td></tr>
+<tr><td><code>cardDescriptionSnap</code></td><td>14 / 16</td><td>20 / 24</td><td>—</td><td>12 / 14</td><td>20 / 24</td><td>—</td></tr>
+<tr><td><code>cardPretitleDefault</code></td><td>14 / 16</td><td>20 / 24</td><td>—</td><td>14 / 16</td><td>20 / 24</td><td>—</td></tr>
+<tr><td><code>cardTitleDefault</code></td><td>18 / 24</td><td>24 / 28</td><td>—</td><td>16 / 24</td><td>24 / 28</td><td>—</td></tr>
+<tr><td><code>cardSubtitleDefault</code></td><td>14 / 16</td><td>20 / 24</td><td>—</td><td>14 / 16</td><td>20 / 24</td><td>—</td></tr>
+<tr><td><code>cardDescriptionDefault</code></td><td>14 / 16</td><td>20 / 24</td><td>—</td><td>14 / 16</td><td>20 / 24</td><td>—</td></tr>
+<tr><td><code>tabsLabel</code></td><td>18 / 18</td><td>24 / 24</td><td>medium</td><td>18 / 18</td><td>24 / 24</td><td>medium</td></tr>
+<tr><td><code>title1</code></td><td>12 / 14</td><td>16 / 20</td><td>medium</td><td>12 / 14</td><td>16 / 20</td><td>medium</td></tr>
+<tr><td><code>title2</code></td><td>16 / 18</td><td>24 / 24</td><td>medium</td><td>14 / 16</td><td>20 / 24</td><td>medium</td></tr>
+<tr><td><code>title3</code></td><td>18 / 24</td><td>24 / 28</td><td>medium</td><td>16 / 18</td><td>24 / 24</td><td>medium</td></tr>
+<tr><td><code>title4</code></td><td>24 / 32</td><td>32 / 40</td><td>medium</td><td>20 / 28</td><td>24 / 32</td><td>medium</td></tr>
+<tr><td><code>text1</code></td><td>12 / 14</td><td>16 / 20</td><td>—</td><td>12 / 14</td><td>16 / 20</td><td>—</td></tr>
+<tr><td><code>text2</code></td><td>14 / 16</td><td>20 / 24</td><td>—</td><td>14 / 16</td><td>20 / 24</td><td>—</td></tr>
+<tr><td><code>text3</code></td><td>16 / 18</td><td>24 / 24</td><td>—</td><td>16 / 18</td><td>24 / 24</td><td>—</td></tr>
+<tr><td><code>text4</code></td><td>18 / 24</td><td>24 / 28</td><td>—</td><td>18 / 24</td><td>24 / 28</td><td>—</td></tr>
+<tr><td><code>text5</code></td><td>20 / 28</td><td>24 / 32</td><td>medium</td><td>20 / 28</td><td>24 / 32</td><td>medium</td></tr>
+<tr><td><code>text6</code></td><td>24 / 32</td><td>32 / 40</td><td>medium</td><td>24 / 32</td><td>32 / 40</td><td>medium</td></tr>
+<tr><td><code>text7</code></td><td>28 / 40</td><td>32 / 48</td><td>medium</td><td>28 / 40</td><td>32 / 48</td><td>medium</td></tr>
+<tr><td><code>text8</code></td><td>32 / 48</td><td>40 / 56</td><td>regular</td><td>32 / 48</td><td>40 / 56</td><td>regular</td></tr>
+<tr><td><code>text9</code></td><td>40 / 56</td><td>48 / 64</td><td>regular</td><td>40 / 56</td><td>48 / 64</td><td>regular</td></tr>
+<tr><td><code>text10</code></td><td>48 / 64</td><td>56 / 72</td><td>regular</td><td>48 / 64</td><td>56 / 72</td><td>regular</td></tr>
+<tr><td><code>chipLabel</code></td><td>14 / 16</td><td>20 / 24</td><td>medium</td><td>14 / 16</td><td>20 / 24</td><td>medium</td></tr>
+<tr><td><code>chipLabelSmall</code></td><td>14 / 16</td><td>20 / 24</td><td>medium</td><td>14 / 16</td><td>20 / 24</td><td>medium</td></tr>
+<tr><td><code>inputLabel</code></td><td>12 / 14</td><td>16 / 20</td><td>—</td><td>12 / 14</td><td>16 / 20</td><td>—</td></tr>
+<tr><td><code>inputValue</code></td><td>16 / 18</td><td>24 / 24</td><td>—</td><td>16 / 18</td><td>24 / 24</td><td>—</td></tr>
+<tr><td><code>inputHelperText</code></td><td>12 / 14</td><td>16 / 20</td><td>—</td><td>12 / 14</td><td>16 / 20</td><td>—</td></tr>
+<tr><td><code>stepperStepLabel</code></td><td>14 / 16</td><td>20 / 24</td><td>—</td><td>14 / 16</td><td>20 / 24</td><td>—</td></tr>
+<tr><td><code>loadingScreenTitle</code></td><td>18 / 24</td><td>24 / 28</td><td>—</td><td>18 / 24</td><td>24 / 28</td><td>—</td></tr>
+<tr><td><code>headerPretitle</code></td><td>16 / 18</td><td>24 / 24</td><td>regular</td><td>14 / 16</td><td>20 / 24</td><td>regular</td></tr>
+<tr><td><code>cardTitle</code></td><td>—</td><td>—</td><td>medium</td><td>—</td><td>—</td><td>medium</td></tr>
+<tr><td><code>rowTitle</code></td><td>—</td><td>—</td><td>regular</td><td>—</td><td>—</td><td>medium</td></tr>
+<tr><td><code>button</code></td><td>—</td><td>—</td><td>medium</td><td>—</td><td>—</td><td>medium</td></tr>
+<tr><td><code>link</code></td><td>—</td><td>—</td><td>medium</td><td>—</td><td>—</td><td>medium</td></tr>
+<tr><td><code>indicator</code></td><td>—</td><td>—</td><td>medium</td><td>—</td><td>—</td><td>medium</td></tr>
+<tr><td><code>navigationBar</code></td><td>—</td><td>—</td><td>regular</td><td>—</td><td>—</td><td>regular</td></tr></tbody></table>
+<h2>Espaçamentos internos de componentes</h2><p>Valores em px no formato <strong>celular / desktop</strong>, por lado (top, right, bottom, left).</p>
+<table><thead><tr><th>Variável</th><th>Skin padrão</th><th>Skin Evolution</th></tr></thead><tbody>
+<tr><td><code>buttonDefaultPadding</code></td><td>left 16 / 16 · right 16 / 16</td><td>left 16 / 16 · right 16 / 16</td></tr>
+<tr><td><code>buttonSmallPadding</code></td><td>left 12 / 12 · right 12 / 12</td><td>left 12 / 12 · right 12 / 12</td></tr>
+<tr><td><code>cardDefaultPadding</code></td><td>top 16 / 24 · bottom 16 / 24 · left 16 / 24 · right 16 / 24</td><td>top 16 / 24 · bottom 16 / 24 · left 16 / 24 · right 16 / 24</td></tr>
+<tr><td><code>inputPadding</code></td><td>top 8 / 8 · right 16 / 16 · bottom 8 / 8 · left 12 / 12</td><td>top 8 / 8 · right 16 / 16 · bottom 8 / 8 · left 16 / 16</td></tr>
+<tr><td><code>tagPadding</code></td><td>top 4 / 4 · bottom 4 / 4</td><td>top 4 / 4 · bottom 4 / 4</td></tr>
+<tr><td><code>feedbackScreenPadding</code></td><td>top 64 / 64 · bottom 16 / 64 · left 16 / 64 · right 16 / 64</td><td>top 64 / 64 · bottom 16 / 64 · left 16 / 64 · right 16 / 64</td></tr>
+<tr><td><code>heroPadding</code></td><td>top 24 / 56 · bottom 24 / 56</td><td>top 24 / 56 · bottom 24 / 56</td></tr>
+<tr><td><code>headerPadding</code></td><td>top 24 / 48 · bottom 24 / 48</td><td>top 24 / 48 · bottom 24 / 48</td></tr>
+<tr><td><code>drawerPadding</code></td><td>top 32 / 40 · bottom 16 / 24 · left 16 / 40 · right 16 / 40</td><td>top 32 / 40 · bottom 16 / 24 · left 16 / 40 · right 16 / 40</td></tr>
+<tr><td><code>boxedDefaultPadding</code></td><td>left 16 / 16 · right 16 / 16</td><td>left 16 / 24 · right 16 / 24</td></tr>
+<tr><td><code>responsiveLayoutMargin</code></td><td>16 / 48</td><td>16 / 48</td></tr></tbody></table>
+<h2>Configurações da skin</h2>
+<table><thead><tr><th>Configuração</th><th>Skin padrão</th><th>Skin Evolution</th></tr></thead><tbody>
+<tr><td><code>successFeedback</code></td><td>inverse</td><td>inverse</td></tr>
+<tr><td><code>brandLoadingScreen</code></td><td>inverse</td><td>inverse</td></tr>
+<tr><td><code>dismissActionType</code></td><td>neutral</td><td>neutral</td></tr>
+<tr><td><code>showBoxedBorder</code></td><td>default True · brand True · negative True · alternative True · media True</td><td>default True · brand True · negative True · alternative False · media True</td></tr></tbody></table>
+<ul><li><code>successFeedback</code> e <code>brandLoadingScreen</code>: fundo usado na tela de sucesso e na tela de carregamento da marca (<code>inverse</code> = cor da marca).</li><li><code>showBoxedBorder</code>: em quais fundos as caixas (Boxed, Boxed Row etc.) mostram borda.</li><li><code>dismissActionType</code>: estilo do botão de fechar.</li></ul>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

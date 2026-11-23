@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timer (Timer, Text Timer) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-timer">
+<h2>Timer (Timer, Text Timer)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>Timer</h4>
+<p>Contagem regressiva em destaque, com números grandes e o nome da unidade embaixo (ex.: <strong>02</strong> dias · <strong>10</strong> horas · <strong>35</strong> min · <strong>08</strong> seg), como numa oferta que acaba em breve. Atualiza sozinha a cada segundo até chegar a zero. Pode ter cada unidade numa caixa (<code>boxed</code>). Para a contagem dentro de um texto, use o TextTimer.</p>
+<h4>TextTimer</h4>
+<p>Contagem regressiva em texto, para usar dentro de uma frase (ex.: "Seu código expira em <strong>04:59</strong>"). Atualiza sozinha a cada segundo até chegar a zero e usa o tamanho, o peso e a cor do texto em volta. Para a contagem em destaque, com números grandes, use o Timer.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>TextTimer</h4><ul>
+<li>⚠️ <strong>Tamanho:</strong> o Text Timer tem o tamanho do texto em volta. Desenhe-o com o mesmo estilo da frase onde ele está.
+</li>
+<li>⚠️ <strong>Fim da contagem:</strong> diga quando a contagem termina e o que acontece depois (no código, o timer para e mostra tudo zerado).
+</li>
+<li>⚠️ <strong>Valores de exemplo:</strong> use números possíveis nas unidades menores (até 23 horas, 59 minutos e 59 segundos).
+</li>
+<li>⚠️ <strong>Nomes das unidades:</strong> no código, ficam em português, e não em inglês como no componente.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> no Desktop, o trecho de código segue o <code>Label type</code>, o <code>Max value</code> e o <code>Min value</code> do design, com uma data final fixa de exemplo. No Mobile, não há trecho de código.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td><code>Label type=None</code> com dias</td><td>Não existe</td><td>Não existe: as horas somam os dias. ✅ Igual.</td></tr>
+<tr><td><code>Max value</code> menor que <code>Min value</code></td><td>Não existe</td><td>Mostra só a <code>minTimeUnit</code>. ✅ Igual.</td></tr>
+<tr><td>24 horas, 60 minutos ou 60 segundos nas unidades menores</td><td>É o valor de exemplo do componente</td><td>Não existe: o máximo é 23 horas, 59 minutos e 59 segundos. ⚠️ Diferente.</td></tr>
+<tr><td>Text Timer em outro tamanho</td><td>Só trocando o texto à mão</td><td>Existe: segue o texto em volta. ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h4>Timer</h4><ul>
+<li>⚠️ <strong>Fim da contagem:</strong> diga quando a contagem termina e o que acontece depois (no código, o timer para e mostra tudo zerado; não some sozinho).
+</li>
+<li>⚠️ <strong>Valores de exemplo:</strong> use números possíveis nas unidades menores (até 23 horas, 59 minutos e 59 segundos) e sempre com 2 dígitos (<code>05</code>).
+</li>
+<li>⚠️ <strong>Nomes das unidades:</strong> no código, ficam em português ("dias", "horas", "min" e "seg"), e não em inglês como no componente.
+</li>
+<li>⚠️ <strong>Leitor de tela:</strong> sugira um texto para ler antes do tempo (ex.: "A oferta termina em").
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o <code>Boxed</code>, o <code>Max value</code> e o <code>Min value</code> do design, com uma data final fixa de exemplo. Troque pela data real.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td><code>Max value</code> menor que <code>Min value</code></td><td>Não existe</td><td>Mostra só a <code>minTimeUnit</code>. ✅ Igual.</td></tr>
+<tr><td>Mais de 99 dias, 24 horas ou 60 minutos na maior unidade</td><td>Dá para escrever qualquer número</td><td>A maior unidade soma as unidades acima dela (ex.: 51 horas) e pode ter mais de 2 dígitos. ✅ Igual.</td></tr>
+<tr><td>24 horas, 60 minutos ou 60 segundos nas unidades menores</td><td>É o valor de exemplo do componente</td><td>Não existe: o máximo é 23 horas, 59 minutos e 59 segundos. ⚠️ Diferente.</td></tr>
+<tr><td>Unidade com 1 dígito (ex.: <code>5</code>)</td><td>Dá para escrever</td><td>Sempre com pelo menos 2 dígitos (<code>05</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Timer</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>boxed</code></td><td>sim/não</td><td></td><td>🎨 Coloca cada unidade numa caixa com fundo, com 8px entre as caixas (sem caixa, 16px).¹</td></tr>
+<tr><td><code>endTimestamp</code> (obrigatória)</td><td></td><td></td><td>Momento em que a contagem termina: uma data ou um número em milissegundos (ex.: <code>Date.now() + 3600000</code>).</td></tr>
+<tr><td><code>minTimeUnit</code> (obrigatória)</td><td><code>'days' | 'hours' | 'minutes' | 'seconds'</code></td><td></td><td>Menor unidade mostrada.²</td></tr>
+<tr><td><code>maxTimeUnit</code> (obrigatória)</td><td><code>'days' | 'hours' | 'minutes' | 'seconds'</code></td><td></td><td>Maior unidade mostrada.²</td></tr>
+<tr><td><code>onProgress</code></td><td></td><td></td><td>Chamada sempre que o valor mostrado muda, com o tempo restante nas unidades mostradas (ex.: <code>{hours: 2, minutes: 15}</code>). Não é chamada na primeira exibição.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Aparência:</strong> o número usa o estilo <code>Text6</code> (com pelo menos 2 dígitos, ex.: <code>05</code>) e o nome da unidade, o <code>Text2</code>. Os nomes são "dia"/"dias", "hora"/"horas", "min" e "seg". Com <code>boxed</code>, cada caixa tem no mínimo 64px de largura (56px no celular) e fundo na cor de marca clara; sobre fundos <code>brand</code>, <code>negative</code>, <code>alternative</code> e <code>media</code>, o fundo da caixa muda sozinho. Se as unidades não couberem numa linha, passam para a linha de baixo.</p>
+<p>² ℹ️ <strong>Unidades:</strong> aparecem todas as unidades entre <code>maxTimeUnit</code> e <code>minTimeUnit</code>. A maior unidade soma o que seria das unidades acima dela: com <code>maxTimeUnit="hours"</code>, 2 dias e 3 horas aparecem como <strong>51</strong> horas. Se <code>maxTimeUnit</code> for menor que <code>minTimeUnit</code>, só a <code>minTimeUnit</code> aparece.</p>
+<p>ℹ️ <strong>Fim da contagem:</strong> ao chegar ao fim, o timer para e mostra tudo zerado. Uma data no passado também mostra zero.</p>
+<p>ℹ️ <strong>Leitor de tela:</strong> o timer é lido por extenso (ex.: "2 dias, 10 horas e 35 minutos"), e os números grandes ficam escondidos para ele.</p>
+<h5>Diferença entre Timer e TextTimer</h5><table><thead><tr><th></th><th><code>Timer</code></th><th><code>TextTimer</code></th></tr></thead><tbody>
+<tr><td><strong>Aparência</strong></td><td>Números grandes (<code>Text6</code>) com o nome da unidade embaixo</td><td>Texto na mesma linha, no tamanho do texto em volta</td></tr>
+<tr><td><strong>Onde usar</strong></td><td>Sozinho, em destaque (ex.: banner de oferta)</td><td>Dentro de uma frase (ex.: "expira em 04:59")</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>boxed</code></td><td><code>labelType</code></td></tr>
+<tr><td><strong>Dias</strong></td><td>Sempre aparecem quando estão entre as unidades</td><td>Não aparecem com <code>labelType="none"</code></td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes irmãos:</strong> os dois contam o tempo do mesmo jeito (mesmas <code>endTimestamp</code>, <code>minTimeUnit</code>, <code>maxTimeUnit</code> e <code>onProgress</code>), mas têm aparência e props próprias. Cada um tem seu próprio arquivo.</p>
+<h4>TextTimer</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>labelType</code></td><td><code>'none' | 'short' | 'long'</code></td><td><code>'none'</code></td><td>🎨 Formato do texto.¹</td></tr>
+<tr><td><code>endTimestamp</code> (obrigatória)</td><td></td><td></td><td>Momento em que a contagem termina: uma data ou um número em milissegundos (ex.: <code>Date.now() + 300000</code>).</td></tr>
+<tr><td><code>minTimeUnit</code> (obrigatória)</td><td><code>'days' | 'hours' | 'minutes' | 'seconds'</code></td><td></td><td>Menor unidade mostrada.²</td></tr>
+<tr><td><code>maxTimeUnit</code> (obrigatória)</td><td><code>'days' | 'hours' | 'minutes' | 'seconds'</code></td><td></td><td>Maior unidade mostrada.²</td></tr>
+<tr><td><code>onProgress</code></td><td></td><td></td><td>Chamada sempre que o valor mostrado muda, com o tempo restante nas unidades mostradas (ex.: <code>{minutes: 4, seconds: 59}</code>). Não é chamada na primeira exibição.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Formatos</strong> (exemplo com 2 dias, 3 horas, 15 minutos e 8 segundos, de <code>days</code> a <code>seconds</code>):</p>
+<table><thead><tr><th><code>labelType</code></th><th>Texto</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>'none'</code> (padrão)</td><td><code>51:15:08</code></td><td>Números com 2 dígitos, separados por <code>:</code>. <strong>Os dias nunca aparecem</strong>: as horas somam os dias.</td></tr>
+<tr><td><code>'short'</code></td><td><code>02 d 03 h 15 min 08 s</code></td><td>Números com 2 dígitos e a unidade abreviada.</td></tr>
+<tr><td><code>'long'</code></td><td><code>2 dias, 3 horas, 15 minutos e 8 segundos</code></td><td>Por extenso, no singular ou no plural.</td></tr>
+</tbody></table>
+<p>Com <code>'none'</code> e <code>'short'</code>, o timer não quebra de linha. Com <code>'long'</code>, pode quebrar como um texto comum.</p>
+<p>² ℹ️ <strong>Unidades:</strong> aparecem todas as unidades entre <code>maxTimeUnit</code> e <code>minTimeUnit</code>. A maior unidade soma o que seria das unidades acima dela: com <code>maxTimeUnit="minutes"</code>, 1 hora e 5 minutos aparecem como <strong>65</strong> minutos. Se <code>maxTimeUnit</code> for menor que <code>minTimeUnit</code>, só a <code>minTimeUnit</code> aparece.</p>
+<p>ℹ️ <strong>Tamanho e cor:</strong> o <code>TextTimer</code> não tem tamanho próprio: coloque-o dentro de um <code>Text1</code>…<code>Text10</code>. Os números ocupam sempre a mesma largura, para o texto não "pular" a cada segundo.</p>
+<p>ℹ️ <strong>Fim da contagem:</strong> ao chegar ao fim, o timer para e mostra tudo zerado. Uma data no passado também mostra zero.</p>
+<p>ℹ️ <strong>Leitor de tela:</strong> o timer é sempre lido por extenso (ex.: "4 minutos e 59 segundos"), seja qual for o <code>labelType</code>.</p>
+<h5>Diferença entre Timer e TextTimer</h5><table><thead><tr><th></th><th><code>Timer</code></th><th><code>TextTimer</code></th></tr></thead><tbody>
+<tr><td><strong>Aparência</strong></td><td>Números grandes (<code>Text6</code>) com o nome da unidade embaixo</td><td>Texto na mesma linha, no tamanho do texto em volta</td></tr>
+<tr><td><strong>Onde usar</strong></td><td>Sozinho, em destaque (ex.: banner de oferta)</td><td>Dentro de uma frase (ex.: "expira em 04:59")</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>boxed</code></td><td><code>labelType</code></td></tr>
+<tr><td><strong>Dias</strong></td><td>Sempre aparecem quando estão entre as unidades</td><td>Não aparecem com <code>labelType="none"</code></td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes irmãos:</strong> os dois contam o tempo do mesmo jeito (mesmas <code>endTimestamp</code>, <code>minTimeUnit</code>, <code>maxTimeUnit</code> e <code>onProgress</code>), mas têm aparência e props próprias. Cada um tem seu próprio arquivo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>TextTimer</h4><p><strong>Figma:</strong> biblioteca Desktop › Text Timer [D] · biblioteca Mobile › Text Timer</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Text Timer</td><td>Existe</td><td>Sem ligação de código</td><td>No Mobile, o Text Timer não está ligado ao código: o Dev Mode não mostra o trecho do <code>TextTimer</code></td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Label type</code></td><td><code>None</code> · <code>Short</code> · <code>Long</code></td><td><code>labelType</code></td><td>✅</td><td>Nos dois, com <code>None</code>, os dias não aparecem.</td></tr>
+<tr><td><code>Max value</code></td><td><code>Days</code> · <code>Hours</code> · <code>Minutes</code> · <code>Seconds</code></td><td><code>maxTimeUnit</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Min value</code></td><td><code>Seconds</code> · <code>Minutes</code> · <code>Hours</code> · <code>Days</code></td><td><code>minTimeUnit</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Days</code>, <code>Hours</code>, <code>Minutes</code> e <code>Seconds</code></td><td>texto livre (<code>99</code>, <code>24</code>, <code>60</code> e <code>60</code>)</td><td><code>endTimestamp</code></td><td>⚠️</td><td>No Figma, cada número é escrito à mão. No código, os números são calculados a partir do momento final (<code>endTimestamp</code>) e mudam a cada segundo.</td></tr>
+<tr><td>Nome das unidades (camadas de texto)</td><td><code>d</code> · <code>h</code> · <code>min</code> · <code>s</code> (<code>Short</code>) e nomes por extenso em inglês (<code>Long</code>)</td><td>sem prop</td><td>⚠️</td><td>No código, os nomes vêm do idioma do app: em português, "d", "h", "min" e "s" no <code>short</code> e "dias", "horas", "minutos" e "segundos" (com "e" antes do último) no <code>long</code>.</td></tr>
+<tr><td>Tamanho do texto</td><td>fixo no componente</td><td>sem prop</td><td>⚠️</td><td>No código, o <code>TextTimer</code> usa o tamanho, o peso e a cor do texto em volta.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Alternative</code> · <code>Media</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, a cor vem do texto em volta, que muda sozinho conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>Timer</h4><p><strong>Figma:</strong> biblioteca Desktop › Timer [D] · biblioteca Mobile › Timer</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Boxed</code></td><td><code>False</code> · <code>True</code></td><td><code>boxed</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Max value</code></td><td><code>Days</code> · <code>Hours</code> · <code>Minutes</code> · <code>Seconds</code></td><td><code>maxTimeUnit</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Min value</code></td><td><code>Seconds</code> · <code>Minutes</code> · <code>Hours</code> · <code>Days</code></td><td><code>minTimeUnit</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Days</code>, <code>Hours</code>, <code>Minutes</code> e <code>Seconds</code></td><td>texto livre (<code>99</code>, <code>24</code>, <code>60</code> e <code>60</code>)</td><td><code>endTimestamp</code></td><td>⚠️</td><td>No Figma, cada número é escrito à mão. No código, os números são calculados a partir do momento final (<code>endTimestamp</code>) e mudam a cada segundo.</td></tr>
+<tr><td>Nome das unidades (camadas de texto)</td><td><code>days</code> · <code>hours</code> · <code>min</code> · <code>sec</code></td><td>sem prop</td><td>⚠️</td><td>No código, os nomes vêm do idioma do app: em português, "dia"/"dias", "hora"/"horas", "min" e "seg".</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Alternative</code> · <code>Media</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, as cores e o fundo das caixas mudam sozinhos conforme o fundo onde o timer está.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Existe componente de "número grande" (ex.: código enviado ao titular)? <strong>Resposta:</strong> Use <strong>Circle</strong> com slot + o componente <strong>Text Timer</strong> (há exemplo no Playroom).</p>
+<p><sub>Ref. #535 · 09/2025</sub></p>
+<p><strong>Dúvida:</strong> Tirei o timer do botão (por acessibilidade). Como usar o Text Timer? <strong>Resposta:</strong> O <strong>Text Timer</strong> deve ficar <strong>dentro da frase</strong>, não solto na tela, para a pessoa entender que há um tempo rodando.</p>
+<p><sub>Ref. #1308 · 09/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

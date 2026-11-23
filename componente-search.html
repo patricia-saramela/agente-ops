@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search Field · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-search">
+<h2>Search Field</h2>
+<p class="cat">Campos de formulário</p>
+<h3>Resumo</h3>
+<p>Campo de busca. Tem um ícone de lupa à esquerda e, quando há texto, um botão ✕ à direita que apaga a busca. Pode mostrar uma lista de sugestões enquanto o usuário digita (<code>getSuggestions</code>), com um texto para quando não há sugestões (<code>withSuggestionsEmptyCase</code>). Tem o mesmo visual do TextField e funciona sozinho ou dentro de um <code>Form</code>.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>SearchField</h4><ul>
+<li>⚠️ <strong>Sugestões:</strong> diga de onde vêm as sugestões e quando aparecem (ao focar ou depois de quantas letras). No código, cada sugestão é um texto: não desenhe sugestões com ícones ou imagens no <code>Slot</code>.
+</li>
+<li>⚠️ <strong>Sem sugestões:</strong> se a lista mostra um texto quando não há sugestões, informe o texto em português (o padrão do Figma está em inglês; o do código é "Sem sugestões").
+</li>
+<li>⚠️ <strong>Busca num formulário:</strong> se a busca fica dentro de um formulário e pode ficar vazia, diga no handoff, para o campo não ser obrigatório.
+</li>
+<li>⚠️ <strong>Lista antiga:</strong> não use a <code>❗Predictive dropdown [Deprecated]</code> do Desktop. Use a propriedade <code>Suggestions</code>.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o rótulo, o texto de ajuda, o <code>Error</code>, o <code>Disabled</code> e o <code>Read only</code> do design. O <code>name</code> é sempre <code>"search-field"</code>, e a lupa desligada e as sugestões <strong>não aparecem</strong> no trecho.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Lista de sugestões sem foco</td><td>Não existe: só no <code>Focused</code></td><td>Não existe: a lista só abre com foco. Igual.</td></tr>
+<tr><td>Mais de 5 sugestões</td><td>Não existe</td><td>Existe: o código mostra todas as que o <code>getSuggestions</code> devolver. ⚠️ Diferente.</td></tr>
+<tr><td>Sugestões com ícone, imagem ou dois textos (no <code>Slot</code>)</td><td>Existe</td><td>Não existe: cada sugestão é um texto só. ⚠️ Diferente.</td></tr>
+<tr><td>Lista antiga (<code>❗Predictive dropdown [Deprecated]</code>)</td><td>Existe no Desktop</td><td>Não existe: é a lista descontinuada. ⚠️ Diferente.</td></tr>
+<tr><td>Largura do campo no desktop</td><td>496px</td><td>328px, ou a largura toda com <code>fullWidth</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Versão menor do campo</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>SearchField</h4><h5>Quando usar</h5><ul>
+<li><strong>Use o <code>SearchField</code></strong> para buscar ou filtrar conteúdo (ex.: buscar um plano, filtrar uma lista de aparelhos, buscar uma pergunta na ajuda).
+</li>
+<li><strong>Use o <code>Autocomplete</code></strong> quando o usuário precisa escolher uma opção de uma lista para preencher um formulário.
+</li>
+<li><strong>Use o <code>TextField</code></strong> para um texto livre que não é uma busca.
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>. As sugestões também ficam em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo (ex.: "Buscar").</td></tr>
+<tr><td><code>withStartIcon</code></td><td>sim/não</td><td><code>true</code></td><td>Mostra o ícone de lupa à esquerda. Com <code>false</code>, o campo fica sem ícone.</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado por quem usa o campo (atualize-o no <code>onChange</code> ou no <code>onChangeValue</code>).</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho.</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada a cada mudança, com o texto digitado. Também é chamada com <code>''</code> ao tocar no ✕.</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento. Também é chamada ao tocar no ✕.</td></tr>
+<tr><td><code>getSuggestions</code></td><td></td><td></td><td>Mostra uma lista de sugestões a partir do texto digitado. Ao escolher uma, ela vira o texto do campo.¹</td></tr>
+<tr><td><code>shouldShowSuggestions</code></td><td><code>'focus' | number</code></td><td><code>'focus'</code></td><td>Quando mostrar as sugestões: <code>'focus'</code> ao focar o campo, ou um número para mostrar só depois de digitar essa quantidade de caracteres (ex.: <code>3</code>).</td></tr>
+<tr><td><code>withSuggestionsEmptyCase</code></td><td></td><td><code>false</code></td><td>Texto quando não há sugestões. Com <code>true</code>, mostra "Sem sugestões"; com um texto, mostra esse texto. Com <code>false</code>, a lista não aparece.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Valida o texto dentro de um <code>Form</code>: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo.</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo. Sem ela, o campo é obrigatório dentro de um <code>Form</code>.²</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo, mesmo com <code>optional</code>.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo fica cinza claro.</td></tr>
+<tr><td><code>inputMode</code></td><td><code>'text' | 'numeric' | 'decimal' | 'tel' | 'email' | 'url' | 'search' | 'none'</code></td><td></td><td>Teclado que aparece no celular (ex.: <code>'numeric'</code> para buscar por um número). Sem ela, o celular abre o teclado de busca.</td></tr>
+<tr><td><code>maxLength</code></td><td>número</td><td></td><td>Número máximo de caracteres.</td></tr>
+<tr><td><code>placeholder</code></td><td></td><td></td><td>Texto de exemplo dentro do campo, que aparece quando o campo tem foco e está vazio (ex.: <code>"Ex.: plano controle"</code>).</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>autoComplete</code></td><td></td><td></td><td>Tipo de preenchimento automático do navegador. Com <code>getSuggestions</code>, fica sempre desligado.</td></tr>
+<tr><td><code>preventCopy</code></td><td>sim/não</td><td>configuração do tema</td><td>Impede copiar e recortar o texto do campo.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Sugestões:</strong> a lista abre embaixo do campo, com a largura dele, e mostra as sugestões que o <code>getSuggestions</code> devolve para o texto digitado. Diferente do <code>TextField</code>, no <code>SearchField</code> as sugestões funcionam também com <code>defaultValue</code> ou sem valor nenhum. Para o leitor de tela, o campo é uma caixa de combinação e a lista é anunciada com o rótulo do campo.</p>
+<p>² ℹ️ <strong>Busca dentro de um <code>Form</code>:</strong> sem <code>optional</code>, o campo é obrigatório e mostra "Este campo é obrigatório" quando fica vazio. Numa busca que só filtra a tela, use o campo fora de um <code>Form</code> ou com <code>optional</code>.</p>
+<p>ℹ️ <strong>Botão de apagar:</strong> o ✕ aparece à direita quando o campo tem texto. Ao tocar nele, o texto é apagado, o foco volta para o campo e as sugestões são recarregadas. Para o leitor de tela, o botão se chama "Apagar pesquisa" (o texto vem do tema e muda com o idioma). O espaço do botão fica reservado mesmo sem texto, para o campo não mudar de tamanho.</p>
+<p>ℹ️ <strong>Ícones:</strong> a lupa e o ✕ são fixos e não podem ser trocados. A lupa pode ser escondida com <code>withStartIcon={false}</code>.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>SearchField</h4><p><strong>Figma:</strong> biblioteca Desktop › Search Field [D] · biblioteca Mobile › Search Field</p>
+<p>ℹ️ No Figma, o Search Field tem a lupa à esquerda, o botão ✕ à direita e, no estado <code>Focused</code>, uma lista de sugestões que pode ser ligada. A lista é uma instância exposta (<code>Suggestion list</code>), com as próprias propriedades.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td>Nome da lista de sugestões</td><td><code>Suggestion list</code></td><td><code>Suggestions list</code></td><td>Só o nome da instância</td></tr>
+<tr><td><code>❗Predictive dropdown [Deprecated]</code></td><td>Existe (desligada por padrão)</td><td>Não existe</td><td>Só o Desktop tem a lista de sugestões antiga, marcada como descontinuada</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td></td></tr>
+<tr><td>Texto (camada <code>Input Text</code>)</td><td>texto livre</td><td><code>value</code> / <code>defaultValue</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Start icon</code></td><td><code>True</code> · <code>False</code></td><td><code>withStartIcon</code></td><td>✅</td><td>O trecho do Dev Mode não leva o <code>withStartIcon</code>: com a lupa desligada no design, informe no handoff.</td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Suggestions</code> + lista exposta (<code>Option 1</code> a <code>Option 5</code>)</td><td><code>True</code> · <code>False</code> + até 5 opções</td><td><code>getSuggestions</code></td><td>✅</td><td>No código, as sugestões vêm do <code>getSuggestions</code>, sem limite de quantidade, e aparecem ao focar o campo ou depois de alguns caracteres (<code>shouldShowSuggestions</code>).</td></tr>
+<tr><td><code>Empty state</code> + <code>Empty default text</code> (na lista)</td><td><code>False</code> · <code>True</code> + texto</td><td><code>withSuggestionsEmptyCase</code></td><td>✅</td><td>O texto padrão é diferente: "No suggestions available" no Figma e "Sem sugestões" no código (o texto do código muda com o idioma). Dá para passar um texto próprio nos dois.</td></tr>
+<tr><td><code>Slot</code> (na lista)</td><td><code>True</code> · <code>False</code> + conteúdo livre</td><td>sem prop</td><td>⚠️</td><td>No código, a lista só mostra textos: não aceita conteúdo livre.</td></tr>
+<tr><td>Botão ✕ (instância <code>Right icon</code>)</td><td>fixo</td><td>sem prop</td><td>✅</td><td>Fixo nos dois e só com texto no campo: no Figma, fica escondido no <code>Inactive</code>; no código, aparece sozinho quando há texto.</td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td>No código, o erro também aparece sozinho dentro de um <code>Form</code>: campo obrigatório vazio ou regra do <code>validate</code>.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td></td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Inactive</code> = vazio e sem foco, <code>Focused</code> = com foco, <code>Activated</code> = preenchido e sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o campo tem sempre fundo branco; só o texto de ajuda muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

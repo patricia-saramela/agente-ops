@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Button (Button, Button Link, Icon Button, Toggle Icon Button) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-button">
+<h2>Button (Button, Button Link, Icon Button, Toggle Icon Button)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>ButtonPrimary / ButtonSecondary / ButtonDanger</h4>
+<p>Botões de ação com texto. Podem executar uma função, navegar para outra página, enviar um formulário ou apenas ter a aparência de botão dentro de uma área que já é clicável.</p>
+<ul>
+<li><strong><code>ButtonPrimary</code></strong>
+</li>
+<li><strong><code>ButtonSecondary</code></strong>
+</li>
+<li><strong><code>ButtonDanger</code></strong>
+</li></ul>
+<p>Os três têm as mesmas props.</p>
+<h4>ButtonLink</h4>
+<p>Botão com aparência de link de texto, sem fundo nem borda. Usado para ações de menor destaque ou para navegar (ex.: "Ver todos", "Saiba mais").</p>
+<h4>IconButton</h4>
+<p>Botão que mostra só um ícone, sem texto. Usado para ações rápidas e reconhecíveis pelo ícone (fechar, compartilhar, excluir).</p>
+<h4>ToggleIconButton</h4>
+<p>Botão de ícone que alterna entre dois estados, ligado e desligado (ex.: favoritar / desfavoritar). Cada estado tem seu próprio ícone, cor e rótulo.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>ButtonLink</h4><ul>
+<li>⚠️ <strong>Seta de navegação:</strong> no código, todo link que leva para outra página (<code>to</code> ou <code>href</code>) mostra a seta (›) depois do texto, a menos que ela seja desligada. Indique no handoff se o link deve ou não ter a seta.
+</li>
+<li>⚠️ <strong>Formulários:</strong> o <code>ButtonLink</code> não envia formulários (não aceita <code>submit</code>). Para enviar, use um botão.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código que o Figma mostra no Dev Mode sempre usa <code>ButtonLink</code>, mesmo com <code>Type=Danger</code> ou <code>Neutral</code>. A ligação de código do <code>ButtonLinkDanger</code> aponta para um componente que não existe mais no Figma.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h4>Button</h4><ul>
+<li>⚠️ <strong>Carregando automático:</strong> no código, o botão mostra o spinner sozinho enquanto a ação do clique ou o envio do formulário está em andamento. Dentro de um formulário, <strong>todos</strong> os botões ficam desabilitados durante o envio.
+</li>
+<li>⚠️ <strong>Ícones dos dois lados:</strong> o Figma só permite um ícone por vez. Se o design precisar de ícone antes e depois do texto, desenhe à parte e indique no handoff.
+</li>
+<li>⚠️ <strong>Dev Mode no Mobile:</strong> a ligação de código do Figma Mobile que deveria ser do Button Primary aponta para o <strong>Button Danger</strong>. Por isso, o trecho de código que o Dev Mode mostra para o Button Danger no Mobile usa <code>ButtonPrimary</code>. Confira o componente certo no handoff.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Button Danger + fundo <code>Brand</code>, <code>Negative</code> ou <code>Media</code></td><td>Não existe (o Button Danger não tem <code>Theme context</code>)</td><td>O <code>ButtonDanger</code> pode ser usado sobre qualquer fundo. Confirme a aparência com quem desenvolve. ⚠️</td></tr>
+</tbody></table>
+<h4>IconButton</h4><ul>
+<li>⚠️ <strong>Texto para o leitor de tela:</strong> o botão não tem texto visível, então o código exige um rótulo para acessibilidade. Informe no handoff o que cada botão faz (ex.: "Fechar", "Compartilhar").
+</li>
+<li>⚠️ <strong>Área de toque:</strong> em telas sensíveis ao toque, o código garante uma área de toque mínima de 48px, mesmo no botão pequeno. Deixe espaço suficiente em volta dos botões pequenos.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código que o Figma mostra no Dev Mode sempre traz <code>aria-label="icon button"</code>. Troque pelo texto certo no handoff.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h4>ToggleIconButton</h4><ul>
+<li>⚠️ <strong>Aparência de cada estado:</strong> informe o ícone, a cor (<code>Type</code>) e o tipo de fundo (<code>Background type</code>) do estado ligado e do desligado. Para isso, dá para usar o Icon Button do Figma, que tem essas propriedades.
+</li>
+<li>⚠️ <strong>Texto para o leitor de tela:</strong> informe o texto de cada estado, descrevendo a ação (ex.: "Adicionar aos favoritos" e "Remover dos favoritos").
+</li>
+<li>⚠️ <strong>Fundo:</strong> o Toggle Icon Button não tem <code>Theme context</code> no Figma. No código, ele muda de cor sozinho conforme o fundo onde está.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código que o Figma mostra no Dev Mode vem sem ícones e com rótulos genéricos ("checked" e "unchecked"). Complete no handoff.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>ButtonPrimary / ButtonSecondary / ButtonDanger</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>🎨 Texto do botão. Também aceita ícones misturados ao texto. (eles recebem o tamanho certo automaticamente)</td></tr>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão compacta.</td></tr>
+<tr><td><code>showSpinner</code></td><td>sim/não</td><td></td><td>🎨 Mostra um spinner no lugar do conteúdo e desabilita o botão.</td></tr>
+<tr><td><code>loadingText</code></td><td></td><td></td><td>🎨 Texto exibido ao lado do spinner. A largura do botão se ajusta para caber o texto e o spinner.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>🎨 Desabilita o botão.</td></tr>
+<tr><td><code>StartIcon</code></td><td></td><td></td><td>🎨 Ícone antes do texto.</td></tr>
+<tr><td><code>EndIcon</code></td><td></td><td></td><td>🎨 Ícone depois do texto.</td></tr>
+<tr><td><code>tabIndex</code></td><td>número</td><td></td><td>♿ Ordem de foco pelo teclado.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Ação do botão:</strong> use <strong>somente uma das props</strong>, entre <code>onPress</code>, <code>to</code>, <code>href</code>, <code>submit</code> e <code>fake</code>. O funcionamento das props <code>newTab</code>, <code>loadOnTop</code>, <code>fullPageOnWebView</code> e <code>onNavigate</code> estão atreladas a qual dessas propriedades de ação foi escolhida.</p>
+<p>ℹ️ O botão fica desabilitado automaticamente enquanto mostra o spinner (<code>showSpinner</code>, <code>Promise</code> do <code>onPress</code> ou envio do formulário).</p>
+<p>⚠️ Dentro de um <code>Form</code> do Design System, <strong>todos</strong> os botões ficam desabilitados enquanto o formulário está sendo enviado, não só o de <code>submit</code>.</p>
+<p>⚠️ Não foi possível testar o funcionamento das props <code>to=""</code> ou <code>href=""</code>, no playroom elas não redirecionam.</p>
+<h5>Diferença entre Button e ButtonLink</h5><table><thead><tr><th></th><th><code>ButtonPrimary</code> / <code>ButtonSecondary</code> / <code>ButtonDanger</code></th><th><code>ButtonLink</code></th></tr></thead><tbody>
+<tr><td><strong>Aparência</strong></td><td>Botão com fundo e/ou borda</td><td>Link de texto, sem fundo nem borda</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>submit</code></td><td><code>type</code>, <code>withChevron</code>, <code>bleedLeft</code>, <code>bleedRight</code>, <code>bleedY</code></td></tr>
+<tr><td><strong>Seta (›)</strong></td><td>Nunca</td><td>Automática ao navegar (<code>to</code> ou <code>href</code>)</td></tr>
+<tr><td><strong>Envio de formulário</strong></td><td>Sim, com <code>submit</code></td><td>Não</td></tr>
+<tr><td><strong>No <code>ButtonGroup</code> / <code>ButtonLayout</code></strong></td><td>Nos espaços <code>primaryButton</code> e <code>secondaryButton</code></td><td>Só no espaço <code>link</code></td></tr>
+</tbody></table>
+<p>ℹ️ São componentes irmãos: usam a mesma base interna (<code>BaseButton</code>), mas têm props e funções diferentes. Por isso cada um tem seu próprio arquivo de documentação.</p>
+<h4>ButtonLink</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>🎨 Texto do botão. Também aceita ícones misturados ao texto. (eles recebem o tamanho certo automaticamente).</td></tr>
+<tr><td><code>type</code></td><td><code>'default' | 'danger' | 'neutral'</code></td><td><code>'default'</code></td><td>🎨 Cor/estilo do link.</td></tr>
+<tr><td><code>withChevron</code></td><td>sim/não</td><td><code>true</code> com <code>to</code> ou <code>href</code>; senão <code>false</code></td><td>🎨 Mostra uma seta (›) depois do texto. Quando a seta aparece, o <code>EndIcon</code> não é exibido.</td></tr>
+<tr><td><code>bleedLeft</code></td><td>sim/não</td><td></td><td>🎨 Remove o espaço interno à esquerda, alinhando o texto com o conteúdo ao redor.</td></tr>
+<tr><td><code>bleedRight</code></td><td>sim/não</td><td></td><td>🎨 Remove o espaço interno à direita.</td></tr>
+<tr><td><code>bleedY</code></td><td>sim/não</td><td></td><td>🎨 Remove o espaço interno em cima e embaixo.</td></tr>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão compacta.</td></tr>
+<tr><td><code>showSpinner</code></td><td>sim/não</td><td></td><td>🎨 Mostra um spinner no lugar do conteúdo e desabilita o link.</td></tr>
+<tr><td><code>loadingText</code></td><td></td><td></td><td>🎨 Texto exibido ao lado do spinner.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>🎨 Desabilita o link.</td></tr>
+<tr><td><code>StartIcon</code></td><td></td><td></td><td>🎨 Ícone antes do texto.</td></tr>
+<tr><td><code>EndIcon</code></td><td></td><td></td><td>🎨 Ícone depois do texto. Não aparece quando a seta (<code>withChevron</code>) é exibida.</td></tr>
+<tr><td><code>tabIndex</code></td><td>número</td><td></td><td>♿ Ordem de foco pelo teclado.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Ação:</strong> use <strong>uma, e só uma</strong>, entre <code>onPress</code>, <code>to</code>, <code>href</code> e <code>fake</code>. Diferente dos outros botões, o <code>ButtonLink</code> <strong>não</strong> aceita <code>submit</code>.</p>
+<p>ℹ️ O link fica desabilitado automaticamente enquanto mostra o spinner.</p>
+<p>⚠️ Dentro de um <code>Form</code> do Design System, o link fica desabilitado enquanto o formulário está sendo enviado.</p>
+<p>⚠️ Em desenvolvimento, <code>to=""</code> ou <code>href=""</code> gera erro.</p>
+<h5>Diferença entre Button e ButtonLink</h5><table><thead><tr><th></th><th><code>ButtonPrimary</code> / <code>ButtonSecondary</code> / <code>ButtonDanger</code></th><th><code>ButtonLink</code></th></tr></thead><tbody>
+<tr><td><strong>Aparência</strong></td><td>Botão com fundo e/ou borda</td><td>Link de texto, sem fundo nem borda</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>submit</code></td><td><code>type</code>, <code>withChevron</code>, <code>bleedLeft</code>, <code>bleedRight</code>, <code>bleedY</code></td></tr>
+<tr><td><strong>Seta (›)</strong></td><td>Nunca</td><td>Automática ao navegar (<code>to</code> ou <code>href</code>)</td></tr>
+<tr><td><strong>Envio de formulário</strong></td><td>Sim, com <code>submit</code></td><td>Não</td></tr>
+<tr><td><strong>No <code>ButtonGroup</code> / <code>ButtonLayout</code></strong></td><td>Nos espaços <code>primaryButton</code> e <code>secondaryButton</code></td><td>Só no espaço <code>link</code></td></tr>
+</tbody></table>
+<p>ℹ️ São componentes irmãos: usam a mesma base interna (<code>BaseButton</code>), mas têm props e funções diferentes. Por isso cada um tem seu próprio arquivo de documentação.</p>
+<h4>IconButton</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>Icon</code> (obrigatória)</td><td></td><td></td><td>🎨 Ícone exibido. O tamanho e a cor são definidos pelo botão.</td></tr>
+<tr><td><code>type</code></td><td><code>'neutral' | 'brand' | 'danger'</code></td><td><code>'neutral'</code></td><td>🎨 Cor do botão.</td></tr>
+<tr><td><code>backgroundType</code></td><td><code>'transparent' | 'solid' | 'soft'</code></td><td><code>'transparent'</code></td><td>🎨 Estilo do fundo: sem fundo, fundo sólido ou fundo suave. É ignorado sobre fundo <code>media</code>.</td></tr>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão compacta.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>🎨 Desabilita o botão.</td></tr>
+<tr><td><code>showSpinner</code></td><td>sim/não</td><td></td><td>🎨 Mostra um spinner no lugar do ícone e desabilita o botão.</td></tr>
+<tr><td><code>bleedLeft</code></td><td>sim/não</td><td></td><td>🎨 Remove o espaço interno à esquerda, alinhando o ícone com o conteúdo ao redor.</td></tr>
+<tr><td><code>bleedRight</code></td><td>sim/não</td><td></td><td>🎨 Remove o espaço interno à direita.</td></tr>
+<tr><td><code>bleedY</code></td><td>sim/não</td><td></td><td>🎨 Remove o espaço interno em cima e embaixo.</td></tr>
+</tbody></table>
+<p>¹ℹ️ ️ <strong>Acessibilidade:</strong> é obrigatório passar <code>aria-label</code> <strong>ou</strong> <code>aria-labelledby</code> (só uma das duas). Como o botão não tem texto, sem isso o leitor de tela não informa a intenção do botão.</p>
+<p>ℹ️ <strong>Ação:</strong> use no máximo uma entre <code>onPress</code>, <code>to</code> e <code>href</code>. Sem nenhuma delas, o botão não tem ação própria; use assim dentro de um elemento que já é clicável.</p>
+<p>ℹ️ O componente não aceita <code>children</code>.</p>
+<h4>ToggleIconButton</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>checkedProps</code> (obrigatória)</td><td></td><td></td><td>🎨 Aparência do estado <strong>ligado</strong>. Veja <code>ToggleStateProps</code> abaixo.</td></tr>
+<tr><td><code>uncheckedProps</code> (obrigatória)</td><td></td><td></td><td>🎨 Aparência do estado <strong>desligado</strong>. Veja <code>ToggleStateProps</code> abaixo.</td></tr>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão compacta.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>🎨 Desabilita o botão.</td></tr>
+<tr><td><code>showSpinner</code></td><td>sim/não</td><td></td><td>🎨 Mostra um spinner no lugar do ícone e desabilita o botão.</td></tr>
+<tr><td><code>bleedLeft</code></td><td>sim/não</td><td></td><td>🎨 Remove o espaço interno à esquerda, alinhando o ícone com o conteúdo ao redor.</td></tr>
+<tr><td><code>bleedRight</code></td><td>sim/não</td><td></td><td>🎨 Remove o espaço interno à direita.</td></tr>
+<tr><td><code>bleedY</code></td><td>sim/não</td><td></td><td>🎨 Remove o espaço interno em cima e embaixo.</td></tr>
+</tbody></table>
+<h6>ToggleStateProps</h6>
+<p>Objeto passado em <code>checkedProps</code> e <code>uncheckedProps</code>.</p>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>type</code></td><td><code>'neutral' | 'brand' | 'danger'</code></td><td><code>'neutral'</code></td><td>🎨 Cor do botão nesse estado.</td></tr>
+<tr><td><code>backgroundType</code></td><td><code>'transparent' | 'solid' | 'soft'</code></td><td><code>'transparent'</code></td><td>🎨 Estilo do fundo nesse estado.</td></tr>
+<tr><td><code>Icon</code> (obrigatória)</td><td></td><td></td><td>Ícone do estado.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ Se o <code>onChange</code> retornar uma <code>Promise</code>, o estado só muda quando ela termina com sucesso. Se ela falhar, o botão continua no estado anterior.</p>
+<p>² ℹ️  <strong>Acessibilidade:</strong> cada estado precisa de <code>aria-label</code> <strong>ou</strong> <code>aria-labelledby</code>. Descrevendo a ação de cada estado (ex.: "Adicionar aos favoritos" / "Remover dos favoritos").</p>
+<p>ℹ️ O componente não aceita <code>children</code>, <code>onPress</code>, <code>to</code> nem <code>href</code>: a única ação é alternar o estado.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>ButtonLink</h4><p><strong>Figma:</strong> biblioteca Desktop › Button Link [D]</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Button Link</td><td>Existe</td><td>Sem ligação de código</td><td>O Design System só liga ao código o Button Link do Desktop</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Texto (camada <code>Action</code>)</td><td>texto livre</td><td><code>children</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Type</code></td><td><code>Default</code> · <code>Neutral</code> · <code>Danger</code></td><td><code>type</code></td><td>✅</td><td><code>Danger</code> também existe como componente próprio no código, o <code>ButtonLinkDanger</code>.</td></tr>
+<tr><td><code>State</code></td><td><code>Default</code> · <code>Pressed</code> · <code>Disabled</code> · <code>Loading</code></td><td><code>disabled</code>, <code>showSpinner</code></td><td>✅</td><td><code>Disabled</code> = <code>disabled</code>. <code>Loading</code> = <code>showSpinner</code> (o código também mostra o carregando sozinho enquanto a ação do clique está em andamento). <code>Pressed</code> não é prop: aparece sozinho quando o link é pressionado.</td></tr>
+<tr><td><code>Small</code></td><td><code>True</code> · <code>False</code></td><td><code>small</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Icon</code> + <code>Choose icon →</code></td><td><code>None</code> · <code>startIcon</code> · <code>endIcon</code> + ícone</td><td><code>StartIcon</code>, <code>EndIcon</code></td><td>⚠️</td><td>No Figma, o ícone fica antes <strong>ou</strong> depois do texto. No código são duas props separadas. O ícone depois do texto <strong>não aparece</strong> quando a seta de navegação (<code>withChevron</code>) está ligada.</td></tr>
+<tr><td><code>BleedLeft</code></td><td><code>True</code> · <code>False</code></td><td><code>bleedLeft</code></td><td>✅</td><td>Remove o espaço interno à esquerda.</td></tr>
+<tr><td><code>BleedRight</code></td><td><code>True</code> · <code>False</code></td><td><code>bleedRight</code></td><td>✅</td><td>Remove o espaço interno à direita.</td></tr>
+<tr><td><code>BleedY</code></td><td><code>True</code> · <code>False</code></td><td><code>bleedY</code></td><td>✅</td><td>Remove o espaço interno em cima e embaixo.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Alternative</code> · <code>Brand</code> · <code>Negative</code> · <code>Media</code></td><td>sem prop</td><td>⚠️</td><td>No código o link muda de cor sozinho conforme o <strong>fundo onde está</strong>. Os fundos do Figma e do código são os mesmos.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>Button</h4><p><strong>Figma:</strong></p>
+<ul>
+<li>Button Primary: biblioteca Desktop › Button Primary [D]
+</li>
+<li>Button Secondary: biblioteca Desktop › Button Secondary [D]
+</li>
+<li>Button Danger: biblioteca Desktop › Button Danger [D] · biblioteca Mobile › Button Danger
+</li></ul>
+<p>Os três botões têm as mesmas propriedades no Figma e as mesmas props no código. A única diferença entre eles no Figma é que o Button Danger não tem <code>Theme context</code>.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Valores de <code>Icon</code></td><td><code>None</code> · <code>startIcon</code> · <code>endIcon</code></td><td><code>None</code> · <code>StartIcon</code> · <code>EndIcon</code></td><td>Só o nome dos valores (maiúscula)</td></tr>
+<tr><td>Altura do Button Danger normal, sem ícone</td><td>48px</td><td>46px</td><td>Muda o design: 2px a menos no Mobile (com ícone ou carregando, o Mobile volta a 48px)</td></tr>
+<tr><td>Button Primary e Button Secondary</td><td>Existem</td><td>Sem ligação de código</td><td>O Design System só liga ao código os do Desktop</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Texto (camada <code>Action</code>)</td><td>texto livre</td><td><code>children</code></td><td>✅</td><td></td></tr>
+<tr><td><code>State</code></td><td><code>Default</code> · <code>Pressed</code> · <code>Disabled</code> · <code>Loading</code></td><td><code>disabled</code>, <code>showSpinner</code></td><td>✅</td><td><code>Disabled</code> = <code>disabled</code>. <code>Loading</code> = <code>showSpinner</code> (o código também mostra o carregando sozinho enquanto a ação do clique ou o envio do formulário está em andamento). <code>Pressed</code> não é prop: aparece sozinho quando o botão é pressionado.</td></tr>
+<tr><td><code>Small</code></td><td><code>True</code> · <code>False</code></td><td><code>small</code></td><td>✅</td><td>Altura de 32px (<code>True</code>) ou 48px (<code>False</code>).</td></tr>
+<tr><td><code>Icon</code> + <code>Choose icon →</code></td><td><code>None</code> · <code>startIcon</code> · <code>endIcon</code> + ícone</td><td><code>StartIcon</code>, <code>EndIcon</code></td><td>⚠️</td><td>No Figma, o ícone fica antes <strong>ou</strong> depois do texto. No código são duas props separadas, então dá para ter ícone antes <strong>e</strong> depois ao mesmo tempo.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code> · <code>Media</code></td><td>sem prop</td><td>⚠️</td><td>Só no Button Primary e no Button Secondary. No código os botões mudam de cor sozinhos conforme o <strong>fundo onde estão</strong>. O código também tem o fundo <code>Alternative</code>, que não existe no Figma.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>IconButton</h4><p><strong>Figma:</strong> biblioteca Desktop › Icon Button [D] · biblioteca Mobile › Icon Button</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Tamanho do componente com <code>Small=true</code></td><td>32px</td><td>48px</td><td>Pelo tamanho, o Mobile inclui a área de toque mínima de 48px em volta do botão. No código, o botão pequeno tem 32px visíveis e a área de toque de 48px em telas sensíveis ao toque</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Choose icon</code></td><td>instância de ícone</td><td><code>Icon</code></td><td>✅</td><td>O tamanho e a cor do ícone são definidos pelo botão.</td></tr>
+<tr><td><code>Type</code></td><td><code>Brand</code> · <code>Neutral</code> · <code>Danger</code></td><td><code>type</code></td><td>✅</td><td>Padrão <code>Neutral</code> no código.</td></tr>
+<tr><td><code>Background type</code></td><td><code>Solid</code> · <code>Soft</code> · <code>Transparent</code> (<code>—</code> no fundo <code>Media</code>)</td><td><code>backgroundType</code></td><td>✅</td><td>Padrão <code>Transparent</code> no código. Sobre fundo <code>Media</code>, o código também ignora o tipo de fundo, igual ao Figma.</td></tr>
+<tr><td><code>State</code></td><td><code>Default</code> · <code>Disabled</code> · <code>Loading</code></td><td><code>disabled</code>, <code>showSpinner</code></td><td>✅</td><td><code>Disabled</code> = <code>disabled</code>. <code>Loading</code> = <code>showSpinner</code> (o código também mostra o carregando sozinho enquanto a ação do clique está em andamento).</td></tr>
+<tr><td><code>Small</code></td><td><code>true</code> · <code>false</code></td><td><code>small</code></td><td>✅</td><td>Botão de 32px (<code>true</code>) ou 48px (<code>false</code>).</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Alternative</code> · <code>Brand</code> · <code>Negative</code> · <code>Media</code></td><td>sem prop</td><td>⚠️</td><td>No código o botão muda de cor sozinho conforme o <strong>fundo onde está</strong>. Os fundos do Figma e do código são os mesmos.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h4>ToggleIconButton</h4><p><strong>Figma:</strong> biblioteca Desktop › Toggle Icon Button [D]</p>
+<p>ℹ️ No Figma, o Toggle Icon Button é bem mais simples que no código: só tem a propriedade <code>Checked</code>. No código, cada estado (ligado e desligado) tem o próprio ícone, cor e tipo de fundo, e o botão também tem versão pequena, desabilitado e carregando.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Toggle Icon Button</td><td>Existe</td><td>Sem ligação de código</td><td>O Design System só liga ao código o Toggle Icon Button do Desktop</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Checked</code></td><td><code>true</code> · <code>false</code></td><td><code>checked</code> / <code>defaultChecked</code></td><td>✅</td><td>Ligado ou desligado.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Quando usar a opção de navegação (chevron) no Button Link? <strong>Resposta:</strong> O chevron do Button Link é <strong>só para navegação</strong>. Em ações (ex.: "Cancelar", "Limpar filtros"), não use chevron. Vale em qualquer contexto: button fixed, sheet ou modal.</p>
+<p><sub>Ref. #16 · 05/2024</sub></p>
+<p><strong>Dúvida:</strong> No botão com loading, é preciso usar reticências ("Enviando...")? <strong>Resposta:</strong> <strong>Não são obrigatórias.</strong> Pode usar só spinner + texto (o guia de conteúdo recomenda evitar reticências).</p>
+<p><sub>Ref. #26 · 07/2024</sub></p>
+<p><strong>Dúvida:</strong> Como fazer o Button Link com o chevron pequeno certo? <strong>Resposta:</strong> Nas propriedades do Button Link, ative <strong>navigation</strong>: ela puxa o chevron correto do componente. Não use um chevron avulso da biblioteca de ícones.</p>
+<p><sub>Ref. #36 · 10/2024</sub></p>
+<p><strong>Dúvida:</strong> No hover, o Button Link parece desalinhar do grid. Está certo? <strong>Resposta:</strong> Sim. O hover aparece muito rápido (no mobile mais ainda); na maior parte do tempo o botão fica no estado inicial, que é o alinhado. Não precisa alinhar o hover ao texto.</p>
+<p><sub>Ref. #143 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> O loading do Button Link desalinha o botão. Dá para alinhar à esquerda ou pôr o loading à direita? <strong>Resposta:</strong> Use a propriedade <strong>bleedLeft</strong> (existe no Figma e no código) para alinhar o Button Link ao conteúdo. A <strong>posição do loading é padrão</strong> (centralizada na área do botão) e não pode ser mudada. Dúvidas de implementação: o dev deve usar o canal de suporte de desenvolvimento do Design System.</p>
+<p><sub>Ref. #156 · 02/2025</sub></p>
+<p><strong>Dúvida:</strong> Para editar informação, uso Icon Button de editar ou Button Link "Editar xxx"? <strong>Resposta:</strong> Para editar <strong>um único campo</strong>, use o <strong>botão com ícone de editar</strong>. Para editar um <strong>bloco de informações</strong>, use o <strong>Button Link</strong> "Editar xxx".</p>
+<p><sub>Ref. #902 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> Há botão flutuante com notificação (ex.: chat minimizado)? <strong>Resposta:</strong> Não há componente exato. Havia uma iniciativa semelhante (botão flutuante de IA) na nova versão do app: envolva Pesquisa e Evolução para convergir as soluções. A solução adotada foi <strong>IconButton + Badge</strong>, construída de forma <strong>atômica</strong> no Figma (o Icon Button não aceita Badge nativamente).</p>
+<p><sub>Ref. #1211 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> Que hierarquia de botão usar em listagens extensas (ex.: "Pagar fatura" e "Mostrar assinatura")? <strong>Resposta:</strong> Escolha pela <strong>importância da ação</strong>, não pela aparência. <strong>Primário</strong> para a ação principal e transacional (ex.: pagar); <strong>secundário</strong> para ação de menor ênfase; <strong>Button Link</strong> para consulta ou navegação (ex.: ver detalhes), o que evita peso visual excessivo. <strong>Não equalize botões de ações semanticamente diferentes</strong> só para ficarem iguais. Para um padrão entre jornadas, valide com Pesquisa e Evolução.</p>
+<p><sub>Ref. #1222 · 08/2026</sub></p>
+<p><strong>Dúvida:</strong> O botão em dev tem padding diferente do Figma e o texto quebra em alguns aparelhos. <strong>Resposta:</strong> No Storybook não há esse padding extra, e <strong>os botões não quebram</strong>: o texto do label fica com <strong>reticências</strong>. Verifique se o dev fez alterações manuais.</p>
+<p><sub>Ref. #1347 · 10/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

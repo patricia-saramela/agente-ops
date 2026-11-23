@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MasterDetailLayout · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-master-detail-layout">
+<h2>MasterDetailLayout</h2>
+<p class="cat">Layout</p>
+<h3>Resumo</h3>
+<p>Layout de tela com uma <strong>lista</strong> (master) e o <strong>detalhe</strong> do item escolhido (detail), como uma caixa de e-mail ou uma lista de faturas com a fatura aberta ao lado. No desktop, a lista e o detalhe aparecem lado a lado. No celular e no tablet, aparece um de cada vez: a lista ou, quando há um item aberto (<code>isOpen</code>), o detalhe.</p>
+<p>ℹ️ <strong>Tipo de layout:</strong> é um layout <strong>orientado à página</strong>. Por dentro, é um <code>ResponsiveLayout</code> (margens da página) com um <code>GridLayout</code> no modelo <code>'4+6'</code>. Use no lugar desses dois, não dentro deles.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>MasterDetailLayout</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>master</code> (obrigatória)</td><td></td><td></td><td>Conteúdo da lista (ex.: uma <code>RowList</code> de faturas).</td></tr>
+<tr><td><code>detail</code></td><td></td><td></td><td>Conteúdo do item escolhido.¹</td></tr>
+<tr><td><code>isOpen</code> (obrigatória)</td><td>sim/não</td><td></td><td>Indica que há um item aberto. <strong>Só vale no celular e no tablet</strong>: com <code>true</code>, mostra o <code>detail</code>; com <code>false</code>, o <code>master</code>.²</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Detalhe vazio no desktop:</strong> no desktop, a coluna do detalhe aparece sempre, mesmo sem item escolhido. Passe no <code>detail</code> um conteúdo para esse caso (ex.: "Escolha uma fatura para ver os detalhes") ou o primeiro item já aberto.</p>
+<p>² ⚠️ <strong>Voltar para a lista:</strong> no celular e no tablet, a lista some quando o detalhe abre. A tela de detalhe precisa de um jeito de voltar (ex.: um botão de voltar no topo que muda o <code>isOpen</code> para <code>false</code>).</p>
+<p>ℹ️ <strong>Colunas no desktop:</strong> a lista ocupa 4 das 12 colunas, à esquerda; o detalhe ocupa 6, com uma coluna vazia antes e outra depois.</p>
+<p>ℹ️ <strong>Tamanho de tela:</strong> no tablet e no celular, um de cada vez; no desktop, lado a lado. Ver Tamanhos de tela. A troca é feita pelo JavaScript, que mede a tela: ao girar o tablet ou mudar o tamanho da janela, o layout muda na hora.</p>
+<p>ℹ️ <strong>Figma:</strong> o <code>MasterDetailLayout</code> não existe no Figma. No design, desenhe a tela de desktop com a layout grid de 12 colunas no modelo <code>4 + 6</code> (há um frame de referência na página <strong>Layouts</strong> do biblioteca Desktop) e, para o celular e o tablet, duas telas: a da lista e a do detalhe, com o caminho de volta.</p>
+<p>ℹ️ <strong>Sem identificação para testes:</strong> o <code>MasterDetailLayout</code> não aceita <code>dataAttributes</code>.</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

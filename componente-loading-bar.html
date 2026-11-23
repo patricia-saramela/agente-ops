@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loading Bar · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-loading-bar">
+<h2>Loading Bar</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Barra fina (4px) fixa no topo da tela, com uma faixa animada que corre da esquerda para a direita sem parar. Indica que algo está carregando sem bloquear a página, como na troca de página ou numa busca de dados. Não mostra o progresso real, só que há uma carga em andamento.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>LoadingBar</h4><ul>
+<li>⚠️ <strong>Cores invertidas:</strong> o código pinta o fundo e a faixa com as cores trocadas em relação ao Figma. Confirme com o time qual é o visual correto antes do handoff e, se for o do Figma, abra uma correção no Design System.
+</li>
+<li>⚠️ <strong>Posição:</strong> no código, a barra fica sempre fixa no topo da janela, por cima de todo o conteúdo (inclusive do cabeçalho). Desenhe-a colada no topo da tela, não abaixo do cabeçalho.
+</li>
+<li>⚠️ <strong>Animação:</strong> o Figma mostra só um quadro parado. Se o protótipo precisar mostrar a carga, use uma animação ou indique no handoff que a faixa corre sem parar.
+</li>
+<li>ℹ️ <strong>Dev Mode:</strong> o trecho de código mostra <code>&lt;LoadingBar visible /&gt;</code> no Desktop e no Mobile.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Animação da faixa</td><td>Não existe: a faixa fica parada, alinhada à esquerda</td><td>A faixa corre da esquerda para a direita sem parar (ciclo de 1,8s), e a barra entra e sai deslizando pelo topo. ⚠️ Diferente.</td></tr>
+<tr><td>Barra com progresso real (ex.: 40%)</td><td>Não existe</td><td>Não existe: o <code>LoadingBar</code> só indica que há uma carga, sem porcentagem. ✅ Igual.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>LoadingBar</h4><h5>Quando usar</h5><p><strong>Use a loading bar quando:</strong></p>
+<ul>
+<li>O carregamento não foi disparado por uma ação do usuário.
+</li></ul>
+<p><strong>Não use a loading bar quando:</strong></p>
+<ul>
+<li>For o carregamento inicial do conteúdo. Use um Skeleton.
+</li>
+<li>O conteúdo que vai carregar é desconhecido (ex.: webviews de terceiros). Use um Spinner.
+</li>
+<li>O carregamento é parcial e disparado por uma ação do usuário. Use um Spinner.
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>visible</code> (obrigatória)</td><td>sim/não</td><td></td><td>Mostra (<code>true</code>) ou esconde (<code>false</code>) a barra. Ela entra e sai deslizando pelo topo.</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Posição:</strong> a barra fica sempre no topo da janela, por cima de todo o conteúdo, inclusive de outros elementos flutuantes. Ela não ocupa espaço na página, então pode ser colocada em qualquer lugar do código.</p>
+<p>ℹ️ <strong>Cor:</strong> vem do tema (<code>loadingBar</code> para o fundo da barra e <code>loadingBarBackground</code> para a faixa animada). Não há prop de cor nem de tamanho.</p>
+<p>ℹ️ <strong>Esconder:</strong> com <code>visible={false}</code>, a barra só sai da tela, mas continua montada. Para tirá-la de vez, deixe de renderizar o componente.</p>
+<p>ℹ️ O <code>LoadingBar</code> não aceita <code>children</code>.</p>
+<p>⚠️ <strong>Acessibilidade:</strong> a barra é só visual e não é anunciada pelo leitor de tela. Se a carga for importante para o usuário, avise de outro jeito (por exemplo, um texto ou um <code>aria-busy</code> na área que está carregando).</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>LoadingBar</h4><p><strong>Figma:</strong> biblioteca Desktop › Loading Bar [D] · biblioteca Mobile › Loading Bar</p>
+<p>ℹ️ No Figma, o Loading Bar <strong>não tem propriedades</strong>: é uma barra estática de 375 × 4px com um fundo e uma faixa de 300px. No Desktop, o fundo e a faixa são duas camadas (<code>Secondary</code> e <code>Primary</code>); no Mobile, o fundo é o preenchimento do próprio componente e a faixa é a camada <code>LoadingBar</code>. O resultado visual é o mesmo.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Presença do componente na tela</td><td>colocado ou não</td><td><code>visible</code></td><td>✅</td><td>Colocar o Loading Bar na tela equivale a <code>visible={true}</code>. No código, <code>visible={false}</code> faz a barra sair deslizando pelo topo.</td></tr>
+<tr><td>Altura</td><td>4px</td><td>sem prop</td><td>✅</td><td>4px nos dois.</td></tr>
+<tr><td>Largura</td><td>375px fixos</td><td>sem prop</td><td>⚠️</td><td>No código, a barra sempre ocupa a largura inteira da janela. No Figma, estique o componente até a largura da tela.</td></tr>
+<tr><td>Cores (fundo e faixa)</td><td>fundo <code>loadingBarBackground</code> · faixa <code>loadingBar</code></td><td>sem prop</td><td>⚠️</td><td><strong>Invertidas no código:</strong> lá o fundo usa <code>loadingBar</code> e a faixa animada usa <code>loadingBarBackground</code>. Com as cores atuais, o Figma mostra fundo escuro e faixa clara, e o código mostra fundo claro e faixa escura.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

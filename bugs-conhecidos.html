@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parte 7 · Bugs e pendências conhecidos · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<h1>Parte 7 · Bugs e pendências conhecidos</h1><p>Itens reportados ao time que não tinham solução registrada na data. Use só como alerta de que o problema já é conhecido.</p>
+<ul>
+<li><strong>Componentes &gt; Buttons layout:</strong> Após atualizar a biblioteca, o Fixed Footer Layout mudou o preset de texto de 3 para 5, o que quebra números grandes no mobile. A troca foi intencional? <em>Sem resposta registrada.</em> <sub>(Ref. #30 · 07/2024)</sub>
+</li>
+<li><strong>Componentes &gt; Buttons layout:</strong> No Button Group (internal use) "Primary + Button Link", ao desligar <strong>Small</strong>, só o Primary volta ao tamanho normal. <em>Inconsistência confirmada e levada ao time global para correção. Confira o tamanho dos dois botões.</em> <sub>(Ref. #126 · 01/2025)</sub>
+</li>
+<li><strong>Componentes &gt; Timeline:</strong> A Timeline só aceita um slot por etapa; como mostrar várias sub-etapas por macro-etapa? <em>Tratado em conversa privada; sem orientação registrada.</em> <sub>(Ref. #210 · 03/2025)</sub>
+</li>
+<li><strong>Componentes &gt; Buttons layout:</strong> No Fixed Footer da biblioteca Modules, o espaço entre o texto de aceite e o botão parece desproporcional. <em>Em análise; sem conclusão registrada.</em> <sub>(Ref. #380 · 06/2025)</sub>
+</li>
+<li><strong>Componentes &gt; Drawer:</strong> O Button Primary não fica disabled dentro do Drawer; depois da correção, a animação do footer parecia atrasada. <em>O time global abriu e corrigiu o problema do disabled. O atraso não foi reproduzido no Design System: parecia problema da implementação, que forçava o comportamento de desktop. No mobile, o Drawer deve <strong>vir de baixo</strong>.</em> <sub>(Ref. #403 · 07/2025)</sub>
+</li>
+<li><strong>Componentes &gt; Card:</strong> No Advanced Data Card [D], o padding direito do título parece desalinhado; no Highlighted Value Block [D], o support text estava em bold e desalinhado. <em>O bug do Highlighted Value Block foi corrigido (atualize o componente ou puxe um novo). O padding do Advanced Data Card ficou em investigação.</em> <sub>(Ref. #461 · 08/2025)</sub>
+</li>
+<li><strong>Componentes &gt; Mosaic:</strong> A primeira célula do Vertical Mosaic de 8 células está quebrada. <em>Reportado ao time global (outras variantes também tinham problema).</em> <sub>(Ref. #639 · 10/2025)</sub>
+</li>
+<li><strong>Componentes &gt; Drawer:</strong> O slot do Drawer não acompanha a altura do conteúdo. <em>Sem resposta registrada.</em> <sub>(Ref. #821 · 02/2026)</sub>
+</li>
+<li><strong>Componentes &gt; List:</strong> Há impeditivo nos agrupamentos de Rows propostos (compra combinada, switch de fidelidade)? <em>Pediram o contexto; sem conclusão registrada.</em> <sub>(Ref. #936 · 03/2026)</sub>
+</li>
+<li><strong>Componentes &gt; Tabs:</strong> No tablet, as Tabs dentro de um drawer não ocupam toda a largura. <em>O componente deve preencher <strong>100% da largura</strong>; a limitação foi levada ao time global.</em> <sub>(Ref. #1004 · 04/2026)</sub>
+</li>
+<li><strong>Componentes &gt; List:</strong> O Circled Icon no Boxed Row [D] quebra ao ativar Centered. <em>O asset estava com largura Fill (o componente vem em Hug); resete a instância. Possível bug do Figma, reportado ao time global.</em> <sub>(Ref. #1127 · 06/2026)</sub>
+</li>
+<li><strong>Input fields:</strong> O tooltip do Credit Card Fields aparece desalinhado. <em>Dois bugs abertos com o time global (ícones de cartão e campo CVV).</em> <sub>(Ref. #1137 · 07/2026)</sub>
+</li>
+<li><strong>Componentes &gt; Drawer:</strong> Com o Drawer aberto, o body ao fundo continua rolando (duas barras de rolagem). <em>Repassado ao time Core de System para ajuste.</em> <sub>(Ref. #1296 · 09/2026)</sub>
+</li>
+<li><strong>Ícones e ilustrações:</strong> Há versão do ícone de chat de IA com o brilho (sparkle) preenchido, para combinar com o de busca com IA? <em>Em análise (o time pediu contexto); sem conclusão registrada.</em> <sub>(Ref. #1409 · 11/2026)</sub>
+</li></ul>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

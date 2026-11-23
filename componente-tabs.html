@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tabs · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-tabs">
+<h2>Tabs</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Abas para alternar entre conteúdos da mesma tela, como "Faturas", "Consumo" e "Plano". Só uma aba fica selecionada, marcada com uma linha embaixo. O componente controla só as abas: quem usa guarda a aba selecionada (<code>selectedIndex</code>) e mostra o conteúdo dela, direto na tela ou pelo <code>renderPanel</code>.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Tabs</h4><ul>
+<li>⚠️ <strong>Aba selecionada:</strong> marque só uma aba com <code>Checked=True</code>. No código, não há como ter duas abas selecionadas.
+</li>
+<li>⚠️ <strong>Largura no celular:</strong> com até 3 abas, elas sempre dividem a largura toda; com 4 ou mais, cada uma tem a largura do texto e a barra rola para o lado. Não desenhe 4 abas dividindo a largura nem 2 ou 3 com a largura do texto.
+</li>
+<li>⚠️ <strong>Texto longo:</strong> no código, cada aba tem no máximo 284px de largura (e no mínimo 80px). Textos maiores quebram em mais linhas, sem cortar palavras no meio. Prefira textos curtos.
+</li>
+<li>⚠️ <strong>Conteúdo das abas:</strong> desenhe o conteúdo de cada aba e indique qual aba vem selecionada ao abrir a tela.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código é sempre um exemplo fixo com 3 abas ("Tab 1", "Tab 2" e "Tab 3"), sem ícone e com a primeira selecionada. O <code>Icon</code> e o <code>Theme context</code> do design não aparecem.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Duas abas selecionadas</td><td>Dá para montar (<code>Checked=True</code> em mais de uma aba)</td><td>Não existe: só uma aba fica selecionada. ⚠️ Diferente.</td></tr>
+<tr><td>Algumas abas com ícone e outras sem</td><td>Só escondendo a camada do ícone</td><td>Existe: o <code>Icon</code> é escolhido em cada aba. ⚠️ Diferente.</td></tr>
+<tr><td>Uma aba só</td><td>Não existe</td><td>Existe e, no celular, ocupa a largura toda. ⚠️ Diferente.</td></tr>
+<tr><td>Até 3 abas dividindo a largura no celular</td><td>Existe (<code>Item number</code> <code>2</code> e <code>3</code>)</td><td>Existe. ✅ Igual.</td></tr>
+<tr><td>Mais abas do que cabem na tela</td><td>Existe (<code>+3 (Scroll)</code>)</td><td>Existe: a barra rola para o lado, sem barra de rolagem visível. ✅ Igual.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Tabs</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>selectedIndex</code> (obrigatória)</td><td>número</td><td></td><td>Posição (a partir de 0) da aba selecionada. O componente é sempre controlado: atualize o valor no <code>onChange</code>.</td></tr>
+<tr><td><code>onChange</code> (obrigatória)</td><td></td><td></td><td>Chamada com a posição da aba clicada. Não é chamada ao clicar na aba que já está selecionada, nem durante a animação da linha (300ms).¹</td></tr>
+<tr><td><code>tabs</code> (obrigatória)</td><td><code>ReadonlyArray&lt;{text, Icon?, trackingEvent?, id?, 'aria-controls'?}&gt;</code></td><td></td><td>Lista das abas, na ordem.²</td></tr>
+<tr><td><code>renderPanel</code></td><td></td><td></td><td>Mostra, logo abaixo das abas, o conteúdo da aba selecionada. Espalhe o <code>panelProps</code> no elemento do conteúdo: ele traz o <code>id</code>, o <code>role="tabpanel"</code>, o <code>tabIndex</code> e o <code>aria-labelledby</code>, que ligam o conteúdo à aba para o leitor de tela.³</td></tr>
+<tr><td><code>selectedTabRef</code></td><td></td><td></td><td>Referência ao elemento da aba selecionada (ex.: para rolar até ela).</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Animação:</strong> ao trocar de aba, a linha desliza da aba anterior para a nova em 300ms. Cliques durante esse tempo são ignorados.</p>
+<p>² ℹ️ <strong>Cada aba</strong> (item de <code>tabs</code>):</p>
+<table><thead><tr><th>Campo</th><th>Tipo</th><th>Obrigatório</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>text</code></td><td><code>string</code></td><td>Sim</td><td>Texto da aba.</td></tr>
+<tr><td><code>Icon</code></td><td><code>(props: IconProps) =&gt; JSX.Element</code></td><td></td><td>Ícone de 24px à esquerda do texto (ex.: <code>IconBusRegular</code>).</td></tr>
+<tr><td><code>trackingEvent</code></td><td><code>TrackingEvent | ReadonlyArray&lt;TrackingEvent&gt;</code></td><td></td><td>Evento de analytics enviado ao clicar na aba.</td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td><td><code>id</code> do elemento da aba. Sem ele, o id é gerado sozinho.³</td></tr>
+<tr><td><code>aria-controls</code></td><td><code>string</code></td><td></td><td>♿ <code>id</code> do conteúdo que a aba mostra. Com <code>renderPanel</code>, é gerado sozinho, e passar este campo troca o <code>id</code> do <code>panelProps</code>.</td></tr>
+</tbody></table>
+<p>³ ⚠️ <strong><code>id</code> próprio com <code>renderPanel</code>:</strong> o <code>aria-labelledby</code> do <code>panelProps</code> sempre usa o id gerado da aba, mesmo quando a aba tem um <code>id</code> próprio. Nesse caso, o conteúdo fica ligado a um id que não existe e o leitor de tela não diz o nome da aba. Com <code>renderPanel</code>, não passe <code>id</code> nas abas.</p>
+<p>ℹ️ <strong>Largura das abas:</strong></p>
+<table><thead><tr><th></th><th>Desktop</th><th>Tablet e celular</th></tr></thead><tbody>
+<tr><td>Até 3 abas</td><td>Cada aba tem a largura do texto, alinhadas à esquerda</td><td>As abas dividem a largura toda em partes iguais</td></tr>
+<tr><td>4 abas ou mais</td><td>Cada aba tem a largura do texto, alinhadas à esquerda</td><td>Cada aba tem a largura do texto</td></tr>
+</tbody></table>
+<p>Cada aba tem no mínimo 80px e no máximo 284px de largura, e 56px de altura. Quando as abas não cabem, a barra rola para o lado (sem barra de rolagem visível). O texto não é quebrado no meio das palavras.</p>
+<p>ℹ️ <strong>Teclado:</strong> só a aba selecionada recebe foco pela tecla Tab. As setas <strong>←</strong> e <strong>→</strong> movem o foco entre as abas (da última volta para a primeira), e <strong>Enter</strong> ou <strong>Espaço</strong> seleciona a aba com foco.</p>
+<p>ℹ️ <strong>Aparência:</strong> a aba selecionada tem o texto na cor principal e a linha embaixo; as outras ficam na cor secundária. Há uma linha fina embaixo de todas as abas. As cores mudam sozinhas conforme o fundo <code>brand</code> ou <code>negative</code> (no fundo <code>media</code>, só a linha fina muda de cor). O componente ocupa a largura toda, sem margens laterais.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Tabs</h4><p><strong>Figma:</strong> biblioteca Desktop › Tabs [D] · biblioteca Mobile › Tabs</p>
+<p>ℹ️ No Figma, cada aba é uma instância interna <strong>_resources/Tab</strong>, com <code>Checked</code> (<code>True</code> · <code>False</code>). A aba selecionada é escolhida à mão. No código, as abas são uma lista (<code>tabs</code>) e a selecionada vem do <code>selectedIndex</code>.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Valores de <code>Icon</code></td><td><code>Off</code> · <code>On</code></td><td><code>True</code> · <code>False</code></td><td>Só o nome dos valores</td></tr>
+<tr><td>Quantidade de abas</td><td>Não existe propriedade: 5 abas visíveis e mais 4 escondidas nas camadas</td><td><code>Item number</code> (<code>2</code> · <code>3</code> · <code>+3 (Scroll)</code>)</td><td>No Desktop, para mudar a quantidade, é preciso mostrar ou esconder camadas</td></tr>
+<tr><td>Largura das abas</td><td>Cada aba tem a largura do texto</td><td>Com <code>2</code> ou <code>3</code>, as abas dividem a largura toda; com <code>+3 (Scroll)</code>, cada uma tem a largura do texto e a barra rola para o lado</td><td>Muda o design, igual ao código: no celular, até 3 abas ocupam a largura toda</td></tr>
+<tr><td><code>Choose icon</code> (_resources/Tab)</td><td>Não existe na aba: o ícone é trocado na camada interna do ícone</td><td>Existe na aba</td><td>No Mobile, o ícone é trocado direto na aba</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Texto da aba (camada <code>Label</code>)</td><td>texto livre</td><td><code>text</code> de cada item de <code>tabs</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Icon</code></td><td><code>Off</code> · <code>On</code></td><td><code>Icon</code> de cada item de <code>tabs</code></td><td>✅</td><td>No Figma, liga ou desliga o ícone em todas as abas. No código, cada aba pode ter ou não ícone.</td></tr>
+<tr><td><code>Choose icon</code> (_resources/Tab)</td><td>qualquer ícone</td><td><code>Icon</code> de cada item de <code>tabs</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Checked</code> (_resources/Tab)</td><td><code>True</code> · <code>False</code></td><td><code>selectedIndex</code></td><td>⚠️</td><td>No Figma, cada aba é marcada à mão. No código, só uma aba fica selecionada: a da posição <code>selectedIndex</code> (a primeira é <code>0</code>).</td></tr>
+<tr><td>Quantidade de abas</td><td>5 a 9 pelas camadas (Desktop) · <code>Item number</code> <code>2</code>, <code>3</code> ou <code>+3 (Scroll)</code> (Mobile)</td><td>quantidade de itens em <code>tabs</code></td><td>⚠️</td><td>No código, pode haver qualquer quantidade de abas, inclusive uma só.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, as cores mudam sozinhas conforme o fundo onde as abas estão.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

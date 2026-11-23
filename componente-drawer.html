@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drawer · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-drawer">
+<h2>Drawer</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Painel que abre por cima da tela, com o fundo escurecido: no celular, sobe a partir da parte de baixo e ocupa a tela inteira; no tablet e no desktop, entra pela direita, ocupa a altura toda e tem os cantos da esquerda arredondados. Tem título, subtítulo, descrição, conteúdo livre e até três ações no rodapé. Use para mostrar detalhes ou opções sem sair da página, como filtros ou o resumo de um pedido.</p>
+<p>⚠️ <strong>Uso na web:</strong> o Drawer foi feito para ser usado na web (tablet e desktop). No celular, é recomendado usar um modal no lugar (ver Modals).</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Drawer</h4><ul>
+<li>⚠️ <strong>Celular:</strong> para telas de celular, desenhe um modal no lugar do Drawer.
+</li>
+<li>⚠️ <strong>Fechar:</strong> informe se o usuário pode fechar sem escolher uma ação (X e toque fora). No código, a tecla Esc fecha sempre.
+</li>
+<li>⚠️ <strong>Linhas divisórias:</strong> no código, as linhas abaixo do título e acima dos botões só aparecem quando o conteúdo rola. Não precisa controlar isso no design.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código mostra só <code>title</code>, <code>subtitle</code>, <code>description</code>, <code>onClose</code> e um texto fixo "Content". Não mostra os botões, o X (<code>onDismiss</code>) nem o conteúdo do slot.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Só o link no rodapé</td><td>Não existe</td><td>Existe, só com <code>buttonLink</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Só o botão secundário</td><td>Só no Desktop</td><td>Existe, só com <code>secondaryButton</code>. ⚠️ Diferente no Mobile.</td></tr>
+<tr><td>Sem X e sem jeito de fechar (<code>Dismiss=False</code>, <code>Actions=False</code>)</td><td>Existe</td><td>Fecha só pela tecla Esc. ⚠️ Diferente: evite.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Drawer</h4><h5>Propriedades</h5><h6>Drawer</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>width</code></td><td>número</td><td></td><td>🎨 Largura em px no tablet e no desktop. Ignorada no celular.¹</td></tr>
+<tr><td><code>onClose</code> (obrigatória)</td><td></td><td></td><td>Chamada depois que o drawer termina de fechar, por qualquer motivo. Nela, <strong>tire o <code>Drawer</code> da tela</strong> (deixe de renderizá-lo).²</td></tr>
+<tr><td><code>title</code></td><td></td><td></td><td>Título, fixo no topo.</td></tr>
+<tr><td><code>subtitle</code></td><td></td><td></td><td>Subtítulo, no início da área com rolagem.</td></tr>
+<tr><td><code>description</code></td><td></td><td></td><td>Descrição em cor secundária, abaixo do subtítulo.</td></tr>
+<tr><td><code>onDismiss</code></td><td></td><td></td><td>Chamada quando o usuário fecha sem escolher uma ação. <strong>Com ela, o drawer ganha o botão X e fecha ao tocar fora.</strong>²</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Conteúdo livre, abaixo da descrição.</td></tr>
+<tr><td><code>button</code></td><td></td><td></td><td>Botão principal no rodapé (ver "Objeto de botão").</td></tr>
+<tr><td><code>secondaryButton</code></td><td></td><td></td><td>Botão secundário no rodapé.</td></tr>
+<tr><td><code>buttonLink</code></td><td></td><td></td><td>Link no rodapé.</td></tr>
+<tr><td><code>titleAs</code></td><td></td><td><code>'h2'</code></td><td>♿ Nível de título do HTML (<code>h1</code> a <code>h6</code>) usado no título. Não muda a aparência.</td></tr>
+<tr><td><code>dismissLabel</code></td><td></td><td>texto do tema ("Fechar")</td><td>♿ Texto lido pelo leitor de tela no botão X.</td></tr>
+</tbody></table>
+<h6>Objeto de botão (<code>button</code>, <code>secondaryButton</code>, <code>buttonLink</code>)</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>text</code> (obrigatória)</td><td></td><td></td><td>Texto do botão.</td></tr>
+<tr><td><code>onPress</code></td><td></td><td></td><td>Chamada no clique, <strong>depois</strong> que o drawer fecha.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Botão desabilitado.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Tamanho:</strong> no celular, o drawer ocupa a tela inteira. No tablet e no desktop, a altura é a da tela e a largura mínima é de 388px mais as margens internas, e a máxima é a largura da tela menos 40px.</p>
+<p>² ℹ️ <strong>Como o drawer fecha:</strong></p>
+<table><thead><tr><th>Ação do usuário</th><th>Fecha?</th><th>O que é chamado</th></tr></thead><tbody>
+<tr><td>Clique num botão do rodapé</td><td>Sim</td><td><code>onClose</code> e depois o <code>onPress</code> do botão</td></tr>
+<tr><td>Botão X</td><td>Só com <code>onDismiss</code> (sem ela, o X não aparece)</td><td><code>onClose</code> e depois <code>onDismiss</code></td></tr>
+<tr><td>Toque fora (no fundo escuro)</td><td>Só com <code>onDismiss</code></td><td><code>onClose</code> e depois <code>onDismiss</code></td></tr>
+<tr><td>Tecla Esc</td><td><strong>Sempre</strong></td><td><code>onClose</code> e depois <code>onDismiss</code>, se existir</td></tr>
+</tbody></table>
+<p>³ ⚠️ <strong>Acessibilidade dos botões:</strong> os campos <code>aria-*</code> do objeto de botão são ignorados pelo código. Use um <code>text</code> que explique a ação sozinho.</p>
+<p>⁴ ℹ️ <strong>Drawer com formulário (<code>form</code>):</strong> os campos colocados no <code>children</code> passam a fazer parte do formulário.</p>
+<ul>
+<li>O <code>button</code> envia o formulário: o <code>onPress</code> dele é <strong>ignorado</strong>. Use o <code>form.onSubmit</code>.
+</li>
+<li>O formulário é validado antes do envio. Com erro, o drawer continua aberto e mostra os erros.
+</li>
+<li>Sem erros, o <code>onSubmit</code> é chamado e o drawer <strong>fecha quando ele termina</strong> (se devolver uma <code>Promise</code>, espera ela terminar). Se a <code>Promise</code> falhar, o drawer continua aberto.
+</li>
+<li>O <code>secondaryButton</code> e o <code>buttonLink</code> continuam funcionando como antes: fecham o drawer e chamam o <code>onPress</code>, sem enviar o formulário.
+</li></ul>
+<p>⚠️ <strong>Esc sem <code>onDismiss</code>:</strong> o código promete que o drawer só fecha com <code>onDismiss</code>, mas a tecla Esc fecha sempre. Se o usuário não puder sair sem escolher uma ação, não conte com isso.</p>
+<p>ℹ️ <strong>Rolagem:</strong> o título e o rodapé ficam fixos; só o meio rola. Quando há rolagem, aparece uma linha divisória abaixo do título e acima dos botões.</p>
+<p>ℹ️ <strong>Botões no rodapé:</strong> lado a lado no desktop; no celular, ocupam a largura toda, um embaixo do outro. Sem <code>button</code>, <code>secondaryButton</code> e <code>buttonLink</code>, o rodapé não aparece.</p>
+<p>ℹ️ Enquanto o drawer está aberto, o foco do teclado fica preso dentro dele.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Drawer</h4><p><strong>Figma:</strong> biblioteca Desktop › Drawer [D] · biblioteca Mobile › Drawer</p>
+<p>⚠️ <strong>Uso na web:</strong> o Drawer foi feito para ser usado na web (tablet e desktop). No celular, é recomendado usar um modal no lugar (ver Modals).</p>
+<p>ℹ️ Os botões e o link ficam na instância interna <strong>Button Fixed Footer Layout [D]</strong> (Desktop) ou <strong>Button Fixed Footer Layout</strong> (Mobile), e o botão X na instância <strong>.dismissAction</strong>.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Botões e link (instância interna)</td><td><code>Variant</code>: <code>Primary+Link</code>, <code>Primary</code>, <code>Secondary+Link</code>, <code>Secondary</code>, <code>Primary+Secondary</code>, <code>Primary+Secondary+Link</code></td><td><code>Secondary</code> e <code>Add link</code> (<code>On</code> · <code>Off</code>), com o botão principal sempre visível, e <code>Shadow</code> (<code>Yes</code> · <code>No</code>)</td><td>No Mobile não dá para ter só o botão secundário, e há a opção de sombra no rodapé. Os botões ficam empilhados na largura toda no Mobile, igual ao código</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Title</code></td><td><code>True</code> · <code>False</code></td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Subtitle</code></td><td><code>True</code> · <code>False</code></td><td><code>subtitle</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Description</code></td><td><code>True</code> · <code>False</code></td><td><code>description</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Slot</code> + <code>🔄 Replace Slot</code></td><td><code>True</code> · <code>False</code> + instância</td><td><code>children</code></td><td>✅</td><td>Conteúdo livre abaixo da descrição.</td></tr>
+<tr><td><code>Dismiss</code></td><td><code>True</code> · <code>False</code></td><td><code>onDismiss</code></td><td>⚠️</td><td>O X aparece com <code>onDismiss</code>, igual ao Figma. Mas no código <code>onDismiss</code> também faz o drawer fechar ao tocar fora, e a tecla Esc fecha o drawer <strong>mesmo com <code>Dismiss=False</code></strong>.</td></tr>
+<tr><td><code>Actions</code> + botões da instância interna</td><td><code>True</code> · <code>False</code> + combinação de botões</td><td><code>button</code>, <code>secondaryButton</code>, <code>buttonLink</code></td><td>✅</td><td>Cada botão vira uma prop com o texto e a ação. Sem nenhuma das três, o rodapé não aparece (<code>Actions=False</code>).</td></tr>
+<tr><td><code>Content overflow</code></td><td><code>True</code> · <code>False</code></td><td>sem prop</td><td>⚠️</td><td>No código é automático: a linha acima dos botões aparece sozinha quando o conteúdo rola. O mesmo vale para a linha abaixo do título, que no Figma está sempre visível.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> O Side Drawer (ext) tem um slot; como colocar vários itens (ex.: 7 Boxed Rows)? <strong>Resposta:</strong> Monte um <strong>template local</strong> com a quantidade necessária de Boxed Rows do Design System e aplique-o como slot.</p>
+<p><sub>Ref. #40 · 10/2024</sub></p>
+<p><strong>Dúvida:</strong> Quantos níveis de navegação são permitidos dentro do Side Drawer? <strong>Resposta:</strong> O <strong>Side Drawer (ext)</strong> foi uma solução <strong>provisória</strong> de MVP. Hoje existe o <strong>Drawer</strong> na biblioteca principal do Design System: use esse. Por boas práticas e acessibilidade, <strong>evite navegação dentro do drawer</strong>.</p>
+<p><sub>Ref. #241 · 04/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso montar um seletor de cor com Circles? Posso aumentar o espaço entre o título e o slot do Drawer? <strong>Resposta:</strong> (1) Não existe componente de seletor de cor com bolinhas (poderia ser estudado); no app usa-se o <strong>Select</strong>. (2) O espaçamento entre título e slot <strong>não pode ser alterado</strong> no componente; se o conteúdo do slot precisar de padding superior, <strong>descreva no handoff</strong> onde o dev deve adicionar.</p>
+<p><sub>Ref. #768 · 01/2026</sub></p>
+<p><strong>Dúvida:</strong> O clique no X do Side Drawer não diferencia a etapa para analytics. <strong>Resposta:</strong> A URL não muda entre as etapas, tecnicamente é a mesma página. Isso deve ser resolvido com o dev responsável e com Research Ops (no caso, a squad contornou).</p>
+<p><sub>Ref. #918 · 03/2026</sub></p>
+<p><strong>Dúvida:</strong> No tablet (768×1024), o Drawer em produção se comporta como no desktop. Ajusto o Figma? <strong>Resposta:</strong> <strong>Não.</strong> No Storybook e no Playroom o Drawer abre <strong>de baixo</strong> no tablet, como documentado. O dev deve levar o problema ao canal de suporte de desenvolvimento.</p>
+<p><sub>Ref. #1077 · 06/2026</sub></p>
+<p>⚠️ <strong>Divergente do código (vale o código):</strong> no código atual, no tablet o Drawer entra <strong>pela direita</strong>, como no desktop. Só no celular ele sobe de baixo.</p>
+<p><strong>Dúvida:</strong> O dev diz que não consegue fixar o Button Fixed Footer Layout no rodapé do Drawer. <strong>Resposta:</strong> No código, o Drawer <strong>já tem os botões como propriedades</strong> (no padrão do Figma); o dev não deve adicionar outro Fixed Footer. Persistindo, o dev deve procurar o canal de suporte de desenvolvimento.</p>
+<p><sub>Ref. #1147 · 07/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

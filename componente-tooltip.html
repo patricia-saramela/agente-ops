@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tooltip · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-tooltip">
+<h2>Tooltip</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Balão pequeno que aparece ao passar o mouse sobre um elemento da tela (o alvo), com uma seta apontando para ele. Mostra uma dica curta, como o que significa um ícone. No celular, abre com um toque no alvo. Diferente do Popover, não tem botão de fechar: some sozinho quando o mouse sai.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Tooltip</h4><ul>
+<li>⚠️ <strong>Posição invertida:</strong> a <code>Arrow position</code> do Figma é o contrário da <code>position</code> do código. Diga onde o balão deve ficar em relação ao alvo (ex.: "abaixo do ícone"), e não só a posição da seta.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código copia a <code>Arrow position</code> direto para a <code>position</code> (<code>↑ Top</code> vira <code>position="top"</code>), então o balão abre do lado oposto ao do design. Corrija pela tabela de equivalência acima. O alvo do trecho é sempre um texto de exemplo (<code>&lt;span&gt;Target element&lt;/span&gt;</code>).
+</li>
+<li>⚠️ <strong>Alvo:</strong> use um alvo que receba foco pelo teclado, como um <code>IconButton</code>. Um ícone solto não abre o balão para quem usa teclado.
+</li>
+<li>⚠️ <strong>Informação importante:</strong> o leitor de tela não lê o conteúdo do Tooltip junto com o alvo. Não deixe uma informação só no balão.
+</li>
+<li>⚠️ <strong>Celular:</strong> no celular, o balão abre com um toque e fecha com um toque fora. Se o alvo também fizer outra coisa ao ser tocado (ex.: um botão), as duas coisas acontecem juntas.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Seta fora do centro do balão</td><td>Não existe</td><td>Existe (<code>alignment="start"</code> ou <code>"end"</code>, ou quando o balão encosta na borda da tela). ⚠️ Diferente.</td></tr>
+<tr><td>Balão do lado oposto quando não há espaço</td><td>Não existe: a posição é fixa</td><td>O balão troca de lado sozinho. ⚠️ Diferente.</td></tr>
+<tr><td>Tooltip sobre fundo <code>brand</code> ou <code>negative</code></td><td>Não existe propriedade de tema</td><td>O conteúdo continua com as cores do fundo padrão; só a borda muda. ✅ Igual.</td></tr>
+<tr><td>Balão com botão X</td><td>Não existe</td><td>Não existe (para isso, use o Popover). ✅ Igual.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Tooltip</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>position</code></td><td><code>'top' | 'bottom' | 'left' | 'right'</code></td><td><code>'top'</code></td><td>🎨 Lado do alvo em que o balão abre.¹</td></tr>
+<tr><td><code>alignment</code></td><td><code>'start' | 'middle' | 'end'</code></td><td><code>'middle'</code></td><td>🎨 Alinhamento do balão em relação ao alvo (início, centro ou fim).</td></tr>
+<tr><td><code>width</code></td><td>número</td><td></td><td>🎨 Largura do balão em px. Sem ela, acompanha o conteúdo. No máximo 496px (ou a largura da tela) e no mínimo 40px.</td></tr>
+<tr><td><code>centerContent</code></td><td>sim/não</td><td></td><td>🎨 Centraliza o conteúdo do balão. Sem ela, o conteúdo só é centralizado quando o balão tem a largura mínima (ex.: uma palavra só).</td></tr>
+<tr><td><code>targetStyle</code></td><td></td><td></td><td>🎨 Estilos do contêiner em volta do alvo.</td></tr>
+<tr><td><code>target</code> (obrigatória)</td><td></td><td></td><td>Elemento que mostra o balão (ex.: um ícone de informação).²</td></tr>
+<tr><td><code>title</code></td><td></td><td></td><td>Título, em <code>Text2</code> com peso médio.</td></tr>
+<tr><td><code>description</code></td><td></td><td></td><td>Descrição, em <code>Text2</code>, abaixo do título.</td></tr>
+<tr><td><code>slot</code></td><td></td><td></td><td>Conteúdo livre, abaixo dos textos.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Igual ao <code>slot</code>. Só é usado quando não há <code>slot</code>.</td></tr>
+<tr><td><code>delay</code></td><td>sim/não</td><td><code>true</code></td><td>Espera meio segundo (500ms) antes de mostrar o balão. Com <code>false</code>, aparece na hora.</td></tr>
+<tr><td><code>open</code></td><td>sim/não</td><td></td><td>Controla se o balão está aberto. Com ela, o mouse, o foco e o toque deixam de abrir e fechar o balão.²</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Posição automática:</strong> se não houver espaço no lado escolhido, o balão abre do lado oposto. Se for <code>'left'</code> ou <code>'right'</code> e não couber em nenhum dos dois lados, abre em cima ou embaixo, onde houver mais espaço. O balão nunca passa da borda da tela, e a seta continua apontando para o alvo.</p>
+<p>² ℹ️ <strong>Abrir e fechar</strong> (sem <code>open</code>):</p>
+<table><thead><tr><th></th><th>Desktop</th><th>Celular e tablet (toque)</th></tr></thead><tbody>
+<tr><td>Abre</td><td>Ao passar o mouse sobre o alvo, ou ao chegar no alvo com a tecla Tab</td><td>Ao tocar no alvo</td></tr>
+<tr><td>Continua aberto</td><td>Enquanto o mouse estiver sobre o alvo ou sobre o balão</td><td>Até tocar fora do alvo</td></tr>
+<tr><td>Fecha</td><td>Ao tirar o mouse, ao sair do alvo com o foco ou com a tecla Esc</td><td>Ao tocar fora do alvo ou com a tecla Esc</td></tr>
+</tbody></table>
+<p>Só um balão fica aberto por vez: abrir um Tooltip (ou um Popover) fecha o que estiver aberto.</p>
+<p>⚠️ <strong>Teclado:</strong> para o balão abrir pela tecla Tab, o alvo precisa ser um elemento focável, como um <code>IconButton</code>. Um ícone ou texto solto não recebe foco, e quem usa teclado não vê o balão.</p>
+<p>⚠️ <strong>Leitor de tela:</strong> o conteúdo do balão não fica ligado ao alvo para o leitor de tela (o <code>aria-describedby</code> do alvo aponta para um elemento que não existe). Não coloque no Tooltip uma informação que só exista ali; prefira repeti-la num texto visível ou num <code>aria-label</code> do alvo.</p>
+<p>ℹ️ <strong>Cores:</strong> o conteúdo do balão tem sempre as cores do fundo padrão. Só a borda muda conforme o fundo onde o alvo está (<code>brand</code>, <code>negative</code>, <code>media</code>).</p>
+<h5>Diferença entre Tooltip e Popover</h5><table><thead><tr><th></th><th><code>Tooltip</code></th><th><code>Popover</code></th></tr></thead><tbody>
+<tr><td><strong>Como abre</strong></td><td>Mouse sobre o alvo ou foco pela tecla Tab (toque no celular)</td><td>Clique no alvo</td></tr>
+<tr><td><strong>Como fecha</strong></td><td>Sozinho, quando o mouse ou o foco saem, ou com Esc</td><td>Só pelo botão X (ou mudando <code>open</code>)</td></tr>
+<tr><td><strong>Botão X</strong></td><td>Não tem</td><td>Sempre tem</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>delay</code>, <code>centerContent</code></td><td><code>asset</code>, <code>onClose</code>, <code>closeButtonLabel</code>, <code>trackingEvent</code></td></tr>
+<tr><td><strong>Quando usar</strong></td><td>Dica curta, que pode sumir sozinha</td><td>Explicação que o usuário lê com calma</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes irmãos:</strong> os dois têm a mesma base (balão com seta, posição automática, um aberto por vez), mas abrem e fecham de jeitos diferentes. Cada um tem seu próprio arquivo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Tooltip</h4><p><strong>Figma:</strong> biblioteca Desktop › Tooltip [D] · biblioteca Mobile › Tooltip</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Title</code> + <code>Title Text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Description</code> + <code>Description Text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>description</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Slot</code> + <code>🔄 Replace Slot</code></td><td><code>True</code> · <code>False</code> + qualquer conteúdo</td><td><code>slot</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Delay</code></td><td><code>True</code> · <code>False</code></td><td><code>delay</code></td><td>✅</td><td>Padrão <code>True</code> nos dois: o balão espera meio segundo para aparecer.</td></tr>
+<tr><td><code>Arrow position</code></td><td><code>↑ Top</code> · <code>→ Right</code> · <code>↓ Bottom</code> · <code>← Left</code></td><td><code>position</code></td><td>⚠️</td><td><strong>Funcionam ao contrário.</strong> No Figma, é o lado do balão onde fica a seta. No código, <code>position</code> é o lado do alvo onde o balão abre. Seta em cima (<code>↑ Top</code>) = balão abaixo do alvo = <code>position="bottom"</code>.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<p>ℹ️ <strong>Equivalência da posição:</strong></p>
+<table><thead><tr><th><code>Arrow position</code> no Figma</th><th>Onde o balão fica</th><th><code>position</code> no código</th></tr></thead><tbody>
+<tr><td><code>↑ Top</code></td><td>Abaixo do alvo</td><td><code>'bottom'</code></td></tr>
+<tr><td><code>↓ Bottom</code></td><td>Acima do alvo</td><td><code>'top'</code> (padrão)</td></tr>
+<tr><td><code>← Left</code></td><td>À direita do alvo</td><td><code>'right'</code></td></tr>
+<tr><td><code>→ Right</code></td><td>À esquerda do alvo</td><td><code>'left'</code></td></tr>
+</tbody></table>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

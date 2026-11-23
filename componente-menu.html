@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menu · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-menu">
+<h2>Menu</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Menu suspenso que abre a partir de um elemento (ex.: um botão de ícone "mais opções") e mostra uma lista de opções.</p>
+<ul>
+<li><strong><code>Menu</code></strong>: controla a abertura, a posição e o teclado. Recebe o elemento que abre o menu (<code>renderTarget</code>) e o conteúdo (<code>renderMenu</code>).
+</li>
+<li><strong><code>MenuItem</code></strong>: cada opção do menu.
+</li>
+<li><strong><code>MenuSection</code></strong>: agrupa opções, com uma linha divisória entre os grupos.
+</li></ul>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Menu</h4><ul>
+<li>⚠️ <strong>Posição:</strong> informe de qual elemento o menu abre e para qual lado. O código troca o lado sozinho quando não há espaço.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código que o Figma mostra no Dev Mode é sempre um exemplo fixo com duas opções; não reflete os itens do design.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Menu / MenuItem / MenuSection</h4><h5>Propriedades</h5><h6>Menu</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>width</code></td><td>número</td><td></td><td>🎨 Largura do menu em px, entre 136 e 280 (valores fora disso são ajustados). Nunca passa da largura da tela.</td></tr>
+<tr><td><code>placement</code></td><td><code>'top' | 'bottom' | 'left' | 'right'</code></td><td><code>'bottom'</code></td><td>🎨 Lado do elemento em que o menu abre. Se não houver espaço, o menu abre do lado oposto.</td></tr>
+<tr><td><code>alignment</code></td><td><code>'start' | 'middle' | 'end'</code></td><td><code>'start'</code></td><td>🎨 Alinhamento do menu em relação ao elemento.</td></tr>
+</tbody></table>
+<h6>MenuItem</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>destructive</code></td><td>sim/não</td><td></td><td>🎨 Opção destrutiva (ex.: "Excluir"), na cor de erro.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>🎨 Opção desabilitada.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Texto da opção.</td></tr>
+<tr><td><code>description</code></td><td></td><td></td><td>Texto abaixo do rótulo, em cor secundária.</td></tr>
+<tr><td><code>Icon</code></td><td></td><td></td><td>Ícone à esquerda.</td></tr>
+<tr><td><code>asset</code></td><td></td><td></td><td>Imagem ou outro elemento à esquerda, no lugar do ícone.</td></tr>
+<tr><td><code>controlType</code></td><td><code>'checkbox'</code></td><td></td><td>Mostra um checkbox à direita da opção. Só com <code>onPress</code>.</td></tr>
+<tr><td><code>checked</code></td><td>sim/não</td><td></td><td>Estado do checkbox. Só com <code>controlType="checkbox"</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Ação:</strong> use uma, e só uma, entre <code>onPress</code>, <code>href</code> e <code>to</code>.</p>
+<h6>MenuSection</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>children</code></td><td></td><td></td><td>As opções do grupo.</td></tr>
+</tbody></table>
+<p>ℹ️ O menu abre por cima da tela, com um fundo transparente que fecha o menu ao ser clicado. Pelo teclado: setas para navegar, Enter/Espaço para escolher e Esc para fechar.</p>
+<p>ℹ️ A prop <code>position</code> está depreciada e não foi documentada; use <code>placement</code> e <code>alignment</code>.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Menu</h4><p><strong>Figma:</strong> biblioteca Desktop › Menu [D] · biblioteca Mobile › Menu</p>
+<p>ℹ️ No Figma, o Menu é a caixa com até 6 itens (<code>Item 1</code> a <code>Item 6</code>, o último escondido por padrão). Cada item é uma instância própria. No código, o <code>Menu</code> controla a abertura e recebe os itens (<code>MenuItem</code>) pelo <code>renderMenu</code>.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Altura de cada item</td><td>48px</td><td>46px</td><td>Muda o design: 2px a menos no Mobile</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Itens (<code>Item 1</code> a <code>Item 6</code>)</td><td>instâncias</td><td><code>MenuItem</code> dentro do <code>renderMenu</code></td><td>⚠️</td><td>No Figma, o menu tem no máximo 6 itens. No código, não há limite; com muitos itens, o menu ganha rolagem.</td></tr>
+<tr><td>Largura</td><td>136px</td><td><code>width</code></td><td>✅</td><td>136px é a largura mínima do código; a máxima é 280px.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Há componentes no Design System equivalentes aos do iOS 26 usados num conceito? <strong>Resposta:</strong> System Ops mapeava os componentes novos do projeto. No caso mostrado, o equivalente é o <strong>Menu</strong> (sem o efeito "Liquid Glass").</p>
+<p><sub>Ref. #635 · 10/2025</sub></p>
+<p><strong>Dúvida:</strong> Posso customizar o Menu com outros conteúdos? E usar o menu hambúrguer do Main Navigation Bar para outro conteúdo? <strong>Resposta:</strong> O <strong>Menu</strong> aceita algumas customizações (ex.: topo com avatar e textos; há exemplo no Playroom). O <strong>menu hambúrguer</strong> do Main Navigation Bar só existe para mostrar, em telas menores, os itens de navegação do desktop; se não há itens, ele nem aparece. Para abrir outro conteúdo a partir do header, use um <strong>Drawer</strong> acionado por outro elemento.</p>
+<p><sub>Ref. #1383 · 11/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

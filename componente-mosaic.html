@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mosaic (Horizontal, Vertical) · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-mosaic">
+<h2>Mosaic (Horizontal, Vertical)</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>HorizontalMosaic</h4>
+<p>Carrossel em que cada página é um mosaico de até 4 itens de tamanhos diferentes (largos e quadrados), como uma vitrine de ofertas com cards. O usuário passa de uma página para outra deslizando ou pelas setas.</p>
+<h4>VerticalMosaic</h4>
+<p>Grade em mosaico com itens de tamanhos diferentes (largos, quadrados e altos), organizada em blocos de 4 itens, um bloco embaixo do outro. Use para mostrar uma coleção de cards ou imagens com mais variedade visual que uma grade comum.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Mosaic</h4><ul>
+<li>⚠️ <strong>Setas no Horizontal:</strong> no código, as setas de anterior/próximo aparecem por padrão, mas o Figma não as mostra. Informe se o design não deve ter setas (<code>withControls={false}</code>).
+</li>
+<li>⚠️ <strong>Bullets no Desktop:</strong> o Horizontal do Desktop não tem a propriedade para os bullets. Informe se eles devem aparecer (<code>withBullets</code>).
+</li>
+<li>⚠️ <strong>Altura dos itens:</strong> cada item precisa preencher o espaço inteiro. Com <code>Slot=True</code>, avise no handoff qual componente entra e como ele ocupa os formatos largo, quadrado e alto.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código é sempre um exemplo fixo com 3 itens (<code>&lt;div&gt;Item 1&lt;/div&gt;</code>…). Não reflete a quantidade de itens nem o conteúdo do design. No Mobile, o Vertical Mosaic não tem trecho de código.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Mais de 8 itens</td><td>Não existe</td><td>Existe: os itens continuam em grupos de 3 (horizontal) ou de 4 (vertical). ⚠️ Diferente.</td></tr>
+<tr><td>Horizontal com setas de anterior/próximo</td><td>Não existe</td><td>É o padrão: as setas aparecem abaixo do carrossel (<code>withControls</code>). ⚠️ Diferente.</td></tr>
+<tr><td>Horizontal com 5 itens</td><td>Duas páginas: 3 + 2</td><td>Duas páginas: 3 + 2. ✅ Igual.</td></tr>
+<tr><td>Horizontal com 7 itens</td><td>Duas páginas: 3 + 4</td><td>Duas páginas: 3 + 4. ✅ Igual.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>HorizontalMosaic</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>withBullets</code></td><td>sim/não</td><td></td><td>🎨 Mostra os bullets de paginação.</td></tr>
+<tr><td><code>withControls</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Mostra as setas de anterior/próximo abaixo do carrossel.</td></tr>
+<tr><td><code>items</code> (obrigatória)</td><td></td><td></td><td>Itens do mosaico, na ordem. Na forma de função, cada item recebe o formato que vai ocupar (<code>gridMode</code>: <code>'horizontal'</code> ou <code>'square'</code>) para se adaptar.¹</td></tr>
+<tr><td><code>free</code></td><td>sim/não</td><td></td><td>Rolagem livre: o carrossel para onde o usuário soltar, sem encaixar no início de uma página.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Como os itens se distribuem:</strong> com até 4 itens, há uma página só. Com 5 ou mais, os itens são agrupados de 3 em 3, e a última página leva o que sobrar (2, 3 ou 4 itens). O formato de cada página depende de quantos itens ela tem:</p>
+<table><thead><tr><th>Itens na página</th><th>Formato da página</th><th>Como os itens ficam</th></tr></thead><tbody>
+<tr><td>1</td><td>Retângulo (2:1)</td><td>O item ocupa a página toda (<code>'horizontal'</code>).</td></tr>
+<tr><td>2</td><td>Quadrado</td><td>Um embaixo do outro, cada um na largura toda (<code>'horizontal'</code>).</td></tr>
+<tr><td>3 (1ª, 3ª, 5ª página…)</td><td>Quadrado</td><td>Um largo em cima (<code>'horizontal'</code>) e dois quadrados embaixo (<code>'square'</code>).</td></tr>
+<tr><td>3 (2ª, 4ª, 6ª página…)</td><td>Quadrado</td><td>Dois quadrados em cima (<code>'square'</code>) e um largo embaixo (<code>'horizontal'</code>).</td></tr>
+<tr><td>4</td><td>Quadrado</td><td>Quatro quadrados, dois em cima e dois embaixo (<code>'square'</code>).</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Espaço entre os itens:</strong> 8px no celular e 16px no desktop.</p>
+<p>ℹ️ <strong>Páginas visíveis:</strong> segue o padrão do <code>Carousel</code>: 1 página por vez no celular, 2 no tablet e de 1 a 3 no desktop, conforme a largura disponível. Não dá para mudar.</p>
+<p>ℹ️ <strong>Altura dos itens:</strong> cada item ocupa exatamente o espaço que recebe. Use cards que preencham a altura, como o <code>CoverCard</code> com <code>width="100%"</code> e <code>height="100%"</code>.</p>
+<h5>Diferença entre HorizontalMosaic e VerticalMosaic</h5><table><thead><tr><th></th><th><code>HorizontalMosaic</code></th><th><code>VerticalMosaic</code></th></tr></thead><tbody>
+<tr><td><strong>Aparência</strong></td><td>Carrossel: as páginas ficam lado a lado e o usuário desliza entre elas</td><td>Grade: os blocos ficam um embaixo do outro, todos visíveis</td></tr>
+<tr><td><strong>Itens por página/bloco</strong></td><td>Grupos de 3 (até 4 na última página)</td><td>Grupos de 4</td></tr>
+<tr><td><strong>Formatos dos itens</strong></td><td><code>'horizontal'</code> e <code>'square'</code></td><td><code>'horizontal'</code>, <code>'square'</code> e <code>'vertical'</code></td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>withBullets</code>, <code>withControls</code>, <code>free</code></td><td><code>role</code>, <code>itemRole</code></td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os dois montam mosaicos com a mesma lógica de formatos, mas um rola na horizontal como carrossel e o outro empilha os blocos na vertical, com props diferentes. Cada um tem seu arquivo.</p>
+<h4>VerticalMosaic</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>items</code> (obrigatória)</td><td></td><td></td><td>Itens do mosaico, na ordem. Na forma de função, cada item recebe o formato que vai ocupar (<code>gridMode</code>: <code>'horizontal'</code>, <code>'square'</code> ou <code>'vertical'</code>) para se adaptar.¹</td></tr>
+<tr><td><code>itemRole</code></td><td></td><td><code>'listitem'</code></td><td>♿ Papel de cada item para o leitor de tela.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Como os itens se distribuem:</strong> os itens são agrupados de 4 em 4, e cada bloco fica embaixo do anterior. O último bloco leva o que sobrar. O formato de cada bloco depende de quantos itens ele tem:</p>
+<table><thead><tr><th>Itens no bloco</th><th>Formato do bloco</th><th>Como os itens ficam</th></tr></thead><tbody>
+<tr><td>1</td><td>Retângulo (2:1)</td><td>O item ocupa o bloco todo (<code>'horizontal'</code>).</td></tr>
+<tr><td>2</td><td>Retângulo (2:1)</td><td>Dois quadrados lado a lado (<code>'square'</code>).</td></tr>
+<tr><td>3</td><td>Quadrado</td><td>Um alto à esquerda (<code>'vertical'</code>) e dois quadrados empilhados à direita (<code>'square'</code>).</td></tr>
+<tr><td>4</td><td>Retângulo em pé (2:3)</td><td>À esquerda, um alto (<code>'vertical'</code>) e um quadrado embaixo; à direita, um quadrado e um alto embaixo. Ordem: 1º e 3º à esquerda, 2º e 4º à direita.</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Espaço entre os itens e os blocos:</strong> 8px no celular e 16px no desktop.</p>
+<p>ℹ️ <strong>Altura dos itens:</strong> cada item ocupa exatamente o espaço que recebe. Use cards que preencham a altura, como o <code>CoverCard</code> com <code>width="100%"</code> e <code>height="100%"</code>.</p>
+<h5>Diferença entre HorizontalMosaic e VerticalMosaic</h5><table><thead><tr><th></th><th><code>HorizontalMosaic</code></th><th><code>VerticalMosaic</code></th></tr></thead><tbody>
+<tr><td><strong>Aparência</strong></td><td>Carrossel: as páginas ficam lado a lado e o usuário desliza entre elas</td><td>Grade: os blocos ficam um embaixo do outro, todos visíveis</td></tr>
+<tr><td><strong>Itens por página/bloco</strong></td><td>Grupos de 3 (até 4 na última página)</td><td>Grupos de 4</td></tr>
+<tr><td><strong>Formatos dos itens</strong></td><td><code>'horizontal'</code> e <code>'square'</code></td><td><code>'horizontal'</code>, <code>'square'</code> e <code>'vertical'</code></td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td><code>withBullets</code>, <code>withControls</code>, <code>free</code></td><td><code>role</code>, <code>itemRole</code></td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes irmãos</strong>: os dois montam mosaicos com a mesma lógica de formatos, mas um rola na horizontal como carrossel e o outro empilha os blocos na vertical, com props diferentes. Cada um tem seu arquivo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Mosaic</h4><p><strong>Figma:</strong></p>
+<ul>
+<li>Horizontal: biblioteca Desktop › Mosaic Horizontal · biblioteca Mobile › Horizontal Mosaic
+</li>
+<li>Vertical: biblioteca Desktop › Mosaic Vertical · biblioteca Mobile › Vertical Mosaic
+</li></ul>
+<p>ℹ️ No Figma, os formatos de cada página ou bloco (largos, quadrados e altos) seguem a mesma regra do código para cada quantidade de itens. Com <code>Slot=False</code>, os itens são <strong>Cover Cards</strong>; com <code>Slot=True</code>, cada item vira uma instância que pode ser trocada em <code>Item 1</code> a <code>Item 8</code>.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome dos componentes</td><td><code>Mosaic Horizontal</code> · <code>Mosaic Vertical</code></td><td><code>Horizontal Mosaic</code> · <code>Vertical Mosaic</code></td><td>Só o nome dos componentes</td></tr>
+<tr><td><code>Page</code> (Horizontal)</td><td>Não existe: mostra várias páginas lado a lado</td><td><code>1</code> · <code>2</code> · <code>3</code> · <code>—</code></td><td>Muda o design, igual ao código: no celular aparece uma página por vez, e o Mobile escolhe qual mostrar</td></tr>
+<tr><td><code>Show bullets</code> (Horizontal)</td><td>Não existe: os bullets aparecem fixos a partir de 6 itens</td><td><code>True</code> · <code>False</code></td><td>No Desktop não dá para esconder nem mostrar os bullets</td></tr>
+<tr><td>Vertical Mosaic</td><td>Existe</td><td>Sem ligação de código</td><td>O Design System só liga ao código o Mosaic Vertical do Desktop</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Items</code></td><td><code>1</code> a <code>8</code></td><td>quantidade de <code>items</code></td><td>⚠️</td><td>O formato de cada página ou bloco é igual ao do código. Mas no código não há limite: com mais de 8 itens, a mesma regra continua.</td></tr>
+<tr><td><code>Item 1</code> a <code>Item 8</code></td><td>instância</td><td>cada item de <code>items</code></td><td>✅</td><td>Na ordem do Figma.</td></tr>
+<tr><td><code>Slot</code></td><td><code>True</code> · <code>False</code></td><td>conteúdo de <code>items</code></td><td>✅</td><td>No código, <code>items</code> aceita qualquer elemento. Com <code>Slot=False</code>, o equivalente é o <code>CoverCard</code> com <code>width="100%"</code> e <code>height="100%"</code>.</td></tr>
+<tr><td><code>Show bullets</code> (Horizontal, Mobile)</td><td><code>True</code> · <code>False</code></td><td><code>withBullets</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Page</code> (Horizontal, Mobile)</td><td><code>1</code> · <code>2</code> · <code>3</code> · <code>—</code></td><td>sem prop</td><td>⚠️</td><td>No código não é uma prop: é a página em que o carrossel está, e o usuário passa deslizando ou pelas setas.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> O Horizontal Mosaic aceita mais de 8 cards (ex.: 9)? <strong>Resposta:</strong> <strong>Sim.</strong> O componente do Figma tem limitações, mas no código o Mosaic aceita mais células (veja a documentação).</p>
+<p><sub>Ref. #223 · 03/2025</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

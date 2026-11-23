@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Popover · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-popover">
+<h2>Popover</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Balão que abre ao clicar num elemento da tela (o alvo), com uma seta apontando para ele. Mostra título, descrição, um ícone ou imagem e conteúdo livre, e tem um botão X para fechar. Use para explicar algo sob demanda, como o que significa um item de uma fatura. Diferente do <code>Tooltip</code>, que abre ao passar o mouse, o Popover só abre com clique e fica aberto até ser fechado.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Popover</h4><ul>
+<li>⚠️ <strong>Alvo:</strong> indique qual elemento abre o balão. No código, ele abre com clique (não ao passar o mouse) e o alvo precisa ser um botão para funcionar pelo teclado.
+</li>
+<li>⚠️ <strong>Fechar:</strong> o balão só fecha pelo X ou clicando no alvo de novo. Clicar fora ou apertar Esc não fecha.
+</li>
+<li>⚠️ <strong>Posição:</strong> se não houver espaço do lado escolhido, o código abre o balão do lado oposto.
+</li>
+<li>⚠️ <strong>Seta:</strong> em <code>Top</code> e <code>Bottom</code>, o Figma desenha a seta no início do balão, mas o código, por padrão, centraliza o balão no alvo (seta no centro). Informe se o balão deve ficar alinhado ao início (<code>alignment="start"</code>).
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código usa um alvo de exemplo (<code>&lt;span&gt;Target element&lt;/span&gt;</code>) e textos fixos ("Title" e "Description"). Não mostra o asset nem o slot.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Popover sem o botão X</td><td>Não existe</td><td>Não existe. ✅ Igual.</td></tr>
+<tr><td>Popover só com o slot (sem título, descrição e asset)</td><td>Existe</td><td>Existe. ✅ Igual.</td></tr>
+<tr><td>Posição da seta em <code>Top</code> e <code>Bottom</code></td><td>Sempre perto do início do balão (à esquerda)</td><td>Depende do <code>alignment</code>. O padrão (<code>'middle'</code>) põe a seta no centro; para ficar igual ao Figma, use <code>'start'</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Posição da seta em <code>Left</code> e <code>Right</code></td><td>Sempre no meio da altura</td><td>Igual com o padrão (<code>'middle'</code>). ✅ Igual.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Popover</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>position</code></td><td><code>'top' | 'bottom' | 'left' | 'right'</code></td><td><code>'top'</code></td><td>🎨 Lado do alvo em que o balão abre. Se não houver espaço, abre do lado oposto.</td></tr>
+<tr><td><code>alignment</code></td><td><code>'start' | 'middle' | 'end'</code></td><td><code>'middle'</code></td><td>🎨 Alinhamento do balão em relação ao alvo (início, centro ou fim).</td></tr>
+<tr><td><code>width</code></td><td>número</td><td></td><td>🎨 Largura do balão em px. Sem ela, acompanha o conteúdo. No máximo 496px (ou a largura da tela).</td></tr>
+<tr><td><code>targetStyle</code></td><td></td><td></td><td>🎨 Estilos do contêiner em volta do alvo.</td></tr>
+<tr><td><code>target</code> (obrigatória)</td><td></td><td></td><td>Elemento que abre o balão ao ser clicado (ex.: um ícone de informação).</td></tr>
+<tr><td><code>title</code></td><td></td><td></td><td>Título.</td></tr>
+<tr><td><code>description</code></td><td></td><td></td><td>Descrição em cor secundária, abaixo do título.</td></tr>
+<tr><td><code>asset</code></td><td></td><td></td><td>Ícone ou imagem à esquerda do título e da descrição.</td></tr>
+<tr><td><code>slot</code></td><td></td><td></td><td>Conteúdo livre, abaixo dos textos.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Igual ao <code>slot</code>. Só é usado quando não há <code>slot</code>.</td></tr>
+<tr><td><code>open</code></td><td>sim/não</td><td></td><td>Controla se o balão está aberto. Sem ela, o balão abre e fecha sozinho ao clicar no alvo.¹</td></tr>
+<tr><td><code>onClose</code></td><td></td><td></td><td>Chamada ao clicar no botão X.¹</td></tr>
+<tr><td><code>closeButtonLabel</code></td><td></td><td>texto do tema ("Fechar")</td><td>♿ Texto lido pelo leitor de tela no botão X.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Abrir e fechar:</strong></p>
+<table><thead><tr><th>Ação do usuário</th><th>Sem <code>open</code> (o balão se controla sozinho)</th><th>Com <code>open</code> (controlado)</th></tr></thead><tbody>
+<tr><td>Clique no alvo</td><td>Abre; clicar de novo fecha</td><td>Nada muda: atualize <code>open</code></td></tr>
+<tr><td>Botão X</td><td>Fecha e chama <code>onClose</code></td><td>Chama <code>onClose</code>: feche mudando <code>open</code></td></tr>
+<tr><td>Clique fora ou tecla Esc</td><td><strong>Não fecha</strong></td><td><strong>Não fecha</strong></td></tr>
+</tbody></table>
+<p>⚠️ <strong>Botão X sempre visível:</strong> o Popover sempre mostra o botão X, mesmo sem <code>onClose</code>. Não dá para tirá-lo.</p>
+<p>⚠️ <strong>Teclado:</strong> o balão abre pelo clique no alvo. Para quem usa teclado, o alvo precisa ser um elemento focável que responda a Enter, como um <code>IconButton</code>. Focar o alvo com Tab não abre o balão.</p>
+<p>ℹ️ <strong>Um por vez:</strong> sem <code>open</code>, abrir um Popover (ou um Tooltip) fecha o que estiver aberto.</p>
+<p>ℹ️ <strong>Cores:</strong> o balão acompanha o fundo onde o alvo está (ex.: <code>brand</code>, <code>negative</code>).</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Popover</h4><p><strong>Figma:</strong> biblioteca Desktop › Popover [D] · biblioteca Mobile › Popover</p>
+<p>ℹ️ No Figma, o Popover é só o balão, com a seta e o botão X. O alvo (o elemento que abre o balão) é desenhado fora do componente.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome do slot</td><td><code>Slot</code></td><td><code>Slot (Only web)</code></td><td>Só o nome da propriedade. No código, o slot não é restrito à web</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Title</code></td><td><code>True</code> · <code>False</code></td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Description</code></td><td><code>True</code> · <code>False</code></td><td><code>description</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Asset</code> + <code>Choose icon</code></td><td><code>True</code> · <code>False</code> + ícone num círculo de 40px</td><td><code>asset</code></td><td>✅</td><td>No código, <code>asset</code> aceita qualquer elemento. Para ficar igual ao Figma, use um ícone dentro de um <code>Circle</code> de 40px.</td></tr>
+<tr><td><code>Slot</code> + <code>🔄 Replace Slot</code></td><td><code>True</code> · <code>False</code> + instância</td><td><code>slot</code></td><td>✅</td><td>Conteúdo livre abaixo dos textos.</td></tr>
+<tr><td><code>Position</code></td><td><code>Top</code> · <code>Bottom</code> · <code>Left</code> · <code>Right</code></td><td><code>position</code></td><td>✅</td><td>No código, se não houver espaço do lado escolhido, o balão abre do lado oposto.</td></tr>
+<tr><td>Botão X (<code>.dismissAction</code>)</td><td>sempre visível</td><td><code>onClose</code></td><td>✅</td><td>No código, o X também aparece sempre.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phone Number Field · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-phone-number">
+<h2>Phone Number Field</h2>
+<p class="cat">Campos de formulário</p>
+<h3>Resumo</h3>
+<h4>PhoneNumberField</h4>
+<p>Campo para o usuário digitar um número de telefone. Abre o teclado de telefone no celular e formata o número enquanto o usuário digita, no padrão do país configurado no tema (no Brasil, <code>(11) 98765-4321</code>). Pode ter um prefixo com o código do país (ex.: <code>"+55"</code>) e entregar o número no formato internacional (<code>e164</code>). Tem o mesmo visual do TextField e funciona sozinho ou dentro de um <code>Form</code>.</p>
+<h4>PhoneNumberFieldLite / formatPhoneLite</h4>
+<p>Versão mais leve do <code>PhoneNumberField</code>: um campo para o usuário digitar um número de telefone, que abre o teclado de telefone no celular e formata o número enquanto o usuário digita. A formatação é simplificada e cobre só alguns países: Espanha, Brasil e, só para celulares, Alemanha e Reino Unido. Como não usa a biblioteca completa de telefones, deixa o app menor. Tem o mesmo visual do TextField e funciona sozinho ou dentro de um <code>Form</code>.</p>
+<ul>
+<li><strong><code>PhoneNumberFieldLite</code></strong>: o campo.
+</li>
+<li><strong><code>formatPhoneLite</code></strong>: a função de formatação que o campo usa, para formatar um telefone em outro lugar da tela (ex.: num texto de confirmação).
+</li></ul>
+<p>ℹ️ <strong>Figma:</strong> o <code>PhoneNumberFieldLite</code> não tem componente no Figma. O design usa o Phone Field, o mesmo do <code>PhoneNumberField</code>. Veja as diferenças em PhoneNumberFieldLite no Figma.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>PhoneNumberField</h4><ul>
+<li>⚠️ <strong>Formato do número:</strong> o código formata o número sozinho, no padrão do país. Use no design o formato do país da tela (no Brasil, <code>(11) 98765-4321</code>). O exemplo do componente (<code>633 999 222</code>) não é o formato que o código mostra.
+</li>
+<li>⚠️ <strong>Prefixo:</strong> o prefixo vem ligado por padrão no Figma, com <code>+34</code>. Troque pelo código do país da tela (ex.: <code>+55</code>) ou desligue, se a tela não mostra o código do país.
+</li>
+<li>⚠️ <strong>Regras do número:</strong> o código não confere se o número existe nem se está completo. Informe as regras (ex.: "só celulares", "com DDD") e as mensagens de erro.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código segue o rótulo, o texto de ajuda, o <code>Error</code>, o <code>Disabled</code> e o <code>Read only</code> do design. O <code>name</code> é sempre <code>"phone-number-field"</code>, e o <code>Prefix</code> <strong>não aparece</strong> no trecho, mesmo ligado no design: informe o prefixo no handoff.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Número com formato livre (ex.: <code>633 999 222</code>)</td><td>Dá para escrever no texto</td><td>Não existe: o código formata sozinho, no padrão do país (do <code>prefix</code> ou do tema). ⚠️ Diferente.</td></tr>
+<tr><td>Letras ou outros símbolos no número</td><td>Dá para escrever no texto</td><td>Não existe: o campo só aceita algarismos, <code>+</code>, <code>*</code> e <code>#</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Campo desabilitado com foco (<code>Disabled=True</code>, <code>State=Focused</code>)</td><td>Existe no Desktop</td><td>Não existe: campo desabilitado não recebe foco. ⚠️ Diferente.</td></tr>
+<tr><td>Largura do campo no desktop</td><td>496px</td><td>328px, ou a largura toda com <code>fullWidth</code>. ⚠️ Diferente.</td></tr>
+<tr><td>Versão menor do campo</td><td>Não existe</td><td>Existe (<code>small</code>). ⚠️ Diferente.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>PhoneNumberField</h4><h5>Quando usar</h5><ul>
+<li><strong>Use o <code>PhoneNumberField</code></strong> para números de telefone de qualquer país, com a formatação completa.
+</li>
+<li><strong>Use o <code>PhoneNumberFieldLite</code></strong> quando o tamanho do app importa e os números são só da Espanha, do Brasil, da Alemanha ou do Reino Unido (ver Diferença).
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo (ex.: "Celular").</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado por quem usa o campo (atualize-o no <code>onChange</code> ou no <code>onChangeValue</code>).¹</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho. Dentro de um <code>Form</code>, sem ele, usa o <code>initialValues</code>.</td></tr>
+<tr><td><code>prefix</code></td><td></td><td></td><td>Código do país antes do número, na cor secundária (ex.: <code>"+55"</code>). Aparece quando o campo tem foco ou valor. Quando é um código válido (<code>+</code> e algarismos), a formatação segue o país desse código.²</td></tr>
+<tr><td><code>e164</code></td><td>sim/não</td><td></td><td>Entrega o número no formato internacional, com <code>+</code> e o código do país (ex.: <code>'+5511987654321'</code>).¹</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada a cada mudança. <code>value</code> é o número sem formatação e <code>rawValue</code> é o texto como está no campo.¹</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Valida o número dentro de um <code>Form</code>: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo (ex.: só celulares).³</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo. Sem ela, o campo é obrigatório dentro de um <code>Form</code>.</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo, mesmo com <code>optional</code>.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo fica cinza claro.</td></tr>
+<tr><td><code>autoComplete</code></td><td></td><td></td><td>Tipo de preenchimento automático do navegador. Use <code>'tel'</code> para o navegador sugerir o telefone salvo.</td></tr>
+<tr><td><code>maxLength</code></td><td>número</td><td></td><td>Número máximo de caracteres, contando a formatação (parênteses, espaços e traços).</td></tr>
+<tr><td><code>placeholder</code></td><td></td><td></td><td>Texto de exemplo dentro do campo, que aparece quando o campo tem foco e está vazio (ex.: <code>"(11) 91234-5678"</code>).</td></tr>
+<tr><td><code>getSuggestions</code></td><td></td><td></td><td>Mostra uma lista de sugestões enquanto o usuário digita (ex.: números já usados). Só funciona com <code>value</code> e sem <code>defaultValue</code>.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>preventCopy</code></td><td>sim/não</td><td>configuração do tema</td><td>Impede copiar e recortar o texto do campo.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Valor guardado:</strong> na tela, o número aparece formatado (<code>(11) 98765-4321</code>), e esse texto fica no <code>rawValue</code>. O valor guardado (no <code>value</code> do <code>onChangeValue</code> e no <code>onSubmit</code> do <code>Form</code>) tem só os algarismos: <code>'11987654321'</code>. Com <code>e164</code>, vem no formato internacional: <code>'+5511987654321'</code>. Se o número não puder ser lido como telefone, o valor com <code>e164</code> fica vazio (<code>''</code>).</p>
+<p>² ℹ️ <strong>País da formatação:</strong> a formatação segue o país configurado no tema (<code>i18n.phoneNumberFormattingRegionCode</code>, ex.: <code>'BR'</code>). Com um <code>prefix</code> válido (ex.: <code>"+34"</code>), segue o país do prefixo. Com <code>e164</code>, o código do país vem do <code>prefix</code> ou, sem ele, do país do tema.</p>
+<p>³ ℹ️ <strong>Sem validação própria:</strong> o campo formata o número, mas não confere se ele existe nem se tem o tamanho certo. Regras como "só celulares" ou "número completo" ficam no <code>validate</code>.</p>
+<p>ℹ️ <strong>O que pode ser digitado:</strong> algarismos e os sinais <code>+</code>, <code>*</code> e <code>#</code>. Letras e outros caracteres são apagados. Os parênteses, espaços e traços da formatação entram sozinhos.</p>
+<p>ℹ️ <strong>Teclado:</strong> no celular, o campo abre o teclado de telefone, no Android e no iOS.</p>
+<p>ℹ️ <strong>Dois campos lado a lado:</strong> o <code>PhoneNumberField</code> pode ser usado dentro de um <code>DoubleField</code> (ex.: código do país e número).</p>
+<h5>Diferença entre PhoneNumberField e PhoneNumberFieldLite</h5><table><thead><tr><th></th><th><code>PhoneNumberField</code></th><th><code>PhoneNumberFieldLite</code></th></tr></thead><tbody>
+<tr><td><strong>Aparência</strong></td><td>Igual</td><td>Igual</td></tr>
+<tr><td><strong>Formatação</strong></td><td>Completa, para qualquer país (usa a biblioteca <code>libphonenumber</code>)</td><td>Simplificada, só para Espanha, Brasil, Alemanha (só celular) e Reino Unido (só celular). Nos outros casos, mostra só os algarismos</td></tr>
+<tr><td><strong>Tamanho no app</strong></td><td>Maior, por causa da biblioteca de telefones</td><td>Menor: não usa a biblioteca</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td></td><td><code>format</code>, para trocar a formatação por uma própria</td></tr>
+<tr><td><strong><code>prefix</code></strong></td><td>Muda a formatação e o código do país do <code>e164</code></td><td>Só muda a aparência</td></tr>
+<tr><td><strong><code>e164</code></strong></td><td>Funciona com qualquer país</td><td>Só põe o código do país na Espanha, no Brasil, na Alemanha e no Reino Unido</td></tr>
+<tr><td><strong>O que pode ser digitado</strong></td><td>Algarismos, <code>+</code>, <code>*</code> e <code>#</code></td><td>Algarismos e <code>+</code></td></tr>
+<tr><td><strong>Valor guardado</strong></td><td>Só algarismos; com <code>e164</code>, <code>+</code> e código do país</td><td>Algarismos e <code>+</code>; com <code>e164</code>, <code>+</code> e código do país</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes irmãos:</strong> os dois têm a mesma aparência e quase as mesmas props, mas formatam o número de jeitos diferentes. Cada um tem seu próprio arquivo.</p>
+<h4>PhoneNumberFieldLite / formatPhoneLite</h4><h5>Quando usar</h5><ul>
+<li><strong>Use o <code>PhoneNumberFieldLite</code></strong> quando o tamanho do app importa e os números são da Espanha, do Brasil, da Alemanha ou do Reino Unido.
+</li>
+<li><strong>Use o <code>PhoneNumberField</code></strong> para números de qualquer país, com a formatação completa.
+</li></ul>
+<h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td></td><td>🎨 Versão menor do campo, com o texto em <code>Text2</code>.</td></tr>
+<tr><td><code>fullWidth</code></td><td>sim/não</td><td></td><td>🎨 Ocupa toda a largura disponível. Sem ela, o campo tem 328px no desktop e a largura toda no celular e no tablet.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Rótulo do campo (ex.: "Celular").</td></tr>
+<tr><td><code>value</code></td><td></td><td></td><td>Valor controlado por quem usa o campo (atualize-o no <code>onChange</code> ou no <code>onChangeValue</code>).¹</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td></td><td>Valor inicial, quando o campo controla o valor sozinho. Dentro de um <code>Form</code>, sem ele, usa o <code>initialValues</code>.</td></tr>
+<tr><td><code>format</code></td><td></td><td></td><td>Troca a formatação padrão por uma própria: recebe o texto digitado e devolve o texto formatado.²</td></tr>
+<tr><td><code>e164</code></td><td>sim/não</td><td></td><td>Entrega o número no formato internacional, com <code>+</code> e o código do país (ex.: <code>'+5511987654321'</code>).¹ ³</td></tr>
+<tr><td><code>prefix</code></td><td></td><td></td><td>Texto antes do número, na cor secundária (ex.: <code>"+55"</code>). Aparece quando o campo tem foco ou valor. <strong>Só muda a aparência:</strong> não muda a formatação nem o código do país do <code>e164</code>.³</td></tr>
+<tr><td><code>onChangeValue</code></td><td></td><td></td><td>Chamada a cada mudança. <code>value</code> é o número sem formatação e <code>rawValue</code> é o texto como está no campo.¹</td></tr>
+<tr><td><code>onChange</code></td><td></td><td></td><td>Chamada a cada mudança, com o evento.</td></tr>
+<tr><td><code>validate</code></td><td></td><td></td><td>Valida o número dentro de um <code>Form</code>: devolve a mensagem de erro, ou <code>undefined</code> se estiver certo (ex.: número completo).⁴</td></tr>
+<tr><td><code>validateOnBlurInsideForm</code></td><td>sim/não</td><td><code>true</code></td><td>Dentro de um <code>Form</code>, valida ao perder o foco. Com <code>false</code>, só valida ao enviar.</td></tr>
+<tr><td><code>helperText</code></td><td></td><td></td><td>Texto de ajuda embaixo do campo. Quando há erro, a mensagem de erro aparece no lugar dele.</td></tr>
+<tr><td><code>error</code></td><td>sim/não</td><td></td><td>Mostra o campo com visual de erro.</td></tr>
+<tr><td><code>optional</code></td><td>sim/não</td><td></td><td>Torna o campo não obrigatório e mostra "(opcional)" depois do rótulo. Sem ela, o campo é obrigatório dentro de um <code>Form</code>.</td></tr>
+<tr><td><code>showOptionalLabel</code></td><td>sim/não</td><td><code>true</code></td><td>Com <code>false</code>, esconde o "(opcional)" do rótulo, mesmo com <code>optional</code>.</td></tr>
+<tr><td><code>disabled</code></td><td>sim/não</td><td></td><td>Desabilita o campo. Dentro de um <code>Form</code>, também fica desabilitado durante o envio.</td></tr>
+<tr><td><code>readOnly</code></td><td>sim/não</td><td></td><td>Campo só para leitura. O fundo fica cinza claro.</td></tr>
+<tr><td><code>autoComplete</code></td><td></td><td></td><td>Tipo de preenchimento automático do navegador. Use <code>'tel'</code> para o navegador sugerir o telefone salvo.</td></tr>
+<tr><td><code>maxLength</code></td><td>número</td><td></td><td>Número máximo de caracteres, contando a formatação (parênteses, espaços e traços).</td></tr>
+<tr><td><code>placeholder</code></td><td></td><td></td><td>Texto de exemplo dentro do campo, que aparece quando o campo tem foco e está vazio (ex.: <code>"(11) 91234-5678"</code>).</td></tr>
+<tr><td><code>getSuggestions</code></td><td></td><td></td><td>Mostra uma lista de sugestões enquanto o usuário digita (ex.: números já usados). Só funciona com <code>value</code> e sem <code>defaultValue</code>.</td></tr>
+<tr><td><code>autoFocus</code></td><td>sim/não</td><td></td><td>Coloca o foco no campo ao abrir a tela.</td></tr>
+<tr><td><code>onFocus</code></td><td></td><td></td><td>Chamada quando o campo recebe o foco.</td></tr>
+<tr><td><code>onBlur</code></td><td></td><td></td><td>Chamada quando o campo perde o foco.</td></tr>
+<tr><td><code>preventCopy</code></td><td>sim/não</td><td>configuração do tema</td><td>Impede copiar e recortar o texto do campo.</td></tr>
+<tr><td><code>children</code></td><td></td><td></td><td>Não aceita <code>children</code>.</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Valor guardado:</strong> na tela, o número aparece formatado (<code>(11) 98765-4321</code>), e esse texto fica no <code>rawValue</code>. O valor guardado (no <code>value</code> do <code>onChangeValue</code> e no <code>onSubmit</code> do <code>Form</code>) tem só os algarismos e o <code>+</code>: <code>'11987654321'</code>. Com <code>e164</code>, vem no formato internacional: <code>'+5511987654321'</code>.</p>
+<p>² ℹ️ <strong>Formatação padrão:</strong> o campo formata pelo país configurado no tema (<code>i18n.phoneNumberFormattingRegionCode</code>). Se o número começa com <code>+</code> e um código conhecido (<code>+34</code>, <code>+55</code>, <code>+49</code> ou <code>+44</code>), segue o país desse código.</p>
+<table><thead><tr><th>País</th><th>Formato</th><th>Exemplo</th></tr></thead><tbody>
+<tr><td>Espanha (<code>ES</code>)</td><td>Até 9 algarismos, em grupos de 3, 2, 2 e 2</td><td><code>654 83 44 55</code></td></tr>
+<tr><td>Brasil (<code>BR</code>)</td><td>DDD entre parênteses; celular (terceiro algarismo de 6 a 9) com 5 + 4 algarismos, fixo com 4 + 4</td><td><code>(11) 98765-4321</code>, <code>(11) 3333-4444</code></td></tr>
+<tr><td>Alemanha (<code>DE</code>)</td><td>Só celulares (começando com <code>015</code>, <code>016</code> ou <code>017</code>)</td><td><code>01578 9012345</code></td></tr>
+<tr><td>Reino Unido (<code>GB</code>)</td><td>Só celulares (começando com <code>07</code>)</td><td><code>07123 456789</code></td></tr>
+</tbody></table>
+<p>Nos outros casos (outros países, telefones fixos na Alemanha e no Reino Unido, números maiores que o normal), o campo mostra só os algarismos, sem formatação. Um número com <code>+</code> e um código desconhecido aparece como <code>+</code> e os algarismos.</p>
+<p>³ ⚠️ <strong><code>e164</code> só nos quatro países:</strong> com <code>e164</code>, o código do país vem do número digitado (quando começa com <code>+</code>) ou do país do tema, <strong>nunca do <code>prefix</code></strong>. Se o país do tema não for Espanha, Brasil, Alemanha ou Reino Unido, o número é guardado sem o código do país. Na Alemanha e no Reino Unido, o <code>0</code> do começo é retirado (ex.: <code>07123 456789</code> vira <code>'+447123456789'</code>).</p>
+<p>⁴ ℹ️ <strong>Sem validação própria:</strong> o campo formata o número, mas não confere se ele existe nem se tem o tamanho certo. Regras como "só celulares" ou "número completo" ficam no <code>validate</code>.</p>
+<p>ℹ️ <strong>O que pode ser digitado:</strong> algarismos e o sinal <code>+</code>. Letras e outros caracteres são apagados. Os parênteses, espaços e traços da formatação entram sozinhos.</p>
+<p>ℹ️ <strong>Teclado:</strong> no celular, o campo abre o teclado de telefone, no Android e no iOS.</p>
+<p>ℹ️ <strong><code>formatPhoneLite</code>:</strong> recebe o país e o número e devolve o número formatado, com as mesmas regras do campo: <code>formatPhoneLite('BR', '11987654321')</code> devolve <code>'(11) 98765-4321'</code>.</p>
+<h5>Diferença entre PhoneNumberField e PhoneNumberFieldLite</h5><table><thead><tr><th></th><th><code>PhoneNumberField</code></th><th><code>PhoneNumberFieldLite</code></th></tr></thead><tbody>
+<tr><td><strong>Aparência</strong></td><td>Igual</td><td>Igual</td></tr>
+<tr><td><strong>Formatação</strong></td><td>Completa, para qualquer país (usa a biblioteca <code>libphonenumber</code>)</td><td>Simplificada, só para Espanha, Brasil, Alemanha (só celular) e Reino Unido (só celular). Nos outros casos, mostra só os algarismos</td></tr>
+<tr><td><strong>Tamanho no app</strong></td><td>Maior, por causa da biblioteca de telefones</td><td>Menor: não usa a biblioteca</td></tr>
+<tr><td><strong>Props exclusivas</strong></td><td></td><td><code>format</code>, para trocar a formatação por uma própria</td></tr>
+<tr><td><strong><code>prefix</code></strong></td><td>Muda a formatação e o código do país do <code>e164</code></td><td>Só muda a aparência</td></tr>
+<tr><td><strong><code>e164</code></strong></td><td>Funciona com qualquer país</td><td>Só põe o código do país na Espanha, no Brasil, na Alemanha e no Reino Unido</td></tr>
+<tr><td><strong>O que pode ser digitado</strong></td><td>Algarismos, <code>+</code>, <code>*</code> e <code>#</code></td><td>Algarismos e <code>+</code></td></tr>
+<tr><td><strong>Valor guardado</strong></td><td>Só algarismos; com <code>e164</code>, <code>+</code> e código do país</td><td>Algarismos e <code>+</code>; com <code>e164</code>, <code>+</code> e código do país</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Componentes irmãos:</strong> os dois têm a mesma aparência e quase as mesmas props, mas formatam o número de jeitos diferentes. Cada um tem seu próprio arquivo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>PhoneNumberField</h4><p><strong>Figma:</strong> biblioteca Desktop › Phone Field [D] · biblioteca Mobile › Phone Number Field</p>
+<p>ℹ️ No Figma, o Phone Field tem o mesmo desenho do Text Field, com o prefixo do país ligado por padrão (<code>+34</code>) e um número de exemplo. O que faz dele um campo de telefone (teclado de telefone e formatação automática) só existe no código.</p>
+<p>ℹ️ <strong>PhoneNumberFieldLite:</strong> o Figma não tem um componente para o <code>PhoneNumberFieldLite</code>. Ele tem a mesma aparência, então o design usa este mesmo Phone Field. Veja as diferenças em PhoneNumberFieldLite no Figma.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Nome do componente</td><td><code>Phone Field [D]</code></td><td><code>Phone Number Field</code></td><td>Só o nome do componente</td></tr>
+<tr><td>Nome da propriedade de tema</td><td><code>Theme Context</code></td><td><code>Theme context</code></td><td>Só o nome da propriedade (maiúscula)</td></tr>
+<tr><td><code>State=Focused</code> com <code>Disabled=True</code></td><td>Existe</td><td>Não existe</td><td>Só o Desktop tem um campo desabilitado com foco, que não acontece no código (campo desabilitado não recebe foco)</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td>Rótulo (camada <code>Label</code>)</td><td>texto livre</td><td><code>label</code></td><td>✅</td><td></td></tr>
+<tr><td>Número (camada <code>Text value</code>)</td><td>texto livre</td><td><code>value</code> / <code>defaultValue</code></td><td>⚠️</td><td>No código, o número é formatado sozinho, no padrão do país. O exemplo do Figma (<code>+34</code> e <code>633 999 222</code>) agrupa os algarismos de um jeito que o código não usa: para um celular da Espanha, o código mostra <code>633 99 92 22</code>.</td></tr>
+<tr><td><code>Prefix</code> + camada <code>Prefix</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>prefix</code></td><td>✅</td><td>No Figma, o prefixo vem ligado por padrão. No código, só aparece quando o <code>prefix</code> é passado.</td></tr>
+<tr><td><code>Helper text</code> + camada <code>Helper text</code></td><td><code>True</code> · <code>False</code> + texto</td><td><code>helperText</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Error</code></td><td><code>No</code> · <code>Yes</code></td><td><code>error</code></td><td>✅</td><td>No código, o erro também aparece sozinho dentro de um <code>Form</code>: campo obrigatório vazio ou regra do <code>validate</code>.</td></tr>
+<tr><td><code>Disabled</code></td><td><code>False</code> · <code>True</code></td><td><code>disabled</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Read only</code></td><td><code>False</code> · <code>True</code></td><td><code>readOnly</code></td><td>✅</td><td></td></tr>
+<tr><td><code>State</code></td><td><code>Inactive</code> · <code>Focused</code> · <code>Activated</code></td><td>sem prop</td><td>⚠️</td><td>No código, o estado muda sozinho: <code>Inactive</code> = vazio e sem foco, <code>Focused</code> = com foco, <code>Activated</code> = preenchido e sem foco.</td></tr>
+<tr><td><code>Theme Context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code></td><td>sem prop</td><td>⚠️</td><td>No código, o campo tem sempre fundo branco; só o texto de ajuda muda de cor conforme o fundo.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h5>PhoneNumberFieldLite no Figma</h5><p>O <code>PhoneNumberFieldLite</code> não tem componente nem Code Connect no Figma: o design usa o Phone Field. A aparência é a mesma, com estas diferenças no código:</p>
+<ul>
+<li>⚠️ <strong>Formatação:</strong> o Lite só formata números da Espanha, do Brasil e, só celulares, da Alemanha e do Reino Unido. Nos outros casos, mostra só os algarismos, sem espaços nem traços.
+</li>
+<li>⚠️ <strong>Prefixo:</strong> no Lite, o <code>prefix</code> só aparece na tela: não muda a formatação.
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código do Phone Field é sempre do <code>PhoneNumberField</code>. Se a tela usa o Lite, informe no handoff.
+</li></ul>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

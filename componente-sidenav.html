@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sidenav · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-sidenav">
+<h2>Sidenav</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<h4>SidenavBar</h4>
+<p>Menu de navegação lateral, fixo à esquerda da página, com logo no topo, itens agrupados em seções e uma área no rodapé. No desktop, pode ser recolhido para uma faixa estreita só com os ícones. No celular e no tablet, vira uma barra no topo com um menu hambúrguer. Use em sistemas com muitas áreas, como painéis de gestão. Para posicionar o menu ao lado do conteúdo, use o <code>SidenavLayout</code>.</p>
+<h4>SidenavLayout</h4>
+<p>Estrutura de página com uma coluna à esquerda para o menu lateral (<code>SidenavBar</code>) e o conteúdo à direita. A coluna do menu acompanha a rolagem (fica presa no topo da tela) enquanto o conteúdo rola.</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>SidenavBar</h4><ul>
+<li>⚠️ <strong>Celular e tablet:</strong> o Figma não tem o Sidenav no Mobile. No código, ele vira uma barra no topo com logo, <code>headerSlot</code> à direita e menu hambúrguer. Desenhe essas telas com o estilo do Main Navigation Bar e confira com o desenvolvimento.
+</li>
+<li>⚠️ <strong>Item selecionado:</strong> informe qual item fica selecionado em cada tela. O pai de um subitem selecionado fica destacado sozinho (equivalente ao <code>Active</code>).
+</li>
+<li>⚠️ <strong>Linhas do topo e do rodapé:</strong> no código, elas aparecem sozinhas quando os itens rolam. Não precisa controlá-las no design.
+</li>
+<li>⚠️ <strong>Texto longo:</strong> o texto do item fica em uma linha só; o excedente é cortado com reticências.
+</li>
+<li>⚠️ <strong>Sem Dev Mode:</strong> o Sidenav não tem ligação de código, então o Dev Mode não mostra trecho. Passe a lista de seções e itens (texto, ícone, destino e subitens) no handoff.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><table><thead><tr><th>Combinação</th><th>Figma</th><th>Código</th></tr></thead><tbody>
+<tr><td>Item sem texto (<code>label=False</code>) com o menu aberto</td><td>Existe</td><td>Não existe: o texto é obrigatório. ⚠️ Diferente.</td></tr>
+<tr><td>Item de primeiro nível sem ícone</td><td>Existe (<code>Icon=False</code>)</td><td>Só com o menu aberto (<code>showAssetWhenExpanded={false}</code>). Recolhido, o ícone sempre aparece. ✅ Igual.</td></tr>
+<tr><td>Mais de 2 níveis de itens</td><td>Não existe</td><td>Não existe. ✅ Igual.</td></tr>
+<tr><td>Item com subitens que também navega</td><td>Dá para montar</td><td>Não existe: o item é ou pai ou navegável. ⚠️ Diferente.</td></tr>
+<tr><td><code>Boxed=True</code> com <code>Right divider=True</code></td><td>Não existe</td><td>Não existe. ✅ Igual.</td></tr>
+</tbody></table>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>SidenavBar</h4><h5>Propriedades</h5><h6>SidenavBar</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>variant</code></td><td><code>'default' | 'brand' | 'negative' | 'alternative' | 'media'</code></td><td><code>'default'</code></td><td>🎨 Cor de fundo do menu.</td></tr>
+<tr><td><code>width</code></td><td>número</td><td><code>240</code></td><td>🎨 Largura do menu aberto em px. A segunda coluna (<code>doublePanel</code>) tem a mesma largura. Recolhido, o menu tem 72px.¹</td></tr>
+<tr><td><code>boxed</code></td><td>sim/não</td><td><code>false</code></td><td>🎨 Mostra o menu como uma caixa flutuante, com borda própria. Não aceita <code>divider</code>.¹</td></tr>
+<tr><td><code>divider</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Linha vertical à direita do menu. Só sem <code>boxed</code>.¹</td></tr>
+<tr><td><code>background</code></td><td></td><td></td><td>🎨 Cor de fundo personalizada (topo, itens, rodapé e segunda coluna). Use uma cor opaca: o topo e o rodapé ficam por cima dos itens ao rolar.¹</td></tr>
+<tr><td><code>entries</code></td><td></td><td></td><td>Conteúdo do menu: seções e itens soltos, em qualquer ordem (ver "Entry").</td></tr>
+<tr><td><code>selectedItemId</code></td><td></td><td></td><td><code>id</code> do item selecionado. <strong>Sem ela, nenhum item aparece selecionado:</strong> o menu não guarda a seleção sozinho.²</td></tr>
+<tr><td><code>onSelectedItemIdChange</code></td><td></td><td></td><td>Chamada com o <code>id</code> do item clicado. Atualize o <code>selectedItemId</code> nela.²</td></tr>
+<tr><td><code>logo</code></td><td></td><td>símbolo da marca do tema (32px)</td><td>Logo do topo. <code>true</code> mostra o padrão, <code>false</code> esconde, um elemento troca o logo, e uma função permite um logo para o menu aberto e outro para o recolhido. No celular, o símbolo tem 40px.</td></tr>
+<tr><td><code>headerSlot</code></td><td></td><td></td><td>Conteúdo abaixo do logo (ex.: seletor de conta). No celular, vai para a direita da barra do topo.</td></tr>
+<tr><td><code>footerSlot</code></td><td></td><td></td><td>Conteúdo do rodapé (ex.: perfil do usuário). No celular, vai para o fim do menu.</td></tr>
+<tr><td><code>fixedFooter</code></td><td>sim/não</td><td><code>false</code></td><td>Deixa o rodapé fixo enquanto os itens rolam. Só com <code>footerSlot</code>.</td></tr>
+<tr><td><code>collapsed</code></td><td>sim/não</td><td></td><td>Recolhido ou aberto, controlado por quem usa o componente.³</td></tr>
+<tr><td><code>defaultCollapsed</code></td><td>sim/não</td><td><code>false</code></td><td>Estado inicial, quando o menu controla o recolher sozinho.³</td></tr>
+<tr><td><code>onCollapse</code></td><td></td><td></td><td>Chamada quando o usuário recolhe ou abre o menu pelo botão. Obrigatória com <code>collapsed</code> (se o botão estiver visível).³</td></tr>
+<tr><td><code>showCollapseButton</code></td><td>sim/não</td><td><code>true</code></td><td>Mostra o botão de recolher. Com <code>false</code>, só o <code>collapsed</code> muda o estado.³</td></tr>
+<tr><td><code>doublePanel</code></td><td>sim/não</td><td><code>false</code></td><td>Abre os subitens de um item numa segunda coluna, à direita do menu, em vez de abaixo dele.</td></tr>
+</tbody></table>
+<h6>Entry: Section</h6>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>dividerTop</code></td><td>sim/não</td><td></td><td>🎨 Linha acima da seção. A primeira seção do menu não mostra.</td></tr>
+<tr><td><code>dividerBottom</code></td><td>sim/não</td><td></td><td>🎨 Linha abaixo da seção. A última seção do menu não mostra.</td></tr>
+<tr><td><code>title</code> (obrigatória)</td><td></td><td></td><td>Título da seção. Com <code>{text, hidden: true}</code>, o título não aparece, mas o leitor de tela continua lendo. Recolhido, o título fica escondido.</td></tr>
+<tr><td><code>items</code> (obrigatória)</td><td></td><td></td><td>Itens da seção (ver "Item").</td></tr>
+</tbody></table>
+<h6>Item (primeiro nível)</h6>
+<p>Um item solto em <code>entries</code> ou dentro de <code>items</code> de uma seção. Ele é <strong>um de dois tipos</strong>: navega (com <code>href</code>, <code>to</code> ou <code>onPress</code>) <strong>ou</strong> abre subitens (com <code>children</code>), nunca os dois.</p>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>showAssetWhenExpanded</code></td><td>sim/não</td><td><code>true</code></td><td>🎨 Mostra o ícone com o menu aberto. Recolhido, o ícone sempre aparece.</td></tr>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Texto do item, em uma linha (o excedente é cortado com reticências).</td></tr>
+<tr><td><code>asset</code> (obrigatória)</td><td></td><td></td><td>Ícone do item. É a única parte que aparece com o menu recolhido.</td></tr>
+<tr><td><code>rightSlot</code></td><td></td><td></td><td>Conteúdo à direita do texto (ex.: um <code>Badge</code>).</td></tr>
+<tr><td><code>href</code> / <code>to</code> / <code>onPress</code> (obrigatória)</td><td></td><td></td><td>Navegação do item.</td></tr>
+<tr><td><code>newTab</code></td><td>sim/não</td><td><code>false</code></td><td>Abre o link em nova aba. Só com <code>href</code> ou <code>to</code>.</td></tr>
+<tr><td><code>onNavigate</code></td><td></td><td></td><td>Chamada depois de navegar.</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Subitens. O item passa a só abrir e fechar a lista, sem navegar.</td></tr>
+<tr><td><code>defaultOpen</code></td><td>sim/não</td><td><code>false</code></td><td>Subitens já abertos no início. Só com <code>children</code>.</td></tr>
+</tbody></table>
+<h6>SubItem (segundo nível)</h6>
+<p>Sempre navega e não pode ter subitens próprios (o menu tem no máximo 2 níveis). Não aparece com o menu recolhido.</p>
+<table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>label</code> (obrigatória)</td><td></td><td></td><td>Texto do subitem.</td></tr>
+<tr><td><code>href</code> / <code>to</code> / <code>onPress</code> (obrigatória)</td><td></td><td></td><td>Navegação do subitem.</td></tr>
+<tr><td><code>asset</code></td><td></td><td></td><td>Ícone do subitem.</td></tr>
+<tr><td><code>rightSlot</code></td><td></td><td></td><td>Conteúdo à direita do texto.</td></tr>
+<tr><td><code>newTab</code></td><td>sim/não</td><td><code>false</code></td><td>Abre o link em nova aba.</td></tr>
+<tr><td><code>onNavigate</code></td><td></td><td></td><td>Chamada depois de navegar.</td></tr>
+</tbody></table>
+<p>¹ ⚠️ <strong>Celular e tablet:</strong> o menu vira uma barra no topo, com o logo, o <code>headerSlot</code> à direita e um botão de menu hambúrguer que abre os itens. Nesse modo, <code>width</code>, <code>boxed</code>, <code>divider</code>, <code>background</code>, <code>doublePanel</code> e o recolher não têm efeito, e o menu aberto sempre usa o fundo padrão.</p>
+<p>² ⚠️ <strong>Seleção só controlada:</strong> para um item aparecer selecionado, passe <code>selectedItemId</code> e atualize-o no <code>onSelectedItemIdChange</code>. Sem isso, clicar num item não marca nada.</p>
+<p>³ ℹ️ <strong>Recolher:</strong> há três formas, e o TypeScript não aceita misturá-las.</p>
+<table><thead><tr><th>Forma</th><th>Props</th><th>Quem muda o estado</th></tr></thead><tbody>
+<tr><td>Controlado</td><td><code>collapsed</code> + <code>onCollapse</code></td><td>Você, no <code>onCollapse</code></td></tr>
+<tr><td>Não controlado</td><td><code>defaultCollapsed</code> (e <code>onCollapse</code> opcional)</td><td>O próprio menu, pelo botão</td></tr>
+<tr><td>Sem botão</td><td><code>showCollapseButton={false}</code> + <code>collapsed</code></td><td>Só uma mudança de <code>collapsed</code> (ex.: por um botão seu num slot)</td></tr>
+</tbody></table>
+<p>⁴ ℹ️ <strong>Tipos de item:</strong> use <code>href</code>, <code>to</code> ou <code>onPress</code> para um item que navega, ou <code>children</code> para um item que só abre subitens. O TypeScript não aceita os dois juntos. Os <code>id</code> precisam ser únicos em todo o menu; em desenvolvimento, o console avisa sobre <code>id</code> repetidos.</p>
+<p>ℹ️ <strong>Slots por estado:</strong> <code>logo</code>, <code>headerSlot</code> e <code>footerSlot</code> aceitam uma função que recebe <code>collapsed</code> (o estado de destino) e <code>state</code> (<code>'expanded'</code>, <code>'collapsing'</code>, <code>'collapsed'</code> ou <code>'expanding'</code>), para mostrar um conteúdo no menu aberto e outro no recolhido.</p>
+<h5>Diferença entre SidenavBar e SidenavLayout</h5><table><thead><tr><th></th><th><code>SidenavBar</code></th><th><code>SidenavLayout</code></th></tr></thead><tbody>
+<tr><td><strong>O que é</strong></td><td>O menu lateral em si</td><td>A estrutura da página: coluna do menu à esquerda e conteúdo à direita</td></tr>
+<tr><td><strong>Uso</strong></td><td>Dentro da prop <code>sidenav</code> do <code>SidenavLayout</code></td><td>Em volta da página</td></tr>
+<tr><td><strong>Props principais</strong></td><td><code>entries</code>, <code>selectedItemId</code>, <code>collapsed</code>, slots</td><td><code>sidenav</code>, <code>children</code>, <code>mode</code>, <code>topOffset</code></td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes que funcionam juntos</strong> (contêiner e conteúdo): o <code>SidenavLayout</code> posiciona e fixa a coluna, e o <code>SidenavBar</code> desenha o menu dentro dela. Cada um tem seu arquivo.</p>
+<h4>SidenavLayout</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>mode</code></td><td><code>'whole-viewport' | 'centered'</code></td><td><code>'whole-viewport'</code></td><td>🎨 <code>'whole-viewport'</code> ocupa a largura toda da tela; <code>'centered'</code> coloca o menu e o conteúdo dentro da largura máxima do layout, centralizados.</td></tr>
+<tr><td><code>sidenav</code> (obrigatória)</td><td></td><td></td><td>Conteúdo da coluna do menu, normalmente um <code>SidenavBar</code>.</td></tr>
+<tr><td><code>children</code> (obrigatória)</td><td></td><td></td><td>Conteúdo da página, ao lado do menu.</td></tr>
+<tr><td><code>topOffset</code></td><td>número</td><td><code>0</code></td><td>Altura em px de uma barra fixa acima do layout (ex.: um cabeçalho fixo). O menu fica preso logo abaixo dela, em vez de ocupar a altura toda da tela. Não é preciso para um cabeçalho que rola com a página.</td></tr>
+</tbody></table>
+<p>ℹ️ <strong>Celular e tablet:</strong> o <code>SidenavBar</code> vira uma barra no topo com menu hambúrguer, e o conteúdo fica abaixo dela.</p>
+<h5>Diferença entre SidenavBar e SidenavLayout</h5><table><thead><tr><th></th><th><code>SidenavBar</code></th><th><code>SidenavLayout</code></th></tr></thead><tbody>
+<tr><td><strong>O que é</strong></td><td>O menu lateral em si</td><td>A estrutura da página: coluna do menu à esquerda e conteúdo à direita</td></tr>
+<tr><td><strong>Uso</strong></td><td>Dentro da prop <code>sidenav</code> do <code>SidenavLayout</code></td><td>Em volta da página</td></tr>
+<tr><td><strong>Props principais</strong></td><td><code>entries</code>, <code>selectedItemId</code>, <code>collapsed</code>, slots</td><td><code>sidenav</code>, <code>children</code>, <code>mode</code>, <code>topOffset</code></td></tr>
+</tbody></table>
+<p>ℹ️ São <strong>componentes que funcionam juntos</strong> (contêiner e conteúdo): o <code>SidenavLayout</code> posiciona e fixa a coluna, e o <code>SidenavBar</code> desenha o menu dentro dela. Cada um tem seu arquivo.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>SidenavBar</h4><p><strong>Figma:</strong> biblioteca Desktop › Sidenav [D] · Sidenav Section [D] · Sidenav Item [D]</p>
+<p>ℹ️ No Figma, o <strong>Sidenav [D]</strong> é a moldura do menu: o topo é a instância interna <strong>.sidenav-header</strong> (logo, botão de recolher e slot), o rodapé é a <strong>.Footer</strong>, e as seções entram nos slots <code>Sections</code>, <code>Sections2</code> e <code>Double panel sections</code>, com instâncias de <strong>Sidenav Section [D]</strong> e <strong>Sidenav Item [D]</strong>. O Design System não liga o Sidenav ao código: o Dev Mode não mostra trecho de código.</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><table><thead><tr><th>Propriedade</th><th>Desktop</th><th>Mobile</th><th>Diferença</th></tr></thead><tbody>
+<tr><td>Sidenav</td><td>Existe</td><td>Não existe</td><td>O biblioteca Mobile não tem o componente. No código, em celular e tablet, o menu vira uma barra no topo com menu hambúrguer, no estilo do Main Navigation Bar</td></tr>
+</tbody></table>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Theme variant</code> (Sidenav)</td><td><code>Default</code> · <code>Brand</code> · <code>Alternative</code> · <code>Negative</code></td><td><code>variant</code></td><td>✅</td><td>O código também tem <code>'media'</code>.</td></tr>
+<tr><td><code>Collapsed</code> (Sidenav)</td><td><code>False</code> · <code>True</code></td><td><code>collapsed</code> / <code>defaultCollapsed</code></td><td>✅</td><td>Recolhido, o menu tem 72px e mostra só os ícones.</td></tr>
+<tr><td><code>Boxed</code> (Sidenav)</td><td><code>False</code> · <code>True</code></td><td><code>boxed</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Right divider</code> (Sidenav)</td><td><code>False</code> · <code>True</code></td><td><code>divider</code></td><td>✅</td><td>No código, a linha vem ligada por padrão e não existe com <code>boxed</code>.</td></tr>
+<tr><td><code>Double panel</code> (Sidenav)</td><td><code>False</code> · <code>True</code></td><td><code>doublePanel</code></td><td>✅</td><td>Os subitens abrem numa segunda coluna, com a mesma largura do menu.</td></tr>
+<tr><td><code>Sections</code>, <code>Sections2</code>, <code>Double panel sections</code> (slots)</td><td>instâncias de seções e itens</td><td><code>entries</code></td><td>✅</td><td>No código, as seções e os itens soltos são dados (<code>entries</code>), não instâncias.</td></tr>
+<tr><td><code>Footer</code> + <code>Footer slot</code> (.Footer)</td><td><code>True</code> · <code>False</code> + conteúdo</td><td><code>footerSlot</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Footer divider</code> (.Footer)</td><td><code>True</code> · <code>False</code></td><td>sem prop</td><td>⚠️</td><td>No código, a linha acima do rodapé aparece sozinha quando os itens rolam por baixo dele.</td></tr>
+<tr><td><code>Logo</code> (.sidenav-header)</td><td><code>True</code> · <code>False</code></td><td><code>logo</code></td><td>✅</td><td><code>logo={false}</code> esconde o logo.</td></tr>
+<tr><td><code>Type</code> (.logotype)</td><td><code>Default</code> · <code>Custom</code></td><td><code>logo</code></td><td>✅</td><td><code>Default</code> é o símbolo da marca do tema; <code>Custom</code> é um elemento próprio passado em <code>logo</code>.</td></tr>
+<tr><td><code>Collapsable</code> (.sidenav-header)</td><td><code>True</code> · <code>False</code></td><td><code>showCollapseButton</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Slot</code> + <code>Header slot</code> (.sidenav-header)</td><td><code>True</code> · <code>False</code> + conteúdo</td><td><code>headerSlot</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Header divider</code> (.sidenav-header)</td><td><code>True</code> · <code>False</code></td><td>sem prop</td><td>⚠️</td><td>No código, a linha abaixo do topo aparece sozinha quando os itens rolam por baixo dele.</td></tr>
+<tr><td><code>Title</code> (Sidenav Section)</td><td><code>True</code> · <code>False</code></td><td><code>title</code> da seção</td><td>✅</td><td>No código, o título é obrigatório. <code>Title=False</code> equivale a <code>{text, hidden: true}</code>: o título não aparece, mas o leitor de tela continua lendo.</td></tr>
+<tr><td><code>Top divider</code> / <code>Bottom divider</code> (Sidenav Section)</td><td><code>True</code> · <code>False</code></td><td><code>dividerTop</code> / <code>dividerBottom</code></td><td>✅</td><td>No código, a primeira seção não mostra a linha de cima e a última não mostra a de baixo.</td></tr>
+<tr><td><code>Floating</code> (Sidenav Section)</td><td><code>False</code> · <code>True</code></td><td>sem prop</td><td>⚠️</td><td>No código é automático: com o menu recolhido, um item com subitens abre os subitens num painel flutuante.</td></tr>
+<tr><td><code>Icon</code> + <code>Choose icon</code> (Sidenav Item)</td><td><code>True</code> · <code>False</code> + ícone</td><td><code>asset</code> + <code>showAssetWhenExpanded</code></td><td>✅</td><td>No código, o ícone é obrigatório nos itens de primeiro nível. <code>Icon=False</code> equivale a <code>showAssetWhenExpanded={false}</code> (com o menu recolhido, o ícone sempre aparece).</td></tr>
+<tr><td><code>label</code> (Sidenav Item)</td><td><code>True</code> · <code>False</code></td><td><code>label</code></td><td>⚠️</td><td>No código, o texto é obrigatório: só some com o menu recolhido.</td></tr>
+<tr><td><code>Slot</code> + <code>Right</code> (Sidenav Item)</td><td><code>True</code> · <code>False</code> + conteúdo</td><td><code>rightSlot</code></td><td>✅</td><td>Ex.: um <code>Badge</code>.</td></tr>
+<tr><td><code>hasChildren</code> (Sidenav Item)</td><td><code>True</code> · <code>False</code></td><td><code>children</code> do item</td><td>✅</td><td>O item com subitens só abre e fecha a lista; não navega.</td></tr>
+<tr><td><code>isChildren</code> (Sidenav Item)</td><td><code>False</code> · <code>True</code></td><td>subitem (segundo nível)</td><td>✅</td><td>O menu tem no máximo 2 níveis.</td></tr>
+<tr><td><code>Type</code> (Sidenav Item)</td><td><code>Default</code> · <code>Active</code> · <code>Selected</code></td><td><code>selectedItemId</code></td><td>⚠️</td><td>No código, o destaque vem do <code>selectedItemId</code>: o item selecionado fica com fundo e marca lateral (<code>Selected</code>); o item pai de um subitem selecionado, com a lista fechada, fica só com o fundo (equivale ao <code>Active</code>).</td></tr>
+<tr><td><code>State</code> (Sidenav Item)</td><td><code>Default</code> · <code>Hover</code> · <code>Pressed</code></td><td>sem prop</td><td>✅</td><td>No código, os estados de interação são automáticos.</td></tr>
+<tr><td><code>Collapsed</code> (Sidenav Item e Section)</td><td><code>False</code> · <code>True</code></td><td><code>collapsed</code> do menu</td><td>✅</td><td>Segue o estado do menu.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>

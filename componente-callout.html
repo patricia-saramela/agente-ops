@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Callout · Base de conhecimento do Design System</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
+h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
+h3{margin-top:1.6em;color:#4b0070}h4{margin-top:1.2em}h5{margin:1em 0 .3em}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:.92em}th,td{border:1px solid #d0d0d0;padding:5px 8px;vertical-align:top;text-align:left}
+th{background:#f3eef7}code{background:#f2f2f2;padding:0 3px;border-radius:3px;font-size:.92em}
+blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;background:#faf7fc}
+.cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
+nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
+sub{color:#777}
+.voltar{font-size:.9em}.desc{color:#555}</style>
+</head>
+<body>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-callout">
+<h2>Callout</h2>
+<p class="cat">Componentes</p>
+<h3>Resumo</h3>
+<p>Caixa de destaque que chama a atenção para uma informação importante ou uma sugestão dentro da página, sem interromper o fluxo do usuário. Tem título, descrição e, opcionalmente, um ícone ou imagem, botões de ação e um botão de fechar. Usado para avisos, dicas ou convites a uma ação (ex.: "Ative a fatura digital").</p>
+<h3>Regras que não aparecem no Figma (pontos de atenção no handoff)</h3>
+<h4>Callout</h4><ul>
+<li>⚠️ <strong><code>Type</code> do Figma:</strong> informe o ícone e a cor usados. No código eles são passados manualmente no <code>asset</code>, não por um tipo.
+</li>
+<li>⚠️ <strong>Fechar:</strong> no código, o callout não some sozinho ao clicar no ✕. Indique no fluxo o que acontece depois (ex.: o callout desaparece e não volta).
+</li>
+<li>⚠️ <strong>Dev Mode:</strong> o trecho de código que o Figma mostra no Dev Mode traduz o <code>Theme context</code> como <code>variant</code>, mas são coisas diferentes (o <code>Theme context</code> é o fundo da tela). Confira o <code>variant</code> pela propriedade <code>Variant</code>.
+</li></ul>
+<h5>Combinações de propriedades: o que o código faz</h5><p>Nenhuma combinação de variantes do Figma conflita com o código.</p>
+<h3>Comportamento no código (versão 18.0.0)</h3>
+<p class="nota">Tabelas de propriedades sem as props só técnicas. "Padrão" é o valor usado quando nada é informado.</p>
+<h4>Callout</h4><h5>Propriedades</h5><table><thead><tr><th>Prop</th><th>Valores aceitos</th><th>Padrão</th><th>Descrição</th></tr></thead><tbody>
+<tr><td><code>small</code></td><td>sim/não</td><td><code>false</code></td><td>🎨 Versão compacta, com título e descrição em fonte menor.</td></tr>
+<tr><td><code>asset</code></td><td></td><td></td><td>🎨 Elemento exibido à esquerda do conteúdo, como um ícone ou uma imagem pequena.</td></tr>
+<tr><td><code>variant</code></td><td><code>'default' | 'brand' | 'inverse'</code></td><td><code>'default'</code></td><td>🎨 Cor de fundo do callout. <code>'inverse'</code> é tratado igual a <code>'brand'</code>. A cor final também se adapta ao fundo onde o callout está.</td></tr>
+<tr><td><code>description</code> (obrigatória)</td><td></td><td></td><td>Texto principal, exibido abaixo do título em cor secundária.</td></tr>
+<tr><td><code>title</code></td><td><code>string | {text: string; 'aria-label'?: string; as?: HeadingType}</code></td><td></td><td>Título do callout.  A propriedade aceita  um objeto que permite definir um <code>aria-label</code> próprio para o título e a tag (<code>as</code>), que tem prioridade sobre <code>titleAs</code>.</td></tr>
+<tr><td><code>button</code></td><td></td><td></td><td>Botão de ação principal.¹</td></tr>
+<tr><td><code>secondaryButton</code></td><td></td><td></td><td>Botão de ação secundária.¹</td></tr>
+<tr><td><code>buttonLink</code></td><td></td><td></td><td>Link de ação.¹</td></tr>
+<tr><td><code>closeButtonLabel</code></td><td></td><td></td><td>♿ Rótulo do botão de fechar lido pelo leitor de tela. Sem ele, usa o texto do tema ou a tradução padrão (<code>'Fechar'</code> em português).</td></tr>
+</tbody></table>
+<p>¹ ℹ️ <strong>Ações:</strong> os botões são exibidos juntos num <code>ButtonGroup</code>, abaixo da descrição. Todos são opcionais e podem ser combinados.</p>
+<p>ℹ️ O componente não aceita <code>children</code>: o conteúdo vem de <code>title</code>, <code>description</code>, <code>asset</code> e das props de botão.</p>
+<p>ℹ️ O botão de fechar vem depois do conteúdo na ordem de leitura, para que o leitor de tela leia primeiro o título e a descrição.</p>
+<p>⚠️ O callout <strong>não some sozinho</strong> ao clicar em fechar: <code>onClose</code> só avisa o clique.</p>
+<h3>No Figma: propriedades e diferenças Desktop × Mobile</h3>
+<h4>Callout</h4><p><strong>Figma:</strong> biblioteca Desktop › Callout [D] · biblioteca Mobile › Callout</p>
+<h5>Diferenças Desktop × Mobile (Figma)</h5><p>Desktop e Mobile têm as mesmas propriedades e valores.</p>
+<h5>Propriedades do Figma → código</h5><table><thead><tr><th>Propriedade no Figma</th><th>Valores no Figma</th><th>Prop no código</th><th>Status</th><th>Observações</th></tr></thead><tbody>
+<tr><td><code>Title</code> + camada <code>Title</code></td><td>ligado/desligado + texto</td><td><code>title</code></td><td>✅</td><td></td></tr>
+<tr><td>Descrição (camada <code>Description</code>)</td><td>texto livre</td><td><code>description</code></td><td>✅</td><td>Obrigatória no código.</td></tr>
+<tr><td><code>Asset</code></td><td>ligado/desligado + ícone</td><td><code>asset</code></td><td>✅</td><td></td></tr>
+<tr><td><code>Type</code></td><td><code>Default</code> · <code>Alert</code> · <code>Critical</code> · <code>Informative</code></td><td>sem prop</td><td>⚠️</td><td>No Figma, o <code>Type</code> só troca o ícone do asset e a cor dele (raio, alerta amarelo, erro vermelho, informação azul). No código <strong>não existe tipo</strong>: o ícone e a cor são passados no <code>asset</code>.</td></tr>
+<tr><td><code>Dismissable</code></td><td>ligado/desligado</td><td><code>onClose</code></td><td>✅</td><td>Mostra o botão ✕.</td></tr>
+<tr><td><code>Action</code></td><td>ligado/desligado</td><td><code>button</code> + <code>buttonLink</code></td><td>⚠️</td><td>No Figma, <code>Action</code> liga a área de ação (no componente, um <code>Button link</code>). No código, as ações são três props separadas e combináveis: <code>button</code> (botão principal), <code>secondaryButton</code> (botão secundário) e <code>buttonLink</code> (link).</td></tr>
+<tr><td><code>Variant</code></td><td><code>Default</code> · <code>Brand</code></td><td><code>variant</code></td><td>✅</td><td>Cor de fundo do callout. O código também aceita <code>'inverse'</code>, igual ao <code>Brand</code>.</td></tr>
+<tr><td><code>Theme context</code></td><td><code>Default</code> · <code>Brand</code> · <code>Negative</code> · <code>Alternative</code></td><td>sem prop</td><td>⚠️</td><td>É a cor do fundo da tela onde o callout está. No código não é prop: a cor final do callout combina o <code>variant</code> com o fundo onde ele está. O código também tem o fundo <code>Media</code>, que não existe no Figma.</td></tr>
+</tbody></table>
+<p><strong>Status:</strong> ✅ igual no Figma e no código · ⚠️ funciona de outro jeito no código (ver observações)</p>
+<h3>Dúvidas reais respondidas pelo suporte</h3>
+<p><strong>Dúvida:</strong> Posso esticar o Callout (Fill container)? Qual Theme context usar sobre um fundo da mesma cor? <strong>Resposta:</strong> Pode ajustar a largura: os componentes são responsivos e <strong>não há regra de largura</strong> para o Callout (sugestão: ocupar a mesma largura da coluna de conteúdo, mas é livre). Para ter contraste num fundo igual ao do Callout, use <strong>Alternative</strong>. Os Theme contexts refletem as cores de fundo: <strong>Default</strong> = Background Container (branco); <strong>Inverse</strong> = Background Container Brand (cor da marca); <strong>Alternative</strong> = Background Container Alternative (cinza).</p>
+<p><sub>Ref. #199 · 03/2025</sub></p>
+<p><strong>Dúvida:</strong> O Callout tem padding próprio em cima e embaixo, o que soma ao espaçamento até o botão. É bug? <strong>Resposta:</strong> O Callout tem padding externo <strong>pré-estabelecido</strong> (verificado: 24px). Considere isso ao calcular espaçamentos (ex.: para 40px até o botão, some 16px). Rows não têm esse padding externo no código. Problemas de implementação: canal de suporte de desenvolvimento.</p>
+<p><sub>Ref. #283 · 05/2025</sub></p>
+<p><strong>Dúvida:</strong> O dev diz que não dá para pôr um Callout branco numa tela de fundo cinza. <strong>Resposta:</strong> Declare o <strong>variant Alternative</strong> no container (Responsive Layout): o Callout se ajusta sozinho para <strong>fundo branco</strong>.</p>
+<p><sub>Ref. #1287 · 09/2026</sub></p>
+</section>
+<p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+</body></html>
