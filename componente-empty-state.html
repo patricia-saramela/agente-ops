@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Empty State · Base de conhecimento do Design System</title>
+<title>Empty State, Estado vazio, Tela vazia, Sem resultados · Design System</title>
+<meta name="description" content="Empty State (estado vazio, tela vazia, sem resultados) no Design System: o que mostrar quando não há conteúdo. Regras, props no código e Figma.">
 <style>
 body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;color:#1a1a1a;max-width:1100px;margin:0 auto;padding:24px}
 h1{font-size:1.9em;border-bottom:3px solid #660099;padding-bottom:6px}h2{margin-top:2.2em;border-bottom:1px solid #ccc;padding-bottom:4px}
@@ -14,12 +15,13 @@ blockquote{border-left:4px solid #c9b3dc;margin:.6em 0;padding:.2em 1em;backgrou
 .cat{color:#666;margin-top:-.6em;font-size:.9em}.nota{color:#555;font-size:.9em}.meta{background:#f6f6f6;padding:10px 14px;border-radius:6px}
 nav ul{columns:3;font-size:.92em}nav li{break-inside:avoid}section.familia{border-top:4px solid #eee;margin-top:2em}
 sub{color:#777}
-.voltar{font-size:.9em}.desc{color:#555}</style>
+.voltar{font-size:.9em}.resumo{font-size:1.08em}.desc{color:#555}</style>
 </head>
 <body>
 <p class="voltar"><a href="index.html">← Índice da base de conhecimento</a></p>
+<h1>Empty State</h1>
+<p class="resumo">O Empty State é a tela ou seção de estado vazio, que aparece quando não há conteúdo para mostrar (ex.: nenhuma fatura, nenhum resultado na busca, carrinho vazio). Tem imagem ou ícone, título, descrição e, se houver, um botão para o próximo passo. Use-o para explicar a ausência de conteúdo e orientar o usuário.</p>
 <p class="cat">Parte 5 · Referência por componente</p><p>Cada página de componente tem: <strong>Resumo</strong>; <strong>Regras que não aparecem no Figma</strong>; <strong>Comportamento no código</strong> (o que acontece de fato na tela); <strong>No Figma</strong> (propriedades e diferenças Desktop × Mobile); e <strong>Dúvidas reais respondidas pelo suporte</strong>. Legenda: 🎨 muda o visual; ♿ acessibilidade; ⚠️ ponto de atenção; ℹ️ informação.</p><section class="familia" id="c-empty-state">
-<h2>Empty State</h2>
 <p class="cat">Padrões de tela</p>
 <h3>Resumo</h3>
 <p>Tela ou seção de <strong>estado vazio</strong>: aparece quando não há conteúdo para mostrar (ex.: nenhuma fatura ainda, nenhum resultado na busca, carrinho vazio). Mostra uma imagem ou ícone, um título, uma descrição e, se houver, um botão para o próximo passo. No desktop, é uma caixa com borda, com o texto à esquerda e a imagem grande (quando há) à direita. No celular e no tablet, fica sem borda, com a imagem em cima e o texto embaixo.</p>
