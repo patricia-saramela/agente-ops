@@ -21,7 +21,7 @@ from pathlib import Path
 
 HOST = "agente-ops.vercel.app"
 BASE = f"https://{HOST}/"
-KEY = "7ff4c1045c4c1115b026a219adc1897e"
+KEY = "445ff3de7f244851aa83aadf91d8aefa"
 ENDPOINT = "https://api.indexnow.org/indexnow"
 ROOT = Path(__file__).resolve().parent.parent
 
